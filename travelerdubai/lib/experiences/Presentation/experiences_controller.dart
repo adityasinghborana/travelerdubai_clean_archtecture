@@ -1,11 +1,14 @@
 import 'package:dio/dio.dart' as dio;
-import 'package:dio/dio.dart';
+
 import 'package:get/get.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
-import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
-import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-import 'package:travelerdubai/tourdetails/model/tour_model.dart';
+
+
+import '../../tourdetails/tourdetail_data_layer/model/tour_model.dart';
+
+
+
 
 class ExperienceController extends GetxController {
   final GetExperiencesUseCase experiencesUseCase;

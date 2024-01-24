@@ -1,5 +1,7 @@
-import 'package:travelerdubai/tourdetails/model/tour_model.dart';
-import 'package:travelerdubai/tourdetails/repository/tour_repository.dart';
+
+
+import '../model/tour_model.dart';
+import '../repository/tour_repository.dart';
 
 class GetCityTourUseCase {
   final TourRepository repository;

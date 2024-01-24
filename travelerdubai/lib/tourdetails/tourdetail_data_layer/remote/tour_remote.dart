@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:travelerdubai/tourdetails/model/tour_model.dart';
+
+
+import '../model/tour_model.dart';
 
 part 'tour_remote.g.dart';
 
