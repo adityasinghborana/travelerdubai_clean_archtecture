@@ -47,7 +47,7 @@ class HeroImageWidget extends StatelessWidget {
                         fontStyle: FontStyle.italic),
                   ),
                   SelectableText(
-                    controller.formData.value?.title ?? 'Title',
+                    controller.formData.value?.title ?? 'Traveller Dubai',
                     style: GoogleFonts.playfairDisplay(
                       color: colorPrimary,
                       fontSize: 78,

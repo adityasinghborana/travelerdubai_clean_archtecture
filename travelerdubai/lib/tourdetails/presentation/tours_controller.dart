@@ -1,9 +1,7 @@
-
-
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:travelerdubai/tourdetails/Usecase/usecase.dart';
-import 'package:travelerdubai/tourdetails/model/tour_model.dart';
+
+import '../tourdetail_data_layer/Usecase/usecase.dart';
+import '../tourdetail_data_layer/model/tour_model.dart';
 
 class TourController extends GetxController {
   final GetCityTourUseCase getCityTourUseCase;
@@ -12,10 +10,9 @@ class TourController extends GetxController {
   var tour = TourModel().obs;
   var tourImages = <TourImageModel>[].obs;
   var isLoading = true.obs;
+  final Rx<DateTime?> selectedDate = DateTime.now().obs;
 
   TourController(this.getCityTourUseCase);
-
-
 
   @override
   void onInit() {
@@ -25,15 +22,11 @@ class TourController extends GetxController {
   }
 
   void fetchCityTour() async {
-
-
     try {
       isLoading.value = true;
       tour.value = await getCityTourUseCase.execute(tourId);
       tourImages.assignAll(tour.value.tourImages ?? []);
       isLoading.value = false;
-
-
     } catch (e) {
       print('Error fetching city tour: $e');
       isLoading.value = false;

@@ -1,10 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/auth/sign_up_controller.dart';
-import 'package:travelerdubai/auth/presentation/signin.dart';
+import 'package:travelerdubai/auth/presentation/sign_up_controller.dart';
+import 'package:travelerdubai/auth/presentation/screens/signin.dart';
+
+import '../../usersdatalayer/repository/user_repository.dart';
+import '../../usersdatalayer/service/create_user_remote.dart';
+import '../../usersdatalayer/usecase/create_user_usecase.dart';
 
 class SignupPage extends StatelessWidget {
-  final SignupController signupController = Get.put(SignupController());
+  final SignupController signupController = Get.put(SignupController(createuser: CreateUserUseCase(UserRepositoryImpl(createUserRemoteService(Dio())))));
 
   SignupPage({super.key});
 

@@ -6,7 +6,7 @@ part 'tour_model.g.dart';
 @JsonSerializable()
 class TourModel {
   final int? id;
-  final int? tourId;
+  final int? TourId;
   final int? countryId;
   final String? countryName;
   final int? cityId;
@@ -54,7 +54,7 @@ class TourModel {
 
   TourModel({
     this.id,
-    this.tourId,
+    this.TourId,
     this.countryId,
     this.countryName,
     this.cityId,

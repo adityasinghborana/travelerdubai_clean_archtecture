@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/Guest_Form_Field_List.dart';
-import 'package:travelerdubai/checkout/presentation/widgets/Textformfield.dart';
+import 'package:travelerdubai/core/widgets/Textformfield.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/ordersummary.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
 import 'package:travelerdubai/core/widgets/header.dart';

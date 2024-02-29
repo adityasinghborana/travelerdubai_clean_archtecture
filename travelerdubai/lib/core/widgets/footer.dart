@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 
 Widget buildFooter() {
   return Container(
-    height: Get.height * 0.90,
+    height: Get.height * 0.56,
     padding: const EdgeInsets.symmetric(vertical: 20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildMembershipPromo(),
+       // _buildMembershipPromo(),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 100.0),
           color: Colors.amber,
@@ -52,34 +52,34 @@ Widget _buildLogoAndDescription() {
   );
 }
 
-Widget _buildMembershipPromo() {
-  return Stack(
-    alignment: Alignment.center,
-    children: [
-      Image.network("https://source.unsplash.com/random/?bali",
-          width: Get.width * .7, height: 361, fit: BoxFit.cover),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Become a Pro Travelerdubai Member?",
-              style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white)),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(onPressed: () {}, child: const Text("Sign In")),
-              const SizedBox(width: 10),
-              ElevatedButton(onPressed: () {}, child: const Text("Register")),
-            ],
-          ),
-        ],
-      ),
-    ],
-  );
-}
+// Widget _buildMembershipPromo() {
+//   return Stack(
+//     alignment: Alignment.center,
+//     children: [
+//       Image.network("https://source.unsplash.com/random/?bali",
+//           width: Get.width * .7, height: 361, fit: BoxFit.cover),
+//       Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           const Text("Become a Pro Travelerdubai Member?",
+//               style: TextStyle(
+//                   fontSize: 48,
+//                   fontWeight: FontWeight.w600,
+//                   color: Colors.white)),
+//           const SizedBox(height: 10),
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               ElevatedButton(onPressed: () {}, child: const Text("Sign In")),
+//               const SizedBox(width: 10),
+//               ElevatedButton(onPressed: () {}, child: const Text("Register")),
+//             ],
+//           ),
+//         ],
+//       ),
+//     ],
+//   );
+// }
 
 Widget _buildNavigationSections() {
   return const Flexible(

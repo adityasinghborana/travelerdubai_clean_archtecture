@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/tourdetails/presentation/imagechangercontroller.dart';
-import 'package:travelerdubai/tourdetails/model/tour_model.dart';
+
+
+import '../../tourdetail_data_layer/model/tour_model.dart';
 
 class ImageChangerWidget extends StatelessWidget {
   final ImageChangerController controller = Get.put(ImageChangerController());

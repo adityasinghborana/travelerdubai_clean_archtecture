@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:travelerdubai/auth/presentation/signin.dart';
+import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 
 class Forgotpassword extends StatelessWidget {
   firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;

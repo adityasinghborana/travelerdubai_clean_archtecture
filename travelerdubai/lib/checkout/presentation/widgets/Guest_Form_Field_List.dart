@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
-import 'package:travelerdubai/checkout/presentation/widgets/Textformfield.dart';
+import 'package:travelerdubai/core/widgets/Textformfield.dart';
 
 Widget buildGuestListTile() {
   final CheckoutController checkoutController = Get.find();

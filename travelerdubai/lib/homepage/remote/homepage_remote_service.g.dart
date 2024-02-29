@@ -21,13 +21,13 @@ class _HomeRemoteService implements HomeRemoteService {
   String? baseUrl;
 
   @override
-  Future<List<HomepageData>> getdata() async {
+  Future<HomepageData> getdata() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<HomepageData>>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<HomepageData>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -43,9 +43,7 @@ class _HomeRemoteService implements HomeRemoteService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var value = _result.data!
-        .map((dynamic i) => HomepageData.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = HomepageData.fromJson(_result.data!);
     return value;
   }
 

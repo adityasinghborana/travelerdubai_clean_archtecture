@@ -22,7 +22,7 @@ class AboutUsPage extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              const Header(),
+              Header(),
               bannerWithOverlayText(
                   context, aboutData.imagepath, aboutData.title),
               Padding(

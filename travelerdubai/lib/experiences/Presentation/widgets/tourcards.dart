@@ -8,6 +8,8 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 
+import '../../../tourdetails/presentation/Widgets/html.dart';
+
 Widget tourcards() {
   final ExperienceController experienceController = Get.find();
 
@@ -25,7 +27,7 @@ Widget tourcards() {
                   .toList();
 
       return Padding(
-        padding: const EdgeInsets.all(80.0),
+        padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // Adjust the number of columns as needed
@@ -57,7 +59,7 @@ Widget tourcards() {
                       ),
                       child: Image.network(
                         "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-                        height: Get.height / 6,
+                        height: Get.height / 5,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -81,12 +83,13 @@ Widget tourcards() {
                             style: bodyf,
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            tour.tourShortDescription,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: bodyblack,
-                          ),
+                          HtmlDisplayWidget(htmlContent: '${tour.tourShortDescription}',),
+                          // Text(
+                          //   tour.tourShortDescription,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   maxLines: 2,
+                          //   style: bodyblack,
+                          // ),
                           const SizedBox(height: 8),
                           Row(
                             children: [

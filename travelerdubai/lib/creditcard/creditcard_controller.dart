@@ -18,6 +18,6 @@ class CardPaymentController extends GetxController {
 
   Future<void> payNow() async {
     await Future.delayed(Duration(seconds: 2));
-    status.value = "failed";
+    status.value = "success";
   }
 }
