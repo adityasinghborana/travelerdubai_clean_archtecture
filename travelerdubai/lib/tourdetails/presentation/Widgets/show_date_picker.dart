@@ -2,7 +2,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 
+import '../../../Cart/data_layer/repository/cart_repository.dart';
+import '../../../Cart/data_layer/service/cart_remote.dart';
+import '../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../timeslot_data_layer/repositories/timeslot_repository.dart';
 import '../../timeslot_data_layer/service/timslot_remote.dart';
 import '../../timeslot_data_layer/use_cases/timeslot_usecase.dart';
@@ -25,9 +29,11 @@ class Showdatepicker  extends StatelessWidget {
           TourOptionRemoteService(Dio()),
         ),
       ),
-        GetTimeSlotUseCase(TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio())))
+        GetTimeSlotUseCase(TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),UpdateCartUseCase(CartRepositoryImpl(CartRemoteService(Dio()),),)
+
     ),
   );
+  final TourController tourController= Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +42,11 @@ class Showdatepicker  extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
+
               DateTime? pickedDate = await showDatePicker(
                 context: context,
-                initialDate: controller.selectedDate.value ?? DateTime.now(),
-                firstDate: DateTime.now(),
+                initialDate:  DateTime.now().add(Duration(hours: tourController.tour.value.cutOffhrs ?? 0)),
+                firstDate: DateTime.now().add(Duration(hours: tourController.tour.value.cutOffhrs??0)),
                 lastDate: DateTime.now().add(Duration(days: 6 * 30)),
               );
 
@@ -48,13 +55,13 @@ class Showdatepicker  extends StatelessWidget {
                   pickedDate.year,
                   pickedDate.month,
                   pickedDate.day,
-                );
+                );}
 
-              }
-            },
+
+              },
+
             child: Text('Pick a Date'),
           ),
-          Obx(() => Text(controller.selectedDate.value?.toString().substring(0, 10) ?? 'No date selected')),
         ],
       ),
     );

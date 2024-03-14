@@ -1,28 +1,30 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+
 import 'package:get/get.dart';
 import 'package:travelerdubai/bookings/bookings.dart';
 import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/events/presentation/events.dart';
-
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
-import 'package:travelerdubai/Aboutus/presenation/Aboutus.dart';
+import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
-
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
-
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
-import 'auth/presentation/sign_in_controller.dart';
+import 'core/controller/headercontroller.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
 
+  WidgetsFlutterBinding.ensureInitialized();
+  var stripePublishableKey = "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
+  Stripe.publishableKey = stripePublishableKey;
   await Firebase.initializeApp(
     options: const FirebaseOptions(
         apiKey: "AIzaSyA4f2YsvWuQ8GCn8FvPC82LUvQW493Fau8",
@@ -38,12 +40,14 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final HeaderController headerController = Get.put(HeaderController());
 
 
 
-  // Thiswidget is the root of your application.
+
   @override
   Widget build(BuildContext Context) {
+  // final  HeaderController headerController = Get.put(HeaderController());
 
     return GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -127,7 +131,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/payment',
           page: () => CardPaymentScreen(),
-          transition: Transition.leftToRightWithFade,
+          transition: Transition.circularReveal,
           transitionDuration: const Duration(milliseconds: 500),
         ),
       ],
@@ -142,3 +146,4 @@ class MyMiddelware extends GetMiddleware {
     return super.onPageCalled(page);
   }
 }
+

@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
+import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
+import 'package:travelerdubai/Cart/data_layer/usecase/create_cart_usecase.dart';
 import 'package:travelerdubai/auth/presentation/sign_up_controller.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 
@@ -9,7 +12,20 @@ import '../../usersdatalayer/service/create_user_remote.dart';
 import '../../usersdatalayer/usecase/create_user_usecase.dart';
 
 class SignupPage extends StatelessWidget {
-  final SignupController signupController = Get.put(SignupController(createuser: CreateUserUseCase(UserRepositoryImpl(createUserRemoteService(Dio())))));
+  final SignupController signupController = Get.put(
+    SignupController(
+      createuser: CreateUserUseCase(
+        UserRepositoryImpl(
+          createUserRemoteService(Dio()),
+        ),
+      ),
+      createCartUseCase: CreateCartUseCase(
+        CartRepositoryImpl(
+          CartRemoteService(Dio()),
+        ),
+      ),
+    ),
+  );
 
   SignupPage({super.key});
 

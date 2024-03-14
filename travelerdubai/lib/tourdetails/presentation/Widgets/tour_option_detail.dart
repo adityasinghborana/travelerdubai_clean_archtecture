@@ -5,6 +5,9 @@ import 'package:travelerdubai/tourdetails/presentation/Widgets/show_date_picker.
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_pricing.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
+import '../../../Cart/data_layer/repository/cart_repository.dart';
+import '../../../Cart/data_layer/service/cart_remote.dart';
+import '../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../timeslot_data_layer/repositories/timeslot_repository.dart';
 import '../../timeslot_data_layer/service/timslot_remote.dart';
 import '../../timeslot_data_layer/use_cases/timeslot_usecase.dart';
@@ -28,7 +31,7 @@ Widget options() {
           TourOptionRemoteService(Dio()),
         ),
       ),
-        GetTimeSlotUseCase(TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio())))
+        GetTimeSlotUseCase(TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),UpdateCartUseCase(CartRepositoryImpl(CartRemoteService(Dio()),),)
     ),
   );
 

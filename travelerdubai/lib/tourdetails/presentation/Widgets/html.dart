@@ -2,7 +2,7 @@ import 'package:html/parser.dart' as htmlParser;
 import 'package:html/dom.dart' as htmlDom;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+
 import 'package:travelerdubai/core/constants/contants.dart';
 
 // class HtmlDisplayWidget extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:travelerdubai/core/constants/contants.dart';
-import 'package:travelerdubai/Aboutus/about_us_controller.dart';
+import 'package:travelerdubai/AboutPage/presentationlayer/about_us_controller.dart';
 
 class RotatingImageBanner extends StatefulWidget {
   RotatingImageBanner({super.key});

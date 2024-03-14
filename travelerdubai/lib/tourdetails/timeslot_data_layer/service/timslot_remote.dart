@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/request/timeslot_request.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
@@ -8,13 +9,13 @@ import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/ti
 part 'timslot_remote.g.dart';
 
 
-@RestApi(baseUrl: 'http://localhost:3000')
+@RestApi(baseUrl: baseurl)
 abstract class TimeSlotRemoteService {
   factory TimeSlotRemoteService(Dio dio, {String? baseUrl}) =
   _TimeSlotRemoteService;
 
 
-   @POST('/createusers')
+   @POST('/timeslots')
   Future<TimeSlotResponse> getTimeSlot(
       @Body() TimeSlotRequest requestBody,
       );

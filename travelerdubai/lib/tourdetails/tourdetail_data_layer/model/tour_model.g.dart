@@ -58,6 +58,7 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
       tourImages: (json['tourImages'] as List<dynamic>?)
           ?.map((e) => TourImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      cutOffhrs: json['cutOffhrs'] as int?,
     );
 
 Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
@@ -108,6 +109,7 @@ Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
       'tourExclusion': instance.tourExclusion,
       'howToRedeem': instance.howToRedeem,
       'tourImages': instance.tourImages,
+      'cutOffhrs': instance.cutOffhrs,
     };
 
 TourImageModel _$TourImageModelFromJson(Map<String, dynamic> json) =>

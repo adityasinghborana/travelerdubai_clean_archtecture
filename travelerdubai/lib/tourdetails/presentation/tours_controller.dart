@@ -26,6 +26,7 @@ class TourController extends GetxController {
       isLoading.value = true;
       tour.value = await getCityTourUseCase.execute(tourId);
       tourImages.assignAll(tour.value.tourImages ?? []);
+
       isLoading.value = false;
     } catch (e) {
       print('Error fetching city tour: $e');

@@ -177,14 +177,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  chewie_audio:
-    dependency: transitive
-    description:
-      name: chewie_audio
-      sha256: "73948a8b9841d050433af3498a1f8b11320bd5a2cd70b449bdbe16d4405e97c5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.5.0"
   clock:
     dependency: transitive
     description:
@@ -430,14 +422,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.1"
-  flutter_html:
-    dependency: "direct main"
-    description:
-      name: flutter_html
-      sha256: ccb810fcabfce3a7ffaca46e458323915ac7e7fc59082c7357ff848972c02230
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
   flutter_layout_grid:
     dependency: "direct main"
     description:
@@ -454,14 +438,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  flutter_math_fork:
-    dependency: transitive
+  flutter_stripe:
+    dependency: "direct main"
     description:
-      name: flutter_math_fork
-      sha256: a34205227e1a1d040a56e74a5e2e56e9397ea930540a9373bd0b3e2e4f122017
+      name: flutter_stripe
+      sha256: dfa4f0cf2f64cf82fde57357283819688c3b985c6cd10c26f50dd4a5476e4924
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.0"
+    version: "10.1.0"
+  flutter_stripe_web:
+    dependency: "direct main"
+    description:
+      name: flutter_stripe_web
+      sha256: bcadbce717cacae1c9ade225394c08a15eda682b3579e50adab7f04fcd16d837
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   flutter_svg:
     dependency: transitive
     description:
@@ -496,6 +488,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.1"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: c3fd9336eb55a38cc1bbd79ab17573113a8deccd0ecbbf926cca3c62803b5c2d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   frontend_server_client:
     dependency: transitive
     description:
@@ -556,10 +556,10 @@ packages:
     dependency: transitive
     description:
       name: fwfh_webview
-      sha256: "987ebaf94f3c42cddb6e0dbac6720a9cfc55c3510b770e925334373d91a12795"
+      sha256: "7ebd3dff551d7281dd3fbb9f5523a8455592665ff75459ca84871ebbebe864a8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.2+5"
+    version: "0.7.0+2"
   get:
     dependency: "direct main"
     description:
@@ -752,14 +752,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  numerus:
-    dependency: transitive
-    description:
-      name: numerus
-      sha256: "0087ef729d63b96cb347a9c44b9c592f21cecb3605b415bbd18710aef80ce5cb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   octo_image:
     dependency: transitive
     description:
@@ -1125,6 +1117,38 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  stripe_android:
+    dependency: transitive
+    description:
+      name: stripe_android
+      sha256: a1ba929247d9accd9d8b201740cc005f66ad2f739ce5323679fa408d5296338c
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.1.0"
+  stripe_ios:
+    dependency: transitive
+    description:
+      name: stripe_ios
+      sha256: "67994171a29301d12d6a557177d02b12f0d400edd3041ecbdad5fd5c25b43569"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.1.0"
+  stripe_js:
+    dependency: transitive
+    description:
+      name: stripe_js
+      sha256: d203b48167a9a533bbf72049b40c8227bf0557d79e28a7f016e77dddcac8b19b
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.0"
+  stripe_platform_interface:
+    dependency: transitive
+    description:
+      name: stripe_platform_interface
+      sha256: "78d7f0b8d39df3b296283dd5eebbe936b1bd82a4b7252be4dbcbddb02a2175e1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.1.0"
   synchronized:
     dependency: transitive
     description:
@@ -1401,34 +1425,34 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter
-      sha256: "6886b3ceef1541109df5001054aade5ee3c36b5780302e41701c78357233721c"
+      sha256: d81b68e88cc353e546afb93fb38958e3717282c5ac6e5d3be4a4aef9fc3c1413
       url: "https://pub.dev"
     source: hosted
-    version: "2.8.0"
+    version: "4.5.0"
   webview_flutter_android:
     dependency: transitive
     description:
       name: webview_flutter_android
-      sha256: "8b3b2450e98876c70bfcead876d9390573b34b9418c19e28168b74f6cb252dbd"
+      sha256: "3e5f4e9d818086b0d01a66fb1ff9cc72ab0cc58c71980e3d3661c5685ea0efb0"
       url: "https://pub.dev"
     source: hosted
-    version: "2.10.4"
+    version: "3.15.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
       name: webview_flutter_platform_interface
-      sha256: "812165e4e34ca677bdfbfa58c01e33b27fd03ab5fa75b70832d4b7d4ca1fa8cf"
+      sha256: d937581d6e558908d7ae3dc1989c4f87b786891ab47bb9df7de548a151779d8d
       url: "https://pub.dev"
     source: hosted
-    version: "1.9.5"
+    version: "2.10.0"
   webview_flutter_wkwebview:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: a5364369c758892aa487cbf59ea41d9edd10f9d9baf06a94e80f1bd1b4c7bbc0
+      sha256: "4d062ad505390ecef1c4bfb6001cd857a51e00912cc9dfb66edb1886a9ebd80c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.5"
+    version: "3.10.2"
   win32:
     dependency: transitive
     description:

@@ -51,6 +51,7 @@ class TourModel {
   final String? tourExclusion;
   final String? howToRedeem;
   final List<TourImageModel>? tourImages;
+  final int? cutOffhrs;
 
   TourModel({
     this.id,
@@ -99,6 +100,7 @@ class TourModel {
     this.tourExclusion,
     this.howToRedeem,
     this.tourImages,
+    this.cutOffhrs,
   });
 
   factory TourModel.fromJson(Map<String, dynamic> json) =>

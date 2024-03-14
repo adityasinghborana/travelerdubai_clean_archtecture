@@ -9,7 +9,7 @@ import '../../model/request/tour_option_static_data.dart';
 
 part 'touroption_remote.g.dart';
 
-@RestApi(baseUrl: 'http://localhost:3000')
+@RestApi(baseUrl: baseurl)
 abstract class TourOptionRemoteService {
   factory TourOptionRemoteService( Dio dio, {String? baseUrl}) =
       _TourOptionRemoteService;

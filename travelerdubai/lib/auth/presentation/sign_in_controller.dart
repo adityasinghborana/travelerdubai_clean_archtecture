@@ -8,16 +8,21 @@ import 'package:travelerdubai/core/service/auth.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 
+import '../../Cart/data_layer/model/request/create_cart.dart';
+import '../../Cart/data_layer/usecase/get_cart_usecase.dart';
 
 class SigninController extends GetxController {
   final CreateUserUseCase createuser;
-  SigninController({required this.createuser});
-  RxBool isUserSignedIn = false.obs;
+  final GetCartUseCase getCartUseCase;
+
+  SigninController({required this.createuser, required this.getCartUseCase});
+
   final firebase_auth.FirebaseAuth firebaseAuth =
       firebase_auth.FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthClass authClass = AuthClass();
+  final RxInt cartId = 0.obs;
   final HeaderController headerController = Get.find();
 
   Future<void> signIn() async {
@@ -30,11 +35,11 @@ class SigninController extends GetxController {
       final uid = userCredential.user?.uid;
       if (uid != null) {
         headerController.loggedin.value = true;
-        saveUserUID(uid).then((value) {
+
+        getCart(uid);
+        await saveUserUID(uid).then((value) {
           Get.toNamed('/dashboardpage', arguments: {'uid': uid});
         });
-
-
       }
     } catch (e) {
       Get.snackbar("Error", e.toString());
@@ -49,11 +54,29 @@ class SigninController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('userUID', uid);
     print("userid saved");
-
   }
 
+  Future<void> saveCartID(String cartid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('CartID', cartid);
+    print("cartid saved");
+  }
 
+  Future<void> getCart(String uid) async {
+    CreateCartRequest data = CreateCartRequest(userId: uid);
 
-
-
+    getCartUseCase.execute(data).then((value) {
+      if (value.data[0].TourDetails.isNotEmpty) {
+        cartId.value = value.data[0].TourDetails[0].cartId;
+        headerController.cartid.value = cartId.value;
+        saveCartID(cartId.value.toString());
+        print(cartId.value);
+      } else {
+        print('Error fetching cart: ${value.success}');
+      }
+    }).catchError((error) {
+      // Handle generic error
+      print('Error: $error');
+    });
+  }
 }

@@ -41,7 +41,14 @@ class DashboardPage extends StatelessWidget {
                         visible: controller.selectedIndex.value == 0,
                         child: Container(
                           height: 200,
-                          child: Text("hello"),
+                          child: TextButton(
+                            child: Text("logout"),
+                            onPressed:() {
+                              controller.signOut();
+                            },
+
+                          ),
+
                         ),
                       ),
 

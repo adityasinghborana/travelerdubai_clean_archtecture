@@ -60,7 +60,7 @@ class HeroImageWidget extends StatelessWidget {
                       fontsize: 28,
                       vpadding: 20,
                       label: "Explore More",
-                      onPressed: (() => print("okay")))
+                      onPressed: (() =>Get.toNamed('/experiences')))
                 ],
               ),
             ),

@@ -13,7 +13,7 @@ class _ExperienceRemoteService implements ExperienceRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:3000';
+    baseUrl ??= 'http://69.48.163.45:3000';
   }
 
   final Dio _dio;

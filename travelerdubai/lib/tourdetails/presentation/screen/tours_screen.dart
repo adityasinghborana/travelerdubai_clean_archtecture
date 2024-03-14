@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
+import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
+import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/core/Progress_indicator.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/Maindetails.dart';
@@ -41,6 +44,7 @@ class TourPage extends StatelessWidget {
           TimeSlotRemoteService(Dio()),
         ),
       ),
+      UpdateCartUseCase(CartRepositoryImpl(CartRemoteService(Dio()),),)
     ),
   );
 
