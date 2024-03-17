@@ -18,6 +18,7 @@ import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
+import 'NotFound/404Screen.dart';
 import 'core/controller/headercontroller.dart';
 
 void main() async {
@@ -58,19 +59,24 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
+      unknownRoute: GetPage(
+        name: '/NotFound',
+        page: () => PageNotFound(),
+        transition: Transition.leftToRightWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
       initialRoute: '/home',
       getPages: [
         GetPage(
           name: '/Login',
           page: () => SigninPage(),
-          middlewares: [MyMiddelware()],
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
         GetPage(
           name: '/Signup',
           page: () => SignupPage(),
-          middlewares: [MyMiddelware()],
+
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
@@ -139,11 +145,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyMiddelware extends GetMiddleware {
-  @override
-  GetPage? onPageCalled(GetPage? page) {
-    print(page?.name);
-    return super.onPageCalled(page);
-  }
-}
 
