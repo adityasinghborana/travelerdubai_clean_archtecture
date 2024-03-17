@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget firstNameTextField(TextEditingController controller, String label) {
+Widget firstNameTextField(
+    TextEditingController controller, String label, String? hint) {
   return Stack(
     children: [
       SizedBox(
@@ -9,12 +10,12 @@ Widget firstNameTextField(TextEditingController controller, String label) {
           padding: const EdgeInsets.only(top: 10),
           child: TextField(
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.only(
-                  top: 20, left: 20), // Adjust top padding as needed
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
+                contentPadding: const EdgeInsets.only(
+                    top: 20, left: 20), // Adjust top padding as needed
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                hintText: hint),
           ),
         ),
       ),

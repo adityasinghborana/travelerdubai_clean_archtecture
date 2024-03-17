@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
+import 'package:travelerdubai/auth/presentation/screens/forgotpassword.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/bookings/bookings.dart';
@@ -66,6 +67,13 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/Signup',
           page: () => SignupPage(),
+          middlewares: [MyMiddelware()],
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 500),
+        ),
+        GetPage(
+          name: '/forgotPassword',
+          page: () => ForgotPassword(),
           middlewares: [MyMiddelware()],
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),

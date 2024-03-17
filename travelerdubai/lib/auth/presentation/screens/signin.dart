@@ -15,7 +15,6 @@ import '../../../Components/first_name_text_field.dart';
 import '../../../Components/password_text_field.dart';
 import '../../../Components/text_on_line.dart';
 import '../../usersdatalayer/service/create_user_remote.dart';
-import 'forgotpassword.dart';
 
 class SigninPage extends StatelessWidget {
   final controller = Get.put(
@@ -37,7 +36,6 @@ class SigninPage extends StatelessWidget {
 
   SigninPage({super.key});
 
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,8 +80,8 @@ class SigninPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .338,
-                    child:
-                        firstNameTextField(controller.emailController, 'Email'),
+                    child: firstNameTextField(
+                        controller.emailController, 'Email', null),
                   ),
                   const SizedBox(height: 10),
                   Obx(
@@ -106,7 +104,7 @@ class SigninPage extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          Get.to(() => Forgotpassword());
+                          Get.toNamed('/forgotPassword');
                         },
                       ),
                     ],
