@@ -1,15 +1,21 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
 import 'package:travelerdubai/auth/presentation/sign_in_controller.dart';
-import 'package:travelerdubai/auth/presentation/screens/forgotpassword.dart';
 import 'package:travelerdubai/auth/usersdatalayer/repository/user_repository.dart';
 import 'package:travelerdubai/auth/usersdatalayer/usecase/create_user_usecase.dart';
 
 import '../../../Cart/data_layer/service/cart_remote.dart';
+import '../../../Components/custom_button.dart';
+import '../../../Components/first_name_text_field.dart';
+import '../../../Components/password_text_field.dart';
+import '../../../Components/text_on_line.dart';
 import '../../usersdatalayer/service/create_user_remote.dart';
+import 'forgotpassword.dart';
 
 class SigninPage extends StatelessWidget {
   final controller = Get.put(
@@ -32,86 +38,146 @@ class SigninPage extends StatelessWidget {
   SigninPage({super.key});
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: SizedBox(
-          height: Get.height * .55,
-          width: Get.width * .2,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset(
-                './assets/logo.png',
-                fit: BoxFit.cover,
-                scale: 2,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .084215,
               ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Textitem("Email Address", false,
-                    TextInputType.emailAddress, controller.emailController),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 1),
-                child: Textitem("Password", true, TextInputType.visiblePassword,
-                    controller.passwordController),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Get.to(() => Forgotpassword());
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "arial",
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff979797),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .10,
+                  ),
+                  SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.060916,
+                      child: Image.asset("./assets/logo.png")),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Log in',
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 34,
+                        color: Colors.black,
+                        height: 1.01),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Login to access your Rayna account',
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Colors.black,
+                        height: 1.01),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .338,
+                    child:
+                        firstNameTextField(controller.emailController, 'Email'),
+                  ),
+                  const SizedBox(height: 10),
+                  Obx(
+                    () => SizedBox(
+                        width: MediaQuery.of(context).size.width * .338,
+                        child: passwordTextField(controller.passwordController,
+                            'Password', controller.obsecureText.value, (p0) {
+                          controller.obsecureText.value =
+                              !controller.obsecureText.value;
+                        })),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      InkWell(
+                        child: const Text(
+                          'Forget Password',
+                          style: TextStyle(
+                            color: Color(0xff2659c3),
+                          ),
+                        ),
+                        onTap: () {
+                          Get.to(() => Forgotpassword());
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .338,
+                    child: ButtonView(
+                      btnName: 'Login',
+                      bgColor: const Color(0xff2659c3),
+                      onButtonTap: () {
+                        controller.signIn();
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .338,
+                    child: Center(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(text: 'Don\'t have an account?'),
+                            TextSpan(
+                              text: 'sign up',
+                              style: const TextStyle(
+                                color: Color(0xff2659c3),
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  controller.goToSignUp();
+                                },
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .338,
+                    child: textOnLine('Or log in With'),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .338,
+                    child: const ButtonView(
+                      btnName: 'Login With Google',
+                      bgColor: Color(0xffffffff),
+                      txtColor: Color(0xff112211),
+                    ),
+                  ),
                 ],
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                child: SizedBox(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width - 20,
-                  child: ElevatedButton(
-                    onPressed: () => controller.signIn(),
-                    style: ElevatedButton.styleFrom(
-                      alignment: Alignment.center,
-                      backgroundColor: const Color(0xffBF1D2D),
-                    ),
-                    child: const Text("Sign In"),
-                  ),
-                ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .084215,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: InkWell(
-                  onTap: () => controller.goToSignUp(),
-                  child: const Text(
-                    "Create new Account",
-                    style: TextStyle(
-                      fontFamily: "arial",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      decoration: TextDecoration.underline,
-                      color: Color.fromARGB(255, 210, 104, 255),
-                    ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .10,
                   ),
-                ),
+                  Image.asset(
+                    'signup_side_image.png',
+                    height: MediaQuery.of(context).size.height * .83,
+                    width: MediaQuery.of(context).size.width * .3227,
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .084215,
               ),
             ],
           ),
