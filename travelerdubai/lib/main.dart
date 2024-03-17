@@ -1,29 +1,27 @@
-import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-
 import 'package:get/get.dart';
-import 'package:travelerdubai/bookings/bookings.dart';
-import 'package:travelerdubai/checkout/presentation/checkout.dart';
-import 'package:travelerdubai/creditcard/creditcard.dart';
-import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
-import 'package:travelerdubai/events/presentation/events.dart';
-import 'package:travelerdubai/core/homescreen.dart';
-import 'package:travelerdubai/contactus/presentation/Contactus.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
-import 'package:travelerdubai/experiences/Presentation/experiences.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
+import 'package:travelerdubai/bookings/bookings.dart';
+import 'package:travelerdubai/checkout/presentation/checkout.dart';
+import 'package:travelerdubai/contactus/presentation/Contactus.dart';
+import 'package:travelerdubai/core/homescreen.dart';
+import 'package:travelerdubai/creditcard/creditcard.dart';
+import 'package:travelerdubai/events/presentation/events.dart';
+import 'package:travelerdubai/experiences/Presentation/experiences.dart';
+import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
 import 'core/controller/headercontroller.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  var stripePublishableKey = "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
+  var stripePublishableKey =
+      "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
   Stripe.publishableKey = stripePublishableKey;
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -36,18 +34,15 @@ void main() async {
         measurementId: "G-4PG69HVJ6C"),
   );
 
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   final HeaderController headerController = Get.put(HeaderController());
 
-
-
-
   @override
-  Widget build(BuildContext Context) {
-  // final  HeaderController headerController = Get.put(HeaderController());
+  Widget build(BuildContext context) {
+    // final  HeaderController headerController = Get.put(HeaderController());
 
     return GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -58,6 +53,7 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: '/home',
       getPages: [
         GetPage(
@@ -100,7 +96,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/dashboardpage',
-          page: () =>  DashboardPage(),
+          page: () => DashboardPage(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
@@ -146,4 +142,3 @@ class MyMiddelware extends GetMiddleware {
     return super.onPageCalled(page);
   }
 }
-
