@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:get/get.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/bookings/bookings.dart';
 import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
@@ -50,7 +51,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext Context) {
   // final  HeaderController headerController = Get.put(HeaderController());
 
-    return GetMaterialApp(
+    return ResponsiveApp(
+        builder: (context) => GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
           PointerDeviceKind.mouse,
@@ -141,7 +143,7 @@ class MyApp extends StatelessWidget {
           transitionDuration: const Duration(milliseconds: 500),
         ),
       ],
-    );
+    ),);
   }
 }
 
