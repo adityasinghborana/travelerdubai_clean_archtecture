@@ -47,7 +47,7 @@ class HeroImageWidget extends StatelessWidget {
                         fontStyle: FontStyle.italic),
                   ),
                   SelectableText(
-                    controller.formData.value?.title ?? 'Title',
+                    controller.formData.value?.title ?? 'Traveller Dubai',
                     style: GoogleFonts.playfairDisplay(
                       color: colorPrimary,
                       fontSize: 78,
@@ -60,7 +60,7 @@ class HeroImageWidget extends StatelessWidget {
                       fontsize: 28,
                       vpadding: 20,
                       label: "Explore More",
-                      onPressed: (() => print("okay")))
+                      onPressed: (() =>Get.toNamed('/experiences')))
                 ],
               ),
             ),

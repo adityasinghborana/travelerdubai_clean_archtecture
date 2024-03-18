@@ -1,26 +1,32 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+
 import 'package:get/get.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/bookings/bookings.dart';
 import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
-import 'package:travelerdubai/tourdetails/presentation/tours_screen.dart';
+import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/events/presentation/events.dart';
-
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
-import 'package:travelerdubai/Aboutus/presenation/Aboutus.dart';
+import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
-
-import 'package:travelerdubai/auth/presentation/signin.dart';
-import 'package:travelerdubai/auth/presentation/signup.dart';
-
+import 'package:travelerdubai/auth/presentation/screens/signin.dart';
+import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+import 'NotFound/404Screen.dart';
+import 'core/controller/headercontroller.dart';
 
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  var stripePublishableKey = "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
+  Stripe.publishableKey = stripePublishableKey;
   await Firebase.initializeApp(
     options: const FirebaseOptions(
         apiKey: "AIzaSyA4f2YsvWuQ8GCn8FvPC82LUvQW493Fau8",
@@ -32,16 +38,21 @@ void main() async {
         measurementId: "G-4PG69HVJ6C"),
   );
 
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final HeaderController headerController = Get.put(HeaderController());
 
-  // This widget is the root of your application.
+
+
+
   @override
   Widget build(BuildContext Context) {
-    return GetMaterialApp(
+  // final  HeaderController headerController = Get.put(HeaderController());
+
+    return ResponsiveApp(
+        builder: (context) => GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
           PointerDeviceKind.mouse,
@@ -50,19 +61,24 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
+      unknownRoute: GetPage(
+        name: '/NotFound',
+        page: () => PageNotFound(),
+        transition: Transition.leftToRightWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
       initialRoute: '/home',
       getPages: [
         GetPage(
           name: '/Login',
           page: () => SigninPage(),
-          middlewares: [MyMiddelware()],
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
         GetPage(
           name: '/Signup',
           page: () => SignupPage(),
-          middlewares: [MyMiddelware()],
+
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
@@ -86,13 +102,13 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/experiences',
-          page: () => experiences(),
+          page: () => Experiences(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
         GetPage(
           name: '/dashboardpage',
-          page: () => const DashboardPage(),
+          page: () =>  DashboardPage(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
@@ -123,18 +139,12 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/payment',
           page: () => CardPaymentScreen(),
-          transition: Transition.leftToRightWithFade,
+          transition: Transition.circularReveal,
           transitionDuration: const Duration(milliseconds: 500),
         ),
       ],
-    );
+    ),);
   }
 }
 
-class MyMiddelware extends GetMiddleware {
-  @override
-  GetPage? onPageCalled(GetPage? page) {
-    print(page?.name);
-    return super.onPageCalled(page);
-  }
-}
+

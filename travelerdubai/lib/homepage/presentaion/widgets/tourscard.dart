@@ -71,23 +71,15 @@ class Tourcards extends StatelessWidget {
   }
 
   void _onTourCardTap(Experiences tour) {
-    // Handle tour card tap here
-    // Extract the necessary properties
-    int countryId = tour.countryId;
-    int cityId = tour.cityId;
-    int tourId = tour.id;
-    int contractId = tour.contractId;
 
-    // Get the current date in MM/DD/YYYY format
-    String currentDate =
-        DateTime.now().toString().split(' ')[0]; // Extracts the date part
 
-    // Navigate to the details page and pass the properties as arguments
+    String tourId = tour.id.toString();
+
     Get.toNamed(
-      '/tour_details', // Replace with your actual route name
-      arguments: {
-        'id': tour.tourdetails?[0].id,
-      },
+      '/tour_details',
+      arguments:
+         tourId,
+
     );
   }
 

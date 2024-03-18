@@ -16,10 +16,10 @@ class AuthClass {
     }
   }
 
-  Future<void> verifyPhoneNumber(
-      String phoneNumber, BuildContext context, Function setData) async {
-    // Existing code
-  }
+  // Future<void> verifyPhoneNumber(
+  //     String phoneNumber, BuildContext context, Function setData) async {
+  //   // Existing code
+  // }
 
   void showSnackBar(BuildContext context, String text) {
     final snackBar = SnackBar(content: Text(text));

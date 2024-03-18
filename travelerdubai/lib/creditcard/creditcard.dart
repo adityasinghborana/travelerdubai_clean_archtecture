@@ -1,11 +1,29 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:flutter_stripe_web/card_field.dart';
 import 'package:get/get.dart';
-import 'package:flutter_credit_card/flutter_credit_card.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
-import 'package:travelerdubai/creditcard/creditcard_controller.dart';
+import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
 
-class CardPaymentScreen extends StatelessWidget {
-  final CardPaymentController _controller = Get.put(CardPaymentController());
+import '../Cart/data_layer/repository/cart_repository.dart';
+import '../Cart/data_layer/service/cart_remote.dart';
+import '../Cart/data_layer/usecase/get_cart_usecase.dart';
+import '../bookings/data_layer/repository/bookings_repository.dart';
+import '../bookings/data_layer/service/booking_remote.dart';
+import '../bookings/data_layer/usecase/bookings_usecase.dart';
+import '../checkout/data_layer/repository/Intent_repository.dart';
+import '../checkout/data_layer/service/remote.dart';
+import '../checkout/data_layer/usecase/intent_usecase.dart';
+
+
+class CardPaymentScreen extends StatefulWidget {
+  @override
+  _CardPaymentScreenState createState() => _CardPaymentScreenState();
+}
+
+class _CardPaymentScreenState extends State<CardPaymentScreen> {
+  CardFieldInputDetails? _card;
+  CardEditController controller = CardEditController();
 
   @override
   Widget build(BuildContext context) {
@@ -13,109 +31,127 @@ class CardPaymentScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Enter Your Card Details Here'),
       ),
-      body: Flexible(
-        flex: 1,
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Container(
-                  width: Get.width / 3,
-                  child: Card(
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      height: Get.height / 1.5,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset("assets/logo.png"),
-                          Obx(
-                            () => CreditCardWidget(
-                              width: double.infinity,
-                              height: Get.height / 4,
-                              backgroundImage: "assets/event.jpg",
-                              cardNumber: _controller.cardNumber.value,
-                              expiryDate: _controller.expiryDate.value,
-                              cardHolderName: _controller.name.value,
-                              cvvCode: _controller.cvv.value,
-                              showBackView: false,
-                              onCreditCardWidgetChange:
-                                  (CreditCardBrand creditCardBrand) {},
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(),
-                          ),
-                          TextField(
-                            onChanged: (value) =>
-                                _controller.name.value = value,
-                            decoration:
-                                InputDecoration(labelText: 'Name on Card'),
-                          ),
-                          TextField(
-                            onChanged: (value) =>
-                                _controller.cardNumber.value = value,
-                            decoration:
-                                InputDecoration(labelText: 'Card Number'),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextField(
-                                  onChanged: (value) =>
-                                      _controller.expiryDate.value = value,
-                                  decoration:
-                                      InputDecoration(labelText: 'Expiry Date'),
-                                ),
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  onChanged: (value) =>
-                                      _controller.cvv.value = value,
-                                  decoration: InputDecoration(labelText: 'CVV'),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: Container(),
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: colorPrimary,
-                              foregroundColor: colorwhite,
-                              elevation: 3,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(32.0)),
-                              minimumSize:
-                                  Size(double.infinity, 40), //////// HERE
-                            ),
-                            onPressed: () async {
-                              await _controller
-                                  .payNow(); // Call the payNow function
-                              if (_controller.status.value == "success") {
-                                Get.toNamed("bookings");
-                              } else {
-                                Get.snackbar("Failed", "Your payment failed");
-                              }
-                            },
-                            child: Text('Pay Now'),
-                          ),
-                          Expanded(
-                            child: Container(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * .25,
+
+              child: WebCardField(
+                style: CardStyle(),
+
+                onCardChanged: (card) {
+                  setState(() {
+                    _card = card;
+                  });
+                },
+                controller: controller,
               ),
-            ],
+            ),
+          ),
+          SizedBox(height: 50),
+          if (_card?.complete ?? false)
+            ElevatedButton(
+              onPressed: () async {
+                if (_card?.complete ?? false) {
+                  await createPaymentMethod().then((value) {
+                    confirmPayment();
+                  });
+                  // Continue with the payment process if needed
+                } else {
+                  // Handle the case where card details are not complete
+                  print('Please enter complete card details.');
+                }
+              },
+              child: Text('Pay'),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> createPaymentMethod() async {
+    CheckoutController checkoutController = Get.put(
+      CheckoutController(
+          getCartUseCase: GetCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          ),
+          intentUseCase: IntentUseCase(
+            StripeIntentRepositoryImpl(
+              StripeRemoteService(Dio()),
+            ),
+          ),
+          doBookingUseCase: DoBookingUseCase(
+            BookingsRepositoryImpl(
+              BookingsRemoteService(
+                Dio(),
+              ),
+            ),
+          )),
+    );
+    try {
+      final paymentMethod = await Stripe.instance.createPaymentMethod(
+        params: PaymentMethodParams.card(
+            paymentMethodData: PaymentMethodData(
+          billingDetails: BillingDetails(
+            name: 'Jenny Rosen',
+          ),
+        )),
+      );
+
+      // Do something with the paymentMethod.id if needed
+      print('PaymentMethod created: ${paymentMethod.id}');
+      checkoutController.paymentmethodid.value = paymentMethod.id;
+    } catch (e) {
+      // Handle errors
+      print('Error creating PaymentMethod: $e');
+    }
+  }
+
+  Future<void> confirmPayment() async {
+    CheckoutController checkoutController = Get.put(
+      CheckoutController(
+        getCartUseCase: GetCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        ),
+        intentUseCase: IntentUseCase(
+          StripeIntentRepositoryImpl(
+            StripeRemoteService(Dio()),
+          ),
+        ),
+        doBookingUseCase: DoBookingUseCase(
+          BookingsRepositoryImpl(
+            BookingsRemoteService(
+              Dio(),
+            ),
           ),
         ),
       ),
     );
+    try {
+      final confirmation = await Stripe.instance.confirmPayment(
+          paymentIntentClientSecret: checkoutController.stripeclientkey.value,
+          data: PaymentMethodParams.cardFromMethodId(
+              paymentMethodData: PaymentMethodDataCardFromMethod(
+                  paymentMethodId: checkoutController.paymentmethodid.value)));
+
+      if (confirmation.status == PaymentIntentsStatus.Succeeded) {
+
+        checkoutController.doBookings();
+        // Payment succeeded
+        print('Payment succeeded!');
+      } else {
+        // Payment failed
+        print('Payment failed!');
+      }
+    } catch (e) {
+      // Handle errors
+      print('Error confirming payment: $e');
+    }
   }
 }

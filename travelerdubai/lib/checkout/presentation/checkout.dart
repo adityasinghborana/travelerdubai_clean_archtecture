@@ -1,30 +1,43 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
+import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
+import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
+import 'package:travelerdubai/bookings/data_layer/repository/bookings_repository.dart';
+import 'package:travelerdubai/bookings/data_layer/service/booking_remote.dart';
+import 'package:travelerdubai/bookings/data_layer/usecase/bookings_usecase.dart';
 import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
-import 'package:travelerdubai/checkout/presentation/widgets/Guest_Form_Field_List.dart';
-import 'package:travelerdubai/checkout/presentation/widgets/Textformfield.dart';
+import 'package:travelerdubai/checkout/presentation/widgets/paxtype_dropdown.dart';
+import 'package:travelerdubai/core/widgets/Textformfield.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/ordersummary.dart';
-import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
-import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
-import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
-
-import '../../experiences/Usecase/experience_usecase.dart';
-import '../../experiences/remote/experiences_remote_service.dart';
-import '../../experiences/repository/Experiences_repository.dart';
+import '../data_layer/repository/Intent_repository.dart';
+import '../data_layer/service/remote.dart';
+import '../data_layer/usecase/intent_usecase.dart';
 
 class CheckoutPage extends StatelessWidget {
-  final CheckoutController checkoutController = Get.put(CheckoutController());
-  final ExperienceController experienceController = Get.put(
-      ExperienceController(GetExperiencesUseCase(
-          ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
+  final CheckoutController checkoutController = Get.put(
+    CheckoutController(
+        getCartUseCase: GetCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        ),
+        intentUseCase: IntentUseCase(
+          StripeIntentRepositoryImpl(
+            StripeRemoteService(Dio()),
+          ),
+        ),
+        doBookingUseCase: DoBookingUseCase(
+            BookingsRepositoryImpl(BookingsRemoteService(Dio())))),
+  );
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Column(
         children: [
           Header(),
@@ -54,27 +67,30 @@ class CheckoutPage extends StatelessWidget {
                           Row(
                             children: [
                               Expanded(
-                                child: buildTextFormField(
-                                    'Full Name', checkoutController.nameController),
+                                child: buildTextFormField('Prefix',
+                                    checkoutController.prefixController),
                               ),
-                              SizedBox(
-                                  width:
-                                      16), // Adjust the spacing between the text fields
+                              SizedBox(width: 16),
                               Expanded(
-                                child: buildTextFormField('Address',
-                                    checkoutController.addressController),
+                                child: buildTextFormField('First Name',
+                                    checkoutController.firstNameController),
+                              ),
+                              SizedBox(width: 16),
+                              // Adjust the spacing between the text fields
+                              Expanded(
+                                child: buildTextFormField('Last Name',
+                                    checkoutController.lastNameController),
                               ),
                             ],
                           ),
                           Row(
                             children: [
                               Expanded(
-                                child: buildTextFormField(
-                                    'Email', checkoutController.emailController),
+                                child: buildTextFormField('Email',
+                                    checkoutController.emailController),
                               ),
-                              SizedBox(
-                                  width:
-                                      16), // Adjust the spacing between the text fields
+                              SizedBox(width: 16),
+                              // Adjust the spacing between the text fields
                               Expanded(
                                 child: buildTextFormField('Mobile No',
                                     checkoutController.mobileNoController),
@@ -83,41 +99,35 @@ class CheckoutPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
+                              // Adjust the spacing between the text fields
                               Expanded(
-                                child: buildTextFormField(
-                                    'City', checkoutController.cityController),
+                                child: buildTextFormField('Message',
+                                    checkoutController.messageController),
                               ),
-                              SizedBox(
-                                  width:
-                                      16), // Adjust the spacing between the text fields
+                              SizedBox(width: 16),
+                              // Adjust the spacing between the text fields
                               Expanded(
-                                child: buildTextFormField(
-                                    'State', checkoutController.stateController),
+                                child: buildTextFormField('Nationality',
+                                    checkoutController.nationalityController),
                               ),
-                              SizedBox(
-                                  width:
-                                      16), // Adjust the spacing between the text fields
                               Expanded(
-                                child: buildTextFormField('Country',
-                                    checkoutController.countryController),
+                                child: buildTextFormField('Pickup',
+                                    checkoutController.pickupController),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Expanded(
+                                  child: DropdownPaxType(),
+                                ),
                               ),
                             ],
                           ),
 
                           SizedBox(height: 20),
 
-                          Text(
-                            'Additionl Guest Information',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          buildGuestListTile(),
-
-                          SizedBox(height: 20),
-
                           ElevatedButton(
                             onPressed: () {
-                              Get.toNamed("/payment");
+                              checkoutController.initiatechekout();
                             },
                             child: Text('Place Order'),
                           ),
@@ -129,9 +139,8 @@ class CheckoutPage extends StatelessWidget {
                     flex: 1,
                     child: Card(
                       elevation: 5,
-                      child:Padding(
-                        padding: const EdgeInsets.all(50.0),
-                        child: OrderSumary(500),
+                      child: Obx(
+                        () => OrderSumary(checkoutController.Totalprice.value),
                       ),
                     ),
                   ),

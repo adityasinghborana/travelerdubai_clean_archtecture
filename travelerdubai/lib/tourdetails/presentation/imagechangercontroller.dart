@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:travelerdubai/tourdetails/model/tour_model.dart';
+
+import '../tourdetail_data_layer/model/tour_model.dart';
+
 
 class ImageChangerController extends GetxController {
   var currentIndex = 0.obs;

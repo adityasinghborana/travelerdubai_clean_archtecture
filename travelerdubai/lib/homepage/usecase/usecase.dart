@@ -6,7 +6,7 @@ class GetHomePageDatUseCase {
 
   GetHomePageDatUseCase(this.repository);
 
-  Future<List<HomepageData>> execute() {
+  Future<HomepageData> execute() {
     return repository.getdata();
   }
 }

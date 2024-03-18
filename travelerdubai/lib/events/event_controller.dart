@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 
 class EventController extends GetxController {
   var eventTypes = [].obs;
@@ -17,7 +18,7 @@ class EventController extends GetxController {
   void fetchData() async {
     try {
       dio.Response response =
-          await dio.Dio().get('http://localhost:3000/eventtypes');
+          await dio.Dio().get('$baseurl/eventtypes');
       if (response.statusCode == 200) {
         List<dynamic> fetchedTypes = response.data;
         eventTypes.assignAll(fetchedTypes);

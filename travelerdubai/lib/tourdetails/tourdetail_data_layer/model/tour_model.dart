@@ -6,7 +6,7 @@ part 'tour_model.g.dart';
 @JsonSerializable()
 class TourModel {
   final int? id;
-  final int? tourId;
+  final int? TourId;
   final int? countryId;
   final String? countryName;
   final int? cityId;
@@ -51,10 +51,11 @@ class TourModel {
   final String? tourExclusion;
   final String? howToRedeem;
   final List<TourImageModel>? tourImages;
+  final int? cutOffhrs;
 
   TourModel({
     this.id,
-    this.tourId,
+    this.TourId,
     this.countryId,
     this.countryName,
     this.cityId,
@@ -99,6 +100,7 @@ class TourModel {
     this.tourExclusion,
     this.howToRedeem,
     this.tourImages,
+    this.cutOffhrs,
   });
 
   factory TourModel.fromJson(Map<String, dynamic> json) =>
