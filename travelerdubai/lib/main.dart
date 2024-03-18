@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:get/get.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/bookings/bookings.dart';
 import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
@@ -18,6 +19,7 @@ import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
+import 'NotFound/404Screen.dart';
 import 'core/controller/headercontroller.dart';
 
 void main() async {
@@ -49,7 +51,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext Context) {
   // final  HeaderController headerController = Get.put(HeaderController());
 
-    return GetMaterialApp(
+    return ResponsiveApp(
+        builder: (context) => GetMaterialApp(
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
           PointerDeviceKind.mouse,
@@ -58,19 +61,24 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
+      unknownRoute: GetPage(
+        name: '/NotFound',
+        page: () => PageNotFound(),
+        transition: Transition.leftToRightWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
       initialRoute: '/home',
       getPages: [
         GetPage(
           name: '/Login',
           page: () => SigninPage(),
-          middlewares: [MyMiddelware()],
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
         GetPage(
           name: '/Signup',
           page: () => SignupPage(),
-          middlewares: [MyMiddelware()],
+
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
@@ -135,15 +143,8 @@ class MyApp extends StatelessWidget {
           transitionDuration: const Duration(milliseconds: 500),
         ),
       ],
-    );
+    ),);
   }
 }
 
-class MyMiddelware extends GetMiddleware {
-  @override
-  GetPage? onPageCalled(GetPage? page) {
-    print(page?.name);
-    return super.onPageCalled(page);
-  }
-}
 
