@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
-import 'package:travelerdubai/Cart/data_layer/model/response/create_cart_response.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/request/create_user_request.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/service/auth.dart';
@@ -15,6 +15,7 @@ class SignupController extends GetxController {
   final HeaderController headerController = Get.find();
   final CreateUserUseCase createuser;
   final CreateCartUseCase createCartUseCase;
+  final RxBool obsecureText = true.obs;
 
   SignupController({required this.createuser, required this.createCartUseCase});
 
@@ -57,7 +58,9 @@ class SignupController extends GetxController {
           .execute(User(uid: Uid, email: Email))
           .then((value) => print(value));
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -67,7 +70,9 @@ class SignupController extends GetxController {
           .execute(CreateCartRequest(userId: Uid))
           .then((value) => print(value));
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }
