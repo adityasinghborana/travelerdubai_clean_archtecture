@@ -15,7 +15,7 @@ class SignupController extends GetxController {
   final HeaderController headerController = Get.find();
   final CreateUserUseCase createuser;
   final CreateCartUseCase createCartUseCase;
-  final RxBool obsecureText = false.obs;
+  final RxBool obsecureText = true.obs;
 
   SignupController({required this.createuser, required this.createCartUseCase});
 

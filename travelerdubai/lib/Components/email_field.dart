@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget firstNameTextField(
+Widget emailField(
     TextEditingController controller, String label, String? hint) {
   return Stack(
     children: [
@@ -9,6 +9,7 @@ Widget firstNameTextField(
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: TextField(
+            controller: controller,
             decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(
                     top: 20, left: 20), // Adjust top padding as needed

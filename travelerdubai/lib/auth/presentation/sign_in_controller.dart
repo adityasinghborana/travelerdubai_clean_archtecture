@@ -14,7 +14,7 @@ import '../../Cart/data_layer/usecase/get_cart_usecase.dart';
 class SigninController extends GetxController {
   final CreateUserUseCase createuser;
   final GetCartUseCase getCartUseCase;
-  final RxBool obsecureText = false.obs;
+  final RxBool obsecureText = true.obs;
 
   SigninController({required this.createuser, required this.getCartUseCase});
 
@@ -27,7 +27,11 @@ class SigninController extends GetxController {
   final HeaderController headerController = Get.find();
 
   Future<void> signIn() async {
+
     try {
+      print("hello email${emailController.text}");
+      print("hello email${passwordController.text}");
+
       final userCredential = await firebaseAuth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
@@ -43,6 +47,7 @@ class SigninController extends GetxController {
         });
       }
     } catch (e) {
+      print(emailController.text);
       Get.snackbar("Error", e.toString());
     }
   }

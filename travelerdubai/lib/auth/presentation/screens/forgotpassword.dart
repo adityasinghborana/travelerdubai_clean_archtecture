@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 
 import '../../../Components/custom_button.dart';
-import '../../../Components/first_name_text_field.dart';
+import '../../../Components/email_field.dart';
 
 class ForgotPassword extends StatelessWidget {
   final firebase_auth.FirebaseAuth firebaseAuth =
@@ -77,7 +77,7 @@ class ForgotPassword extends StatelessWidget {
                   const SizedBox(height: 20),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .338,
-                    child: firstNameTextField(
+                    child: emailField(
                         _emailController, 'Email', 'john.doe@gmail.com'),
                   ),
                   const SizedBox(height: 10),

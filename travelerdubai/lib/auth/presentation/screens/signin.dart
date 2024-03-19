@@ -11,7 +11,7 @@ import 'package:travelerdubai/auth/usersdatalayer/usecase/create_user_usecase.da
 
 import '../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../Components/custom_button.dart';
-import '../../../Components/first_name_text_field.dart';
+import '../../../Components/email_field.dart';
 import '../../../Components/password_text_field.dart';
 import '../../../Components/text_on_line.dart';
 import '../../usersdatalayer/service/create_user_remote.dart';
@@ -80,7 +80,7 @@ class SigninPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .338,
-                    child: firstNameTextField(
+                    child:  emailField(
                         controller.emailController, 'Email', null),
                   ),
                   const SizedBox(height: 10),
@@ -88,7 +88,7 @@ class SigninPage extends StatelessWidget {
                     () => SizedBox(
                         width: MediaQuery.of(context).size.width * .338,
                         child: passwordTextField(controller.passwordController,
-                            'Password', controller.obsecureText.value, (p0) {
+                            'Password', controller.obsecureText.value, (p0 ) {
                           controller.obsecureText.value =
                               !controller.obsecureText.value;
                         })),
@@ -151,10 +151,11 @@ class SigninPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .338,
-                    child: const ButtonView(
+                    child:  ButtonView(
                       btnName: 'Login With Google',
                       bgColor: Color(0xffffffff),
                       txtColor: Color(0xff112211),
+                      onButtonTap: () =>  controller.authClass.googleSignIn(context),
                     ),
                   ),
                 ],
@@ -183,27 +184,28 @@ class SigninPage extends StatelessWidget {
       ),
     );
   }
-
-  Widget Textitem(String placeholder, bool hidden, TextInputType inputtype,
-      TextEditingController controller) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 1, color: const Color(0xff979797)),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-        child: TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintStyle: const TextStyle(color: Color(0xff979797)),
-            hintText: placeholder,
-            border: InputBorder.none,
-          ),
-          obscureText: hidden,
-          keyboardType: inputtype,
-        ),
-      ),
-    );
-  }
 }
+
+//   Widget Textitem(String placeholder, bool hidden, TextInputType inputtype,
+//       TextEditingController controller) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         border: Border.all(width: 1, color: const Color(0xff979797)),
+//         borderRadius: BorderRadius.circular(8),
+//       ),
+//       child: Padding(
+//         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+//         child: TextFormField(
+//           controller: controller,
+//           decoration: InputDecoration(
+//             hintStyle: const TextStyle(color: Color(0xff979797)),
+//             hintText: placeholder,
+//             border: InputBorder.none,
+//           ),
+//           obscureText: hidden,
+//           keyboardType: inputtype,
+//         ),
+//       ),
+//     );
+//   }
+// }

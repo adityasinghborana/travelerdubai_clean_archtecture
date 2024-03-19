@@ -117,7 +117,9 @@ class SignupPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .338,
-                    child: const ButtonView(
+                    child:  ButtonView(
+                      onButtonTap: () => signupController.signUp(),
+
                       btnName: 'Create Account',
                       bgColor: Color(0xff2659c3),
                     ),
@@ -175,6 +177,7 @@ class SignupPage extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 10),
             child: TextField(
+              controller: controller,
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.only(
                     top: 20, left: 20), // Adjust top padding as needed
