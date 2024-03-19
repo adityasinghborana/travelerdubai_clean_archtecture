@@ -2,12 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/about_us_controller.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 
 class RotatingImageBanner extends StatefulWidget {
-  RotatingImageBanner({super.key});
+  const RotatingImageBanner({super.key});
 
   @override
   _RotatingImageBannerState createState() => _RotatingImageBannerState();

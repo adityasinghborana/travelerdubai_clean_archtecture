@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/auth/usersdatalayer/usecase/create_user_usecase.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/service/auth.dart';
-import 'package:travelerdubai/auth/presentation/screens/signup.dart';
-import 'package:shared_preferences_web/shared_preferences_web.dart';
 
 import '../../Cart/data_layer/model/request/create_cart.dart';
 import '../../Cart/data_layer/usecase/get_cart_usecase.dart';
@@ -14,6 +14,7 @@ import '../../Cart/data_layer/usecase/get_cart_usecase.dart';
 class SigninController extends GetxController {
   final CreateUserUseCase createuser;
   final GetCartUseCase getCartUseCase;
+  final RxBool obsecureText = true.obs;
 
   SigninController({required this.createuser, required this.getCartUseCase});
 
@@ -26,7 +27,11 @@ class SigninController extends GetxController {
   final HeaderController headerController = Get.find();
 
   Future<void> signIn() async {
+
     try {
+      print("hello email${emailController.text}");
+      print("hello email${passwordController.text}");
+
       final userCredential = await firebaseAuth.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
@@ -42,6 +47,7 @@ class SigninController extends GetxController {
         });
       }
     } catch (e) {
+      print(emailController.text);
       Get.snackbar("Error", e.toString());
     }
   }
@@ -53,7 +59,9 @@ class SigninController extends GetxController {
   Future<void> saveUserUID(String uid) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('userUID', uid);
-    print("userid saved");
+    if (kDebugMode) {
+      print("userid saved");
+    }
   }
 
   Future<void> saveCartID(String cartid) async {
