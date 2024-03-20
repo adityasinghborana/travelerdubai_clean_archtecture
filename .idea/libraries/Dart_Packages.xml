@@ -436,6 +436,13 @@
             </list>
           </value>
         </entry>
+        <entry key="font_awesome_flutter">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.7.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="freezed_annotation">
           <value>
             <list>
@@ -496,6 +503,13 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_webview-0.7.0+2/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="gap">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/gap-3.0.1/lib" />
             </list>
           </value>
         </entry>
@@ -1429,6 +1443,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-0.23.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_widget_from_html-0.9.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_widget_from_html_core-0.9.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/font_awesome_flutter-10.7.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/frontend_server_client-3.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_cached_network_image-0.7.0+7/lib" />
@@ -1438,6 +1453,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_text_style-2.23.8/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_url_launcher-0.9.0+4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/fwfh_webview-0.7.0+2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/gap-3.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/get-4.6.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/glob-2.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/google_fonts-4.0.4/lib" />

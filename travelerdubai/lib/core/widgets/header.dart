@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/widgets/account_widget.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 import '../controller/headercontroller.dart';
 import 'dashboard_widget.dart';
 

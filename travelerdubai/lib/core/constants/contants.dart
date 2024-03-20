@@ -44,14 +44,33 @@ final bodyblack = GoogleFonts.playfairDisplay(
   ),
 );
 
+
 // colors
+
+final LinearGradient backgroundgradient = LinearGradient(
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+  colors: [
+    Color(0xFFFC41FF).withOpacity(0.1), // #FC41FF
+    Color(0xFF34E2FE).withOpacity(0.1), // #34E2FE
+  ],
+  transform: GradientRotation(180 * 3.14159265359 / 180), // Converting degrees to radians
+);
+
+
 const colorPrimary = Color(0xFFDF46DC);
 const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
 const colorwhite = Color(0xFFffffff);
 const colorblack = Color(0xFF111B19);
 const colorgreydark = Color(0XFF444444);
+const colorblue = Color(0XFF2659C3);
+const colorgreenishblack = Color(0xff112211);
 
-//
+// others
 const String baseurl="http://69.48.163.45:3000";
 const String Apikey = "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkNWU4YWZhMC1mNGJhLTQ2NWUtYTAzOS1mZGJiYzMxZWZlZGUiLCJVc2VySWQiOiIzNzU0NSIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoidHJhdmVsZ2F0ZXhAcmF5bmF0b3Vycy5jb20iLCJpc3MiOiJodHRwOi8vcmF5bmFhcGkucmF5bmF0b3Vycy5jb20iLCJhdWQiOiJodHRwOi8vcmF5bmFhcGkucmF5bmF0b3Vycy5jb20ifQ.i6GaRt-RVSlJXKPz7ZVx-axAPLW_hkl7usI_Dw8vP5w";
+
+
+// bgColor: Color(0xffffffff),
+// txtColor: Color(0xff112211)

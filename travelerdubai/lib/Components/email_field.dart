@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 Widget emailField(
-    TextEditingController controller, String label, String? hint) {
+   double height, TextEditingController controller, String label, String? hint) {
   return Stack(
     children: [
       SizedBox(
-        height: 60, // Adjust the height of the TextField
+        height: height, // Adjust the height of the TextField
         child: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: TextField(

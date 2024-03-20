@@ -10,14 +10,17 @@ class ButtonView extends StatelessWidget {
   final Color? borderColor;
   final Color? bgColor;
   final Color? txtColor;
+  final Color? iconColor;
   final double? radius;
-  final IconData? iconData; // New parameter for the icon
+  final IconData? iconData;
+  // New parameter for the icon
   const ButtonView(
       {Key? key, // Added 'Key? key'
       required this.btnName,
       this.onButtonTap,
       this.borderColor,
       this.bgColor,
+      this.iconColor,
       this.txtColor,
       this.radius = 10,
       this.iconData}); // Added 'this.iconData'
@@ -46,7 +49,7 @@ class ButtonView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 8.0), // Adjust padding as needed
-                child: Icon(iconData, color: txtColor ?? Colors.white),
+                child: Icon(iconData, color: iconColor ?? Colors.white),
               ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 12.0),
