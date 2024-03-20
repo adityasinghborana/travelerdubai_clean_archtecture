@@ -14,30 +14,33 @@ class TourCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Get.width * 0.70,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        controller: scrollController,
-        itemCount: tourlistController.tours.length,
-        itemBuilder: (context, index) {
-          final tour = tourlistController.tours[index];
-          return InkWell(
-            onTap: () => _onTourCardTap(tour), // Use the onTap function
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: SizedBox(
-                width: Get.width * 0.14,
-                child: Card(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+      width: Get.width * 0.80,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          controller: scrollController,
+          itemCount: tourlistController.tours.length,
+          itemBuilder: (context, index) {
+            final tour = tourlistController.tours[index];
+            return InkWell(
+              onTap: () => _onTourCardTap(tour), // Use the onTap function
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: SizedBox(
+                  width: Get.width * 0.14,
+                  child: Card(
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: _buildTourImage(tour),
                   ),
-                  child: _buildTourImage(tour),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -65,7 +68,11 @@ class TourCards extends StatelessWidget {
           // width: Get.width * 0.119,
         ),
         //_buildDuration(tour),
-        _buildRatingAndCity(tour)
+        Positioned(
+          bottom: 10,
+          left: Get.width * .035,
+          child: _buildRatingAndCity(tour),
+        )
       ]),
     );
   }
@@ -97,36 +104,13 @@ class TourCards extends StatelessWidget {
   }
 
   Widget _buildRatingAndCity(Experiences tour) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Text(
-            tour.cityName,
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        Container(
-          child: Row(
-            children: [
-              Text(
-                "Rating ${tour.rating} ",
-                style: GoogleFonts.playfairDisplay(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const Icon(
-                Icons.star,
-                color: Colors.purple,
-              ),
-            ],
-          ),
-        ),
-      ],
+    return Text(
+      tour.cityName,
+      style: GoogleFonts.playfairDisplay(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Colors.white,
+      ),
     );
   }
 
