@@ -55,6 +55,10 @@ dependencies:
   flutter_stripe: ^10.1.0
   flutter_stripe_web: ^5.1.0
   responsive_builder: ^0.7.0
+  google_sign_in: ^6.2.1
+  google_sign_in_web: ^0.12.3+2
+  font_awesome_flutter: ^10.7.0
+  gap: ^3.0.1
 
 
 

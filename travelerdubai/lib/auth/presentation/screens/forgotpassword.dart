@@ -1,66 +1,138 @@
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 
-class Forgotpassword extends StatelessWidget {
-  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+import '../../../Components/custom_button.dart';
+import '../../../Components/email_field.dart';
+
+class ForgotPassword extends StatelessWidget {
+  final firebase_auth.FirebaseAuth firebaseAuth =
+      firebase_auth.FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
 
-  Forgotpassword({super.key});
+  ForgotPassword({super.key});
   @override
-  Widget build(BuildContext Context) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SingleChildScrollView(
         child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: const InputDecoration(
-                    hintStyle: TextStyle(color: Color(0xff979797)),
-                    hintText: "Enter Your Email",
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: Get.width * .084215,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: Get.height * 0.060916,
+                    child: Image.asset("./assets/logo.png"),
                   ),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    resetpassword(Context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    alignment: Alignment.center,
-                    backgroundColor: const Color(0xffBF1D2D),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 24,
+                        color: Color(0xff112211),
+                      ),
+                      Text(
+                        'Back to Login',
+                        style: GoogleFonts.roboto(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: const Color(0xff112211),
+                            height: 1.1721),
+                      ),
+                    ],
                   ),
-                  child: const SelectableText("Send Link"),
-                ),
-              ],
-            ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Forgot Your Password?',
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 34,
+                        color: Colors.black,
+                        height: 1.01),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: Get.width * .338,
+                    child: Text(
+                      'Don’t worry, happens to all of us. Enter your email below to recover your password',
+                      style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: const Color(0xff112211),
+                        height: 1.1721,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: Get.width * .338,
+                    child: emailField(
+                        60,_emailController, 'Email', 'john.doe@gmail.com'),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: Get.width * .338,
+                    child: ButtonView(
+                      btnName: 'Submit',
+                      bgColor: const Color(0xff2659c3),
+                      onButtonTap: () {},
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: Get.width * .084215,
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: Get.height * .10,
+                  ),
+                  Image.asset(
+                    'signup_side_image.png',
+                    height: Get.height * .83,
+                    width: Get.width * .3227,
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: Get.width * .084215,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Future resetpassword(BuildContext Context) async {
+  Future resetpassword(BuildContext context) async {
     try {
       await firebase_auth.FirebaseAuth.instance
           .sendPasswordResetEmail(email: _emailController.text.trim());
       const snackbar =
           SnackBar(content: SelectableText("Reset link Sent to Email"));
 
-      ScaffoldMessenger.of(Context).showSnackBar(snackbar);
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
       Navigator.pushAndRemoveUntil(
-          Context,
+          context,
           MaterialPageRoute(builder: (Context) => SigninPage()),
           (route) => false);
     } on FirebaseAuthException catch (e) {
       final snackbar = SnackBar(content: SelectableText(e.toString()));
 
-      ScaffoldMessenger.of(Context).showSnackBar(snackbar);
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
 }
