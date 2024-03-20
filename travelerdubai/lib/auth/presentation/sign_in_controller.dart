@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/auth/usersdatalayer/usecase/create_user_usecase.dart';
@@ -20,6 +22,7 @@ class SigninController extends GetxController {
 
   final firebase_auth.FirebaseAuth firebaseAuth =
       firebase_auth.FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthClass authClass = AuthClass();
@@ -86,5 +89,30 @@ class SigninController extends GetxController {
       // Handle generic error
       print('Error: $error');
     });
+  }
+
+  Future<void> googleSignIn(BuildContext context) async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
+      if (googleSignInAccount == null) throw 'Google sign-in process canceled by user.';
+
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
+      final String uid = userCredential.user!.uid;
+
+      headerController.loggedin.value = true;
+      await getCart(uid);
+      await saveUserUID(uid);
+      Get.toNamed("/dashboardpage", arguments: {'uid': uid});
+    } catch (e) {
+      print("Sign-in error: $e");
+      authClass.showSnackBar(context, e.toString());
+      Get.toNamed('/Login');
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 
@@ -22,14 +23,14 @@ class ForgotPassword extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: MediaQuery.of(context).size.width * .084215,
+                width: Get.width * .084215,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.060916,
+                    height: Get.height * 0.060916,
                     child: Image.asset("./assets/logo.png"),
                   ),
                   const SizedBox(height: 10),
@@ -61,7 +62,7 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * .338,
+                    width: Get.width * .338,
                     child: Text(
                       'Don’t worry, happens to all of us. Enter your email below to recover your password',
                       style: GoogleFonts.roboto(
@@ -76,13 +77,13 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * .338,
+                    width: Get.width * .338,
                     child: emailField(
-                        _emailController, 'Email', 'john.doe@gmail.com'),
+                        60,_emailController, 'Email', 'john.doe@gmail.com'),
                   ),
                   const SizedBox(height: 10),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * .338,
+                    width: Get.width * .338,
                     child: ButtonView(
                       btnName: 'Submit',
                       bgColor: const Color(0xff2659c3),
@@ -92,22 +93,22 @@ class ForgotPassword extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * .084215,
+                width: Get.width * .084215,
               ),
               Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .10,
+                    height: Get.height * .10,
                   ),
                   Image.asset(
                     'signup_side_image.png',
-                    height: MediaQuery.of(context).size.height * .83,
-                    width: MediaQuery.of(context).size.width * .3227,
+                    height: Get.height * .83,
+                    width: Get.width * .3227,
                   ),
                 ],
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * .084215,
+                width: Get.width * .084215,
               ),
             ],
           ),
