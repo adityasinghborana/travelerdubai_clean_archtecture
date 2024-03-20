@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 
 Widget buildFooter() {
   return Container(
-    height: Get.height * 0.56,
+    height: Get.height * 0.95,
     padding: const EdgeInsets.symmetric(vertical: 20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       // _buildMembershipPromo(),
+        // _buildMembershipPromo(),
         Container(
           padding: const EdgeInsets.symmetric(vertical: 100.0),
           color: Colors.amber,

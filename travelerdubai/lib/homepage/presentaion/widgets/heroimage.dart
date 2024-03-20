@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:modular_ui/modular_ui.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 class HeroImageWidget extends StatelessWidget {
@@ -18,95 +20,115 @@ class HeroImageWidget extends StatelessWidget {
             ? controller.imageList[
                 controller.currentIndex.value % controller.imageList.length]
             : 'assets/background.png';
-        print(imageUrl);
+        if (kDebugMode) {
+          print(imageUrl);
+        }
 
         return Stack(
           children: [
-            Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              width: double.infinity,
+            // Image.network(
+            //   imageUrl,
+            //   fit: BoxFit.cover,
+            //   width: double.infinity,
+            //   height: double.infinity,
+            // ),
+            MUICarousel(
+              images: controller.imageList,
+              indicatorType: CarouselIndicatorType.dot,
+              duration: const Duration(seconds: 2),
               height: double.infinity,
+              maxWidth: double.infinity,
             ),
-            Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: const Color.fromRGBO(0, 0, 0, 0.5),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SelectableText(
-                    controller.formData.value?.subtitle ?? 'Sub Title',
-                    style: GoogleFonts.playfairDisplay(
-                        color: colorwhite,
-                        fontSize: 48,
-                        fontWeight: FontWeight.w200,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  SelectableText(
-                    controller.formData.value?.title ?? 'Traveller Dubai',
-                    style: GoogleFonts.playfairDisplay(
-                      color: colorPrimary,
-                      fontSize: 78,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines:
-                        2, // Specify the maximum number of lines to prevent scrolling
-                  ),
-                  InlineFlexButton(
-                      fontsize: 28,
-                      vpadding: 20,
-                      label: "Explore More",
-                      onPressed: (() =>Get.toNamed('/experiences')))
-                ],
-              ),
-            ),
+            // Container(
+            //   width: double.infinity,
+            //   height: double.infinity,
+            //   color: const Color.fromRGBO(0, 0, 0, 0.5),
+            // ),
             Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  for (var i = 1; i <= 4; i++)
-                    _buildAnimatedCounter(controller, i),
-                ],
+              top: Get.width * 0.15,
+              left: Get.width * 0.15,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SelectableText(
+                      controller.formData.value?.title ?? 'Traveller Dubai',
+                      style: GoogleFonts.playfairDisplay(
+                        color: colorPrimary,
+                        fontSize: 78,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines:
+                          1, // Specify the maximum number of lines to prevent scrolling
+                    ),
+                    SizedBox(
+                      height: 60,
+                      width: Get.width * .75,
+                      child: SelectableText(
+                        controller.formData.value?.title ??
+                            'Search for help - Enter a question or keywords in the search box on the taskbar to find apps, files, settings, and get help from the web',
+                        style: GoogleFonts.playfairDisplay(
+                          color: colorwhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w200,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        maxLines: 4,
+                      ),
+                    ),
+                    InlineFlexButton(
+                        fontsize: 28,
+                        vpadding: 20,
+                        label: "Explore More",
+                        onPressed: (() => Get.toNamed('/experiences')))
+                  ],
+                ),
               ),
             ),
-            Positioned(
-              top: Get.height * 0.25,
-              width: Get.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    color: const Color.fromRGBO(
-                        0, 0, 0, 0.1), // Set your desired background color here
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: colorwhite,
-                      ),
-                      onPressed: controller.previousImage,
-                    ),
-                  ),
-                  Container(
-                    color: const Color.fromRGBO(
-                        0, 0, 0, 0.1), // Set your desired background color here
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_forward,
-                        color: colorwhite,
-                      ),
-                      onPressed: controller.nextImage,
-                    ),
-                  )
-                ],
-              ),
-            ),
+            // Positioned(
+            //   bottom: 20,
+            //   left: 0,
+            //   right: 0,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       for (var i = 1; i <= 4; i++)
+            //         _buildAnimatedCounter(controller, i),
+            //     ],
+            //   ),
+            // ),
+            // Positioned(
+            //   top: Get.height * 0.15,
+            //   left: Get.width * 0.15,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Container(
+            //         color: const Color.fromRGBO(
+            //             0, 0, 0, 0.1), // Set your desired background color here
+            //         child: IconButton(
+            //           icon: const Icon(
+            //             Icons.arrow_back,
+            //             color: colorwhite,
+            //           ),
+            //           onPressed: controller.previousImage,
+            //         ),
+            //       ),
+            //       Container(
+            //         color: const Color.fromRGBO(
+            //             0, 0, 0, 0.1), // Set your desired background color here
+            //         child: IconButton(
+            //           icon: const Icon(
+            //             Icons.arrow_forward,
+            //             color: colorwhite,
+            //           ),
+            //           onPressed: controller.nextImage,
+            //         ),
+            //       )
+            //     ],
+            //   ),
+            // ),
           ],
         );
       }),

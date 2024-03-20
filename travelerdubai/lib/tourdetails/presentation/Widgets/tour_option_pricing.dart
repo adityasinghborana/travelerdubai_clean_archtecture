@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
@@ -63,7 +62,7 @@ class Optionpricing extends StatelessWidget {
                   children: [
                     Text("${data.transferName}"),
                     Text(
-                      "Amount ${(optionsdynamic.pricing.value.addPriceAdult!.toDouble()+optionsdynamic.pricing.value.addPriceChildren!.toDouble() + optionsdynamic.pricing.value.additionalPriceInfant!.toDouble() + data.finalAmount!.toDouble())}",
+                      "Amount ${(optionsdynamic.pricing.value.addPriceAdult!.toDouble() + optionsdynamic.pricing.value.addPriceChildren!.toDouble() + optionsdynamic.pricing.value.additionalPriceInfant!.toDouble() + data.finalAmount!.toDouble())}",
                     ),
                   ],
                 ),
@@ -95,7 +94,7 @@ class Optionpricing extends StatelessWidget {
                       ],
                     ),
                     Obx(() {
-                      if (controller.loggedin.value == true) {
+                      if (controller.loggedIn.value == true) {
                         // User is logged in
                         return InlineFlexButton(
                           label: "Add to Cart",
@@ -113,15 +112,14 @@ class Optionpricing extends StatelessWidget {
                                 tourDate: optionsdynamic.selectedDate.value
                                     .toString()
                                     .substring(0, 10),
-                                timeSlotId:
-                                optionsdynamic.timeSlotId.value,
+                                timeSlotId: optionsdynamic.timeSlotId.value,
                                 startTime: data.startTime!,
                                 transferId: data.transferId!,
                                 adultRate: data.adultPrice!.toDouble(),
-                                childRate: data.childPrice?.toDouble()?? 0.0,
+                                childRate: data.childPrice?.toDouble() ?? 0.0,
                                 serviceTotal: data?.finalAmount ?? 0.0,
-                                cartId: controller.cartid.value);
-                            print(controller.cartid.value);
+                                cartId: controller.cartId.value);
+                            print(controller.cartId.value);
                             print(value.tourOption);
                             print(value.tourname);
                             print(value.tourDate);
@@ -136,8 +134,6 @@ class Optionpricing extends StatelessWidget {
                         return InlineFlexButton(
                           label: "Login",
                           onPressed: () {
-
-
                             Get.toNamed('/Login');
                           },
                         );

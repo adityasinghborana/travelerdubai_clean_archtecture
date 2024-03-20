@@ -1,23 +1,34 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HeaderController extends GetxController {
   final RxString userid = ''.obs;
-  final RxInt  cartid = 0.obs; //need to chang for cart id
-  final RxBool loggedin = false.obs;
+  final RxInt cartId = 0.obs; //need to chang for cart id
+  final RxBool loggedIn = false.obs;
   final RxMap<String, bool> isHoveredMap = <String, bool>{}.obs;
+  final RxBool isHeaderTransparent = true.obs;
 
   @override
   void onInit() {
-    ever(loggedin, (_) {
+    ever(loggedIn, (_) {
       // Triggered whenever loggedin changes
-      print("Loggedin changed: $loggedin");
+      if (kDebugMode) {
+        print("LoggedIn changed: $loggedIn");
+      }
     });
 
     getUserUID();
     getCartID();
     super.onInit();
+  }
+
+  void updateHeaderBackground(double scrollOffset) {
+    if (scrollOffset > 0) {
+      isHeaderTransparent.value = false; // Set to false when scrolled
+    } else {
+      isHeaderTransparent.value = true; // Set to true when at the top
+    }
   }
 
   void onHover(String title, bool hover) {
@@ -29,31 +40,26 @@ class HeaderController extends GetxController {
     String? uid = prefs.getString('userUID');
 
     if (uid != null) {
-      loggedin.value = true;
+      loggedIn.value = true;
       userid.value = uid;
-      print("User is logged in: $loggedin");
+      print("User is logged in: $loggedIn");
       print("User is logged in: ${userid.value}");
-      print("User is logged in: ${cartid.value}");
-
+      print("User is logged in: ${cartId.value}");
     }
 
     return uid;
   }
 
-
-
   Future<String?> getCartID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? cartId = prefs.getString('CartID');
+    String? cartIdCustom = prefs.getString('CartID');
 
-    if (cartid != null) {
+    if (cartId != null) {
+      cartId.value = int.parse(cartIdCustom ?? "00");
 
-  cartid.value = int.parse(cartId??"00");
-
-      print("User is logged in: ${cartid.value}");
-
+      print("User is logged in: ${cartId.value}");
     }
 
-    return cartId;
+    return cartIdCustom;
   }
 }

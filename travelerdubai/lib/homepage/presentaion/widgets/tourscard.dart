@@ -1,19 +1,15 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
-import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
-import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
-import 'package:travelerdubai/homepage/model/tour.dart';
 
-class Tourcards extends StatelessWidget {
+class TourCards extends StatelessWidget {
   final TourlistController tourlistController = Get.find();
+  final ScrollController? scrollController;
   final List<Experiences> tours;
 
-  Tourcards({super.key, required this.tours});
+  TourCards({super.key, required this.tours, this.scrollController});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +17,7 @@ class Tourcards extends StatelessWidget {
       width: Get.width * 0.90,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        controller: scrollController,
         itemCount: tourlistController.tours.length,
         itemBuilder: (context, index) {
           final tour = tourlistController.tours[index];
@@ -71,15 +68,11 @@ class Tourcards extends StatelessWidget {
   }
 
   void _onTourCardTap(Experiences tour) {
-
-
     String tourId = tour.id.toString();
 
     Get.toNamed(
       '/tour_details',
-      arguments:
-         tourId,
-
+      arguments: tourId,
     );
   }
 

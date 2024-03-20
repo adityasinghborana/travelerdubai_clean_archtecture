@@ -35,7 +35,7 @@ class SigninController extends GetxController {
 
       final uid = userCredential.user?.uid;
       if (uid != null) {
-        headerController.loggedin.value = true;
+        headerController.loggedIn.value = true;
 
         getCart(uid);
         await saveUserUID(uid).then((value) {
@@ -71,7 +71,7 @@ class SigninController extends GetxController {
     getCartUseCase.execute(data).then((value) {
       if (value.data[0].TourDetails.isNotEmpty) {
         cartId.value = value.data[0].TourDetails[0].cartId;
-        headerController.cartid.value = cartId.value;
+        headerController.cartId.value = cartId.value;
         saveCartID(cartId.value.toString());
         print(cartId.value);
       } else {

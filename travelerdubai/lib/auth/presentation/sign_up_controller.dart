@@ -41,7 +41,7 @@ class SignupController extends GetxController {
       if (user != null) {
         final token = (await user.getIdToken()) ?? '';
         saveUser(user.uid, user.email!).then((value) {
-          headerController.loggedin.value = true;
+          headerController.loggedIn.value = true;
           createCart(user.uid);
           Get.toNamed('/home');
         });
