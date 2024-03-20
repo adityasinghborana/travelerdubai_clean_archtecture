@@ -105,7 +105,7 @@ class SigninController extends GetxController {
       final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
       final String uid = userCredential.user!.uid;
 
-      headerController.loggedin.value = true;
+      headerController.loggedIn.value = true;
       await getCart(uid);
       await saveUserUID(uid);
       Get.toNamed("/dashboardpage", arguments: {'uid': uid});

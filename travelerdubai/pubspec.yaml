@@ -59,6 +59,7 @@ dependencies:
   google_sign_in_web: ^0.12.3+2
   font_awesome_flutter: ^10.7.0
   gap: ^3.0.1
+  modular_ui: ^0.0.5
 
 
 
