@@ -44,7 +44,7 @@ class SignupController extends GetxController {
       if (user != null) {
         final token = await user.getIdToken() ?? '';
         await saveUser(user.uid, user.email!);
-        headerController.loggedin.value = true;
+        headerController.loggedIn.value = true;
         createCart(user.uid);
         Get.toNamed('/home');
       }
@@ -92,7 +92,7 @@ class SignupController extends GetxController {
       if (user != null) {
         final token = await user.getIdToken() ?? '';
         await saveUser(user.uid, user.email!);
-        headerController.loggedin.value = true;
+        headerController.loggedIn.value = true;
         createCart(user.uid);
         Get.toNamed('/home');
       }

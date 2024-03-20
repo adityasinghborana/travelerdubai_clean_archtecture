@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:dio/dio.dart' as dio;
-import 'package:get/get.dart';
-import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
 
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:travelerdubai/homepage/remote/response/model/homepagedata.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
@@ -10,37 +9,49 @@ class HomeController extends GetxController {
   final GetHomePageDatUseCase homePageDataUseCase;
   Rx<HomepageData?> formData = Rx<HomepageData?>(null);
 
-  RxList<String> imageList = RxList<String>([]);
+  RxList<String> imageList = RxList<String>(
+    [
+      'https://source.unsplash.com/random/?city,night',
+      'https://source.unsplash.com/random/?dubai,night',
+      'https://source.unsplash.com/random/?lasvegas,night'
+    ],
+  );
   var currentIndex = 0.obs;
   late Timer rotationTimer;
+
   HomeController(this.homePageDataUseCase);
+
   @override
   void onInit() {
-    fetchdatafrombackend();
+    fetchDataFromBackend();
     // startImageRotation();
     //fetchCityT();
     //fetchImagesFromAPI();
     super.onInit();
   }
 
-  void fetchdatafrombackend() async {
+  void fetchDataFromBackend() async {
     try {
       final response = await homePageDataUseCase.execute();
-      if (response !=null) {
+      if (response != null) {
         HomepageData fetchedCityTour =
             response; // Assuming response is a list, take the first element
         formData.value = fetchedCityTour;
-        print(formData.value!.id);
+        if (kDebugMode) {
+          print(formData.value!.id);
+        }
       } else {
-        print('Request failed with status');
+        if (kDebugMode) {
+          print('Request failed with status');
+        }
       }
     } catch (e) {
       // Handle errors
-      print('Error fetching experiences: $e');
+      if (kDebugMode) {
+        print('Error fetching experiences: $e');
+      }
     }
   }
-
-
 
   void startImageRotation() {
     rotationTimer = Timer.periodic(const Duration(seconds: 3), (timer) {

@@ -800,6 +800,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  modular_ui:
+    dependency: "direct main"
+    description:
+      name: modular_ui
+      sha256: c7bfa2d509f6b55f45833ea5a46c7b40030c2a3c8fb26f5211eab440235ee99f
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.5"
   mouse_parallax:
     dependency: "direct main"
     description:
@@ -1566,5 +1574,5 @@ packages:
     source: hosted
     version: "2.1.1"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
+  dart: ">=3.2.3 <4.0.0"
   flutter: ">=3.16.0"

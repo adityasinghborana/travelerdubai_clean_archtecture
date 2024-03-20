@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/home',
-          page: () => Homescreen(),
+          page: () => HomeScreen(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),
         ),
