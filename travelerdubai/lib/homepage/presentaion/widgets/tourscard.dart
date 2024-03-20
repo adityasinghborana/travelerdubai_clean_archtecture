@@ -14,7 +14,7 @@ class TourCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Get.width * 0.90,
+      width: Get.width * 0.70,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: scrollController,
@@ -24,40 +24,15 @@ class TourCards extends StatelessWidget {
           return InkWell(
             onTap: () => _onTourCardTap(tour), // Use the onTap function
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
               child: SizedBox(
-                width: Get.width * 0.23,
+                width: Get.width * 0.14,
                 child: Card(
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildTourImage(
-                          tour), // Extracted method for the tour image
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20, bottom: 10, left: 20, right: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            _buildTourName(
-                                tour), // Extracted method for the tour name
-                            _buildShortDescription(
-                                tour), // Extracted method for the short description
-                            const SizedBox(height: 10),
-                            _buildRatingAndCity(
-                                tour), // Extracted method for rating and city
-                            _buildDuration(
-                                tour), // Extracted method for tour duration
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: _buildTourImage(tour),
                 ),
               ),
             ),
@@ -82,12 +57,16 @@ class TourCards extends StatelessWidget {
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),
       ),
-      child: Image.network(
-        "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-        fit: BoxFit.cover,
-        height: Get.height * .28,
-        width: Get.width * 0.28,
-      ),
+      child: Stack(children: [
+        Image.network(
+          "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+          fit: BoxFit.cover,
+          height: Get.height * .60,
+          // width: Get.width * 0.119,
+        ),
+        //_buildDuration(tour),
+        _buildRatingAndCity(tour)
+      ]),
     );
   }
 

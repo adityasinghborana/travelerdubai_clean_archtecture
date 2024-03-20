@@ -43,6 +43,8 @@ class Homepage extends StatelessWidget {
     scrollController4?.addListener(() {
       headerController.updateHeaderBackground(scrollController4!.offset);
     });
+    double? width = MediaQuery.of(context).size.width;
+
     return Stack(children: [
       SingleChildScrollView(
         controller: scrollController4,
@@ -51,19 +53,22 @@ class Homepage extends StatelessWidget {
             //This is the first section
             _buildHeroImageSection(context),
             //This contains form as well as the text Feature
-            _buildFormSection(context),
+            // _buildFormSection(context),
 
             // This contain heading as well as list
-            Obx(() => _buildSection(
-                "${homeController.formData.value?.heading2}",
-                scrollController1)),
-            Obx(() => _buildSection(
-                "${homeController.formData.value?.heading3}",
-                scrollController2)),
+            Obx(
+              () => _buildSection("${homeController.formData.value?.heading2}",
+                  scrollController1, width),
+            ),
+            Obx(
+              () => _buildSection("${homeController.formData.value?.heading3}",
+                  scrollController2, width),
+            ),
             const MyGridSectionWidget(),
-            Obx(() => _buildSection(
-                "${homeController.formData.value?.heading4}",
-                scrollController3)),
+            Obx(
+              () => _buildSection("${homeController.formData.value?.heading4}",
+                  scrollController3, width),
+            ),
             _buildHeading("Look By Cities"),
             SizedBox(
               height:
@@ -95,14 +100,26 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(String heading, ScrollController? controller) {
+  Widget _buildSection(
+      String heading, ScrollController? controller, double? width) {
     return Container(
       color: Colors.white,
-      child: Column(
+      child: Row(
         children: [
-          _buildHeading(heading),
-          _buildTourCards(controller),
-          const SizedBox(height: 40),
+          SizedBox(
+            width: width! * 0.10,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeading(heading),
+              _buildTourCards(controller),
+              const SizedBox(height: 40),
+            ],
+          ),
+          SizedBox(
+            width: width * 0.10,
+          ),
         ],
       ),
     );
@@ -110,7 +127,7 @@ class Homepage extends StatelessWidget {
 
   Widget _buildHeading(String heading) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 20, left: 60, right: 20, bottom: 20),
       child: Center(
         child: SelectableText(
           heading,
@@ -129,7 +146,8 @@ class Homepage extends StatelessWidget {
   Widget _buildTourCards(ScrollController? controller) {
     return Container(
       color: Colors.white,
-      height: Get.height * .85, // Adjust the height according to your needs
+      height: Get.height * .60,
+      width: Get.width * .80, // Adjust the height according to your needs
       child: Row(
         children: [
           IconButton(
