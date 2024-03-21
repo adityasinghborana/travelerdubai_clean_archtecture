@@ -85,14 +85,14 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget _buildFormSection(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
-      width: Get.width,
-      height: Get.height * .95,
-      child: const FormWidget(),
-    );
-  }
+  // Widget _buildFormSection(BuildContext context) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+  //     width: Get.width,
+  //     height: Get.height * .95,
+  //     child: const FormWidget(),
+  //   );
+  // }
 
   Widget _buildSection(
       String heading, ScrollController? controller, double? width) {
@@ -140,7 +140,7 @@ class Homepage extends StatelessWidget {
   Widget _buildTourCards(ScrollController? controller) {
     return Container(
       color: Colors.white,
-      height: Get.height * .60,
+      height: Get.height * .33,
       width: Get.width * .80, // Adjust the height according to your needs
       child: Stack(
         children: [
@@ -158,7 +158,7 @@ class Homepage extends StatelessWidget {
           }),
           Positioned(
             left: 0,
-            top: Get.height * .30,
+            top: Get.height * .15,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),
@@ -173,7 +173,7 @@ class Homepage extends StatelessWidget {
           ),
           Positioned(
             right: 10,
-            top: Get.height * .30,
+            top: Get.height * .15,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
 
@@ -67,45 +68,27 @@ class TourCards extends StatelessWidget {
           height: Get.height * .60,
           // width: Get.width * 0.119,
         ),
-        //_buildDuration(tour),
-        Positioned(
-          bottom: 10,
-          left: Get.width * .035,
-          child: _buildRatingAndCity(tour),
+
+        Container(
+          decoration: BoxDecoration(gradient: imageGradient),
+        ),
+        Align(
+        alignment: Alignment.bottomLeft,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _buildRatingAndCity(tour),
+          ),
         )
       ]),
     );
   }
 
-  Widget _buildTourName(Experiences tour) {
-    return Text(
-      _truncateDescription("${tour.tourName}", 4),
-      style: GoogleFonts.playfairDisplay(
-        fontSize: 26,
-        fontWeight: FontWeight.w700,
-      ),
-    );
-  }
 
-  Widget _buildShortDescription(Experiences tour) {
-    return Padding(
-      padding: const EdgeInsets.all(2),
-      child: Container(
-        child: Text(
-          _truncateDescription(tour.tourShortDescription, 13),
-          style: GoogleFonts.playfairDisplay(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-          textAlign: TextAlign.left,
-        ),
-      ),
-    );
-  }
+
 
   Widget _buildRatingAndCity(Experiences tour) {
-    return Text(
-      tour.cityName,
+    return SelectableText(
+      tour.tourName,
       style: GoogleFonts.playfairDisplay(
         fontSize: 16,
         fontWeight: FontWeight.w500,

@@ -90,7 +90,7 @@ class Header extends StatelessWidget {
               fontSize: 20,
               color: headerController.isHoveredMap[title] ?? false
                   ? colorPrimary
-                  : Colors.black,
+                  : headerController.navItemColor.value,
             ),
           ),
         ),

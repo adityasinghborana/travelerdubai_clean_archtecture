@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SizedBox(
         width: Get.width,
-        height: Get.height,
+        height: MediaQuery.of(context).size.height,
         child: Homepage(),
       ),
     );
