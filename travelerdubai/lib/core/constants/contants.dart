@@ -72,12 +72,17 @@ final LinearGradient imageGradient = LinearGradient(
 const colorPrimary = Color(0xFFDF46DC);
 const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
+
+
+
+const colorTextgrey = Color(0xff808080);
 const colorwhite = Color(0xFFffffff);
 const colorblack = Color(0xFF111B19);
 const colorDarkblack = Color(0xFF000000);
 const colorgreydark = Color(0XFF444444);
 const colorblue = Color(0XFF2659C3);
 const colorgreenishblack = Color(0xff112211);
+const colorDarkBlue = Color(0xff141A2F);
 
 // others
 const String baseurl="http://69.48.163.45:3000";
