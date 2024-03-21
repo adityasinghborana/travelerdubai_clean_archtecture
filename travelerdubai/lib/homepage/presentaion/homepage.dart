@@ -56,19 +56,19 @@ class Homepage extends StatelessWidget {
 
             // This contain heading as well as list
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading2}",
+              () => _buildSection("${homeController.formData.value?.heading1}",
                   scrollController1, width),
             ),
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading3}",
+              () => _buildSection("${homeController.formData.value?.heading2}",
                   scrollController2, width),
             ),
             // const MyGridSectionWidget(),
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading4}",
+              () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController3, width),
             ),
-            advertisement(),
+            advertisement(subHeadingfontsize: 26.14, Headingfontsize: 54,),
             buildFooter(),
           ],
         ),
@@ -81,28 +81,20 @@ class Homepage extends StatelessWidget {
     return Container(
       height: Get.height * .85,
       color: Theme.of(context).colorScheme.secondary,
-      child: HeroImageWidget(),
+      child: HeroImageWidget(titlefontsize: 80,),
     );
   }
-
-  // Widget _buildFormSection(BuildContext context) {
-  //   return Container(
-  //     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
-  //     width: Get.width,
-  //     height: Get.height * .95,
-  //     child: const FormWidget(),
-  //   );
-  // }
 
   Widget _buildSection(
       String heading, ScrollController? controller, double? width) {
     return Container(
+
+      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
       color: Colors.white,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: width! * 0.10,
-          ),
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -111,9 +103,7 @@ class Homepage extends StatelessWidget {
               const SizedBox(height: 40),
             ],
           ),
-          SizedBox(
-            width: width * 0.10,
-          ),
+
         ],
       ),
     );
@@ -121,7 +111,7 @@ class Homepage extends StatelessWidget {
 
   Widget _buildHeading(String heading) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 60, right: 20, bottom: 20),
+      padding:  EdgeInsets.only(top: 20, left: 60, right: 20, bottom: Get.height*0.038),
       child: Center(
         child: SelectableText(
           heading,
@@ -139,9 +129,12 @@ class Homepage extends StatelessWidget {
 
   Widget _buildTourCards(ScrollController? controller) {
     return Container(
+
       color: Colors.white,
-      height: Get.height * .33,
-      width: Get.width * .80, // Adjust the height according to your needs
+      height: Get.height * .5,
+       width: Get.width *0.9,
+
+       // Adjust the height according to your needs
       child: Stack(
         children: [
           Obx(() {
@@ -151,14 +144,15 @@ class Homepage extends StatelessWidget {
               );
             } else {
               return TourCards(
+                cardwidth: Get.width *0.18,
                 tours: tourlistController.tours,
                 scrollController: controller,
               );
             }
           }),
-          Positioned(
-            left: 0,
-            top: Get.height * .15,
+
+          Align(
+          alignment: Alignment.centerLeft,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),
@@ -171,9 +165,8 @@ class Homepage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            right: 10,
-            top: Get.height * .15,
+          Align(
+         alignment: Alignment.centerRight,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),

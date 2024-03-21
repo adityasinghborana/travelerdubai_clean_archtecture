@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget advertisement() {
+Widget advertisement({required double subHeadingfontsize, required double Headingfontsize}) {
+
+
   return Container(
     height: Get.height * .80,
     width: Get.width,
@@ -27,7 +29,7 @@ Widget advertisement() {
                 'Your all-in-one travel app.',
                 style: GoogleFonts.outfit(
                   fontWeight: FontWeight.w700,
-                  fontSize: 53.14,
+                  fontSize: Headingfontsize,
                   height: 1.25,
                 ),
               ),
@@ -40,7 +42,7 @@ Widget advertisement() {
                   ' exclusive deals, and 30% more Trip Coins only on the app!',
                   style: GoogleFonts.outfit(
                     fontWeight: FontWeight.w400,
-                    fontSize: 26.14,
+                    fontSize: subHeadingfontsize,
                     height: 1.25,
                   ),
                   maxLines: 4,

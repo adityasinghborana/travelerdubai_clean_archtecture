@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 
 Widget buildFooter() {
   return Container(
-    height: Get.height * 0.95,
-    padding: const EdgeInsets.symmetric(vertical: 20.0),
+    padding: const EdgeInsets.only(top: 20.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // _buildMembershipPromo(),
+
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 100.0),
-          color: Colors.amber,
+          padding: const EdgeInsets.symmetric(vertical: 80.0),
+          color: colorDarkBlue,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 0.05 * Get.width),
             child: Row(
@@ -19,13 +20,13 @@ Widget buildFooter() {
               children: [
                 _buildLogoAndDescription(),
                 _buildNavigationSections(),
-                _buildContactInfo(),
+                _buildPolicySections(),
+
                 _buildNewsletterSection(),
               ],
             ),
           ),
         ),
-        const SizedBox(height: 20),
         _buildCopyrightAndPaymentMethods(),
       ],
     ),
@@ -44,157 +45,206 @@ Widget _buildLogoAndDescription() {
         ),
         const SizedBox(height: 16),
         const Text(
-          "There are many variations of passages of Lorem the Ipsum available but it is the majority of suffered that a alteration in that some dummy text.",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+          "WE ACCEPT",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+        ),
+        Image.asset(
+          "./assets/cardimage.png",
+          width: 200,
+          height: 40,
         ),
       ],
     ),
   );
 }
 
-// Widget _buildMembershipPromo() {
-//   return Stack(
-//     alignment: Alignment.center,
-//     children: [
-//       Image.network("https://source.unsplash.com/random/?bali",
-//           width: Get.width * .7, height: 361, fit: BoxFit.cover),
-//       Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           const Text("Become a Pro Travelerdubai Member?",
-//               style: TextStyle(
-//                   fontSize: 48,
-//                   fontWeight: FontWeight.w600,
-//                   color: Colors.white)),
-//           const SizedBox(height: 10),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               ElevatedButton(onPressed: () {}, child: const Text("Sign In")),
-//               const SizedBox(width: 10),
-//               ElevatedButton(onPressed: () {}, child: const Text("Register")),
-//             ],
-//           ),
-//         ],
-//       ),
-//     ],
-//   );
-// }
 
 Widget _buildNavigationSections() {
-  return const Flexible(
+  return  Flexible(
     flex: 2,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("About Us",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+
+        TextButton(
+          onPressed: () {
+            // Handle Home button press
+          },
+          child: Text(
+            "Home",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
+        SizedBox(height: 4),
+        TextButton(
+          onPressed: () {
+            // Handle About Us button press
+          },
+          child: Text(
+            "About Us",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
         SizedBox(height: 8),
-        Text("Home",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+        TextButton(
+          onPressed: () {
+            // Handle Experiences button press
+          },
+          child: Text(
+            "Experiences",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
         SizedBox(height: 4),
-        Text("Experiences",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+        TextButton(
+          onPressed: () {
+            // Handle Tour List button press
+          },
+          child: Text(
+            "Tour List",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
         SizedBox(height: 4),
-        Text("Tour List",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+        TextButton(
+          onPressed: () {
+            // Handle Event List button press
+          },
+          child: Text(
+            "Event List",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
         SizedBox(height: 4),
-        Text("Event List",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-        SizedBox(height: 4),
-        Text("Contact Us",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+        TextButton(
+          onPressed: () {
+            // Handle Contact Us button press
+          },
+          child: Text(
+            "Contact Us",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
       ],
     ),
   );
 }
 
-Widget _buildContactInfo() {
-  return const Flexible(
-    flex: 1,
+Widget _buildPolicySections() {
+  return  Flexible(
+    flex: 2,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Contact Info",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+
+        TextButton(
+          onPressed: () {
+            // Handle Home button press
+          },
+          child: Text(
+            "Privacy Policy",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
+        SizedBox(height: 4),
+        TextButton(
+          onPressed: () {
+            // Handle About Us button press
+          },
+          child: Text(
+            "Terms & Condition",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
+        ),
         SizedBox(height: 8),
-        Text("455 West Orchard Street Kings Mountain, NC 280867",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-        SizedBox(height: 4),
-        Row(
-          children: [
-            Text("",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
-            SizedBox(width: 8),
-            Text("+088 (006) 992-99-10",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-          ],
+        TextButton(
+          onPressed: () {
+            // Handle Experiences button press
+          },
+          child: Text(
+            "Refund Policy ",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
         ),
         SizedBox(height: 4),
-        Row(
-          children: [
-            Text("",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
-            SizedBox(width: 8),
-            Text("example@gmail.com",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-          ],
+        TextButton(
+          onPressed: () {
+            // Handle Tour List button press
+          },
+          child: Text(
+            "Cancelation Policy",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),
         ),
+        SizedBox(height: 4),
+
       ],
     ),
   );
 }
 
 Widget _buildNewsletterSection() {
-  return Expanded(
+  return  Expanded(
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Newsletter",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-        const SizedBox(height: 8),
-        const Text(
-          "Passages of Lorem the Ipsum available but it is the majority of suffered that a alteration",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
+       const  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+         Icon(FontAwesomeIcons.facebookF,color: colorTextgrey,),
+         Icon(FontAwesomeIcons.instagram,color: colorTextgrey),
+         Icon(FontAwesomeIcons.x,color: colorTextgrey),
+         Icon(FontAwesomeIcons.youtube,color: colorTextgrey),
+          ],
         ),
-        const SizedBox(height: 10),
-        const TextField(
-          decoration: InputDecoration(
-            hintText: 'Enter your email',
-            border: OutlineInputBorder(),
+        SizedBox(height: 8),
+       Align(
+         alignment: Alignment.centerLeft,
+         child: const Text(
+            "Partner Signup/Login",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: colorTextgrey),
+
+            overflow: TextOverflow.ellipsis,
           ),
-        ),
-        const SizedBox(height: 10),
-        ElevatedButton(onPressed: () {}, child: const Text("Subscribe Now")),
+       ),
+        SizedBox(height: 10),
+  TextButton(
+  onPressed: () {
+  // Handle Contact Us button press
+  },
+  child: Text(
+  "Partner Login",
+  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+  ),),
+        TextButton(
+          onPressed: () {
+            // Handle Contact Us button press
+          },
+          child: Text(
+            "Partner SignUp",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+          ),)
+
       ],
     ),
   );
 }
 
 Widget _buildCopyrightAndPaymentMethods() {
-  return const Padding(
-    padding: EdgeInsets.symmetric(vertical: 10.0),
-    child: Padding(
+  return  Container(
+    color: colorDarkBlue,
+    padding: EdgeInsets.symmetric(vertical: 20.0),
+    child:Padding(
       padding: EdgeInsets.symmetric(horizontal: 50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("© 2023 Travelerdubai All Rights Reserved.",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-          // Add a placeholder for payment methods icons or other widgets if you plan to include them
-          Row(
-            children: [
-              Icon(Icons.credit_card,
-                  size: 24), // Placeholder for a payment method icon
-              SizedBox(width: 10),
-              Icon(Icons.payment,
-                  size: 24), // Another placeholder for a payment method icon
+          Text("© 2024 Travelerdubai All Rights Reserved.",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey)),
+
             ],
           ),
-        ],
       ),
-    ),
-  );
+    );
+
 }

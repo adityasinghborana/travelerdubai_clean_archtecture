@@ -9,39 +9,36 @@ class TourCards extends StatelessWidget {
   final TourlistController tourlistController = Get.find();
   final ScrollController? scrollController;
   final List<Experiences> tours;
+  final double cardwidth ;
 
-  TourCards({super.key, required this.tours, this.scrollController});
+  TourCards({super.key, required this.tours, this.scrollController , required this.cardwidth  });
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: Get.width * 0.80,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: scrollController,
-          itemCount: tourlistController.tours.length,
-          itemBuilder: (context, index) {
-            final tour = tourlistController.tours[index];
-            return InkWell(
-              onTap: () => _onTourCardTap(tour), // Use the onTap function
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: SizedBox(
-                  width: Get.width * 0.14,
-                  child: Card(
-                    elevation: 6,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: _buildTourImage(tour),
-                  ),
+  Widget build(BuildContext context ) {
+    return Container(
+
+      width: Get.width ,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        controller: scrollController,
+        itemCount: tourlistController.tours.length,
+        itemBuilder: (context, index) {
+          final tour = tourlistController.tours[index];
+          return InkWell(
+            onTap: () => _onTourCardTap(tour), // Use the onTap function
+            child: SizedBox(
+
+              width: cardwidth,
+              child: Card(
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
                 ),
+                child: _buildTourImage(tour),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -84,8 +81,6 @@ class TourCards extends StatelessWidget {
   }
 
 
-
-
   Widget _buildRatingAndCity(Experiences tour) {
     return SelectableText(
       tour.tourName,
@@ -97,28 +92,5 @@ class TourCards extends StatelessWidget {
     );
   }
 
-  Widget _buildDuration(Experiences tour) {
-    return Container(
-      child: Row(
-        children: [
-          const Icon(Icons.timer_rounded),
-          Text(
-            " ${tour.duration} ",
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
-  String _truncateDescription(String description, int maxWords) {
-    List<String> words = description.split(' ');
-    if (words.length <= maxWords) {
-      return description;
-    }
-    return '${words.take(maxWords).join(' ')}...';
-  }
 }
