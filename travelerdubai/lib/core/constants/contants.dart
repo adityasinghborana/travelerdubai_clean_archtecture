@@ -56,6 +56,17 @@ final LinearGradient backgroundgradient = LinearGradient(
   ],
   transform: GradientRotation(180 * 3.14159265359 / 180), // Converting degrees to radians
 );
+final LinearGradient imageGradient = LinearGradient(
+  begin: Alignment.bottomCenter,
+  end: Alignment.topCenter,
+  colors: [
+    Color.fromRGBO(0, 0, 0, 0.75),
+    Colors.transparent,
+
+  ],
+  stops: [0.1,0.5],
+   // Converting degrees to radians
+);
 
 
 const colorPrimary = Color(0xFFDF46DC);
@@ -63,6 +74,7 @@ const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
 const colorwhite = Color(0xFFffffff);
 const colorblack = Color(0xFF111B19);
+const colorDarkblack = Color(0xFF000000);
 const colorgreydark = Color(0XFF444444);
 const colorblue = Color(0XFF2659C3);
 const colorgreenishblack = Color(0xff112211);

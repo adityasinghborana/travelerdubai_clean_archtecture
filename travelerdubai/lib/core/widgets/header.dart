@@ -35,6 +35,9 @@ class Header extends StatelessWidget {
                     width: 160,
                     fit: BoxFit.contain,
                   ),
+                  SizedBox(
+                    width: Get.width * 0.10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -43,9 +46,9 @@ class Header extends StatelessWidget {
                       _navItem("Experiences", '/experiences'),
                       _navItem("Events", '/events'),
                       _navItem("Contact Us", '/contactus'),
-                      const SizedBox(
-                        width: 200,
-                      ),
+                      // const SizedBox(
+                      //   width: 200,
+                      // ),
                       GetBuilder<HeaderController>(
                         builder: (controller) {
                           if (controller.loggedIn.isFalse) {
@@ -87,7 +90,7 @@ class Header extends StatelessWidget {
               fontSize: 20,
               color: headerController.isHoveredMap[title] ?? false
                   ? colorPrimary
-                  : Colors.black,
+                  : headerController.navItemColor.value,
             ),
           ),
         ),

@@ -1,9 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 
 class HeaderController extends GetxController {
   final RxString userid = ''.obs;
+  Rx<Color> navItemColor = colorwhite.obs;
   final RxInt cartId = 0.obs; //need to chang for cart id
   final RxBool loggedIn = false.obs;
   final RxMap<String, bool> isHoveredMap = <String, bool>{}.obs;
@@ -25,8 +29,10 @@ class HeaderController extends GetxController {
 
   void updateHeaderBackground(double scrollOffset) {
     if (scrollOffset > 0) {
+      navItemColor.value = colorgreenishblack;
       isHeaderTransparent.value = false; // Set to false when scrolled
     } else {
+      navItemColor.value = colorwhite;
       isHeaderTransparent.value = true; // Set to true when at the top
     }
   }

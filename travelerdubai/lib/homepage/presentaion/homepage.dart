@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travelerdubai/Components/Advertisement.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
@@ -9,9 +10,7 @@ import 'package:travelerdubai/experiences/repository/Experiences_repository.dart
 import 'package:travelerdubai/homepage/mygridscetio_controller.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/formsection.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/gridsection.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -64,17 +63,12 @@ class Homepage extends StatelessWidget {
               () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController2, width),
             ),
-            const MyGridSectionWidget(),
+            // const MyGridSectionWidget(),
             Obx(
               () => _buildSection("${homeController.formData.value?.heading4}",
                   scrollController3, width),
             ),
-            _buildHeading("Look By Cities"),
-            SizedBox(
-              height:
-                  Get.height * .3, // Adjust the height according to your needs
-              child: CityList(),
-            ),
+            advertisement(),
             buildFooter(),
           ],
         ),
@@ -91,14 +85,14 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget _buildFormSection(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
-      width: Get.width,
-      height: Get.height * .95,
-      child: const FormWidget(),
-    );
-  }
+  // Widget _buildFormSection(BuildContext context) {
+  //   return Container(
+  //     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+  //     width: Get.width,
+  //     height: Get.height * .95,
+  //     child: const FormWidget(),
+  //   );
+  // }
 
   Widget _buildSection(
       String heading, ScrollController? controller, double? width) {
@@ -146,16 +140,10 @@ class Homepage extends StatelessWidget {
   Widget _buildTourCards(ScrollController? controller) {
     return Container(
       color: Colors.white,
-      height: Get.height * .60,
+      height: Get.height * .33,
       width: Get.width * .80, // Adjust the height according to your needs
-      child: Row(
+      child: Stack(
         children: [
-          IconButton(
-            onPressed: () {
-              _scrollToPrevious(controller);
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
           Obx(() {
             if (tourlistController.tours.isEmpty) {
               return const CircularProgressIndicator(
@@ -168,11 +156,37 @@ class Homepage extends StatelessWidget {
               );
             }
           }),
-          IconButton(
-            onPressed: () {
-              _scrollToNext(controller);
-            },
-            icon: const Icon(Icons.arrow_forward),
+          Positioned(
+            left: 0,
+            top: Get.height * .15,
+            child: Container(
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: Colors.black),
+              child: IconButton(
+                onPressed: () {
+                  _scrollToPrevious(controller);
+                },
+                color: Colors.white,
+                icon: const Icon(Icons.arrow_back),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 10,
+            top: Get.height * .15,
+            child: Container(
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle, color: Colors.black),
+              child: IconButton(
+                onPressed: () {
+                  _scrollToNext(controller);
+                },
+                color: Colors.white,
+                icon: const Icon(
+                  Icons.arrow_forward,
+                ),
+              ),
+            ),
           ),
         ],
       ),
