@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travelerdubai/Components/advertisement_mobile.dart';
-import 'package:travelerdubai/Components/bottom_nav.dart';
-import 'package:travelerdubai/auth/presentation/screens/signup.dart';
+import 'package:travelerdubai/core/widgets/footer.dart';
+//import 'package:travelerdubai/Components/bottom_nav.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/mygridscetio_controller.dart';
@@ -16,6 +14,7 @@ import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
+
 import '../../Components/Advertisement.dart';
 import '../../core/constants/contants.dart';
 import '../../core/controller/headercontroller.dart';
@@ -63,31 +62,30 @@ class HomePageMobile extends StatelessWidget {
 
             // This contain heading as well as list
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading2}",
-                   width),
+              () => _buildSection(
+                  "${homeController.formData.value?.heading2}", width),
             ),
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading3}",
-                   width),
+              () => _buildSection(
+                  "${homeController.formData.value?.heading3}", width),
             ),
             // const MyGridSectionWidget(),
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading4}",
-                   width),
+              () => _buildSection(
+                  "${homeController.formData.value?.heading4}", width),
             ),
-            advertisementMobile(subHeadingfontsize: 18, Headingfontsize: 28),
+            advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: buildFooter(),
     );
   }
 
-  Widget _buildSection(
-      String heading,  double? width) {
+  Widget _buildSection(String heading, double? width) {
     return Container(
-       margin:EdgeInsets.symmetric(vertical: Get.height*0.015,horizontal: Get.width*0.01),
-
+      margin: EdgeInsets.symmetric(
+          vertical: Get.height * 0.015, horizontal: Get.width * 0.01),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,10 +120,10 @@ class HomePageMobile extends StatelessWidget {
 
   Widget _buildTourCards() {
     return Container(
-      margin:EdgeInsets.symmetric(vertical: Get.height*0.015,horizontal: Get.width*0.01) ,
+      margin: EdgeInsets.symmetric(
+          vertical: Get.height * 0.015, horizontal: Get.width * 0.01),
       color: Colors.white,
       height: Get.height * .3,
-
 
       // Adjust the height according to your needs
       child: Stack(
@@ -139,7 +137,6 @@ class HomePageMobile extends StatelessWidget {
               return TourCards(
                 cardwidth: Get.width * .4,
                 tours: tourlistController.tours,
-
               );
             }
           }),
