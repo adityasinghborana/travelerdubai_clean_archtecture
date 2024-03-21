@@ -4,32 +4,27 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 
 Widget buildFooter() {
-  return Container(
-    padding: const EdgeInsets.only(top: 20.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 80.0),
-          color: colorDarkBlue,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0.05 * Get.width),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildLogoAndDescription(),
-                _buildNavigationSections(),
-                _buildPolicySections(),
-
-                _buildNewsletterSection(),
-              ],
-            ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 80.0),
+        color: colorDarkBlue,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 0.025 * Get.width),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildLogoAndDescription(),
+              _buildNavigationSections(),
+              _buildPolicySections(),
+              _buildNewsletterSection(),
+            ],
           ),
         ),
-        _buildCopyrightAndPaymentMethods(),
-      ],
-    ),
+      ),
+      _buildCopyrightAndPaymentMethods(),
+    ],
   );
 }
 
@@ -40,89 +35,170 @@ Widget _buildLogoAndDescription() {
       children: [
         Image.asset(
           "./assets/logo.png",
-          width: 200,
-          height: 40,
+          width: Get.width * .15,
+          height: Get.width * .025,
         ),
         const SizedBox(height: 16),
-        const Text(
-          "WE ACCEPT",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            "WE ACCEPT",
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
+          ),
         ),
-        Image.asset(
-          "./assets/cardimage.png",
-          width: 200,
-          height: 40,
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/discover.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/formkit_visa.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/formkit_gpay.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/amex.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/mastercard.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/paypal.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                "../assets/visa.png",
+                width: Get.width * .025,
+                height: Get.width * .025,
+              ),
+            ),
+          ],
         ),
       ],
     ),
   );
 }
 
-
 Widget _buildNavigationSections() {
-  return  Flexible(
+  return Flexible(
     flex: 2,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         TextButton(
           onPressed: () {
             // Handle Home button press
           },
-          child: Text(
+          child: const Text(
             "Home",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
-        TextButton(
-          onPressed: () {
-            // Handle About Us button press
-          },
-          child: Text(
-            "About Us",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
-          ),
-        ),
-        SizedBox(height: 8),
+        const SizedBox(height: 4),
         TextButton(
           onPressed: () {
             // Handle Experiences button press
           },
-          child: Text(
+          child: const Text(
             "Experiences",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 8),
+        TextButton(
+          onPressed: () {
+            // Handle About Us button press
+          },
+          child: const Text(
+            "About Us",
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
+          ),
+        ),
+        const SizedBox(height: 4),
         TextButton(
           onPressed: () {
             // Handle Tour List button press
           },
-          child: Text(
+          child: const Text(
             "Tour List",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         TextButton(
           onPressed: () {
             // Handle Event List button press
           },
-          child: Text(
+          child: const Text(
             "Event List",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         TextButton(
           onPressed: () {
             // Handle Contact Us button press
           },
-          child: Text(
+          child: const Text(
             "Contact Us",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
       ],
@@ -131,19 +207,21 @@ Widget _buildNavigationSections() {
 }
 
 Widget _buildPolicySections() {
-  return  Flexible(
+  return Flexible(
     flex: 2,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         TextButton(
           onPressed: () {
             // Handle Home button press
           },
           child: Text(
             "Privacy Policy",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
         SizedBox(height: 4),
@@ -153,7 +231,10 @@ Widget _buildPolicySections() {
           },
           child: Text(
             "Terms & Condition",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
         SizedBox(height: 8),
@@ -163,7 +244,10 @@ Widget _buildPolicySections() {
           },
           child: Text(
             "Refund Policy ",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
         SizedBox(height: 4),
@@ -173,78 +257,94 @@ Widget _buildPolicySections() {
           },
           child: Text(
             "Cancelation Policy",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
           ),
         ),
         SizedBox(height: 4),
-
       ],
     ),
   );
 }
 
 Widget _buildNewsletterSection() {
-  return  Expanded(
+  return Expanded(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       const  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-         Icon(FontAwesomeIcons.facebookF,color: colorTextgrey,),
-         Icon(FontAwesomeIcons.instagram,color: colorTextgrey),
-         Icon(FontAwesomeIcons.x,color: colorTextgrey),
-         Icon(FontAwesomeIcons.youtube,color: colorTextgrey),
+            Icon(
+              FontAwesomeIcons.facebookF,
+              color: colorTextgrey,
+            ),
+            Icon(FontAwesomeIcons.instagram, color: colorTextgrey),
+            Icon(FontAwesomeIcons.x, color: colorTextgrey),
+            Icon(FontAwesomeIcons.youtube, color: colorTextgrey),
           ],
         ),
         SizedBox(height: 8),
-       Align(
-         alignment: Alignment.centerLeft,
-         child: const Text(
+        Align(
+          alignment: Alignment.centerLeft,
+          child: const Text(
             "Partner Signup/Login",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: colorTextgrey),
-
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
             overflow: TextOverflow.ellipsis,
           ),
-       ),
+        ),
         SizedBox(height: 10),
-  TextButton(
-  onPressed: () {
-  // Handle Contact Us button press
-  },
-  child: Text(
-  "Partner Login",
-  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
-  ),),
+        TextButton(
+          onPressed: () {
+            // Handle Contact Us button press
+          },
+          child: Text(
+            "Partner Login",
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
+          ),
+        ),
         TextButton(
           onPressed: () {
             // Handle Contact Us button press
           },
           child: Text(
             "Partner SignUp",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey),
-          ),)
-
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: colorTextgrey),
+          ),
+        )
       ],
     ),
   );
 }
 
 Widget _buildCopyrightAndPaymentMethods() {
-  return  Container(
+  return Container(
     color: colorDarkBlue,
     padding: EdgeInsets.symmetric(vertical: 20.0),
-    child:Padding(
+    child: Padding(
       padding: EdgeInsets.symmetric(horizontal: 50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text("© 2024 Travelerdubai All Rights Reserved.",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400,color: colorTextgrey)),
-
-            ],
-          ),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: colorTextgrey)),
+        ],
       ),
-    );
-
+    ),
+  );
 }
