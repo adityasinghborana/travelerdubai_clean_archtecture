@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/AboutPage/datalayer/repository/aboutus_repositiory.dart';
 import 'package:travelerdubai/AboutPage/datalayer/service/Aboutus_remote.dart';
 import 'package:travelerdubai/AboutPage/datalayer/usecase/Aboutus_usecase.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/about_us_controller.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 class AboutUsPage extends StatelessWidget {
   final AboutUsController controller = Get.put(
@@ -58,7 +58,7 @@ class AboutUsPage extends StatelessWidget {
                   invert: true,
                 ),
               ),
-              RotatingImageBanner(),
+              const RotatingImageBanner(),
             ],
           ),
         );

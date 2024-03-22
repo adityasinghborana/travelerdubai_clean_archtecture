@@ -9,15 +9,18 @@ class TourCards extends StatelessWidget {
   final TourlistController tourlistController = Get.find();
   final ScrollController? scrollController;
   final List<Experiences> tours;
-  final double cardwidth ;
+  final double cardwidth;
 
-  TourCards({super.key, required this.tours, this.scrollController , required this.cardwidth  });
+  TourCards(
+      {super.key,
+      required this.tours,
+      this.scrollController,
+      required this.cardwidth});
 
   @override
-  Widget build(BuildContext context ) {
-    return Container(
-
-      width: Get.width ,
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: Get.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: scrollController,
@@ -27,7 +30,6 @@ class TourCards extends StatelessWidget {
           return InkWell(
             onTap: () => _onTourCardTap(tour), // Use the onTap function
             child: SizedBox(
-
               width: cardwidth,
               child: Card(
                 elevation: 6,
@@ -65,12 +67,11 @@ class TourCards extends StatelessWidget {
           height: Get.height * .60,
           // width: Get.width * 0.119,
         ),
-
         Container(
           decoration: BoxDecoration(gradient: imageGradient),
         ),
         Align(
-        alignment: Alignment.bottomLeft,
+          alignment: Alignment.bottomLeft,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: _buildRatingAndCity(tour),
@@ -79,7 +80,6 @@ class TourCards extends StatelessWidget {
       ]),
     );
   }
-
 
   Widget _buildRatingAndCity(Experiences tour) {
     return SelectableText(
@@ -91,6 +91,4 @@ class TourCards extends StatelessWidget {
       ),
     );
   }
-
-
 }

@@ -10,7 +10,6 @@ import 'package:travelerdubai/experiences/repository/Experiences_repository.dart
 import 'package:travelerdubai/homepage/mygridscetio_controller.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/formsection.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -68,7 +67,10 @@ class Homepage extends StatelessWidget {
               () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController3, width),
             ),
-            advertisement(subHeadingfontsize: 26.14, Headingfontsize: 54,),
+            advertisement(
+              subHeadingfontsize: 26.14,
+              Headingfontsize: 54,
+            ),
             buildFooter(),
           ],
         ),
@@ -81,20 +83,20 @@ class Homepage extends StatelessWidget {
     return Container(
       height: Get.height * .85,
       color: Theme.of(context).colorScheme.secondary,
-      child: HeroImageWidget(titlefontsize: 80,),
+      child: HeroImageWidget(
+        titlefontsize: 80,
+      ),
     );
   }
 
   Widget _buildSection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-
-      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -103,7 +105,6 @@ class Homepage extends StatelessWidget {
               const SizedBox(height: 40),
             ],
           ),
-
         ],
       ),
     );
@@ -111,7 +112,8 @@ class Homepage extends StatelessWidget {
 
   Widget _buildHeading(String heading) {
     return Padding(
-      padding:  EdgeInsets.only(top: 20, left: 60, right: 20, bottom: Get.height*0.038),
+      padding: EdgeInsets.only(
+          top: 20, left: 60, right: 20, bottom: Get.height * 0.038),
       child: Center(
         child: SelectableText(
           heading,
@@ -129,12 +131,11 @@ class Homepage extends StatelessWidget {
 
   Widget _buildTourCards(ScrollController? controller) {
     return Container(
-
       color: Colors.white,
       height: Get.height * .5,
-       width: Get.width *0.9,
+      width: Get.width * 0.9,
 
-       // Adjust the height according to your needs
+      // Adjust the height according to your needs
       child: Stack(
         children: [
           Obx(() {
@@ -144,15 +145,14 @@ class Homepage extends StatelessWidget {
               );
             } else {
               return TourCards(
-                cardwidth: Get.width *0.18,
+                cardwidth: Get.width * 0.18,
                 tours: tourlistController.tours,
                 scrollController: controller,
               );
             }
           }),
-
           Align(
-          alignment: Alignment.centerLeft,
+            alignment: Alignment.centerLeft,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),
@@ -166,7 +166,7 @@ class Homepage extends StatelessWidget {
             ),
           ),
           Align(
-         alignment: Alignment.centerRight,
+            alignment: Alignment.centerRight,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),

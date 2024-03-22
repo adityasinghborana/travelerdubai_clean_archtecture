@@ -2,9 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../tourdetails/tourdetail_data_layer/model/tour_model.dart';
 
-
-
-
 part 'experience_response_model.g.dart';
 
 @JsonSerializable()

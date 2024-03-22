@@ -41,11 +41,13 @@ class Header extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _navItem("Home", '/home'),
-                      _navItem("About Us", '/Aboutus'),
-                      _navItem("Experiences", '/experiences'),
-                      _navItem("Events", '/events'),
-                      _navItem("Contact Us", '/contactus'),
+                      _navItem("Home", '/home', null),
+                      _navItem("About Us", '/Aboutus', null),
+                      _navItem("Experiences", '/experiences', () {
+                        headerController.isHeaderTransparent.value = true;
+                      }),
+                      _navItem("Events", '/events', null),
+                      _navItem("Contact Us", '/contactus', null),
                       // const SizedBox(
                       //   width: 200,
                       // ),
@@ -69,7 +71,11 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _navItem(String title, String route) {
+  Widget _navItem(
+    String title,
+    String route,
+    void Function()? onClick,
+  ) {
     headerController.isHoveredMap.putIfAbsent(title, () => false);
 
     return MouseRegion(
@@ -81,7 +87,10 @@ class Header extends StatelessWidget {
       },
       child: InkWell(
         hoverColor: Colors.transparent,
-        onTap: () => Get.toNamed(route),
+        onTap: () {
+          if (onClick != null) onClick();
+          Get.toNamed(route);
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(
