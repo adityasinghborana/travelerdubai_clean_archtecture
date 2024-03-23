@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
-//import 'package:travelerdubai/Components/bottom_nav.dart';
+import 'package:travelerdubai/Components/bottom_nav.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-import 'package:travelerdubai/homepage/mygridscetio_controller.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
@@ -23,7 +22,7 @@ import '../../experiences/remote/experiences_remote_service.dart';
 class HomePageMobile extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
-  final MyGridSectionController controller = Get.put(MyGridSectionController());
+
   final TourlistController tourlistController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
