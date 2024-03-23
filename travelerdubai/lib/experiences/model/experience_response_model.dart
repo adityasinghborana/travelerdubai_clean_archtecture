@@ -38,7 +38,7 @@ class Experiences {
     this.isvisible,
     this.isvisibleHome,
     required this.isvisible,
-  required this.isvisiblePopularTours,
+    required this.isvisiblePopularTours,
     required this.isvisibleReccomendedTours,
     required this.countryId,
     required this.countryName,
