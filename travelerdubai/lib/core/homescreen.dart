@@ -14,13 +14,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, sizingInformation) {
-          if (sizingInformation.deviceScreenType == DeviceScreenType.desktop ||
-              sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
+          if (sizingInformation.deviceScreenType == DeviceScreenType.desktop ) {
             return Homepage();
           }
 
 
-          if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
+          if (sizingInformation.deviceScreenType == DeviceScreenType.mobile||
+          sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
             return HomePageMobile();
           } else {
             return Homepage();

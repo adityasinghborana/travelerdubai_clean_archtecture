@@ -16,8 +16,7 @@ class TourCards extends StatelessWidget {
   @override
   Widget build(BuildContext context ) {
     return Container(
-
-      width: Get.width ,
+      width: Get.width *.95 ,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: scrollController,

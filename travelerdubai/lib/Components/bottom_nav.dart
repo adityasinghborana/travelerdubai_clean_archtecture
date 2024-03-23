@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 
 import '../auth/presentation/screens/signup.dart';
 
@@ -10,6 +11,9 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      elevation: 5,
+      color: colorwhite,
+      height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
