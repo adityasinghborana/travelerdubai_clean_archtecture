@@ -10,6 +10,8 @@ class Experiences {
   final int tourId;
   final bool? isvisible;
   final bool? isvisibleHome;
+  final bool? isvisiblePopularTours;
+  final bool? isvisibleReccomendedTours;
   final int countryId;
   final String countryName;
   final int cityId;
@@ -36,6 +38,8 @@ class Experiences {
     required this.tourId,
     this.isvisible,
     this.isvisibleHome,
+   this.isvisiblePopularTours,
+this.isvisibleReccomendedTours,
     required this.countryId,
     required this.countryName,
     required this.cityId,

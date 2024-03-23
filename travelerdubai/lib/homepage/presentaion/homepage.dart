@@ -23,7 +23,7 @@ import '../../experiences/remote/experiences_remote_service.dart';
 class Homepage extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
-  final TourlistController tourlistController = Get.put(TourlistController(
+  final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
   final PageController? pageController = Get.put(PageController());
@@ -54,8 +54,8 @@ class Homepage extends StatelessWidget {
 
             // This contain heading as well as list
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading1}",
-                  scrollController1, width),
+                  () => _buildSection("${homeController.formData.value?.heading1}",
+                  scrollController1, width, 'isRecommended'),
             ),
             // This contain heading as well as list
             Obx(
@@ -65,8 +65,8 @@ class Homepage extends StatelessWidget {
 
 
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading3}",
-                  scrollController3, width),
+                  () => _buildSection("${homeController.formData.value?.heading3}",
+                  scrollController3, width, 'isPopular'),
             ),
             advertisement(subHeadingfontsize: 26.14, Headingfontsize: 54,),
 
@@ -86,25 +86,22 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(
-      String heading, ScrollController? controller, double? width) {
+  Widget _buildSection(String heading, ScrollController? controller,
+      double? width, String? filterProperty) {
     return Container(
-
-      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              _buildTourCards(controller),
+              _buildTourCards(controller, filterProperty),
               const SizedBox(height: 40),
             ],
           ),
-
         ],
       ),
     );
@@ -155,32 +152,31 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget _buildTourCards(ScrollController? controller) {
+  Widget _buildTourCards(ScrollController? controller, String? filterProperty) {
     return Container(
-
       color: Colors.white,
       height: Get.height * .5,
-       width: Get.width *0.9,
+      width: Get.width * 0.9,
 
-       // Adjust the height according to your needs
+      // Adjust the height according to your needs
       child: Stack(
         children: [
           Obx(() {
-            if (tourlistController.tours.isEmpty) {
+            if (tourListController.tours.isEmpty) {
               return const CircularProgressIndicator(
                 color: colorPrimary,
               );
             } else {
               return TourCards(
-                cardWidth: Get.width *0.18,
-                tours: tourlistController.tours,
-                scrollController: controller, filterProperty: '',
+                cardWidth: Get.width * 0.18,
+                tours: tourListController.tours,
+                scrollController: controller,
+                filterProperty: filterProperty,
               );
             }
           }),
-
           Align(
-          alignment: Alignment.centerLeft,
+            alignment: Alignment.centerLeft,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),
@@ -194,7 +190,7 @@ class Homepage extends StatelessWidget {
             ),
           ),
           Align(
-         alignment: Alignment.centerRight,
+            alignment: Alignment.centerRight,
             child: Container(
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black),

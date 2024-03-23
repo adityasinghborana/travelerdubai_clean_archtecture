@@ -15,16 +15,15 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
+          () => Container(
         height: 90,
-        width: MediaQuery.of(context).size.width,
-
-        color: headerController.isHeaderTransparent.value & false
+        width: Get.width,
+        color: headerController.isHeaderTransparent.value
             ? Colors.transparent
             : Colors.white,
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: double.infinity),
+            constraints: const BoxConstraints(maxWidth: 1440),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
               child: Row(
@@ -42,13 +41,11 @@ class Header extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _navItem("Home", '/home', null),
-                      _navItem("About Us", '/Aboutus', null),
-                      _navItem("Experiences", '/experiences', () {
-                        headerController.isHeaderTransparent.value = true;
-                      }),
-                      _navItem("Events", '/events', null),
-                      _navItem("Contact Us", '/contactus', null),
+                      _navItem("Home", '/home'),
+                      _navItem("About Us", '/Aboutus'),
+                      _navItem("Experiences", '/experiences'),
+                      _navItem("Events", '/events'),
+                      _navItem("Contact Us", '/contactus'),
                       // const SizedBox(
                       //   width: 200,
                       // ),
@@ -72,11 +69,7 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _navItem(
-    String title,
-    String route,
-    void Function()? onClick,
-  ) {
+  Widget _navItem(String title, String route) {
     headerController.isHoveredMap.putIfAbsent(title, () => false);
 
     return MouseRegion(
@@ -88,10 +81,7 @@ class Header extends StatelessWidget {
       },
       child: InkWell(
         hoverColor: Colors.transparent,
-        onTap: () {
-          if (onClick != null) onClick();
-          Get.toNamed(route);
-        },
+        onTap: () => Get.toNamed(route),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Text(

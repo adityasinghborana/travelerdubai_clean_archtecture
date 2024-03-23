@@ -14,10 +14,10 @@ class TourCards extends StatelessWidget {
 
   TourCards(
       {super.key,
-      required this.tours,
-      this.scrollController,
-      required this.cardWidth,
-      required this.filterProperty});
+        required this.tours,
+        this.scrollController,
+        required this.cardWidth,
+        required this.filterProperty});
 
   @override
   Widget build(BuildContext context) {
