@@ -1,8 +1,7 @@
-import 'package:html/parser.dart' as htmlParser;
-import 'package:html/dom.dart' as htmlDom;
-
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:html/dom.dart' as htmlDom;
+import 'package:html/parser.dart' as htmlParser;
 import 'package:travelerdubai/core/constants/contants.dart';
 
 // class HtmlDisplayWidget extends StatelessWidget {
@@ -19,15 +18,15 @@ import 'package:travelerdubai/core/constants/contants.dart';
 class HtmlDisplayWidget extends StatelessWidget {
   final String? htmlContent;
 
-  HtmlDisplayWidget({required this.htmlContent});
+  const HtmlDisplayWidget({super.key, required this.htmlContent});
 
   @override
   Widget build(BuildContext context) {
     final document = htmlParser.parse(htmlContent);
 
-    return SingleChildScrollView(
-      child: Container(
-
+    return SizedBox(
+      height: Get.width * .05,
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: _parseNodes(document.body!.nodes),
@@ -68,7 +67,10 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: text
           .split('<br>')
-          .map((line) => Text(line.trim(),style: bodyblack,))
+          .map((line) => Text(
+                line.trim(),
+                style: bodyblack,
+              ))
           .toList(),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
@@ -35,6 +36,8 @@ void main() async {
         appId: "1:191732956201:web:3c7e9bbaeaa8f025d5f038",
         measurementId: "G-4PG69HVJ6C"),
   );
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  Get.put(prefs);
 
   runApp(MyApp());
 }

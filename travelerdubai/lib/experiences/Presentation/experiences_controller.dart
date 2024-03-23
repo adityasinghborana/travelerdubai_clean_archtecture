@@ -1,14 +1,14 @@
-import 'package:dio/dio.dart' as dio;
+import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
-
 import '../../tourdetails/tourdetail_data_layer/model/tour_model.dart';
-
-
-
 
 class ExperienceController extends GetxController {
   final GetExperiencesUseCase experiencesUseCase;
@@ -17,51 +17,109 @@ class ExperienceController extends GetxController {
   var cityTours = <Experiences>[].obs;
   var selectedTourType = ''.obs;
   List<Experiences> allCityTours = [];
-  List<TourModel> alldata = [];
-  ExperienceController(this.experiencesUseCase);
+  List<TourModel> allData = [];
+  CacheManager cacheManager = DefaultCacheManager();
+  CacheManager cacheManager1 = DefaultCacheManager();
+  SharedPreferences prefs;
+  ExperienceController(this.experiencesUseCase, this.prefs);
+  bool isDataLoaded = false;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
     fetchData();
-    fetchcitytours();
+    loadCachedCityTours();
+    //fetchCityTours();
     super.onInit();
   }
 
+  //
+  // void fetchCityTours() async {
+  //   try {
+  //     final response = await experiencesUseCase.execute();
+  //     if (response.isNotEmpty) {
+  //       List<Experiences> fetchedCityTours = response;
+  //
+  //       cityTours.assignAll(fetchedCityTours);
+  //       allCityTours = List.from(fetchedCityTours);
+  //
+  //       if (fetchedCityTours.isNotEmpty &&
+  //           fetchedCityTours[0].tourdetails!.isNotEmpty) {
+  //         if (kDebugMode) {
+  //           print(
+  //               'First TourDetails id: ${fetchedCityTours[0].tourdetails?[0].id}');
+  //         }
+  //       }
+  //     } else {
+  //       if (kDebugMode) {
+  //         print('Request failed with status');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     // Handle errors
+  //     if (kDebugMode) {
+  //       print('Error fetching experiences: $e');
+  //     }
+  //   }
+  // }
 
-  void fetchcitytours() async {
+  Future<void> fetchCityTours() async {
     try {
+      // Check if data is already loaded
+      if (cityTours.isNotEmpty) {
+        return;
+      }
+
+      // Fetch data using experiencesUseCase
       final response = await experiencesUseCase.execute();
       if (response.isNotEmpty) {
-        List<Experiences> fetchedCityTours = response;
-
-        cityTours.assignAll(fetchedCityTours);
-        allCityTours = List.from(fetchedCityTours);
-
-        if (fetchedCityTours.isNotEmpty &&
-            fetchedCityTours[0].tourdetails!.isNotEmpty) {
-          print(
-              'First TourDetails id: ${fetchedCityTours[0].tourdetails?[0].id}');
-        }
+        cityTours.assignAll(response);
+        // Store data in SharedPreferences
+        await prefs.setStringList(
+            'cityTours', response.map((e) => jsonEncode(e.toJson())).toList());
       } else {
-        print('Request failed with status');
+        if (kDebugMode) {
+          print('Request failed with status');
+        }
       }
     } catch (e) {
       // Handle errors
-      print('Error fetching experiences: $e');
+      if (kDebugMode) {
+        print('Error fetching experiences: $e');
+      }
+    }
+  }
+
+  Future<void> loadCachedCityTours() async {
+    try {
+      final cachedCityTours = prefs.getStringList('cityTours');
+      if (cachedCityTours != null && cachedCityTours.isNotEmpty) {
+        cityTours.assignAll(cachedCityTours
+            .map((jsonString) => Experiences.fromJson(jsonDecode(jsonString)))
+            .toList());
+      } else {
+        fetchCityTours();
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error loading cached city tours: $e');
+      }
     }
   }
 
   void fetchData() async {
     try {
-      dio.Response response =
-          await dio.Dio().get('http://localhost:3000/tourtypes');
-      if (response.statusCode == 200) {
-        List<dynamic> fetchedTypes = response.data;
-        tourTypes.assignAll(fetchedTypes);
-      } else {
-        print('Request failed with status: ${response.statusCode}');
-      }
+      // dio.Response response =
+      //     await dio.Dio().get('http://localhost:3000/tourtypes');
+
+      File response =
+          await cacheManager.getSingleFile('http://localhost:3000/tourtypes');
+      String jsonData = await response.readAsString();
+      List<dynamic> fetchedTypes = json.decode(jsonData);
+      tourTypes.assignAll(fetchedTypes);
     } catch (e) {
-      print('Error fetching data: $e');
+      if (kDebugMode) {
+        print('Error fetching data: $e');
+      }
     }
   }
 
