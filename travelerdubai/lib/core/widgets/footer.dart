@@ -1,31 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 
 Widget buildFooter() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Container(
-        padding: const EdgeInsets.symmetric(vertical: 80.0),
-        color: colorDarkBlue,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.025 * Get.width),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildLogoAndDescription(),
-              _buildNavigationSections(),
-              _buildPolicySections(),
-              _buildNewsletterSection(),
-            ],
+  return ResponsiveBuilder(builder: (context, sizingInformation) {
+    if (sizingInformation.deviceScreenType == DeviceScreenType.desktop ||
+        sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 80.0),
+            color: colorDarkBlue,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0.025 * Get.width),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildLogoAndDescription(),
+                  _buildNavigationSections(),
+                  _buildPolicySections(),
+                  _buildNewsletterSection(),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-      _buildCopyrightAndPaymentMethods(),
-    ],
-  );
+          _buildCopyrightAndPaymentMethods(),
+        ],
+      );
+    }
+
+    if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
+      return const Text("mobile");
+    } else {
+      return const Text("others");
+    }
+  });
 }
 
 Widget _buildLogoAndDescription() {
@@ -216,7 +228,7 @@ Widget _buildPolicySections() {
           onPressed: () {
             // Handle Home button press
           },
-          child: Text(
+          child: const Text(
             "Privacy Policy",
             style: TextStyle(
                 fontSize: 16,
@@ -224,12 +236,12 @@ Widget _buildPolicySections() {
                 color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         TextButton(
           onPressed: () {
             // Handle About Us button press
           },
-          child: Text(
+          child: const Text(
             "Terms & Condition",
             style: TextStyle(
                 fontSize: 16,
@@ -237,12 +249,12 @@ Widget _buildPolicySections() {
                 color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         TextButton(
           onPressed: () {
             // Handle Experiences button press
           },
-          child: Text(
+          child: const Text(
             "Refund Policy ",
             style: TextStyle(
                 fontSize: 16,
@@ -250,12 +262,12 @@ Widget _buildPolicySections() {
                 color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         TextButton(
           onPressed: () {
             // Handle Tour List button press
           },
-          child: Text(
+          child: const Text(
             "Cancelation Policy",
             style: TextStyle(
                 fontSize: 16,
@@ -263,7 +275,7 @@ Widget _buildPolicySections() {
                 color: colorTextgrey),
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
       ],
     ),
   );
@@ -287,10 +299,10 @@ Widget _buildNewsletterSection() {
             Icon(FontAwesomeIcons.youtube, color: colorTextgrey),
           ],
         ),
-        SizedBox(height: 8),
-        Align(
+        const SizedBox(height: 8),
+        const Align(
           alignment: Alignment.centerLeft,
-          child: const Text(
+          child: Text(
             "Partner Signup/Login",
             style: TextStyle(
                 fontSize: 16,
@@ -299,12 +311,12 @@ Widget _buildNewsletterSection() {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         TextButton(
           onPressed: () {
             // Handle Contact Us button press
           },
-          child: Text(
+          child: const Text(
             "Partner Login",
             style: TextStyle(
                 fontSize: 16,
@@ -316,7 +328,7 @@ Widget _buildNewsletterSection() {
           onPressed: () {
             // Handle Contact Us button press
           },
-          child: Text(
+          child: const Text(
             "Partner SignUp",
             style: TextStyle(
                 fontSize: 16,
@@ -332,8 +344,8 @@ Widget _buildNewsletterSection() {
 Widget _buildCopyrightAndPaymentMethods() {
   return Container(
     color: colorDarkBlue,
-    padding: EdgeInsets.symmetric(vertical: 20.0),
-    child: Padding(
+    padding: const EdgeInsets.symmetric(vertical: 20.0),
+    child: const Padding(
       padding: EdgeInsets.symmetric(horizontal: 50.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

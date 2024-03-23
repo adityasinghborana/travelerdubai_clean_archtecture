@@ -74,17 +74,18 @@ class HomePageMobile extends StatelessWidget {
                   "${homeController.formData.value?.heading4}", width),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
+            buildFooter(),
           ],
         ),
       ),
-      bottomNavigationBar: buildFooter(),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 
   Widget _buildSection(String heading, double? width) {
     return Container(
       margin: EdgeInsets.symmetric(
-          vertical: Get.height * 0.015, horizontal: Get.width * 0.01),
+          vertical: Get.height * 0.015),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +121,7 @@ class HomePageMobile extends StatelessWidget {
   Widget _buildTourCards() {
     return Container(
       margin: EdgeInsets.symmetric(
-          vertical: Get.height * 0.015, horizontal: Get.width * 0.01),
+          vertical: Get.height * 0.015,),
       color: Colors.white,
       height: Get.height * .3,
 

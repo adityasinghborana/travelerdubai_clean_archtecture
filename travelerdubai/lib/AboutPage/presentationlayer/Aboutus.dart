@@ -58,7 +58,7 @@ class AboutUsPage extends StatelessWidget {
                   invert: true,
                 ),
               ),
-              RotatingImageBanner(),
+
             ],
           ),
         );

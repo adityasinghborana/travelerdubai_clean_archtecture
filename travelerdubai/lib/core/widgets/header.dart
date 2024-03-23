@@ -17,15 +17,15 @@ class Header extends StatelessWidget {
     return Obx(
       () => Container(
         height: 90,
-        width: Get.width,
+        width: MediaQuery.of(context).size.width,
         color: headerController.isHeaderTransparent.value
             ? Colors.transparent
             : Colors.white,
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1440),
+            constraints: const BoxConstraints(maxWidth: double.infinity),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * .05, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
