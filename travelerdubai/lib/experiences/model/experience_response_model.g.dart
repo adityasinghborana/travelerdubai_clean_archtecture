@@ -9,8 +9,8 @@ part of 'experience_response_model.dart';
 Experiences _$ExperiencesFromJson(Map<String, dynamic> json) => Experiences(
       id: json['id'] as int,
       tourId: json['tourId'] as int,
-      isvisible: json['isvisible'] as bool,
-      isvisibleHome: json['isvisibleHome'] as bool,
+      isvisible: json['isvisible'] as bool?,
+      isvisibleHome: json['isvisibleHome'] as bool?,
       countryId: json['countryId'] as int,
       countryName: json['countryName'] as String,
       cityId: json['cityId'] as int,
