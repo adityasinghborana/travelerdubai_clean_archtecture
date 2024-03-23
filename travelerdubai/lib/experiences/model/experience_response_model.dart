@@ -2,18 +2,14 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../tourdetails/tourdetail_data_layer/model/tour_model.dart';
 
-
-
-
 part 'experience_response_model.g.dart';
 
 @JsonSerializable()
 class Experiences {
   final int id;
   final int tourId;
-  final bool isvisible;
-  final bool isvisiblePopularTours;
-  final bool isvisibleReccomendedTours;
+  final bool? isvisible;
+  final bool? isvisibleHome;
   final int countryId;
   final String countryName;
   final int cityId;
@@ -38,9 +34,8 @@ class Experiences {
   Experiences({
     required this.id,
     required this.tourId,
-    required this.isvisible,
-  required this.isvisiblePopularTours,
-    required this.isvisibleReccomendedTours,
+    this.isvisible,
+    this.isvisibleHome,
     required this.countryId,
     required this.countryName,
     required this.cityId,
