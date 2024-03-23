@@ -7,10 +7,8 @@ import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-import 'package:travelerdubai/homepage/mygridscetio_controller.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/formsection.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -24,7 +22,6 @@ import '../../experiences/remote/experiences_remote_service.dart';
 class Homepage extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
-  final MyGridSectionController controller = Get.put(MyGridSectionController());
   final TourlistController tourlistController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
