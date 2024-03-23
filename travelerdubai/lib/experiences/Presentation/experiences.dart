@@ -23,19 +23,22 @@ class Experiences extends StatelessWidget {
         ),
         Get.find<SharedPreferences>()),
   );
+  final HeaderController headerController = Get.find();
+
   final TextEditingController searchController = TextEditingController();
 
   Experiences({super.key});
 
   @override
   Widget build(BuildContext context) {
+    headerController.navItemColor.value =colorblack;
     String currentDate = DateTime.now().toString().split(' ')[0];
-    Get.find<HeaderController>().isHeaderTransparent.value = true;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Header(),
+           Header(),
             SizedBox(
               width: Get.width,
               height: Get.height * .75,

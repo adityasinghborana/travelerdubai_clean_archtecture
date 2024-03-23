@@ -21,6 +21,7 @@ class HeaderController extends GetxController {
         print("LoggedIn changed: $loggedIn");
       }
     });
+    isHeaderTransparent.value=true;
 
     getUserUID();
     getCartID();
@@ -31,7 +32,10 @@ class HeaderController extends GetxController {
     if (scrollOffset > 0) {
       navItemColor.value = colorgreenishblack;
       isHeaderTransparent.value = false; // Set to false when scrolled
-    } else {
+    }
+
+
+    else {
       navItemColor.value = colorwhite;
       isHeaderTransparent.value = true; // Set to true when at the top
     }

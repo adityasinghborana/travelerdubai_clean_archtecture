@@ -8,12 +8,14 @@ import '../controller/headercontroller.dart';
 import 'dashboard_widget.dart';
 
 class Header extends StatelessWidget {
-  final HeaderController headerController = Get.find();
+  final HeaderController headerController = Get.put(HeaderController());
 
   Header({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+
     return Obx(
           () => Container(
         height: 90,
@@ -41,13 +43,11 @@ class Header extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _navItem("Home", '/home', null),
-                      _navItem("About Us", '/Aboutus', null),
-                      _navItem("Experiences", '/experiences', () {
-                        headerController.isHeaderTransparent.value = true;
-                      }),
-                      _navItem("Events", '/events', null),
-                      _navItem("Contact Us", '/contactus', null),
+                      _navItem("Home", '/home', ),
+                      _navItem("About Us", '/Aboutus', ),
+                      _navItem("Experiences", '/experiences',),
+                      _navItem("Events", '/events', ),
+                      _navItem("Contact Us", '/contactus',),
                       // const SizedBox(
                       //   width: 200,
                       // ),
@@ -74,7 +74,7 @@ class Header extends StatelessWidget {
   Widget _navItem(
       String title,
       String route,
-      void Function()? onClick,
+
       ) {
     headerController.isHoveredMap.putIfAbsent(title, () => false);
 
@@ -88,7 +88,7 @@ class Header extends StatelessWidget {
       child: InkWell(
         hoverColor: Colors.transparent,
         onTap: () {
-          if (onClick != null) onClick();
+         headerController.navItemColor.value = colorblack;
           Get.toNamed(route);
         },
         child: Padding(

@@ -17,6 +17,7 @@ class CityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       if (controller.cities.isEmpty) {
         return const Center(child: CircularProgressIndicator());
@@ -30,29 +31,32 @@ class CityList extends StatelessWidget {
             itemCount: controller.cities.length,
             itemBuilder: (context, index) {
               final city = controller.cities[index];
-              return ClipRRect(
-                borderRadius:BorderRadius.circular(8),
-                child: Stack(
-                  children: [
-                     Image.network(
-                        "https://source.unsplash.com/random/?${city.CityName}",
-                                      height: Get.height*0.5,
-                        fit: BoxFit.cover,
-                        width: Get.width *0.18,
-                      
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ClipRRect(
+                  borderRadius:BorderRadius.circular(8),
+                  child: Stack(
+                    children: [
+                       Image.network(
+                          "https://source.unsplash.com/random/?${city.CityName}",
+                         fit: BoxFit.cover,
+                         height: Get.height * .60,
+                          width: Get.width * 0.18
+
+                        ),
+
+                      Container(
+                        decoration: BoxDecoration(gradient: imageGradient),
                       ),
-                
-                    Container(
-                      decoration: BoxDecoration(gradient: imageGradient),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        "${city.CityName}",
-                        style: H3,
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          "${city.CityName}",
+                          style: H3,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },
