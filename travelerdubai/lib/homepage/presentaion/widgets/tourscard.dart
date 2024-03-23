@@ -6,31 +6,44 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
 
 class TourCards extends StatelessWidget {
-  final TourlistController tourlistController = Get.find();
+  final TourlistController tourListController = Get.find();
   final ScrollController? scrollController;
   final List<Experiences> tours;
-  final double cardwidth;
+  final double cardWidth;
+  final String? filterProperty;
 
   TourCards(
       {super.key,
       required this.tours,
       this.scrollController,
-      required this.cardwidth});
+      required this.cardWidth,
+      required this.filterProperty});
 
   @override
   Widget build(BuildContext context) {
+    List<Experiences> filteredTours = tours.where((tour) {
+      switch (filterProperty) {
+        case 'isRecommended':
+          return tour.isvisibleReccomendedTours == true;
+        case 'isPopular':
+          return tour.isvisiblePopularTours == true;
+        default:
+          true;
+      }
+      return true;
+    }).toList();
     return SizedBox(
       width: Get.width,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         controller: scrollController,
-        itemCount: tourlistController.tours.length,
+        itemCount: filteredTours.length,
         itemBuilder: (context, index) {
-          final tour = tourlistController.tours[index];
+          final tour = filteredTours[index];
           return InkWell(
             onTap: () => _onTourCardTap(tour), // Use the onTap function
             child: SizedBox(
-              width: cardwidth,
+              width: cardWidth,
               child: Card(
                 elevation: 6,
                 shape: RoundedRectangleBorder(

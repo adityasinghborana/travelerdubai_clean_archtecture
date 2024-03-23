@@ -18,7 +18,7 @@ class Header extends StatelessWidget {
       () => Container(
         height: 90,
         width: Get.width,
-        color: headerController.isHeaderTransparent.value
+        color: headerController.isHeaderTransparent.value & false
             ? Colors.transparent
             : Colors.white,
         child: Center(

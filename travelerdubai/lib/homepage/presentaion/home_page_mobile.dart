@@ -62,17 +62,17 @@ class HomePageMobile extends StatelessWidget {
 
             // This contain heading as well as list
             Obx(
-              () => _buildSection(
-                  "${homeController.formData.value?.heading2}", width),
+              () => _buildSection("${homeController.formData.value?.heading2}",
+                  width, 'isRecommended'),
             ),
             Obx(
               () => _buildSection(
-                  "${homeController.formData.value?.heading3}", width),
+                  "${homeController.formData.value?.heading3}", width, ''),
             ),
             // const MyGridSectionWidget(),
             Obx(
-              () => _buildSection(
-                  "${homeController.formData.value?.heading4}", width),
+              () => _buildSection("${homeController.formData.value?.heading4}",
+                  width, 'isPopular'),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
           ],
@@ -82,7 +82,7 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(String heading, double? width) {
+  Widget _buildSection(String heading, double? width, String? filterProperty) {
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: Get.height * 0.015, horizontal: Get.width * 0.01),
@@ -94,7 +94,7 @@ class HomePageMobile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              _buildTourCards(),
+              _buildTourCards(filterProperty),
               const SizedBox(height: 40),
             ],
           ),
@@ -118,7 +118,7 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildTourCards() {
+  Widget _buildTourCards(String? filterProperty) {
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: Get.height * 0.015, horizontal: Get.width * 0.01),
@@ -135,8 +135,9 @@ class HomePageMobile extends StatelessWidget {
               );
             } else {
               return TourCards(
-                cardwidth: Get.width * .4,
+                cardWidth: Get.width * .4,
                 tours: tourlistController.tours,
+                filterProperty: filterProperty,
               );
             }
           }),
