@@ -172,9 +172,9 @@ class Homepage extends StatelessWidget {
               );
             } else {
               return TourCards(
-                cardwidth: Get.width *0.18,
+                cardWidth: Get.width *0.18,
                 tours: tourlistController.tours,
-                scrollController: controller,
+                scrollController: controller, filterProperty: '',
               );
             }
           }),

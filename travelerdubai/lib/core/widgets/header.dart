@@ -18,8 +18,7 @@ class Header extends StatelessWidget {
       () => Container(
         height: 90,
         width: MediaQuery.of(context).size.width,
-        color: headerController.isHeaderTransparent.value
-        width: Get.width,
+
         color: headerController.isHeaderTransparent.value & false
             ? Colors.transparent
             : Colors.white,

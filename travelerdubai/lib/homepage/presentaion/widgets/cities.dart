@@ -30,17 +30,18 @@ class CityList extends StatelessWidget {
             itemCount: controller.cities.length,
             itemBuilder: (context, index) {
               final city = controller.cities[index];
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
+              return ClipRRect(
+                borderRadius:BorderRadius.circular(8),
                 child: Stack(
                   children: [
-                    Image.network(
-                      "https://source.unsplash.com/random/?${city.CityName}",
-                height: Get.height*0.3,
-                      fit: BoxFit.cover,
-                      width: Get.width *0.25,
-
-                    ),
+                     Image.network(
+                        "https://source.unsplash.com/random/?${city.CityName}",
+                                      height: Get.height*0.5,
+                        fit: BoxFit.cover,
+                        width: Get.width *0.18,
+                      
+                      ),
+                
                     Container(
                       decoration: BoxDecoration(gradient: imageGradient),
                     ),

@@ -139,8 +139,8 @@ class HomePageMobile extends StatelessWidget {
               );
             } else {
               return TourCards(
-                cardwidth: Get.width * .4,
-                tours: tourlistController.tours,
+
+                tours: tourlistController.tours, cardWidth: Get.width * .4,  filterProperty: '',
               );
             }
           }),
