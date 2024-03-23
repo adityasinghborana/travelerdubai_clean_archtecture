@@ -8,9 +8,9 @@ part 'experience_response_model.g.dart';
 class Experiences {
   final int id;
   final int tourId;
-  final bool isvisible;
-  final bool isvisiblePopularTours;
   final bool isvisibleReccomendedTours;
+  final bool? isvisible;
+  final bool? isvisibleHome;
   final int countryId;
   final String countryName;
   final int cityId;
@@ -35,6 +35,8 @@ class Experiences {
   Experiences({
     required this.id,
     required this.tourId,
+    this.isvisible,
+    this.isvisibleHome,
     required this.isvisible,
   required this.isvisiblePopularTours,
     required this.isvisibleReccomendedTours,
