@@ -9,6 +9,7 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -56,16 +57,19 @@ class Homepage extends StatelessWidget {
               () => _buildSection("${homeController.formData.value?.heading1}",
                   scrollController1, width),
             ),
+            // This contain heading as well as list
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading2}",
-                  scrollController2, width),
+                  () => _buildCitySection("${homeController.formData.value?.heading2}",
+                  scrollController1, width),
             ),
-            // const MyGridSectionWidget(),
+
+
             Obx(
               () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController3, width),
             ),
             advertisement(subHeadingfontsize: 26.14, Headingfontsize: 54,),
+
             buildFooter(),
           ],
         ),
@@ -105,6 +109,33 @@ class Homepage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildCitySection(
+      String heading, ScrollController? controller, double? width) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeading(heading),
+              Container(  height: Get.height * .5,
+                  width: Get.width *.9 ,child: CityList()),
+              const SizedBox(height: 40),
+            ],
+          ),
+
+        ],
+      ),
+    );
+  }
+
+
+
+
 
   Widget _buildHeading(String heading) {
     return Padding(

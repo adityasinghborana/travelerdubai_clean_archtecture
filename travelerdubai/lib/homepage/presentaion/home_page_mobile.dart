@@ -8,6 +8,7 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -66,7 +67,10 @@ class HomePageMobile extends StatelessWidget {
             ),
             Obx(
               () => _buildSection(
-                  "${homeController.formData.value?.heading3}", width),
+                  "${homeController.formData.value?.heading3}", width),),
+              Obx(
+                    () => _buildCitySection(
+                    "${homeController.formData.value?.heading3}", scrollController1,width),
             ),
             // const MyGridSectionWidget(),
             Obx(
@@ -144,4 +148,29 @@ class HomePageMobile extends StatelessWidget {
       ),
     );
   }
+
+
+  Widget _buildCitySection(
+      String heading, ScrollController? controller, double? width) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeading(heading),
+              Container(  height: Get.height * .5,
+                  width: Get.width *.9 ,child: CityList()),
+              const SizedBox(height: 40),
+            ],
+          ),
+
+        ],
+      ),
+    );
+  }
+
 }

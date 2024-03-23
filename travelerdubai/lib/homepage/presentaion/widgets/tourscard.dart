@@ -62,7 +62,7 @@ class TourCards extends StatelessWidget {
           "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
           fit: BoxFit.cover,
           height: Get.height * .60,
-          // width: Get.width * 0.119,
+          width: Get.width
         ),
 
         Container(
