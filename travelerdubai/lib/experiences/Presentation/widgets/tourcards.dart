@@ -37,87 +37,88 @@ Widget tourCards() {
 
             return InkWell(
               onTap: () => Get.toNamed(
-
                 '/tour_details',
                 parameters: {'tourId': tourDetailId.toString()},
-               // arguments: "$tourDetailId",
+                // arguments: "$tourDetailId",
               ),
               child: Card(
                 color: colorwhite,
                 elevation: 3,
                 child: SizedBox(
-                  height: Get.height * .20,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12),
-                          ),
-                          child: Image.network(
-                            "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-                            height: Get.height / 5,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+                  height: Get.height * .25,
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                tour.tourName,
-                                style: H3,
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "Tour Type - ${tour.cityTourType}",
-                                style: bodyf,
-                              ),
-                              Text(
-                                "City - ${tour.cityName}",
-                                style: bodyf,
-                              ),
-                              const SizedBox(height: 8),
-                              HtmlDisplayWidget(
-                                htmlContent: tour.tourShortDescription,
-                              ),
-                              // Text(
-                              //   tour.tourShortDescription,
-                              //   overflow: TextOverflow.ellipsis,
-                              //   maxLines: 2,
-                              //   style: bodyblack,
-                              // ),
-                              const SizedBox(height: 8),
-                              Row(
+                        child: Image.network(
+                          "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                          height: Get.height * .35,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Rating: ${tour.rating}',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                    style: bodyblack,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Row(
-                                    children: List.generate(
-                                      tour.rating,
-                                      (index) => const Icon(
-                                        Icons.star,
-                                        color: colorPrimary,
-                                        size: 20,
+                                  SizedBox(
+                                    height: Get.width * 0.025,
+                                    child: SingleChildScrollView(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              tour.tourName,
+                                              style: H3,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          Row(children: [
+                                            Text(
+                                              ' ${tour.rating}',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: ratingStyle,
+                                            ),
+                                            const Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                              size: 20,
+                                            ),
+                                          ]),
+                                        ],
                                       ),
                                     ),
                                   ),
+                                  const SizedBox(height: 8),
+                                  HtmlDisplayWidget(
+                                    htmlContent: tour.tourShortDescription,
+                                  ),
+                                  // Text(
+                                  //   tour.tourShortDescription,
+                                  //   overflow: TextOverflow.ellipsis,
+                                  //   maxLines: 2,
+                                  //   style: bodyblack,
+                                  // ),
+                                  const SizedBox(height: 8),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

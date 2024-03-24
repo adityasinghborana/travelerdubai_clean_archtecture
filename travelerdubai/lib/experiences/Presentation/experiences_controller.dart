@@ -1,12 +1,5 @@
-import 'dart:convert';
-
-
 import 'package:dio/dio.dart' as dio;
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
@@ -21,14 +14,15 @@ class ExperienceController extends GetxController {
   var selectedTourType = ''.obs;
   List<Experiences> allCityTours = [];
   List<TourModel> alldata = [];
+
   ExperienceController(this.experiencesUseCase);
+
   @override
   void onInit() {
     fetchData();
     fetchcitytours();
     super.onInit();
   }
-
 
   void fetchcitytours() async {
     try {
@@ -55,8 +49,7 @@ class ExperienceController extends GetxController {
 
   void fetchData() async {
     try {
-      dio.Response response =
-      await dio.Dio().get('$baseurl/tourtypes');
+      dio.Response response = await dio.Dio().get('$baseurl/tourtypes');
       if (response.statusCode == 200) {
         List<dynamic> fetchedTypes = response.data;
         tourTypes.assignAll(fetchedTypes);
@@ -89,9 +82,9 @@ class ExperienceController extends GetxController {
       // Filter city tours where the title contains the query (case insensitive)
       cityTours.assignAll(allCityTours
           .where((tour) => tour.tourName
-          .toString()
-          .toLowerCase()
-          .contains(query.toLowerCase()))
+              .toString()
+              .toLowerCase()
+              .contains(query.toLowerCase()))
           .toList());
     }
   }
