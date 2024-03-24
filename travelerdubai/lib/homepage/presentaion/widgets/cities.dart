@@ -23,8 +23,10 @@ class CityList extends StatelessWidget {
   );
   final ScrollController scrollController = ScrollController();
 
-
-  CityList({super.key,required this.scrollController});
+  CityList({
+    super.key,
+    required ScrollController scrollController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +50,13 @@ class CityList extends StatelessWidget {
                   child: Stack(
                     children: [
                       AspectRatio(
-                        aspectRatio: 9/16,
+                        aspectRatio: 9 / 16,
                         child: Image.network(
-                            "https://source.unsplash.com/random/?${city.CityName}",
-                            fit: BoxFit.cover,
+                          "https://source.unsplash.com/random/?${city.CityName}",
+                          fit: BoxFit.cover,
 
-                           // width: Get.width * 0.18
-                                            ),
+                          // width: Get.width * 0.18
+                        ),
                       ),
                       Container(
                         decoration: BoxDecoration(gradient: imageGradient),

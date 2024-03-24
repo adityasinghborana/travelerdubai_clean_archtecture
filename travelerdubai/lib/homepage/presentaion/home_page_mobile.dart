@@ -2,8 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travelerdubai/core/widgets/drawer.dart';
-import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/Components/bottom_nav.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
@@ -16,6 +14,7 @@ import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
+
 import '../../Components/Advertisement.dart';
 import '../../core/constants/contants.dart';
 import '../../core/controller/headercontroller.dart';
@@ -39,7 +38,7 @@ class HomePageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: drawer(),
+      drawer: Drawer(),
       appBar: AppBar(
         title: Center(
           child: Image.asset(

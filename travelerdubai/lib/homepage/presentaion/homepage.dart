@@ -129,7 +129,9 @@ class Homepage extends StatelessWidget {
                   height: Get.height * .6,
                   width: Get.width * .9,
                   child: Stack(children: [
-                    CityList(scrollController: controller!,),
+                    CityList(
+                      scrollController: controller!,
+                    ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
