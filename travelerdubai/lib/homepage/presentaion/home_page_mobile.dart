@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/Components/bottom_nav.dart';
+import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
@@ -67,10 +67,13 @@ class HomePageMobile extends StatelessWidget {
             ),
             Obx(
               () => _buildSection(
-                  "${homeController.formData.value?.heading3}", width),),
-              Obx(
-                    () => _buildCitySection(
-                    "${homeController.formData.value?.heading3}", scrollController1,width),
+                  "${homeController.formData.value?.heading3}", width),
+            ),
+            Obx(
+              () => _buildCitySection(
+                  "${homeController.formData.value?.heading3}",
+                  scrollController1,
+                  width),
             ),
             // const MyGridSectionWidget(),
             Obx(
@@ -88,8 +91,7 @@ class HomePageMobile extends StatelessWidget {
 
   Widget _buildSection(String heading, double? width) {
     return Container(
-      margin: EdgeInsets.symmetric(
-          vertical: Get.height * 0.015),
+      margin: EdgeInsets.symmetric(vertical: Get.height * 0.015),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +127,8 @@ class HomePageMobile extends StatelessWidget {
   Widget _buildTourCards() {
     return Container(
       margin: EdgeInsets.symmetric(
-          vertical: Get.height * 0.015,),
+        vertical: Get.height * 0.015,
+      ),
       color: Colors.white,
       height: Get.height * .3,
 
@@ -139,8 +142,9 @@ class HomePageMobile extends StatelessWidget {
               );
             } else {
               return TourCards(
-
-                tours: tourlistController.tours, cardWidth: Get.width * .4,  filterProperty: '',
+                tours: tourlistController.tours,
+                cardWidth: Get.width * .4,
+                filterProperty: '',
               );
             }
           }),
@@ -149,11 +153,10 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-
   Widget _buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -162,15 +165,15 @@ class HomePageMobile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              Container(  height: Get.height * .5,
-                  width: Get.width *.9 ,child: CityList()),
+              SizedBox(
+                  height: Get.height * .5,
+                  width: Get.width * .9,
+                  child: CityList()),
               const SizedBox(height: 40),
             ],
           ),
-
         ],
       ),
     );
   }
-
 }

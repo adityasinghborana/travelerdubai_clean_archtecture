@@ -54,21 +54,25 @@ class Homepage extends StatelessWidget {
 
             // This contain heading as well as list
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading1}",
+              () => _buildSection("${homeController.formData.value?.heading1}",
                   scrollController1, width, 'isRecommended'),
             ),
             // This contain heading as well as list
             Obx(
-                  () => _buildCitySection("${homeController.formData.value?.heading2}",
-                  scrollController1, width),
+              () => _buildCitySection(
+                  "${homeController.formData.value?.heading2}",
+                  scrollController1,
+                  width),
             ),
-
 
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
+              () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController3, width, 'isPopular'),
             ),
-            advertisement(subHeadingfontsize: 26.14, Headingfontsize: 54,),
+            advertisement(
+              subHeadingfontsize: 26.14,
+              Headingfontsize: 54,
+            ),
 
             buildFooter(),
           ],
@@ -82,7 +86,9 @@ class Homepage extends StatelessWidget {
     return Container(
       height: Get.height * .85,
       color: Theme.of(context).colorScheme.secondary,
-      child: HeroImageWidget(titlefontsize: 80,),
+      child: HeroImageWidget(
+        titlefontsize: 80,
+      ),
     );
   }
 
@@ -110,7 +116,7 @@ class Homepage extends StatelessWidget {
   Widget _buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -119,24 +125,22 @@ class Homepage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              Container(  height: Get.height * .5,
-                  width: Get.width *.9 ,child: CityList()),
+              SizedBox(
+                  height: Get.height * .5,
+                  width: Get.width * .9,
+                  child: CityList()),
               const SizedBox(height: 40),
             ],
           ),
-
         ],
       ),
     );
   }
 
-
-
-
-
   Widget _buildHeading(String heading) {
     return Padding(
-      padding:  EdgeInsets.only(top: 20, left: 60, right: 20, bottom: Get.height*0.038),
+      padding: EdgeInsets.only(
+          top: 20, left: 60, right: 20, bottom: Get.height * 0.038),
       child: Center(
         child: SelectableText(
           heading,

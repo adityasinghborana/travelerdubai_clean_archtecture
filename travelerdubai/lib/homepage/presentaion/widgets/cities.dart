@@ -9,20 +9,28 @@ import '../../repository/homepage_repository.dart';
 import '../../usecase/cities_usecase.dart';
 
 class CityList extends StatelessWidget {
-  final CityController controller = Get.put(CityController(
-      GetCitiesUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
+  final CityController controller = Get.put(
+    CityController(
+      GetCitiesUseCase(
+        HomeRepositoryImpl(
+          HomeRemoteService(
+            Dio(),
+          ),
+        ),
+      ),
+    ),
+  );
   final ScrollController scrollController = ScrollController();
 
   CityList({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
       if (controller.cities.isEmpty) {
         return const Center(child: CircularProgressIndicator());
       } else {
-        return Container(
+        return SizedBox(
           width: Get.width * .8,
           height: Get.height * .5,
           child: ListView.builder(
@@ -34,24 +42,21 @@ class CityList extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
-                  borderRadius:BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(8),
                   child: Stack(
                     children: [
-                       Image.network(
+                      Image.network(
                           "https://source.unsplash.com/random/?${city.CityName}",
-                         fit: BoxFit.cover,
-                         height: Get.height * .60,
-                          width: Get.width * 0.18
-
-                        ),
-
+                          fit: BoxFit.cover,
+                          height: Get.height * .60,
+                          width: Get.width * 0.18),
                       Container(
                         decoration: BoxDecoration(gradient: imageGradient),
                       ),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          "${city.CityName}",
+                          city.CityName,
                           style: H3,
                         ),
                       ),
