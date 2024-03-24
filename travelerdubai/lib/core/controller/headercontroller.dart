@@ -14,6 +14,7 @@ class HeaderController extends GetxController {
   final RxBool isHeaderTransparent = true.obs;
 
   @override
+
   void onInit() {
     ever(loggedIn, (_) {
       // Triggered whenever loggedin changes
@@ -21,18 +22,19 @@ class HeaderController extends GetxController {
         print("LoggedIn changed: $loggedIn");
       }
     });
-    isHeaderTransparent.value=true;
+
+
 
     getUserUID();
     getCartID();
     super.onInit();
   }
-
   void updateHeaderBackground(double scrollOffset) {
     if (scrollOffset > 0) {
       navItemColor.value = colorgreenishblack;
       isHeaderTransparent.value = false; // Set to false when scrolled
     }
+
 
 
     else {

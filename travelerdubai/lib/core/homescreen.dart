@@ -5,11 +5,15 @@ import 'package:travelerdubai/core/service/auth.dart';
 import 'package:travelerdubai/homepage/presentaion/home_page_mobile.dart';
 import 'package:travelerdubai/homepage/presentaion/homepage.dart';
 
+import 'controller/headercontroller.dart';
+
 class HomeScreen extends StatelessWidget {
+
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => HeaderController());
     Get.put(AuthClass());
     return Scaffold(
       body: ResponsiveBuilder(

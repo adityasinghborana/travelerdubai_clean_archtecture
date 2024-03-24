@@ -25,70 +25,72 @@ class HeroImageWidget extends StatelessWidget {
           print(imageUrl);
         }
 
-        return Stack(
-          children: [
-            // Image.network(
-            //   imageUrl,
-            //   fit: BoxFit.cover,
-            //   width: double.infinity,
-            //   height: double.infinity,
-            // ),
-            MUICarousel(
-              images: controller.imageList,
-              indicatorType: CarouselIndicatorType.dot,
-              duration: const Duration(seconds: 2),
-              height: double.infinity,
-              maxWidth: double.infinity,
-            ),
-            // Container(
-            //   width: double.infinity,
-            //   height: double.infinity,
-            //   color: const Color.fromRGBO(0, 0, 0, 0.5),
-            // ),
-            Positioned(
-              top: Get.width * 0.15,
-              left: Get.width * 0.15,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SelectableText(
-                      controller.formData.value?.title ?? 'Traveller Dubai',
-                      style: GoogleFonts.playfairDisplay(
-                        color: colorPrimary,
-                        fontSize: titlefontsize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines:
-                          1, // Specify the maximum number of lines to prevent scrolling
-                    ),
-                    SizedBox(
-                      height: 60,
-                      width: Get.width * .75,
-                      child: SelectableText(
-                        controller.formData.value?.title ??
-                            'Search for help - Enter a question or keywords in the search box on the taskbar to find apps, files, settings, and get help from the web',
-                        style: GoogleFonts.playfairDisplay(
-                          color: colorwhite,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w200,
-                          fontStyle: FontStyle.italic,
+        return Expanded(
+          child: Stack(
+            children: [
+              // Image.network(
+              //   imageUrl,
+              //   fit: BoxFit.cover,
+              //   width: double.infinity,
+              //   height: double.infinity,
+              // ),
+              MUICarousel(
+                showButtons: false,
+                images: controller.imageList,
+                indicatorType: CarouselIndicatorType.dot,
+                duration: const Duration(seconds: 2),
+                height: double.infinity,
+                maxWidth: double.infinity,
+              ),
+             
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.10),
+                  child: Container(
+                    height: Get.height*.80,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SelectableText(
+                          controller.formData.value?.title ?? 'Traveller Dubai',
+                          style: GoogleFonts.playfairDisplay(
+                            color: colorPrimary,
+                            fontSize: titlefontsize,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines:
+                              1, // Specify the maximum number of lines to prevent scrolling
                         ),
-                        maxLines: 4,
-                      ),
+                        SizedBox(
+                          height: 60,
+                          width: Get.width * .75,
+                          child: SelectableText(
+                            controller.formData.value?.title ??
+                                'Search for help - Enter a question or keywords in the search box on the taskbar to find apps, files, settings, and get help from the web',
+                            style: GoogleFonts.playfairDisplay(
+                              color: colorwhite,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w200,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            maxLines: 4,
+                          ),
+                        ),
+                        InlineFlexButton(
+                            fontsize: 28,
+                            vpadding: 20,
+                            label: "Explore More",
+                            onPressed: (() => Get.toNamed('/experiences')))
+                      ],
                     ),
-                    InlineFlexButton(
-                        fontsize: 28,
-                        vpadding: 20,
-                        label: "Explore More",
-                        onPressed: (() => Get.toNamed('/experiences')))
-                  ],
+                  ),
                 ),
               ),
-            ),
-
-          ],
+          
+            ],
+          ),
         );
       }),
     );

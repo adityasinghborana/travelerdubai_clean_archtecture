@@ -40,16 +40,19 @@ class TourCards extends StatelessWidget {
         itemCount: filteredTours.length,
         itemBuilder: (context, index) {
           final tour = filteredTours[index];
-          return InkWell(
-            onTap: () => _onTourCardTap(tour), // Use the onTap function
-            child: SizedBox(
-              width: cardWidth,
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+          return AspectRatio(
+            aspectRatio: 9/16,
+            child: InkWell(
+              onTap: () => _onTourCardTap(tour),
+              child: SizedBox(
+                width: cardWidth,
+                child: Card(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: _buildTourImage(tour),
                 ),
-                child: _buildTourImage(tour),
               ),
             ),
           );
@@ -59,11 +62,15 @@ class TourCards extends StatelessWidget {
   }
 
   void _onTourCardTap(Experiences tour) {
-    String tourId = tour.id.toString();
+
+
+    String tourId = "${tour.tourdetails?[0].id}";
 
     Get.toNamed(
       '/tour_details',
-      arguments: tourId,
+      arguments:
+      tourId,
+
     );
   }
 
@@ -74,11 +81,14 @@ class TourCards extends StatelessWidget {
         topRight: Radius.circular(16),
       ),
       child: Stack(children: [
-        Image.network(
-          "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-          fit: BoxFit.cover,
-          height: Get.height * .60,
-          // width: Get.width * 0.119,
+        AspectRatio(
+          aspectRatio: 9/16,
+          child: Image.network(
+            "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+            fit: BoxFit.cover,
+
+            // width: Get.width * 0.119,
+          ),
         ),
         Container(
           decoration: BoxDecoration(gradient: imageGradient),

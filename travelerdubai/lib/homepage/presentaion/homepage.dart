@@ -38,7 +38,7 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     scrollController4?.addListener(() {
-      headerController.updateHeaderBackground(scrollController4!.offset);
+      headerController.updateHeaderBackground(scrollController4?.offset ?? 0);
     });
     double? width = MediaQuery.of(context).size.width;
 
@@ -54,21 +54,25 @@ class Homepage extends StatelessWidget {
 
             // This contain heading as well as list
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading1}",
+              () => _buildSection("${homeController.formData.value?.heading1}",
                   scrollController1, width, 'isRecommended'),
             ),
             // This contain heading as well as list
             Obx(
-                  () => _buildCitySection("${homeController.formData.value?.heading2}",
-                  scrollController1, width),
+              () => _buildCitySection(
+                  "${homeController.formData.value?.heading2}",
+                  scrollController2,
+                  width),
             ),
-
 
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
+              () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController3, width, 'isPopular'),
             ),
-            advertisement(subHeadingfontsize: 26.14, Headingfontsize: 54,),
+            advertisement(
+              subHeadingfontsize: 26.14,
+              Headingfontsize: 54,
+            ),
 
             buildFooter(),
           ],
@@ -82,7 +86,9 @@ class Homepage extends StatelessWidget {
     return Container(
       height: Get.height * .85,
       color: Theme.of(context).colorScheme.secondary,
-      child: HeroImageWidget(titlefontsize: 80,),
+      child: HeroImageWidget(
+        titlefontsize: 80,
+      ),
     );
   }
 
@@ -110,7 +116,7 @@ class Homepage extends StatelessWidget {
   Widget _buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height*.076),
+      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -119,24 +125,54 @@ class Homepage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              Container(  height: Get.height * .5,
-                  width: Get.width *.9 ,child: CityList()),
+              Container(
+                  height: Get.height * .6,
+                  width: Get.width * .9,
+                  child: Stack(children: [
+                    CityList(scrollController: controller!,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.black),
+                        child: IconButton(
+                          onPressed: () {
+                            _scrollToPrevious(controller);
+                          },
+                          color: Colors.white,
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.black),
+                        child: IconButton(
+                          onPressed: () {
+                            _scrollToNext(controller);
+                          },
+                          color: Colors.white,
+                          icon: const Icon(
+                            Icons.arrow_forward,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ])),
               const SizedBox(height: 40),
             ],
           ),
-
         ],
       ),
     );
   }
 
-
-
-
-
   Widget _buildHeading(String heading) {
     return Padding(
-      padding:  EdgeInsets.only(top: 20, left: 60, right: 20, bottom: Get.height*0.038),
+      padding: EdgeInsets.only(
+          top: 20, left: 60, right: 20, bottom: Get.height * 0.038),
       child: Center(
         child: SelectableText(
           heading,

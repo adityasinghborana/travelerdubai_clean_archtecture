@@ -29,7 +29,7 @@ class ImageChangerController extends GetxController {
 
   void startImageRotation() {
     rotationTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      currentIndex.value = ((currentIndex.value + 1) % imageList.length);
+      currentIndex.value = ((currentIndex.value + 1) % imageList.length).ceil();
     });
   }
 }
