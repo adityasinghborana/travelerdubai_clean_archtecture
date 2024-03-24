@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
@@ -16,14 +15,13 @@ import '../../core/widgets/header.dart';
 class Experiences extends StatelessWidget {
   final ExperienceController experienceController = Get.put(
     ExperienceController(
-        GetExperiencesUseCase(
-          ExperiencesRepositoryImpl(
-            ExperienceRemoteService(Dio()),
-          ),
+      GetExperiencesUseCase(
+        ExperiencesRepositoryImpl(
+          ExperienceRemoteService(Dio()),
         ),
-        ),
+      ),
+    ),
   );
-
 
   final TextEditingController searchController = TextEditingController();
 
@@ -36,14 +34,14 @@ class Experiences extends StatelessWidget {
 // Later in your code, when you need to access the HeaderController:
     HeaderController headerController = Get.find<HeaderController>();
 
-    headerController.navItemColor.value =colorblack;
+    headerController.navItemColor.value = colorblack;
     String currentDate = DateTime.now().toString().split(' ')[0];
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-           Header(),
+            Header(),
             SizedBox(
               width: Get.width,
               height: Get.height * .75,
@@ -61,7 +59,7 @@ class Experiences extends StatelessWidget {
                           Stack(
                             children: [
                               SizedBox(
-                                height: Get.height * 0.30,
+                                height: Get.height * 0.20,
                                 child: Image.network(
                                   "https://source.unsplash.com/random",
                                   width: double.infinity,
