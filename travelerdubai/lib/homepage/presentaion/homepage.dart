@@ -38,7 +38,7 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     scrollController4?.addListener(() {
-      headerController.updateHeaderBackground(scrollController4!.offset);
+      headerController.updateHeaderBackground(scrollController4?.offset ?? 0);
     });
     double? width = MediaQuery.of(context).size.width;
 
@@ -61,7 +61,7 @@ class Homepage extends StatelessWidget {
             Obx(
               () => _buildCitySection(
                   "${homeController.formData.value?.heading2}",
-                  scrollController1,
+                  scrollController2,
                   width),
             ),
 
@@ -125,10 +125,42 @@ class Homepage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              SizedBox(
-                  height: Get.height * .5,
+              Container(
+                  height: Get.height * .6,
                   width: Get.width * .9,
-                  child: CityList()),
+                  child: Stack(children: [
+                    CityList(scrollController: controller!,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.black),
+                        child: IconButton(
+                          onPressed: () {
+                            _scrollToPrevious(controller);
+                          },
+                          color: Colors.white,
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.black),
+                        child: IconButton(
+                          onPressed: () {
+                            _scrollToNext(controller);
+                          },
+                          color: Colors.white,
+                          icon: const Icon(
+                            Icons.arrow_forward,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ])),
               const SizedBox(height: 40),
             ],
           ),

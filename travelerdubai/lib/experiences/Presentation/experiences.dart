@@ -21,9 +21,9 @@ class Experiences extends StatelessWidget {
             ExperienceRemoteService(Dio()),
           ),
         ),
-        Get.find<SharedPreferences>()),
+        ),
   );
-  final HeaderController headerController = Get.find();
+
 
   final TextEditingController searchController = TextEditingController();
 
@@ -31,6 +31,11 @@ class Experiences extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => HeaderController());
+
+// Later in your code, when you need to access the HeaderController:
+    HeaderController headerController = Get.find<HeaderController>();
+
     headerController.navItemColor.value =colorblack;
     String currentDate = DateTime.now().toString().split(' ')[0];
 

@@ -37,8 +37,10 @@ Widget tourCards() {
 
             return InkWell(
               onTap: () => Get.toNamed(
+
                 '/tour_details',
-                arguments: "$tourDetailId",
+                parameters: {'tourId': tourDetailId.toString()},
+               // arguments: "$tourDetailId",
               ),
               child: Card(
                 color: colorwhite,

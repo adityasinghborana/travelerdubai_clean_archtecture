@@ -43,7 +43,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final HeaderController headerController = Get.put(HeaderController());
+
 
   @override
   Widget build(BuildContext Context) {
