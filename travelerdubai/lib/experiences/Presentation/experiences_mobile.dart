@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
+import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
@@ -41,20 +42,18 @@ class ExperiencesMobile extends StatelessWidget {
     String currentDate = DateTime.now().toString().split(' ')[0];
 
     return Scaffold(
+      appBar: MobileHeader(),
       drawer: drawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Header(),
+
             SizedBox(
               width: Get.width,
               height: Get.height * .95,
               child: Row(
                 children: [
-                  Flexible(
-                    flex: 15,
-                    child: Tourtypes(),
-                  ),
+
                   Flexible(
                     flex: 85,
                     child: SingleChildScrollView(
@@ -62,6 +61,7 @@ class ExperiencesMobile extends StatelessWidget {
                         children: [
                           Stack(
                             children: [
+
                               SizedBox(
                                 height: Get.height * 0.20,
                                 child: Image.network(
@@ -112,7 +112,10 @@ class ExperiencesMobile extends StatelessWidget {
                           ),
                           Container(
                               height: MediaQuery.of(context).size.height * 0.9,
-                              child: tourCardsMobile()),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: tourCardsMobile(),
+                              )),
                         ],
                       ),
                     ),
