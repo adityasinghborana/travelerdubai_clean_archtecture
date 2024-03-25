@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final H1 = GoogleFonts.playfairDisplay(
@@ -22,10 +23,10 @@ final H2 = GoogleFonts.playfairDisplay(
     color: colorgreydark,
   ),
 );
-final H3 = GoogleFonts.playfairDisplay(
-  textStyle: const TextStyle(
+final H3 = GoogleFonts.outfit  (
+  textStyle:  TextStyle(
     letterSpacing: .5,
-    fontSize: 20,
+    fontSize:Get.width*.016,
     color: colorgreydark,
   ),
 );
@@ -37,17 +38,17 @@ final bodyf = GoogleFonts.playfairDisplay(
   ),
 );
 final bodyblack = GoogleFonts.playfairDisplay(
-  textStyle: const TextStyle(
+  textStyle:  TextStyle(
     letterSpacing: .5,
-    fontSize: 14,
+
     color: colorblack,
   ),
 );
 
 final ratingStyle = GoogleFonts.outfit(
-  textStyle: const TextStyle(
+  textStyle: TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 26,
+      fontSize: Get.width*0.015,
       height: 1.26,
       color: colorgreydark),
 );
@@ -64,6 +65,7 @@ final LinearGradient backgroundgradient = LinearGradient(
   transform: GradientRotation(
       180 * 3.14159265359 / 180), // Converting degrees to radians
 );
+
 final LinearGradient imageGradient = LinearGradient(
   begin: Alignment.bottomCenter,
   end: Alignment.topCenter,

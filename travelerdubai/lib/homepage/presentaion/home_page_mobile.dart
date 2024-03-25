@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/Components/bottom_nav.dart';
+import 'package:travelerdubai/core/widgets/Mobileheader.dart';
+import 'package:travelerdubai/core/widgets/drawer.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
@@ -38,15 +40,8 @@ class HomePageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: Drawer(),
-      appBar: AppBar(
-        title: Center(
-          child: Image.asset(
-            "./assets/logo.png",
-            width: MediaQuery.of(context).size.width * .4,
-          ),
-        ),
-      ),
+      drawer: drawer(),
+      appBar:MobileHeader(),
       body: SingleChildScrollView(
         controller: scrollController1,
         child: Column(

@@ -15,7 +15,7 @@ import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 
 import '../../core/widgets/header.dart';
 
-class Experiences extends StatelessWidget {
+class ExperiencesMobile extends StatelessWidget {
   final ExperienceController experienceController = Get.put(
     ExperienceController(
       GetExperiencesUseCase(
@@ -28,7 +28,7 @@ class Experiences extends StatelessWidget {
 
   final TextEditingController searchController = TextEditingController();
 
-  Experiences({super.key});
+  ExperiencesMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,6 @@ class Experiences extends StatelessWidget {
     String currentDate = DateTime.now().toString().split(' ')[0];
 
     return Scaffold(
-
       drawer: drawer(),
       body: SingleChildScrollView(
         child: Column(
@@ -112,10 +111,8 @@ class Experiences extends StatelessWidget {
                             ],
                           ),
                           Container(
-                            height: MediaQuery.of(context).size.height*0.9,
-                              child:tourCards()
-
-                          ),
+                              height: MediaQuery.of(context).size.height * 0.9,
+                              child: tourCardsMobile()),
                         ],
                       ),
                     ),

@@ -2,19 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/dom.dart' as htmlDom;
 import 'package:html/parser.dart' as htmlParser;
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 
-// class HtmlDisplayWidget extends StatelessWidget {
-//   final String? htmlContent;
-//
-//   HtmlDisplayWidget({required this.htmlContent});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final sanitizedHtml = htmlContent?.replaceAll('\n', '<br>');
-//     return HtmlWidget(sanitizedHtml!);
-//   }
-// }
+
 class HtmlDisplayWidget extends StatelessWidget {
   final String? htmlContent;
 
@@ -24,13 +15,10 @@ class HtmlDisplayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final document = htmlParser.parse(htmlContent);
 
-    return SizedBox(
-      height: Get.width * .05,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: _parseNodes(document.body!.nodes),
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: _parseNodes(document.body!.nodes),
       ),
     );
   }
@@ -63,15 +51,27 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: text
-          .split('<br>')
-          .map((line) => Text(
-                line.trim(),
-                style: bodyblack,
-              ))
-          .toList(),
+    return ResponsiveBuilder(
+      builder: (context, sizingInformation) {
+        double fontSize = sizingInformation.deviceScreenType == DeviceScreenType.mobile || sizingInformation.deviceScreenType == DeviceScreenType.tablet
+            ? MediaQuery.of(context).size.width * 0.018
+            : MediaQuery.of(context).size.width * 0.01;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: text
+              .split('<br>')
+              .map((line) => Text(
+            line.trim(),
+            style: TextStyle(
+              letterSpacing: .5,
+              fontSize: fontSize,
+              color: colorblack,
+            ),
+          ))
+              .toList(),
+        );
+      },
     );
   }
 }
