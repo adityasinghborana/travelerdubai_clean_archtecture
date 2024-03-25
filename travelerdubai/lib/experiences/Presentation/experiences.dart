@@ -44,7 +44,7 @@ class Experiences extends StatelessWidget {
             Header(),
             SizedBox(
               width: Get.width,
-              height: Get.height * .75,
+              height: Get.height ,
               child: Row(
                 children: [
                   Flexible(
@@ -107,7 +107,7 @@ class Experiences extends StatelessWidget {
                             ],
                           ),
                           SizedBox(
-                              height: Get.height * .75, child: tourCards()),
+                              height: Get.height , child: tourCards()),
                         ],
                       ),
                     ),

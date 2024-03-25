@@ -28,13 +28,9 @@ class HeroImageWidget extends StatelessWidget {
         return Expanded(
           child: Stack(
             children: [
-              // Image.network(
-              //   imageUrl,
-              //   fit: BoxFit.cover,
-              //   width: double.infinity,
-              //   height: double.infinity,
-              // ),
+
               MUICarousel(
+
                 showButtons: false,
                 images: controller.imageList,
                 indicatorType: CarouselIndicatorType.dot,

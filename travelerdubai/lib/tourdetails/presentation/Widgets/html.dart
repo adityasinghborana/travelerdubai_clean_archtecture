@@ -24,14 +24,9 @@ class HtmlDisplayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final document = htmlParser.parse(htmlContent);
 
-    return SizedBox(
-      height: Get.width * .05,
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: _parseNodes(document.body!.nodes),
-        ),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _parseNodes(document.body!.nodes),
     );
   }
 
