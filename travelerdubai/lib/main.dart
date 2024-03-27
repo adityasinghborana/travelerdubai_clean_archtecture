@@ -15,6 +15,8 @@ import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
 import 'package:travelerdubai/events/presentation/events.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/success.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
@@ -140,8 +142,11 @@ class MyApp extends StatelessWidget {
             transition: Transition.circularReveal,
             transitionDuration: const Duration(milliseconds: 500),
           ),
+
+
         ],
       ),
+
     );
   }
 }

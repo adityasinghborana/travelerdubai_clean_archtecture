@@ -4,6 +4,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_stripe_web/card_field.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
 
 import '../Cart/data_layer/repository/cart_repository.dart';
 import '../Cart/data_layer/service/cart_remote.dart';
@@ -14,6 +15,7 @@ import '../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../checkout/data_layer/repository/Intent_repository.dart';
 import '../checkout/data_layer/service/remote.dart';
 import '../checkout/data_layer/usecase/intent_usecase.dart';
+import '../paymentconfirmation/presentationlayer/success.dart';
 
 
 class CardPaymentScreen extends StatefulWidget {
@@ -143,11 +145,11 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
       if (confirmation.status == PaymentIntentsStatus.Succeeded) {
 
         checkoutController.doBookings();
-        // Payment succeeded
-        print('Payment succeeded!');
+
+       
       } else {
-        // Payment failed
-        print('Payment failed!');
+       print("Paymnet intent failed ");
+        Get.off(const FailureScreen());
       }
     } catch (e) {
       // Handle errors
