@@ -137,7 +137,6 @@ class MyApp extends StatelessWidget {
             transitionDuration: const Duration(milliseconds: 500),
           ),
 
-
         ],
       ),
 

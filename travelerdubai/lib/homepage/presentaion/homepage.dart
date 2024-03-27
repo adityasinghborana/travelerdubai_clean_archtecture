@@ -31,13 +31,13 @@ class Homepage extends StatelessWidget {
   final ScrollController? scrollController2 = ScrollController();
   final ScrollController? scrollController3 = ScrollController();
   final ScrollController? scrollController4 = ScrollController();
-
+  final HeaderController headerController = Get.put(HeaderController());
 
   Homepage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final HeaderController headerController = Get.put(HeaderController());
+
     scrollController4?.addListener(() {
       headerController.updateHeaderBackground(scrollController4?.offset ?? 0);
     });
@@ -45,7 +45,7 @@ class Homepage extends StatelessWidget {
 
     return Stack(children: [
       SingleChildScrollView(
-
+controller: scrollController4,
         child: Column(
           children: [
             //This is the first section
