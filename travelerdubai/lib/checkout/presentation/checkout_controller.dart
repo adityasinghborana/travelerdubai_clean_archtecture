@@ -12,6 +12,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../Cart/data_layer/model/response/get_cart_response.dart';
 import '../../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../../creditcard/creditcard.dart';
+import '../../paymentconfirmation/presentationlayer/failure.dart';
 import '../../paymentconfirmation/presentationlayer/success.dart';
 import 'model/guest.dart';
 
@@ -142,12 +143,15 @@ class CheckoutController extends GetxController {
     List<Passenger>  passengerdata = [Passenger(serviceType: "Tour", prefix: prefixController.text, firstName: firstNameController.text, lastName: lastNameController.text, email: emailController.text, mobile: mobileNoController.text, nationality: nationalityController.text, message: messageController.text, leadPassenger: 1, paxType: selectedValue.value)];
 
     BookingRequest data = BookingRequest(pickup: pickupController.text, User: headerController.userid.value, cartid: cartId.value, passengers: passengerdata);
-    
-    doBookingUseCase.execute(data).then((value) {
-      print(value.result?.referenceNo ?? "booking not generated");
-      refno.value=value.result!.referenceNo!;
-      Get.to(PaymentSuccess());
-    });
 
-  }
+    doBookingUseCase.execute(data).then((value) {
+      if (value.result?.referenceNo != null) {
+        print(value.result!.referenceNo);
+        refno.value = value.result!.referenceNo!;
+        Get.to(PaymentSuccess());
+      } else {
+        Get.to(FailureScreen());
+      }
+    });
+}
 }
