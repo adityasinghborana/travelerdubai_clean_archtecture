@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
-import 'package:travelerdubai/bookings/bookings.dart';
 import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
 import 'package:travelerdubai/core/homescreen.dart';
@@ -122,12 +121,7 @@ class MyApp extends StatelessWidget {
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
-          GetPage(
-            name: '/bookings',
-            page: () => BookingPage(),
-            transition: Transition.leftToRightWithFade,
-            transitionDuration: const Duration(milliseconds: 500),
-          ),
+
           GetPage(
             name: '/checkout',
             page: () => CheckoutPage(),
