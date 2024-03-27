@@ -26,24 +26,30 @@ class HomePageMobile extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
 
-  final TourlistController tourlistController = Get.put(TourlistController(
+  final TourlistController tourlistController = Get.put(
+    TourlistController(
       GetExperiencesUseCase(
-          ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
-  final PageController? pageController = Get.put(PageController());
-  final ScrollController? scrollController1 = ScrollController();
+        ExperiencesRepositoryImpl(
+          ExperienceRemoteService(Dio()),
+        ),
+      ),
+    ),
+  );
 
-  final HeaderController headerController = Get.put(HeaderController());
+  final ScrollController? scrollController2 = ScrollController();
+  final ScrollController? scrollController3 = ScrollController();
+  final ScrollController? scrollController4 = ScrollController();
 
   HomePageMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawer(),
-      appBar:MobileHeader(),
+      appBar: MobileHeader(),
       body: SingleChildScrollView(
-        controller: scrollController1,
         child: Column(
           children: [
             Container(
@@ -52,24 +58,20 @@ class HomePageMobile extends StatelessWidget {
                 titlefontsize: 32,
               ),
             ),
-            //This contains form as well as the text Feature
-            // _buildFormSection(context),
 
-            // This contain heading as well as list
             Obx(
-              () => _buildSection(
-                  "${homeController.formData.value?.heading1}", width),
+              () => _buildSection("${homeController.formData.value?.heading1}",
+                  width, scrollController4),
             ),
             Obx(
               () => _buildCitySection(
                   "${homeController.formData.value?.heading2}",
-                  scrollController1,
-                  width),
+                  scrollController2, width),
             ),
-            // const MyGridSectionWidget(),
+
             Obx(
-              () => _buildSection(
-                  "${homeController.formData.value?.heading3}", width),
+              () => _buildSection("${homeController.formData.value?.heading3}",
+                  width, scrollController3),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
             buildFooter(),
@@ -80,7 +82,8 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(String heading, double? width) {
+  Widget _buildSection(
+      String heading, double? width, ScrollController? controller) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Get.height * 0.015),
       color: Colors.white,
