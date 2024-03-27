@@ -63,35 +63,38 @@ class Header extends StatelessWidget {
   Widget _navItem(String title, String route) {
     headerController.isHoveredMap.putIfAbsent(title, () => false);
 
-    return MouseRegion(
-      onEnter: (_) {
-        headerController.onHover(title, true);
-      },
-      onExit: (_) {
-        headerController.onHover(title, false);
-      },
-      child: InkWell(
-        hoverColor: Colors.transparent,
-        onTap: () {
-          headerController.navItemColor.value = colorblack;
-          Get.toNamed(route);
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(
-            title,
-            style: GoogleFonts.outfit(
-              fontSize: 20,
-              color: headerController.isHoveredMap[title] ?? false
-                  ? colorPrimary
-                  : headerController.navItemColor.value,
-            ),
-          ),
-        ),
-      ),
+    return Obx(
+            () {
+          return MouseRegion(
+              onEnter: (_) {
+                headerController.onHover(title, true);
+              },
+              onExit: (_) {
+                headerController.onHover(title, false);
+              },
+              child: InkWell(
+                hoverColor: Colors.transparent,
+                onTap: () {
+                  headerController.navItemColor.value = colorblack;
+                  Get.toNamed(route);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Text(
+                    title,
+                    style: GoogleFonts.outfit(
+                      fontSize: 20,
+                      color: headerController.isHoveredMap[title] ?? false
+                          ? colorPrimary
+                          : headerController.navItemColor.value,
+                    ),
+                  ),
+                ),
+              )
+          );
+        }
     );
   }
-
   Widget Menu() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       _navItem(
@@ -155,6 +158,6 @@ class Header extends StatelessWidget {
         "Dashboard",
         '/Signup',
       ),
-    ]);
+    ],);
   }
 }
