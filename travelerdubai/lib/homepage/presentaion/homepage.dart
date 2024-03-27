@@ -116,7 +116,7 @@ class Homepage extends StatelessWidget {
   Widget _buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
+
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class Homepage extends StatelessWidget {
             children: [
               _buildHeading(heading),
               Container(
-                  height: Get.height * .6,
+                  height: Get.height * .5,
                   width: Get.width * .9,
                   child: Stack(children: [
                     CityList(

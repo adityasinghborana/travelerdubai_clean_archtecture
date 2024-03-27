@@ -28,12 +28,7 @@ class HeroImageWidget extends StatelessWidget {
         return Expanded(
           child: Stack(
             children: [
-              // Image.network(
-              //   imageUrl,
-              //   fit: BoxFit.cover,
-              //   width: double.infinity,
-              //   height: double.infinity,
-              // ),
+
               MUICarousel(
                 showButtons: false,
                 images: controller.imageList,
@@ -55,8 +50,8 @@ class HeroImageWidget extends StatelessWidget {
                       children: [
                         SelectableText(
                           controller.formData.value?.title ?? 'Traveller Dubai',
-                          style: GoogleFonts.playfairDisplay(
-                            color: colorPrimary,
+                          style: GoogleFonts.outfit(
+                            color: colorwhite,
                             fontSize: titlefontsize,
                             fontWeight: FontWeight.bold,
                           ),
@@ -69,7 +64,7 @@ class HeroImageWidget extends StatelessWidget {
                           child: SelectableText(
                             controller.formData.value?.title ??
                                 'Search for help - Enter a question or keywords in the search box on the taskbar to find apps, files, settings, and get help from the web',
-                            style: GoogleFonts.playfairDisplay(
+                            style: GoogleFonts.roboto(
                               color: colorwhite,
                               fontSize: 18,
                               fontWeight: FontWeight.w200,
@@ -79,6 +74,7 @@ class HeroImageWidget extends StatelessWidget {
                           ),
                         ),
                         InlineFlexButton(
+                          bgcolor: colorblue,
                             fontsize: 28,
                             vpadding: 20,
                             label: "Explore More",
