@@ -41,8 +41,7 @@ Widget options() {
   );
 
   return Container(
-    height: 300,
-    width: Get.width * .85,
+ height: 280,
     child: ListView.builder(
       itemCount: optionsstatic.options.length,
       itemBuilder: (BuildContext context, int index) {
@@ -56,26 +55,6 @@ Widget options() {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text("${optionsstatic.options[index].optionName}"),
-                  Obx(() => DropdownWidget(
-                        label: 'Adults',
-                        selectedValue: optionsstatic.adultsSelectedValue.value,
-                        onChanged: (value) => optionsstatic
-                            .adultsSelectedValue.value = value ?? 1,
-                      )),
-                  Obx(() => DropdownWidget(
-                        label: 'Children',
-                        selectedValue:
-                            optionsstatic.childrenSelectedValue.value,
-                        onChanged: (value) => optionsstatic
-                            .childrenSelectedValue.value = value ?? 0,
-                      )),
-                  Obx(() => DropdownWidget(
-                        label: 'Infants',
-                        selectedValue: optionsstatic.infantsSelectedValue.value,
-                        onChanged: (value) => optionsstatic
-                            .infantsSelectedValue.value = value ?? 0,
-                      )),
-                  Showdatepicker(),
                   Obx(() {
                     if (showChanged[index].value == true) {
                       return Container(

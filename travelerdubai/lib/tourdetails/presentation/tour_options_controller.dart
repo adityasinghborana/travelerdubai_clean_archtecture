@@ -36,16 +36,23 @@ class TourOptionStaticDataController extends GetxController {
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
   var id = "".obs;
-
   var contractid = "".obs;
-  final RxList<TourOption> options = <TourOption>[].obs;
   final RxList<Result> timeslots = <Result>[].obs;
+  final RxList<TourOption> options = <TourOption>[].obs;
   final RxList<TourOptionDynamicResult> dynamicoptions =
       <TourOptionDynamicResult>[].obs;
 
-  RxInt adultsSelectedValue = 0.obs;
+  RxInt adultsSelectedValue = 1.obs;
   RxInt childrenSelectedValue = 0.obs;
   RxInt infantsSelectedValue = 0.obs;
+
+  var selectedTransfer = 'Without transfer'.obs;
+
+  void changeSelectedTransfer(String? newValue) {
+    if (newValue != null) {
+      selectedTransfer.value = newValue;
+    }
+  }
   RxInt optionid = 0.obs;
   RxInt transferid = 0.obs;
 

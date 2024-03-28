@@ -63,6 +63,7 @@ class Optionpricing extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("${data.transferName}"),
+                    Text("${data.tourOptionId}"),
                     Text(
                       "Amount ${(optionsdynamic.pricing.value.addPriceAdult!.toDouble() + optionsdynamic.pricing.value.addPriceChildren!.toDouble() + optionsdynamic.pricing.value.additionalPriceInfant!.toDouble() + data.finalAmount!.toDouble())}",
                     ),

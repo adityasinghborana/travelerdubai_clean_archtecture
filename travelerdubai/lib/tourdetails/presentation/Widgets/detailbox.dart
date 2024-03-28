@@ -4,8 +4,9 @@ import 'package:travelerdubai/core/constants/contants.dart';
 class DetailBox extends StatelessWidget {
   final String title ;
   final Widget Description;
+  final bool isExpanded ;
 
-  DetailBox({required this.title,required this.Description});
+  DetailBox({required this.title,required this.Description,this.isExpanded = false});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,13 @@ class DetailBox extends StatelessWidget {
       surfaceTintColor: colorwhite,
       color: colorwhite,
       elevation: 3,
-      child: ListTile(
-contentPadding: EdgeInsets.all(20),
+      child: ExpansionTile(
+        initiallyExpanded: isExpanded,
+childrenPadding: EdgeInsets.all(20),
         title: Text(title,style: H3,),
-        subtitle: Description,
+       children: [
+         Description
+       ],
       ),
     );
   }

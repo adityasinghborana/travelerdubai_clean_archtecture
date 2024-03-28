@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final H1 = GoogleFonts.playfairDisplay(
+final H1 = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 40,
     color: colorwhite,
   ),
 );
-final H1black = GoogleFonts.playfairDisplay(
+final H1black = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 72,
     color: colorblack,
   ),
 );
-final H2 = GoogleFonts.playfairDisplay(
+final H2 =GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 42,
@@ -30,14 +30,14 @@ final H3 = GoogleFonts.outfit(
     color: colorgreydark,
   ),
 );
-final bodyf = GoogleFonts.playfairDisplay(
+final bodyf = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 14,
     color: colorlightgrey,
   ),
 );
-final bodyblack = GoogleFonts.playfairDisplay(
+final bodyblack = GoogleFonts.outfit(
   textStyle: TextStyle(
     letterSpacing: .5,
     color: colorblack,

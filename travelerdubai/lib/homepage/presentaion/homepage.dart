@@ -175,7 +175,7 @@ controller: scrollController4,
   Widget _buildHeading(String heading) {
     return Padding(
       padding: EdgeInsets.only(
-          top: 20, left: 60, right: 20, bottom: Get.height * 0.038),
+        left: 60, right: 20, ),
       child: Center(
         child: SelectableText(
           heading,
@@ -183,7 +183,7 @@ controller: scrollController4,
             textStyle: const TextStyle(
                 color: Colors.black,
                 letterSpacing: .5,
-                fontSize: 48,
+                fontSize: 35,
                 fontWeight: FontWeight.bold),
           ),
         ),
