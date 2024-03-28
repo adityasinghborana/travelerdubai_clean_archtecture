@@ -35,7 +35,7 @@ class CityList extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       } else {
         return SizedBox(
-          width: Get.width * .8,
+          width: Get.width * .9,
           height: Get.height * .5,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,

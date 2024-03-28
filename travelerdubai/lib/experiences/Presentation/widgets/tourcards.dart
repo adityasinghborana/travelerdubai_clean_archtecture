@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
-import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
@@ -58,6 +57,88 @@ Widget tourCards() {
                           topRight: Radius.circular(12),
                         ),
                         child: AspectRatio(
+                          aspectRatio: 1 / 0.6,
+                          child: Image.network(
+                            "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    // height: MediaQuery.of(context).size.height * 0.025,
+                                    child: SingleChildScrollView(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              tour.tourName.length <= 20
+                                                  ? tour.tourName
+                                                  : tour.tourName
+                                                          .substring(0, 20) +
+                                                      '...',
+                                              style: TextStyle(
+                                                letterSpacing: .5,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .016,
+                                                color: colorgreydark,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          Row(children: [
+                                            Text(
+                                              ' ${tour.rating}',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: ratingStyle,
+                                            ),
+                                            const Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                              size: 20,
+                                            ),
+                                          ]),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    child: SingleChildScrollView(
+                                      child: HtmlDisplayWidget(
+                                        htmlContent:
+                                            tour.tourShortDescription.length <=
+                                                    80
+                                                ? tour.tourShortDescription
+                                                : tour.tourShortDescription
+                                                        .substring(0, 80) +
+                                                    '...',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                           aspectRatio: 1 / 0.6,
                           child: Image.network(
                             "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
@@ -260,6 +341,95 @@ Widget tourCardsMobile() {
                                         ],
                                       ),
                                     ),
+                                  ),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                  SingleChildScrollView(
+                                    child: HtmlDisplayWidget(
+                                      htmlContent:
+                                          tour.tourShortDescription.length <= 80
+                                              ? tour.tourShortDescription
+                                              : tour.tourShortDescription
+                                                      .substring(0, 80) +
+                                                  '...',
+  return Obx(() {
+    if (experienceController.cityTours.isEmpty) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      List<Experiences> displayedTours =
+          experienceController.selectedTourType.isEmpty
+              ? experienceController.cityTours
+              : experienceController.cityTours
+                  .where((tour) =>
+                      tour.cityTourType ==
+                      experienceController.selectedTourType.value)
+                  .toList();
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12),
+                        ),
+                        child: AspectRatio(
+                          aspectRatio: 1 / 0.6,
+                          child: Image.network(
+                            "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                            fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    // height: MediaQuery.of(context).size.height * 0.025,
+                                    child: SingleChildScrollView(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              tour.tourName.length <= 20
+                                                  ? tour.tourName
+                                                  : tour.tourName
+                                                          .substring(0, 20) +
+                                                      '...',
+                                              style: TextStyle(
+                                                letterSpacing: .5,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .025,
+                                                color: colorgreydark,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          Row(children: [
+                                            Text(
+                                              ' ${tour.rating}',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: ratingStyle,
+                                            ),
+                                            const Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                              size: 20,
+                                            ),
+                                          ]),
+                                        ],
                                   ),
                                   SizedBox(
                                     height: 2,

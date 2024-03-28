@@ -55,7 +55,7 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
       builder: (context, sizingInformation) {
         double fontSize = sizingInformation.deviceScreenType == DeviceScreenType.mobile || sizingInformation.deviceScreenType == DeviceScreenType.tablet
             ? MediaQuery.of(context).size.width * 0.018
-            : MediaQuery.of(context).size.width * 0.01;
+            : MediaQuery.of(context).size.width * 0.009;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -17,6 +17,7 @@ class HeaderController extends GetxController {
 
   void onInit() {
     ever(loggedIn, (_) {
+
       // Triggered whenever loggedin changes
       if (kDebugMode) {
         print("LoggedIn changed: $loggedIn");

@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
-import 'package:travelerdubai/core/widgets/account_widget.dart';
-
 import '../controller/headercontroller.dart';
-import 'dashboard_widget.dart';
 
 class Header extends StatelessWidget {
   final HeaderController headerController = Get.put(HeaderController());
@@ -14,12 +11,12 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
+    final double width = MediaQuery.of(context).size.width ;
+    final double height = MediaQuery.of(context).size.height ;
     return Obx(
-          () => Container(
+      () => Container(
         height: 90,
-        width: Get.width,
+        width: width,
         color: headerController.isHeaderTransparent.value
             ? Colors.transparent
             : Colors.white,
@@ -27,41 +24,30 @@ class Header extends StatelessWidget {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1440),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              padding:  EdgeInsets.symmetric(horizontal: width*.005, vertical: height*.001),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     "./assets/logo.png",
                     height: 80,
-                    width: 160,
+                    width: width*.1,
                     fit: BoxFit.contain,
                   ),
                   SizedBox(
-                    width: Get.width * 0.10,
+                    width: width * 0.10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _navItem("Home", '/home', ),
-                      _navItem("About Us", '/Aboutus', ),
-                      _navItem("Experiences", '/experiences',),
-                      _navItem("Events", '/events', ),
-                      _navItem("Contact Us", '/contactus',),
-                      // const SizedBox(
-                      //   width: 200,
-                      // ),
-                      GetBuilder<HeaderController>(
-                        builder: (controller) {
-                          if (controller.loggedIn.isFalse) {
-                            return LoginSignupWidget(); // Widget 1
-                          } else {
-                            return AccountWidget(); // Widget 2
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                  GetBuilder<HeaderController>(
+                    builder: (headerController) {
+                      var status = headerController.loggedIn.value;
+                      if (status != null && status != false) {
+                        return MenuLoggedin();
+                      } else {
+                        return Menu();
+                      }
+                    },
+                  )
+
                 ],
               ),
             ),
@@ -71,40 +57,104 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _navItem(
-      String title,
-      String route,
-
-      ) {
+  Widget _navItem(String title, String route) {
     headerController.isHoveredMap.putIfAbsent(title, () => false);
 
-    return MouseRegion(
-      onEnter: (_) {
-        headerController.onHover(title, true);
-      },
-      onExit: (_) {
-        headerController.onHover(title, false);
-      },
-      child: InkWell(
-        hoverColor: Colors.transparent,
-        onTap: () {
-         headerController.navItemColor.value = colorblack;
-          Get.toNamed(route);
-
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(
-            title,
-            style: GoogleFonts.playfairDisplay(
-              fontSize: 20,
-              color: headerController.isHoveredMap[title] ?? false
-                  ? colorPrimary
-                  : headerController.navItemColor.value,
-            ),
-          ),
-        ),
-      ),
+    return Obx(
+            () {
+          return MouseRegion(
+              onEnter: (_) {
+                headerController.onHover(title, true);
+              },
+              onExit: (_) {
+                headerController.onHover(title, false);
+              },
+              child: InkWell(
+                hoverColor: Colors.transparent,
+                onTap: () {
+                  headerController.navItemColor.value = colorblack;
+                  Get.toNamed(route);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Text(
+                    title,
+                    style: GoogleFonts.outfit(
+                      fontSize: 20,
+                      color: headerController.isHoveredMap[title] ?? false
+                          ? colorPrimary
+                          : headerController.navItemColor.value,
+                    ),
+                  ),
+                ),
+              )
+          );
+        }
     );
+  }
+  Widget Menu() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      _navItem(
+        "Home",
+        '/home',
+      ),
+      _navItem(
+        "About Us",
+        '/Aboutus',
+      ),
+      _navItem(
+        "Experiences",
+        '/experiences',
+      ),
+      _navItem(
+        "Events",
+        '/events',
+      ),
+      _navItem(
+        "Contact Us",
+        '/contactus',
+      ),
+      _navItem(
+        "Login",
+        '/Login',
+      ),
+      _navItem(
+        "SignUp",
+        '/Signup',
+      ),
+    ]);
+  }
+
+  Widget MenuLoggedin() {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      _navItem(
+        "Home",
+        '/home',
+      ),
+      _navItem(
+        "About Us",
+        '/Aboutus',
+      ),
+      _navItem(
+        "Experiences",
+        '/experiences',
+      ),
+      _navItem(
+        "Events",
+        '/events',
+      ),
+      _navItem(
+        "Contact Us",
+        '/contactus',
+      ),
+      _navItem(
+        "Cart",
+        '/Login',
+      ),
+      _navItem(
+        "Dashboard",
+        '/Signup',
+      ),
+    ],);
   }
 }

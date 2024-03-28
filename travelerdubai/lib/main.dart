@@ -8,13 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
-import 'package:travelerdubai/bookings/bookings.dart';
 import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
 import 'package:travelerdubai/events/presentation/events.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/success.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
@@ -121,12 +122,7 @@ class MyApp extends StatelessWidget {
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
-          GetPage(
-            name: '/bookings',
-            page: () => BookingPage(),
-            transition: Transition.leftToRightWithFade,
-            transitionDuration: const Duration(milliseconds: 500),
-          ),
+
           GetPage(
             name: '/checkout',
             page: () => CheckoutPage(),
@@ -139,8 +135,10 @@ class MyApp extends StatelessWidget {
             transition: Transition.circularReveal,
             transitionDuration: const Duration(milliseconds: 500),
           ),
+
         ],
       ),
+
     );
   }
 }

@@ -26,7 +26,7 @@ class Homepage extends StatelessWidget {
   final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
-  final PageController? pageController = Get.put(PageController());
+
   final ScrollController? scrollController1 = ScrollController();
   final ScrollController? scrollController2 = ScrollController();
   final ScrollController? scrollController3 = ScrollController();
@@ -37,6 +37,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     scrollController4?.addListener(() {
       headerController.updateHeaderBackground(scrollController4?.offset ?? 0);
     });
@@ -44,7 +45,7 @@ class Homepage extends StatelessWidget {
 
     return Stack(children: [
       SingleChildScrollView(
-        controller: scrollController4,
+controller: scrollController4,
         child: Column(
           children: [
             //This is the first section
@@ -116,7 +117,7 @@ class Homepage extends StatelessWidget {
   Widget _buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
+
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +127,7 @@ class Homepage extends StatelessWidget {
             children: [
               _buildHeading(heading),
               Container(
-                  height: Get.height * .6,
+                  height: Get.height * .5,
                   width: Get.width * .9,
                   child: Stack(children: [
                     CityList(

@@ -8,14 +8,16 @@ class InlineFlexButton extends StatelessWidget {
   final double vpadding;
   final double hpadding;
   final double fontsize;
+  final Color bgcolor;
 
-  const InlineFlexButton({
+   InlineFlexButton({
     super.key,
     required this.label,
     required this.onPressed,
     this.vpadding = 30,
     this.hpadding = 40,
     this.fontsize = 20,
+    this.bgcolor = Colors.transparent,
   });
 
   @override
@@ -23,17 +25,17 @@ class InlineFlexButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: colorPrimary,
+        backgroundColor: bgcolor,
         padding: EdgeInsets.symmetric(vertical: vpadding, horizontal: hpadding),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
-        textStyle: const TextStyle(color: Colors.white),
+        textStyle: TextStyle(color: Colors.white),
         alignment: Alignment.center,
       ),
       child: Text(
         label,
-        style: GoogleFonts.playfairDisplay(fontSize: 20, color: colorwhite),
+        style: GoogleFonts.roboto(fontSize: 20, color: colorwhite),
       ),
     );
   }

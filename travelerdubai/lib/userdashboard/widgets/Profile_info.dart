@@ -13,6 +13,11 @@ class ProfileInfo extends StatelessWidget {
         child: Column(
           children: [
             buildTextFormField("Name", namecontrller),
+            buildTextFormField("Email", namecontrller),
+            buildTextFormField("Age", namecontrller),
+            buildTextFormField("MobileNumber", namecontrller),
+            buildTextFormField("DOB", namecontrller),
+            buildTextFormField("Address", namecontrller),
           ],
         ),
       ),
