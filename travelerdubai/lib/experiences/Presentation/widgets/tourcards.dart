@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
@@ -38,11 +39,14 @@ Widget tourCards() {
             return Padding(
               padding: const EdgeInsets.all(20.0),
               child: InkWell(
-                onTap: () => Get.toNamed(
-                  '/tour_details',
-                  parameters: {'tourId': tourDetailId.toString()},
-                  // arguments: "$tourDetailId",
-                ),
+                onTap: () {
+                  Get.find<HeaderController>().isHeaderTransparent.value = true;
+                  Get.toNamed(
+                    '/tour_details',
+                    parameters: {'tourId': tourDetailId.toString()},
+                    // arguments: "$tourDetailId",
+                  );
+                },
                 child: Card(
                   color: colorwhite,
                   elevation: 3,
@@ -54,16 +58,16 @@ Widget tourCards() {
                           topRight: Radius.circular(12),
                         ),
                         child: AspectRatio(
-                          aspectRatio: 1/0.6,
+                          aspectRatio: 1 / 0.6,
                           child: Image.network(
                             "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-
-
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,22 +78,25 @@ Widget tourCards() {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                   // height: MediaQuery.of(context).size.height * 0.025,
+                                    // height: MediaQuery.of(context).size.height * 0.025,
                                     child: SingleChildScrollView(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Flexible(
-
                                             child: Text(
                                               tour.tourName.length <= 20
                                                   ? tour.tourName
-                                                  : tour.tourName.substring(0, 20) +
-                                                  '...',
+                                                  : tour.tourName
+                                                          .substring(0, 20) +
+                                                      '...',
                                               style: TextStyle(
                                                 letterSpacing: .5,
-                                                fontSize:MediaQuery.of(context).size.width*.016,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .016,
                                                 color: colorgreydark,
                                               ),
                                               overflow: TextOverflow.ellipsis,
@@ -113,14 +120,16 @@ Widget tourCards() {
                                       ),
                                     ),
                                   ),
-
                                   SizedBox(
-
                                     child: SingleChildScrollView(
                                       child: HtmlDisplayWidget(
-                                        htmlContent: tour.tourShortDescription.length <= 80
-                                            ? tour.tourShortDescription
-                                            : tour.tourShortDescription.substring(0, 80) + '...',
+                                        htmlContent:
+                                            tour.tourShortDescription.length <=
+                                                    80
+                                                ? tour.tourShortDescription
+                                                : tour.tourShortDescription
+                                                        .substring(0, 80) +
+                                                    '...',
                                       ),
                                     ),
                                   ),
@@ -150,13 +159,13 @@ Widget tourCardsMobile() {
       return const Center(child: CircularProgressIndicator());
     } else {
       List<Experiences> displayedTours =
-      experienceController.selectedTourType.isEmpty
-          ? experienceController.cityTours
-          : experienceController.cityTours
-          .where((tour) =>
-      tour.cityTourType ==
-          experienceController.selectedTourType.value)
-          .toList();
+          experienceController.selectedTourType.isEmpty
+              ? experienceController.cityTours
+              : experienceController.cityTours
+                  .where((tour) =>
+                      tour.cityTourType ==
+                      experienceController.selectedTourType.value)
+                  .toList();
 
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -190,16 +199,16 @@ Widget tourCardsMobile() {
                           topRight: Radius.circular(12),
                         ),
                         child: AspectRatio(
-                          aspectRatio: 1/0.6,
+                          aspectRatio: 1 / 0.6,
                           child: Image.network(
                             "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-
-
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,18 +223,21 @@ Widget tourCardsMobile() {
                                     child: SingleChildScrollView(
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Flexible(
-
                                             child: Text(
                                               tour.tourName.length <= 20
                                                   ? tour.tourName
-                                                  : tour.tourName.substring(0, 20) +
-                                                  '...',
+                                                  : tour.tourName
+                                                          .substring(0, 20) +
+                                                      '...',
                                               style: TextStyle(
                                                 letterSpacing: .5,
-                                                fontSize:MediaQuery.of(context).size.width*.025,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    .025,
                                                 color: colorgreydark,
                                               ),
                                               overflow: TextOverflow.ellipsis,
@@ -249,12 +261,17 @@ Widget tourCardsMobile() {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 2,),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
                                   SingleChildScrollView(
                                     child: HtmlDisplayWidget(
-                                      htmlContent: tour.tourShortDescription.length <= 80
-                                          ? tour.tourShortDescription
-                                          : tour.tourShortDescription.substring(0, 80) + '...',
+                                      htmlContent:
+                                          tour.tourShortDescription.length <= 80
+                                              ? tour.tourShortDescription
+                                              : tour.tourShortDescription
+                                                      .substring(0, 80) +
+                                                  '...',
                                     ),
                                   ),
                                 ],

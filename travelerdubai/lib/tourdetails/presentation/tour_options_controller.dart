@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/update_cart.dart';
-import 'package:travelerdubai/Cart/data_layer/model/response/update_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
-
-import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/request/timeslot_request.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/request/tour_option_dynamic.dart';
@@ -17,13 +14,13 @@ import '../touroption_data_layer/model/response/tour_option_dynamic_response.dar
 import '../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import 'Widgets/tour_option_pricing.dart';
 
-class TouroptionstaticdataController extends GetxController {
+class TourOptionStaticDataController extends GetxController {
   final GetTimeSlotUseCase getTimeSlotUseCase;
   final GetTourOptionsStaticDataUseCase getOptionsStaticDataUseCase;
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
 
-  TouroptionstaticdataController(
+  TourOptionStaticDataController(
       this.getOptionsStaticDataUseCase,
       this.getOptionsDynamicDataUseCase,
       this.getTimeSlotUseCase,
@@ -31,6 +28,9 @@ class TouroptionstaticdataController extends GetxController {
 
   var Loading = true.obs;
   RxString selectedTimeSlotId = RxString("0");
+  TextEditingController adultTextController = TextEditingController(text: '0');
+  TextEditingController childrenTextController = TextEditingController();
+  TextEditingController infantTextController = TextEditingController();
   final RxInt timeSlotId = 0.obs; // need to check
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;

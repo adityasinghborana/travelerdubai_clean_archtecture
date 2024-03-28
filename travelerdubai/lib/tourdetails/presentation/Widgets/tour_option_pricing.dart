@@ -18,8 +18,8 @@ import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart'
 import '../tour_options_controller.dart';
 
 class Optionpricing extends StatelessWidget {
-  final TouroptionstaticdataController optionsdynamic = Get.put(
-    TouroptionstaticdataController(
+  final TourOptionStaticDataController optionsdynamic = Get.put(
+    TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
           TourOptionsRepositoryImpl(
             TourOptionRemoteService(Dio()),
@@ -43,6 +43,8 @@ class Optionpricing extends StatelessWidget {
   );
 
   final HeaderController controller = Get.find();
+
+  Optionpricing({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -23,10 +23,10 @@ final H2 = GoogleFonts.playfairDisplay(
     color: colorgreydark,
   ),
 );
-final H3 = GoogleFonts.outfit  (
-  textStyle:  TextStyle(
+final H3 = GoogleFonts.outfit(
+  textStyle: TextStyle(
     letterSpacing: .5,
-    fontSize:Get.width*.016,
+    fontSize: Get.width * .016,
     color: colorgreydark,
   ),
 );
@@ -38,9 +38,8 @@ final bodyf = GoogleFonts.playfairDisplay(
   ),
 );
 final bodyblack = GoogleFonts.playfairDisplay(
-  textStyle:  TextStyle(
+  textStyle: TextStyle(
     letterSpacing: .5,
-
     color: colorblack,
   ),
 );
@@ -48,7 +47,7 @@ final bodyblack = GoogleFonts.playfairDisplay(
 final ratingStyle = GoogleFonts.outfit(
   textStyle: TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: Get.width*0.015,
+      fontSize: Get.width * 0.015,
       height: 1.26,
       color: colorgreydark),
 );
@@ -80,6 +79,7 @@ final LinearGradient imageGradient = LinearGradient(
 const colorPrimary = Color(0xFFDF46DC);
 const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
+const color_EEEEEE = Color(0xFFEEEEEE);
 
 const colorTextgrey = Color(0xff808080);
 const colorwhite = Color(0xFFffffff);

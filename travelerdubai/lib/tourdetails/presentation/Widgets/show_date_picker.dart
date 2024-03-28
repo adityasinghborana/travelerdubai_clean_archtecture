@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,24 +15,28 @@ import '../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
 import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../tour_options_controller.dart';
 
-class Showdatepicker  extends StatelessWidget {
-  final TouroptionstaticdataController controller = Get.put(
-    TouroptionstaticdataController(
-      GetTourOptionsStaticDataUseCase(
-        TourOptionsRepositoryImpl(
-          TourOptionRemoteService(Dio()),
+class Showdatepicker extends StatelessWidget {
+  final TourOptionStaticDataController controller = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
         ),
-      ),
-      GetTourOptionsDynamicDataUseCase(
-        TourOptionsRepositoryImpl(
-          TourOptionRemoteService(Dio()),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
         ),
-      ),
-        GetTimeSlotUseCase(TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),UpdateCartUseCase(CartRepositoryImpl(CartRemoteService(Dio()),),)
-
-    ),
+        GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
   );
-  final TourController tourController= Get.find();
+  final TourController tourController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +45,24 @@ class Showdatepicker  extends StatelessWidget {
         children: [
           ElevatedButton(
             onPressed: () async {
-
               DateTime? pickedDate = await showDatePicker(
                 context: context,
-                initialDate:  DateTime.now().add(Duration(hours: tourController.tour.value.cutOffhrs ?? 0)),
-                firstDate: DateTime.now().add(Duration(hours: tourController.tour.value.cutOffhrs??0)),
+                initialDate: DateTime.now().add(
+                    Duration(hours: tourController.tour.value.cutOffhrs ?? 0)),
+                firstDate: DateTime.now().add(
+                    Duration(hours: tourController.tour.value.cutOffhrs ?? 0)),
                 lastDate: DateTime.now().add(Duration(days: 6 * 30)),
               );
 
-              if (pickedDate != null && pickedDate != controller.selectedDate.value) {
+              if (pickedDate != null &&
+                  pickedDate != controller.selectedDate.value) {
                 controller.selectedDate.value = DateTime(
                   pickedDate.year,
                   pickedDate.month,
                   pickedDate.day,
-                );}
-
-
-              },
-
+                );
+              }
+            },
             child: Text('Pick a Date'),
           ),
         ],

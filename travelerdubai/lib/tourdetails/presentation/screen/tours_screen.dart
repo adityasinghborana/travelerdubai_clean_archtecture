@@ -5,16 +5,18 @@ import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/core/Progress_indicator.dart';
+import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/Maindetails.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/detailbox.dart';
+import 'package:travelerdubai/tourdetails/presentation/Widgets/imagechanger.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_detail.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/imagechanger.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/repositories/timeslot_repository.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_remote.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
+
 import '../../../core/widgets/footer.dart';
 import '../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../tourdetail_data_layer/remote/tour_remote.dart';
@@ -30,35 +32,40 @@ class TourPage extends StatelessWidget {
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
-  final TouroptionstaticdataController static = Get.put(
-    TouroptionstaticdataController(
-      GetTourOptionsStaticDataUseCase(
-          TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-      GetTourOptionsDynamicDataUseCase(
-        TourOptionsRepositoryImpl(
-          TourOptionRemoteService(Dio()),
+  final TourOptionStaticDataController static = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
         ),
-      ),
-      GetTimeSlotUseCase(
-        TimeSlotRepositoryImpl(
-          TimeSlotRemoteService(Dio()),
+        GetTimeSlotUseCase(
+          TimeSlotRepositoryImpl(
+            TimeSlotRemoteService(Dio()),
+          ),
         ),
-      ),
-      UpdateCartUseCase(CartRepositoryImpl(CartRemoteService(Dio()),),)
-    ),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
   );
+
+  TourPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: ElevatedButton(
-        child: Text("Add to Cart"),
+        child: const Text("Add to Cart"),
         onPressed: () => Get.toNamed("/checkout"),
       ),
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
@@ -71,8 +78,11 @@ class TourPage extends StatelessWidget {
                 children: [
                   Column(
                     children: [
+                      //fixed the header issue
                       Header(),
                       ImageChangerWidget(tourController.tourImages),
+                      formSection(),
+
                       MainDetails(),
                       Obx(() {
                         if (static.Loading.value == true) {
@@ -176,6 +186,110 @@ class TourPage extends StatelessWidget {
             );
           }
         },
+      ),
+    );
+  }
+
+  Widget formSection() {
+    return Material(
+      elevation: 8.0,
+      child: Container(
+        color: Colors.green,
+        width: 500,
+        height: 500,
+        child: Column(
+          children: [
+            //getWidget((p0) => {}, (p0) => {}, (p0) => {}),
+            buildNumberInput('Adult', (p0) => null)
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getWidget(Function(int) onAdultsChanged,
+      Function(int) onChildrenChanged, Function(int) onInfantsChanged) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            buildNumberInput('Adults', onAdultsChanged),
+            buildNumberInput('Children', onChildrenChanged),
+            buildNumberInput('Infants', onInfantsChanged),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Text(
+          'No. of persons: ${onAdultsChanged(0) + onChildrenChanged(0) + onInfantsChanged(0)}',
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      ],
+    );
+  }
+
+  Widget buildNumberInput(String label, Function(int) onChange) {
+    return SizedBox(
+      width: 200,
+      height: 200,
+      child: Row(
+        children: [
+          Text(label),
+          const SizedBox(width: 10), // Add some space between label and the box
+
+          // Parent container wrapping the three cells horizontally
+          Container(
+            height: 40, // Set a fixed height for the box
+            decoration: BoxDecoration(
+                color: Colors.white, // Same background color for the box
+                borderRadius: BorderRadius.circular(8), // Rounded corners
+                border: Border.all(color: Colors.grey) // Rounded corners
+                ),
+            child: Row(
+              children: [
+                // Left container for the '-' button
+                Container(
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    color: color_EEEEEE,
+                    border: Border(
+                      right: BorderSide(color: Colors.grey), // Right border
+                    ),
+                  ), // Set a fixed width for the button cell
+                  child: IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: () => {},
+                  ),
+                ),
+                // Middle container for the number display
+                SizedBox(
+                  width: 40,
+                  child: TextField(
+                    controller: static.adultTextController,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    onChanged: (value) {
+                      onChange(int.parse(value));
+                    },
+                  ),
+                ),
+                // Right container for the '+' button
+                Container(
+                  width: 40,
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      left: BorderSide(color: Colors.grey), // Left border
+                    ),
+                  ), // Set a fixed width for the button cell
+                  child: IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () => {},
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

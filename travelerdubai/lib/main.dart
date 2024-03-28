@@ -38,13 +38,12 @@ void main() async {
   );
   SharedPreferences prefs = await SharedPreferences.getInstance();
   Get.put(prefs);
+  Get.put(HeaderController());
 
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext Context) {
     // final  HeaderController headerController = Get.put(HeaderController());

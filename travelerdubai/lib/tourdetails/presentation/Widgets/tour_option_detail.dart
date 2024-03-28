@@ -19,30 +19,35 @@ import 'button.dart';
 import 'dropdown_widget.dart';
 
 Widget options() {
-  final TouroptionstaticdataController optionsstatic = Get.put(
-    TouroptionstaticdataController(
-      GetTourOptionsStaticDataUseCase(
-        TourOptionsRepositoryImpl(
-          TourOptionRemoteService(Dio()),
+  final TourOptionStaticDataController optionsstatic = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
         ),
-      ),
-      GetTourOptionsDynamicDataUseCase(
-        TourOptionsRepositoryImpl(
-          TourOptionRemoteService(Dio()),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
         ),
-      ),
-        GetTimeSlotUseCase(TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),UpdateCartUseCase(CartRepositoryImpl(CartRemoteService(Dio()),),)
-    ),
+        GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
   );
 
   return Container(
     height: 300,
-    width: Get.width *.85,
+    width: Get.width * .85,
     child: ListView.builder(
       itemCount: optionsstatic.options.length,
       itemBuilder: (BuildContext context, int index) {
         List<RxBool> showChanged =
-        List.generate(optionsstatic.options.length, (index) => false.obs);
+            List.generate(optionsstatic.options.length, (index) => false.obs);
         return Padding(
           padding: EdgeInsets.symmetric(vertical: 20),
           child: Column(
@@ -52,45 +57,40 @@ Widget options() {
                 children: <Widget>[
                   Text("${optionsstatic.options[index].optionName}"),
                   Obx(() => DropdownWidget(
-                    label: 'Adults',
-                    selectedValue:
-                    optionsstatic.adultsSelectedValue.value,
-                    onChanged: (value) => optionsstatic.adultsSelectedValue.value =
-                        value ?? 1,
-                  )),
+                        label: 'Adults',
+                        selectedValue: optionsstatic.adultsSelectedValue.value,
+                        onChanged: (value) => optionsstatic
+                            .adultsSelectedValue.value = value ?? 1,
+                      )),
                   Obx(() => DropdownWidget(
-                    label: 'Children',
-                    selectedValue:
-                    optionsstatic.childrenSelectedValue.value,
-                    onChanged: (value) => optionsstatic.childrenSelectedValue.value =
-                        value ?? 0,
-                  )),
+                        label: 'Children',
+                        selectedValue:
+                            optionsstatic.childrenSelectedValue.value,
+                        onChanged: (value) => optionsstatic
+                            .childrenSelectedValue.value = value ?? 0,
+                      )),
                   Obx(() => DropdownWidget(
-                    label: 'Infants',
-                    selectedValue:
-                    optionsstatic.infantsSelectedValue.value,
-                    onChanged: (value) => optionsstatic.infantsSelectedValue.value =
-                        value ?? 0,
-                  )),
+                        label: 'Infants',
+                        selectedValue: optionsstatic.infantsSelectedValue.value,
+                        onChanged: (value) => optionsstatic
+                            .infantsSelectedValue.value = value ?? 0,
+                      )),
                   Showdatepicker(),
                   Obx(() {
                     if (showChanged[index].value == true) {
                       return Container(
-                        height: 300,
-                          width:450,child: Optionpricing());
+                          height: 300, width: 450, child: Optionpricing());
                     } else {
                       return InlineFlexButton(
                         label: 'Get Price',
                         onPressed: () async {
                           optionsstatic.getOptionsdynamicData();
-
                         },
                       );
                     }
                   }),
                 ],
               ),
-
             ],
           ),
         );
