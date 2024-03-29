@@ -13,6 +13,7 @@ import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/repositories/timeslot_repository.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_remote.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
+
 import '../../../core/widgets/footer.dart';
 import '../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../tourdetail_data_layer/remote/tour_remote.dart';
@@ -23,7 +24,6 @@ import '../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
 import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../Widgets/MainDetail.dart';
 import '../Widgets/dropdown_widget.dart';
-import '../Widgets/html.dart';
 import '../Widgets/show_date_picker.dart';
 import '../Widgets/tranfertype_dropdown.dart';
 
@@ -79,7 +79,6 @@ class TourPage extends StatelessWidget {
 
             return SingleChildScrollView(
               child: Container(
-
                 decoration: BoxDecoration(gradient: backgroundgradient),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -94,11 +93,15 @@ class TourPage extends StatelessWidget {
                           height: MediaQuery.of(context).size.height * 0.5,
                         ),
                         Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.05),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text("${tourController.tour.value.tourName}",style: H2,),
+                              Text(
+                                "${tourController.tour.value.tourName}",
+                                style: H2,
+                              ),
                             ],
                           ),
                         ),
@@ -106,7 +109,8 @@ class TourPage extends StatelessWidget {
                       ],
                     ),
                     Padding(
-                     padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
                       child: MainDetails(),
                     ),
                     buildFooter()
@@ -135,7 +139,7 @@ class TourPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("No Of Person"),
+                  const Text("No Of Person"),
                   DropdownTransferWidget(
                       label: 'type',
                       selectedValue: static.selectedTransfer.value,
@@ -159,19 +163,20 @@ class TourPage extends StatelessWidget {
                             static.infantsSelectedValue.value = value ?? 0,
                       )),
                   Showdatepicker(),
-
                 ],
               ),
-              Divider(height: 1,),
+              const Divider(
+                height: 1,
+              ),
               const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:[
-                Text("Tour Options "),
-                Text("Price"),
-                Text("TimeSlots"),
+                  children: [
+                    Text("Tour Options "),
+                    Text("Price"),
+                    Text("TimeSlots"),
                     SizedBox(),
-              ]),
-                options(),
+                  ]),
+              options(),
             ],
           ),
         ),

@@ -9,6 +9,7 @@ import 'package:travelerdubai/tourdetails/touroption_data_layer/model/request/to
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/response/tour_options_staticdata_response.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
+import '../../Components/ui_state.dart';
 import '../timeslot_data_layer/models/response/timeslot_response.dart';
 import '../touroption_data_layer/model/response/tour_option_dynamic_response.dart';
 import '../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
@@ -38,14 +39,18 @@ class TourOptionStaticDataController extends GetxController {
   var id = "".obs;
   var contractid = "".obs;
   final RxList<Result> timeslots = <Result>[].obs;
-  final RxList<TourOption> options = <TourOption>[].obs;
+  //final RxList<TourOption> options = <TourOption>[].obs;
+  final Rx<UiData<List<TourOption>>> options = Rx(UiData<List<TourOption>>(
+    state: UiState.LOADING,
+    data: <TourOption>[],
+  ));
   final RxList<TourOptionDynamicResult> dynamicoptions =
       <TourOptionDynamicResult>[].obs;
 
   RxInt adultsSelectedValue = 1.obs;
   RxInt childrenSelectedValue = 0.obs;
   RxInt infantsSelectedValue = 0.obs;
-  RxDouble  finalPrice = 0.0.obs;
+  RxDouble finalPrice = 0.0.obs;
   var selectedTransfer = 'Without transfer'.obs;
 
   void changeSelectedTransfer(String? newValue) {
@@ -53,29 +58,34 @@ class TourOptionStaticDataController extends GetxController {
       selectedTransfer.value = newValue;
     }
   }
+
   RxInt optionid = 0.obs;
   RxInt transferid = 0.obs;
 
   @override
   void onInit() {
-
     super.onInit();
   }
 
   void getOptionsStaticData() {
     final TourOptionStaticData data =
         TourOptionStaticData(tourId: id.value, contractId: contractid.value);
+    options.value = UiData(state: UiState.LOADING);
 
     getOptionsStaticDataUseCase.execute(data).then((response) {
-      options.assignAll(response.result?.touroption?.toList() ?? []);
+      options.value = UiData(
+        state: UiState.SUCCESS,
+        data: response.result?.touroption?.toList() ?? [],
+      );
+      //options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
       print("Error: $error");
       // Handle the error as needed
-    }).whenComplete((){
+    }).whenComplete(() {
       getOptionsdynamicData();
 
       print(finalPrice.value);
-    }  );
+    });
   }
 
   void getOptionsdynamicData() async {
@@ -91,14 +101,14 @@ class TourOptionStaticDataController extends GetxController {
       );
       print(data.toJson());
 
-      final response = await getOptionsDynamicDataUseCase.execute(data).then((value) {
-      //  updateOptionsFinalPrice();
+      final response =
+          await getOptionsDynamicDataUseCase.execute(data).then((value) {
+        //  updateOptionsFinalPrice();
 
-        dynamicoptions
-            .assignAll(value.apiResponseData?.result?.toList() ?? []);
+        dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
         pricing.value = value.extractedData!;
       });
-     // showOptionsDialog();
+      // showOptionsDialog();
     } catch (error, stackTrace) {
       print("Error: $error");
       print("Stack Trace: $stackTrace");

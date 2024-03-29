@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/show_date_picker.dart';
+import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_pricing.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
@@ -16,7 +16,6 @@ import '../../touroption_data_layer/repository/tour_option_repository.dart';
 import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../tour_options_controller.dart';
 import 'button.dart';
-import 'dropdown_widget.dart';
 
 Widget options() {
   final TourOptionStaticDataController optionsstatic = Get.put(
@@ -40,40 +39,56 @@ Widget options() {
         )),
   );
 
-  return Container(
- height: 280,
-    child: ListView.builder(
-      itemCount: optionsstatic.options.length,
-      itemBuilder: (BuildContext context, int index) {
-        List<RxBool> showChanged =
-            List.generate(optionsstatic.options.length, (index) => false.obs);
-        return Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("${optionsstatic.options[index].optionName}"),
-                  Obx(() {
-                    if (showChanged[index].value == true) {
-                      return Container(
-                          height: 300, width: 450, child: Optionpricing());
-                    } else {
-                      return InlineFlexButton(
-                        label: 'Get Price',
-                        onPressed: () async {
-                          optionsstatic.getOptionsdynamicData();
-                        },
-                      );
-                    }
-                  }),
-                ],
-              ),
-            ],
+  return Obx(() {
+    var output = optionsstatic.options.value;
+    switch (output.state) {
+      case UiState.SUCCESS:
+        return SizedBox(
+          height: 90,
+          child: ListView.builder(
+            itemCount: optionsstatic.options.value.data?.length,
+            itemBuilder: (BuildContext context, int index) {
+              List<RxBool> showChanged = List.generate(
+                  optionsstatic.options.value.data!.length,
+                  (index) => false.obs);
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                            "${optionsstatic.options.value.data?[index].optionName}"),
+                        Obx(() {
+                          if (showChanged[index].value == true) {
+                            return Container(
+                                height: 300,
+                                width: 450,
+                                child: Optionpricing());
+                          } else {
+                            return InlineFlexButton(
+                              label: 'Get Price',
+                              onPressed: () async {
+                                optionsstatic.getOptionsdynamicData();
+                              },
+                            );
+                          }
+                        }),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         );
-      },
-    ),
-  );
+      case UiState.EMPTY:
+        return const Text('Empty');
+      case UiState.LOADING:
+        return const CircularProgressIndicator();
+      case UiState.ERROR:
+        return const Text('Error');
+    }
+  });
 }
