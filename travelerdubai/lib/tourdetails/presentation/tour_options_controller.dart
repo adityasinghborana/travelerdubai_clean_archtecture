@@ -45,7 +45,7 @@ class TourOptionStaticDataController extends GetxController {
   RxInt adultsSelectedValue = 1.obs;
   RxInt childrenSelectedValue = 0.obs;
   RxInt infantsSelectedValue = 0.obs;
-
+  RxDouble  finalPrice = 0.0.obs;
   var selectedTransfer = 'Without transfer'.obs;
 
   void changeSelectedTransfer(String? newValue) {
@@ -58,6 +58,7 @@ class TourOptionStaticDataController extends GetxController {
 
   @override
   void onInit() {
+
     super.onInit();
   }
 
@@ -70,10 +71,15 @@ class TourOptionStaticDataController extends GetxController {
     }).catchError((error) {
       print("Error: $error");
       // Handle the error as needed
-    }).whenComplete(() => Loading.value = false);
+    }).whenComplete((){
+      getOptionsdynamicData();
+
+      print(finalPrice.value);
+    }  );
   }
 
   void getOptionsdynamicData() async {
+    print("started");
     try {
       final TourOptionDynamicRequest data = TourOptionDynamicRequest(
         tourId: int.tryParse(id.value) ?? 0,
@@ -83,14 +89,16 @@ class TourOptionStaticDataController extends GetxController {
         noOfChild: childrenSelectedValue.value,
         noOfInfant: infantsSelectedValue.value,
       );
+      print(data.toJson());
 
-      final response = await getOptionsDynamicDataUseCase.execute(data);
+      final response = await getOptionsDynamicDataUseCase.execute(data).then((value) {
+      //  updateOptionsFinalPrice();
 
-      dynamicoptions
-          .assignAll(response.apiResponseData?.result?.toList() ?? []);
-      pricing.value = response.extractedData!;
-
-      showOptionsDialog();
+        dynamicoptions
+            .assignAll(value.apiResponseData?.result?.toList() ?? []);
+        pricing.value = value.extractedData!;
+      });
+     // showOptionsDialog();
     } catch (error, stackTrace) {
       print("Error: $error");
       print("Stack Trace: $stackTrace");
