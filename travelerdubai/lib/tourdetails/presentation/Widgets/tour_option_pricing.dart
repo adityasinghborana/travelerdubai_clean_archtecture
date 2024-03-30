@@ -48,12 +48,14 @@ class Optionpricing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    optionsdynamic.getOptionsdynamicData();
     return ListView.builder(
       itemCount: optionsdynamic.dynamicoptions.length,
       itemBuilder: (BuildContext context, int index) {
+        optionsdynamic.getOptionsdynamicData();
         final data = optionsdynamic.dynamicoptions[index];
         return Container(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

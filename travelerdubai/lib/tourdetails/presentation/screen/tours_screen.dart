@@ -5,6 +5,7 @@ import 'package:modular_ui/modular_ui.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
+import 'package:travelerdubai/Components/date_picker.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_detail.dart';
@@ -24,7 +25,6 @@ import '../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
 import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../Widgets/MainDetail.dart';
 import '../Widgets/dropdown_widget.dart';
-import '../Widgets/show_date_picker.dart';
 import '../Widgets/tranfertype_dropdown.dart';
 
 class TourPage extends StatelessWidget {
@@ -56,7 +56,7 @@ class TourPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double Width = MediaQuery.of(context).size.width;
+    //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: ElevatedButton(
         child: const Text("Add to Cart"),
@@ -133,7 +133,7 @@ class TourPage extends StatelessWidget {
           padding: const EdgeInsets.all(50.0),
           color: colorwhite,
           width: Get.width * 0.9,
-          height: Get.height * .5,
+          height: Get.height * .6,
           child: Column(
             children: [
               Row(
@@ -162,7 +162,12 @@ class TourPage extends StatelessWidget {
                         onChanged: (value) =>
                             static.infantsSelectedValue.value = value ?? 0,
                       )),
-                  Showdatepicker(),
+                  dateInputField(static.dateTextController.value, Get.context!,
+                      () {
+                    static.selectedDate.value =
+                        DateTime.parse(static.dateTextController.value.text);
+                    static.getOptionsdynamicData();
+                  }),
                 ],
               ),
               const Divider(

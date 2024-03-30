@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_pricing.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
 import '../../../Cart/data_layer/repository/cart_repository.dart';
@@ -41,11 +40,13 @@ Widget options() {
 
   return Obx(() {
     var output = optionsstatic.options.value;
+    var output1 = optionsstatic.dynamicoptions.toList();
     switch (output.state) {
       case UiState.SUCCESS:
         return SizedBox(
           height: 90,
           child: ListView.builder(
+            key: UniqueKey(),
             itemCount: optionsstatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
               List<RxBool> showChanged = List.generate(
@@ -61,20 +62,26 @@ Widget options() {
                         Text(
                             "${optionsstatic.options.value.data?[index].optionName}"),
                         Obx(() {
-                          if (showChanged[index].value == true) {
-                            return Container(
-                                height: 300,
-                                width: 450,
-                                child: Optionpricing());
-                          } else {
-                            return InlineFlexButton(
-                              label: 'Get Price',
-                              onPressed: () async {
-                                optionsstatic.getOptionsdynamicData();
-                              },
+                          if (optionsstatic.dateTextController.value.text !=
+                              '') {
+                            return Text(
+                              "Price is${output1[index].finalAmount}",
                             );
+                          } else {
+                            return const Text(
+                                ""); // Return an empty Text widget if dateTextController is empty
                           }
-                        }),
+                        }), // SizedBox(
+                        //   height: 300,
+                        //   width: 450,
+                        //   child: Optionpricing(),
+                        // ),
+                        InlineFlexButton(
+                          label: 'Get Price',
+                          onPressed: () async {
+                            optionsstatic.getOptionsdynamicData();
+                          },
+                        )
                       ],
                     ),
                   ],

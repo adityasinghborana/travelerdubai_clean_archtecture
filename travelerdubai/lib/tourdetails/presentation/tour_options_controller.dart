@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/update_cart.dart';
@@ -32,6 +33,8 @@ class TourOptionStaticDataController extends GetxController {
   TextEditingController adultTextController = TextEditingController(text: '0');
   TextEditingController childrenTextController = TextEditingController();
   TextEditingController infantTextController = TextEditingController();
+  final Rx<TextEditingController> dateTextController =
+      TextEditingController().obs;
   final RxInt timeSlotId = 0.obs; // need to check
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
@@ -77,6 +80,7 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
+
       //options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
       print("Error: $error");
@@ -99,7 +103,9 @@ class TourOptionStaticDataController extends GetxController {
         noOfChild: childrenSelectedValue.value,
         noOfInfant: infantsSelectedValue.value,
       );
-      print(data.toJson());
+      if (kDebugMode) {
+        print(data.toJson());
+      }
 
       final response =
           await getOptionsDynamicDataUseCase.execute(data).then((value) {
@@ -108,6 +114,7 @@ class TourOptionStaticDataController extends GetxController {
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
         pricing.value = value.extractedData!;
       });
+      print(response);
       // showOptionsDialog();
     } catch (error, stackTrace) {
       print("Error: $error");
@@ -161,12 +168,12 @@ class TourOptionStaticDataController extends GetxController {
   void showOptionsDialog() {
     Get.defaultDialog(
       title: "Options",
-      content: Container(
+      content: SizedBox(
         height: Get.height * 0.80,
         width: Get.width * 0.80,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: Get.height * 0.75,
               child: Optionpricing(),
             ),
