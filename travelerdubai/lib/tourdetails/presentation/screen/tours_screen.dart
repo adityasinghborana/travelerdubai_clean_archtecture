@@ -167,6 +167,7 @@ class TourPage extends StatelessWidget {
                     static.selectedDate.value =
                         DateTime.parse(static.dateTextController.value.text);
                     static.getOptionsdynamicData();
+                    static.gettimeSlots();
                   }),
                 ],
               ),

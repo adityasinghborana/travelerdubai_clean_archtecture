@@ -41,6 +41,7 @@ Widget dateInputField(TextEditingController controller, BuildContext context,
                   String day = pickedDate.day.toString().padLeft(2, '0');
                   controller.text = "${pickedDate.year}-$month-$day";
                 }
+                onClicked();
               },
               decoration: const InputDecoration(
                 labelText: 'Select Date',

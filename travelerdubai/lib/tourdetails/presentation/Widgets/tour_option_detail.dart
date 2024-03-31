@@ -41,6 +41,7 @@ Widget options() {
   return Obx(() {
     var output = optionsstatic.options.value;
     var output1 = optionsstatic.dynamicoptions.toList();
+    var output2 = optionsstatic.timeslots.toList();
     switch (output.state) {
       case UiState.SUCCESS:
         return SizedBox(
@@ -49,6 +50,11 @@ Widget options() {
             key: UniqueKey(),
             itemCount: optionsstatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
+              int? id = optionsstatic.options.value.data?[index].tourId;
+              int tourIdIndex =
+                  output1.indexWhere((element) => element.tourId == id);
+              int tourIdTimeSlotIndex =
+                  output2.indexWhere((element) => element.tourOptionId == id);
               List<RxBool> showChanged = List.generate(
                   optionsstatic.options.value.data!.length,
                   (index) => false.obs);
@@ -57,15 +63,33 @@ Widget options() {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                            "${optionsstatic.options.value.data?[index].optionName}"),
+                        SizedBox(
+                          width: Get.width * (.90 / 3) - 10,
+                          child: Text(
+                              "${optionsstatic.options.value.data?[tourIdIndex].optionName}"),
+                        ),
+                        SizedBox(
+                          width: Get.width * (.90 / 3),
+                          child: Obx(() {
+                            if (optionsstatic.dateTextController.value.text !=
+                                '') {
+                              return Text(
+                                "${output1[index].finalAmount}",
+                              );
+                            } else {
+                              return const Text(
+                                  ""); // Return an empty Text widget if dateTextController is empty
+                            }
+                          }),
+                        ), // SizedBox(
                         Obx(() {
                           if (optionsstatic.dateTextController.value.text !=
-                              '') {
+                                  '' &&
+                              tourIdTimeSlotIndex >= 0) {
                             return Text(
-                              "Price is${output1[index].finalAmount}",
+                              "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
                             );
                           } else {
                             return const Text(
@@ -76,11 +100,13 @@ Widget options() {
                         //   width: 450,
                         //   child: Optionpricing(),
                         // ),
-                        InlineFlexButton(
-                          label: 'Get Price',
-                          onPressed: () async {
-                            optionsstatic.getOptionsdynamicData();
-                          },
+                        SizedBox(
+                          child: InlineFlexButton(
+                            label: 'Get Price',
+                            onPressed: () async {
+                              optionsstatic.getOptionsdynamicData();
+                            },
+                          ),
                         )
                       ],
                     ),

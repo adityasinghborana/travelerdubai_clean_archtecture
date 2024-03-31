@@ -55,6 +55,11 @@ class TourOptionStaticDataController extends GetxController {
   RxInt infantsSelectedValue = 0.obs;
   RxDouble finalPrice = 0.0.obs;
   var selectedTransfer = 'Without transfer'.obs;
+  Map<String, String> transferMap = {
+    "without transefer": "0",
+    "transfer1": "1",
+    "transfer2": "2",
+  };
 
   void changeSelectedTransfer(String? newValue) {
     if (newValue != null) {
@@ -158,7 +163,8 @@ class TourOptionStaticDataController extends GetxController {
                 ));
           }).toList(),
         );
-        print(timeslots.value[0].timeSlot);
+
+        if (timeslots.isNotEmpty) print(timeslots.value[0].timeSlot);
       } else {
         print("No time Slot required");
       }
