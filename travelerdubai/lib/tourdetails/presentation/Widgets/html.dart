@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:html/dom.dart' as htmlDom;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
-
 
 class HtmlDisplayWidget extends StatelessWidget {
   final String? htmlContent;
@@ -53,8 +51,10 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        double fontSize = sizingInformation.deviceScreenType == DeviceScreenType.mobile || sizingInformation.deviceScreenType == DeviceScreenType.tablet
-            ? MediaQuery.of(context).size.width * 0.018
+        double fontSize = sizingInformation.deviceScreenType ==
+                    DeviceScreenType.mobile ||
+                sizingInformation.deviceScreenType == DeviceScreenType.tablet
+            ? MediaQuery.of(context).size.width * 0.045
             : MediaQuery.of(context).size.width * 0.009;
 
         return Column(
@@ -62,13 +62,13 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
           children: text
               .split('<br>')
               .map((line) => Text(
-            line.trim(),
-            style: TextStyle(
-              letterSpacing: .5,
-              fontSize: fontSize,
-              color: colorblack,
-            ),
-          ))
+                    line.trim(),
+                    style: TextStyle(
+                      letterSpacing: .5,
+                      fontSize: fontSize,
+                      color: colorblack,
+                    ),
+                  ))
               .toList(),
         );
       },

@@ -67,8 +67,10 @@ Widget options() {
                       children: <Widget>[
                         SizedBox(
                           width: Get.width * (.90 / 3) - 10,
-                          child: Text(
-                              "${optionsstatic.options.value.data?[tourIdIndex].optionName}"),
+                          child: tourIdIndex >= 0
+                              ? Text(
+                                  "${optionsstatic.options.value.data?[tourIdIndex].optionName}")
+                              : const Text(''),
                         ),
                         SizedBox(
                           width: Get.width * (.90 / 3),
