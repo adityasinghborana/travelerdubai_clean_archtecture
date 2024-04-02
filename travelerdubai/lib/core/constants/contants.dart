@@ -16,13 +16,17 @@ final H1black = GoogleFonts.outfit(
     color: colorblack,
   ),
 );
-final H2 = GoogleFonts.outfit(
-  textStyle: TextStyle(
-    letterSpacing: .5,
-    fontSize: Get.width * .075,
-    color: colorgreydark,
-  ),
-);
+TextStyle getH2TextStyle(BuildContext context) {
+  double width = MediaQuery.of(context).size.width;
+  return GoogleFonts.outfit(
+    textStyle: TextStyle(
+      letterSpacing: .5,
+      fontSize: width * .075,
+      color: colorgreydark, // Assuming colorgreydark is defined elsewhere
+    ),
+  );
+}
+
 final H3 = GoogleFonts.outfit(
   textStyle: TextStyle(
     letterSpacing: .5,
@@ -30,10 +34,17 @@ final H3 = GoogleFonts.outfit(
     color: colorgreydark,
   ),
 );
-final DetailBoxTextStyle = GoogleFonts.outfit(
-  textStyle: TextStyle(
+final detailBoxTextStyle = GoogleFonts.outfit(
+  textStyle: const TextStyle(
     letterSpacing: .5,
-    fontSize: Get.width * .065,
+    fontSize: 42,
+    color: color_1C2B38,
+  ),
+);
+final detailBoxTextStyleMobile = GoogleFonts.outfit(
+  textStyle: const TextStyle(
+    letterSpacing: .5,
+    fontSize: 18,
     color: color_1C2B38,
   ),
 );

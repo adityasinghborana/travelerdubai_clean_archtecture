@@ -16,13 +16,17 @@ Widget buildFooter() {
             color: colorDarkBlue,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 0.025 * Get.width),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
                 children: [
-                  _buildLogoAndDescription(),
-                  _buildNavigationSections(),
-                  _buildPolicySections(),
-                  _buildNewsletterSection(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildLogoAndDescription(),
+                      _buildNavigationSections(),
+                      _buildPolicySections(),
+                      _buildNewsletterSection(),
+                    ],
+                  ),
                 ],
               ),
             ),

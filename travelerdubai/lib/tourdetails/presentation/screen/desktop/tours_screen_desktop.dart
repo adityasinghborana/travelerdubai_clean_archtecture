@@ -100,7 +100,7 @@ class TourPageDesktop extends StatelessWidget {
                             children: [
                               Text(
                                 "${tourController.tour.value.tourName}",
-                                style: H2,
+                                style: getH2TextStyle(context),
                               ),
                             ],
                           ),
@@ -111,7 +111,9 @@ class TourPageDesktop extends StatelessWidget {
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: Get.width * 0.05),
-                      child: MainDetails(),
+                      child: MainDetails(
+                        textStyle: detailBoxTextStyle,
+                      ),
                     ),
                     buildFooter()
                   ],

@@ -14,7 +14,9 @@ class MainDetails extends StatelessWidget {
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
 
-  MainDetails({super.key});
+  final TextStyle? textStyle;
+
+  MainDetails({super.key, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +25,21 @@ class MainDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
-              isExpanded: true,
-              title: "Tour Description",
-              Description: HtmlDisplayWidget(
-                  htmlContent: tourController.tour.value.tourDescription)),
+            isExpanded: true,
+            title: "Tour Description",
+            Description: HtmlDisplayWidget(
+                htmlContent: tourController.tour.value.tourDescription),
+            textStyle: textStyle,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
-              title: "Tour Inclusion",
-              Description: HtmlDisplayWidget(
-                  htmlContent: tourController.tour.value.tourInclusion)),
+            title: "Tour Inclusion",
+            Description: HtmlDisplayWidget(
+                htmlContent: tourController.tour.value.tourInclusion),
+            textStyle: textStyle,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
@@ -41,6 +47,7 @@ class MainDetails extends StatelessWidget {
             title: "Rayna Tours Advantage",
             Description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.raynaToursAdvantage),
+            textStyle: textStyle,
           ),
         ),
         Padding(
@@ -49,6 +56,7 @@ class MainDetails extends StatelessWidget {
             title: "What's In This Tour",
             Description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.whatsInThisTour),
+            textStyle: textStyle,
           ),
         ),
         Padding(
@@ -57,6 +65,7 @@ class MainDetails extends StatelessWidget {
             title: "Important Information",
             Description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.importantInformation),
+            textStyle: textStyle,
           ),
         ),
         Padding(
@@ -65,6 +74,7 @@ class MainDetails extends StatelessWidget {
             title: "Itinerary Description",
             Description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.itenararyDescription),
+            textStyle: textStyle,
           ),
         ),
         Padding(
@@ -73,6 +83,7 @@ class MainDetails extends StatelessWidget {
             title: "Useful Information",
             Description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.usefulInformation),
+            textStyle: textStyle,
           ),
         ),
         Padding(
@@ -81,6 +92,7 @@ class MainDetails extends StatelessWidget {
             title: "FAQ Details",
             Description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.faqDetails),
+            textStyle: textStyle,
           ),
         ),
       ],

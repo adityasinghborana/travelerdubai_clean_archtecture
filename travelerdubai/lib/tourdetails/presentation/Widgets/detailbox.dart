@@ -5,11 +5,14 @@ class DetailBox extends StatelessWidget {
   final String title;
   final Widget Description;
   final bool isExpanded;
+  final TextStyle? textStyle;
 
-  DetailBox(
-      {required this.title,
+  const DetailBox(
+      {Key? key,
+      required this.title,
       required this.Description,
-      this.isExpanded = false});
+      this.isExpanded = false,
+      this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class DetailBox extends StatelessWidget {
         childrenPadding: EdgeInsets.all(20),
         title: Text(
           title,
-          style: DetailBoxTextStyle,
+          style: textStyle,
         ),
         children: [Description],
       ),

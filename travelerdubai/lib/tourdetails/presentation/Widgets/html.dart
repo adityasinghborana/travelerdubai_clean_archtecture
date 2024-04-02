@@ -45,7 +45,9 @@ class HtmlDisplayWidget extends StatelessWidget {
 class HtmlTextWithLineBreaks extends StatelessWidget {
   final String text;
 
-  HtmlTextWithLineBreaks(this.text);
+  const HtmlTextWithLineBreaks(
+    this.text,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
         double fontSize = sizingInformation.deviceScreenType ==
                     DeviceScreenType.mobile ||
                 sizingInformation.deviceScreenType == DeviceScreenType.tablet
-            ? MediaQuery.of(context).size.width * 0.045
+            ? MediaQuery.of(context).size.width * 0.035
             : MediaQuery.of(context).size.width * 0.009;
 
         return Column(
