@@ -23,12 +23,13 @@ Widget tourCards() {
                   .toList();
 
       return Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+
             crossAxisCount: 3, // Adjust the number of columns as needed
-            crossAxisSpacing: 8, // Adjust the horizontal spacing between items
-            mainAxisSpacing: 50, // Adjust the vertical spacing between items
+            crossAxisSpacing: 40, // Adjust the horizontal spacing between items
+            mainAxisSpacing: 40, // Adjust the vertical spacing between items
           ),
           itemCount: displayedTours.length,
           itemBuilder: (context, index) {
@@ -41,11 +42,11 @@ Widget tourCards() {
                 parameters: {'tourId': tourDetailId.toString()},
                 // arguments: "$tourDetailId",
               ),
-              child: Card(
+              child:Card(
                 color: colorwhite,
                 elevation: 3,
-                child: SizedBox(
-                  height: Get.height * .25,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Column(
                     children: [
                       ClipRRect(
@@ -53,67 +54,61 @@ Widget tourCards() {
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12),
                         ),
-                        child: Image.network(
-                          "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-                          height: Get.height * .35,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
+                        child: AspectRatio(
+                          aspectRatio:1 / 0.6, // Set the aspect ratio as needed
+                          child: Image.network(
+                            "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      SingleChildScrollView(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 17.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: Get.width * 0.025,
-                                    child: SingleChildScrollView(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              tour.tourName,
-                                              style: H3,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                          Row(children: [
-                                            Text(
-                                              ' ${tour.rating}',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: ratingStyle,
-                                            ),
-                                            const Icon(
-                                              Icons.star,
-                                              color: Colors.yellow,
-                                              size: 20,
-                                            ),
-                                          ]),
-                                        ],
-                                      ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                        tour.tourName.length <= 20
+                        ? tour.tourName
+                            : tour.tourName.substring(0, 20) +
+                            '...',
+                                    style: TextStyle(fontSize: 26),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                ),
+
+                                Row(
+                                  children: [
+                                    Text(
+                                      ' ${tour.rating}',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: ratingStyle,
                                     ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  HtmlDisplayWidget(
-                                    htmlContent: tour.tourShortDescription,
-                                  ),
-                                  // Text(
-                                  //   tour.tourShortDescription,
-                                  //   overflow: TextOverflow.ellipsis,
-                                  //   maxLines: 2,
-                                  //   style: bodyblack,
-                                  // ),
-                                  const SizedBox(height: 8),
-                                ],
-                              ),
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                      size: 20,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+
+                            HtmlDisplayWidget(
+
+                              htmlContent: tour.tourShortDescription.length <= 80
+                                  ? tour.tourShortDescription
+                                  : tour.tourShortDescription.substring(0, 80) +
+                                      '...',
                             ),
                           ],
                         ),
@@ -122,6 +117,7 @@ Widget tourCards() {
                   ),
                 ),
               ),
+
             );
           },
         ),

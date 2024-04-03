@@ -29,6 +29,9 @@ class HomePageMobile extends StatelessWidget {
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
   final PageController? pageController = Get.put(PageController());
   final ScrollController? scrollController1 = ScrollController();
+  final ScrollController? scrollController2 = ScrollController();
+  final ScrollController? scrollController3 = ScrollController();
+  final ScrollController? scrollController4 = ScrollController();
 
   final HeaderController headerController = Get.put(HeaderController());
 
@@ -138,6 +141,7 @@ class HomePageMobile extends StatelessWidget {
               );
             } else {
               return TourCards(
+                scrollController: scrollController2,
                 tours: tourlistController.tours,
                 cardWidth: Get.width * .4,
                 filterProperty: '',
@@ -164,7 +168,7 @@ class HomePageMobile extends StatelessWidget {
               Container(
                   height: Get.height * .3,
                   width: Get.width,
-                  child: CityList(scrollController: controller!)),
+                  child: CityList(scrollController: scrollController2!)),
               const SizedBox(height: 40),
             ],
           ),

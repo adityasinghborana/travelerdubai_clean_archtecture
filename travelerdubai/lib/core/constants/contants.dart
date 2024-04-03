@@ -39,17 +39,17 @@ final bodyf = GoogleFonts.playfairDisplay(
 final bodyblack = GoogleFonts.playfairDisplay(
   textStyle: const TextStyle(
     letterSpacing: .5,
-    fontSize: 14,
+    fontSize: 18,
     color: colorblack,
   ),
 );
 
 final ratingStyle = GoogleFonts.outfit(
-  textStyle: const TextStyle(
+  textStyle:  TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: 26,
       height: 1.26,
-      color: colorgreydark),
+      color: colorgreydark.withOpacity(0.4)),
 );
 
 // colors
