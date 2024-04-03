@@ -55,9 +55,10 @@ final bodyf = GoogleFonts.outfit(
     color: colorlightgrey,
   ),
 );
-final bodyblack = GoogleFonts.outfit(
+final bodyblack = GoogleFonts.playfairDisplay(
   textStyle: const TextStyle(
     letterSpacing: .5,
+    fontSize: 14,
     color: colorblack,
   ),
 );
@@ -74,7 +75,7 @@ final ratingStyle = GoogleFonts.outfit(
       fontWeight: FontWeight.w400,
       fontSize: Get.width * 0.015,
       height: 1.26,
-      color: colorgreydark),
+      color: colorgreydark.withOpacity(0.4)),
 );
 
 // colors
@@ -104,7 +105,6 @@ final LinearGradient imageGradient = LinearGradient(
 const colorPrimary = Color(0xFFDF46DC);
 const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
-const color_EEEEEE = Color(0xFFEEEEEE);
 
 const colorTextgrey = Color(0xff808080);
 const colorwhite = Color(0xFFffffff);
