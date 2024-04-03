@@ -105,6 +105,7 @@ final LinearGradient imageGradient = LinearGradient(
 const colorPrimary = Color(0xFFDF46DC);
 const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
+const color_EEEEEE = Color(0xFFEEEEEE);
 
 const colorTextgrey = Color(0xff808080);
 const colorwhite = Color(0xFFffffff);

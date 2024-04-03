@@ -9,6 +9,7 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -63,8 +64,8 @@ class HomePageMobile extends StatelessWidget {
                   width),
             ),
             Obx(
-              () => _buildSection(
-                  "${homeController.formData.value?.heading3}", width),
+              () => buildSection(
+                  "${homeController.formData.value?.heading3}", width,scrollController3),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
             buildFooter(),
@@ -126,7 +127,7 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildCitySection(
+  Widget buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: Get.height * .076),
@@ -137,7 +138,7 @@ class HomePageMobile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeading(heading),
+              buildHeading(heading),
               Container(
                   height: Get.height * .3,
                   width: Get.width,

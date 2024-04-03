@@ -1,3 +1,5 @@
+
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tour_option_dynamic_response.g.dart';
@@ -18,9 +20,9 @@ class TourOptionDynamicDataResponse {
 
 @JsonSerializable()
 class ExtractedData {
-  int? addPriceAdult;
-  int? addPriceChildren;
-  int? additionalPriceInfant;
+  double? addPriceAdult;
+  double? addPriceChildren;
+  double? additionalPriceInfant;
 
   ExtractedData({this.addPriceAdult, this.addPriceChildren, this.additionalPriceInfant});
 

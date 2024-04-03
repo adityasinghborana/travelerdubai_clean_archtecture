@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:html/dom.dart' as htmlDom;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:responsive_builder/responsive_builder.dart';

@@ -65,12 +65,19 @@ class TourPageDesktop extends StatelessWidget {
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
-            return const CircularProgressIndicator();
+            return Center(child: const CircularProgressIndicator());
           } else {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
-
+            static.dateTextController.value.text = DateTime.now().add(
+              // Add a duration representing the specified number of hours.
+                Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0)
+            ).toString().substring(0,10);
+            static.selectedDate.value= DateTime.now().add(
+              // Add a duration representing the specified number of hours.
+                Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0)
+            );
             static.getOptionsStaticData();
 
             var tourImages = tourController.tourImages;
@@ -149,21 +156,25 @@ class TourPageDesktop extends StatelessWidget {
                   Obx(() => DropdownWidget(
                         label: 'Adults',
                         selectedValue: static.adultsSelectedValue.value,
-                        onChanged: (value) =>
-                            static.adultsSelectedValue.value = value ?? 1,
-                      )),
+                        onChanged: (value) {
+                          static.adultsSelectedValue.value = value ?? 1;
+                          static.getOptionsdynamicData();
+                        })),
                   Obx(() => DropdownWidget(
                         label: 'Children',
                         selectedValue: static.childrenSelectedValue.value,
-                        onChanged: (value) =>
-                            static.childrenSelectedValue.value = value ?? 0,
+                        onChanged: (value) {
+                            static.childrenSelectedValue.value = value ?? 0;
+                            static.getOptionsdynamicData();}
                       )),
                   Obx(() => DropdownWidget(
                         label: 'Infants',
                         selectedValue: static.infantsSelectedValue.value,
-                        onChanged: (value) =>
-                            static.infantsSelectedValue.value = value ?? 0,
-                      )),
+                        onChanged: (value) {
+                          static.infantsSelectedValue.value = value ?? 0;
+                          static.getOptionsdynamicData();
+
+                        })),
                   dateInputField(static.dateTextController.value, Get.context!,
                       () {
                     static.selectedDate.value =

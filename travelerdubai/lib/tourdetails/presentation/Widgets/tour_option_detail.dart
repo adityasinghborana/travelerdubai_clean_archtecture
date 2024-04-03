@@ -58,7 +58,7 @@ Widget options() {
               List<RxBool> showChanged = List.generate(
                   optionsstatic.options.value.data!.length,
                   (index) => false.obs);
-              return Padding(
+              return output1.isNotEmpty ? Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Column(
                   children: [
@@ -69,7 +69,7 @@ Widget options() {
                           width: Get.width * (.90 / 3) - 10,
                           child: index >= 0
                               ? Text(
-                                  "${optionsstatic.options.value.data?[index].optionName}")
+                              "${optionsstatic.options.value.data?[index].optionName}")
                               : const Text(''),
                         ),
                         SizedBox(
@@ -78,24 +78,24 @@ Widget options() {
                             if (optionsstatic.dateTextController.value.text !=
                                 '') {
                               return Text(
-                                "${output1[index].finalAmount}",
-                              );
+                                  "${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0)+ (optionsstatic.pricing.value.addPriceChildren ?? 0)+ (optionsstatic.pricing.value.additionalPriceInfant ?? 0)
+                                  }");
                             } else {
                               return const Text(
-                                  ""); // Return an empty Text widget if dateTextController is empty
+                                  " fetching"); // Return an empty Text widget if dateTextController is empty
                             }
                           }),
                         ), // SizedBox(
                         Obx(() {
                           if (optionsstatic.dateTextController.value.text !=
-                                  '' &&
+                              '' &&
                               tourIdTimeSlotIndex >= 0) {
                             return Text(
                               "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
                             );
                           } else {
                             return const Text(
-                                ""); // Return an empty Text widget if dateTextController is empty
+                                "No time Slot required "); // Return an empty Text widget if dateTextController is empty
                           }
                         }), // SizedBox(
                         //   height: 300,
@@ -104,7 +104,7 @@ Widget options() {
                         // ),
                         SizedBox(
                           child: InlineFlexButton(
-                            label: 'Get Price',
+                            label: 'Add To Cart',
                             onPressed: () async {
                               optionsstatic.getOptionsdynamicData();
                             },
@@ -114,7 +114,7 @@ Widget options() {
                     ),
                   ],
                 ),
-              );
+              ):Center(child: CircularProgressIndicator(),);
             },
           ),
         );
