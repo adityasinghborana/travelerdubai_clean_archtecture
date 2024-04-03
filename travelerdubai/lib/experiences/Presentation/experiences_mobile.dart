@@ -7,12 +7,9 @@ import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
-import 'package:travelerdubai/experiences/Presentation/widgets/tourtypes.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-
-import '../../core/widgets/header.dart';
 
 class ExperiencesMobile extends StatelessWidget {
   final ExperienceController experienceController = Get.put(
@@ -45,13 +42,11 @@ class ExperiencesMobile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-
             SizedBox(
               width: Get.width,
               height: Get.height * .95,
               child: Row(
                 children: [
-
                   Flexible(
                     flex: 85,
                     child: SingleChildScrollView(
@@ -59,7 +54,6 @@ class ExperiencesMobile extends StatelessWidget {
                         children: [
                           Stack(
                             children: [
-
                               SizedBox(
                                 height: Get.height * 0.20,
                                 child: Image.network(

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/Components/bottom_nav.dart';
 import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
@@ -10,7 +9,6 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -18,8 +16,9 @@ import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
 import '../../Components/Advertisement.dart';
+import '../../Components/buid_heading.dart';
+import '../../Components/build_city.dart';
 import '../../core/constants/contants.dart';
-import '../../core/controller/headercontroller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
 
 class HomePageMobile extends StatelessWidget {
@@ -44,7 +43,6 @@ class HomePageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawer(),
@@ -58,19 +56,18 @@ class HomePageMobile extends StatelessWidget {
                 titlefontsize: 32,
               ),
             ),
-
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading1}",
+              () => buildSection("${homeController.formData.value?.heading1}",
                   width, scrollController4),
             ),
             Obx(
-              () => _buildCitySection(
+              () => buildCitySection(
                   "${homeController.formData.value?.heading2}",
-                  scrollController2, width),
+                  scrollController2,
+                  width),
             ),
-
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading3}",
+              () => buildSection("${homeController.formData.value?.heading3}",
                   width, scrollController3),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
@@ -82,7 +79,7 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildSection(
+  Widget buildSection(
       String heading, double? width, ScrollController? controller) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Get.height * 0.015),
@@ -93,8 +90,8 @@ class HomePageMobile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildHeading(heading),
-              _buildTourCards(),
+              buildHeading(heading),
+              buildTourCards(),
               const SizedBox(height: 40),
             ],
           ),
@@ -103,22 +100,7 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildHeading(String heading) {
-    return Center(
-      child: SelectableText(
-        heading,
-        style: GoogleFonts.playfairDisplay(
-          textStyle: const TextStyle(
-              color: Colors.black,
-              letterSpacing: .5,
-              fontSize: 24,
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTourCards() {
+  Widget buildTourCards() {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: Get.height * 0.015,
@@ -142,30 +124,6 @@ class HomePageMobile extends StatelessWidget {
               );
             }
           }),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCitySection(
-      String heading, ScrollController? controller, double? width) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
-      color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeading(heading),
-              Container(
-                  height: Get.height * .3,
-                  width: Get.width,
-                  child: CityList(scrollController: controller!)),
-              const SizedBox(height: 40),
-            ],
-          ),
         ],
       ),
     );

@@ -39,7 +39,6 @@ class SigninController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
-
       final uid = userCredential.user?.uid;
       if (uid != null) {
         headerController.loggedIn.value = true;
@@ -104,7 +103,9 @@ class SigninController extends GetxController {
 
       final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
       final String uid = userCredential.user!.uid;
+      final String name = userCredential.user!.displayName!;
 
+print(name);
       headerController.loggedIn.value = true;
       await getCart(uid);
       await saveUserUID(uid);

@@ -26,9 +26,9 @@ Widget tourCards() {
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Adjust the number of columns as needed
+            crossAxisCount: 4, // Adjust the number of columns as needed
             crossAxisSpacing: 8, // Adjust the horizontal spacing between items
-            mainAxisSpacing: 50, // Adjust the vertical spacing between items
+            mainAxisSpacing: 20, // Adjust the vertical spacing between items
           ),
           itemCount: displayedTours.length,
           itemBuilder: (context, index) {

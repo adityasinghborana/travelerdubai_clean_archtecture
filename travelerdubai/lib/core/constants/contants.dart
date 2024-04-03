@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final H1 = GoogleFonts.playfairDisplay(
+final H1 = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 40,
     color: colorwhite,
   ),
 );
-final H1black = GoogleFonts.playfairDisplay(
+final H1black = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 72,
     color: colorblack,
   ),
 );
-final H2 = GoogleFonts.playfairDisplay(
-  textStyle: const TextStyle(
-    letterSpacing: .5,
-    fontSize: 42,
-    color: colorgreydark,
-  ),
-);
+TextStyle getH2TextStyle(BuildContext context) {
+  double width = MediaQuery.of(context).size.width;
+  return GoogleFonts.outfit(
+    textStyle: TextStyle(
+      letterSpacing: .5,
+      fontSize: width * .075,
+      color: colorgreydark, // Assuming colorgreydark is defined elsewhere
+    ),
+  );
+}
+
 final H3 = GoogleFonts.outfit(
   textStyle: TextStyle(
     letterSpacing: .5,
@@ -30,18 +34,39 @@ final H3 = GoogleFonts.outfit(
     color: colorgreydark,
   ),
 );
-final bodyf = GoogleFonts.playfairDisplay(
+final detailBoxTextStyle = GoogleFonts.outfit(
+  textStyle: const TextStyle(
+    letterSpacing: .5,
+    fontSize: 42,
+    color: color_1C2B38,
+  ),
+);
+final detailBoxTextStyleMobile = GoogleFonts.outfit(
+  textStyle: const TextStyle(
+    letterSpacing: .5,
+    fontSize: 18,
+    color: color_1C2B38,
+  ),
+);
+final bodyf = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 14,
     color: colorlightgrey,
   ),
 );
-final bodyblack = GoogleFonts.playfairDisplay(
-  textStyle: TextStyle(
+final bodyblack = GoogleFonts.outfit(
+  textStyle: const TextStyle(
     letterSpacing: .5,
     color: colorblack,
   ),
+);
+
+final iconText = GoogleFonts.roboto(
+  fontSize: 14,
+  color: color_333333,
+  fontWeight: FontWeight.w500,
+  fontStyle: FontStyle.normal,
 );
 
 final ratingStyle = GoogleFonts.outfit(
@@ -89,6 +114,11 @@ const colorgreydark = Color(0XFF444444);
 const colorblue = Color(0XFF2659C3);
 const colorgreenishblack = Color(0xff112211);
 const colorDarkBlue = Color(0xff141A2F);
+const color_333333 = Color(0xff333333);
+const color_088943 = Color(0xff088943);
+const color_cc7e63 = Color(0xffcc7e63);
+const color_009ab8 = Color(0xff009ab8);
+const color_1C2B38 = Color(0xff1c2b38);
 
 // others
 const String baseurl = "http://69.48.163.45:3000";

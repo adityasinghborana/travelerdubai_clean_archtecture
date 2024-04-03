@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:html/dom.dart' as htmlDom;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
-
 
 class HtmlDisplayWidget extends StatelessWidget {
   final String? htmlContent;
@@ -47,14 +45,18 @@ class HtmlDisplayWidget extends StatelessWidget {
 class HtmlTextWithLineBreaks extends StatelessWidget {
   final String text;
 
-  HtmlTextWithLineBreaks(this.text);
+  const HtmlTextWithLineBreaks(
+    this.text,
+  );
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
-        double fontSize = sizingInformation.deviceScreenType == DeviceScreenType.mobile || sizingInformation.deviceScreenType == DeviceScreenType.tablet
-            ? MediaQuery.of(context).size.width * 0.018
+        double fontSize = sizingInformation.deviceScreenType ==
+                    DeviceScreenType.mobile ||
+                sizingInformation.deviceScreenType == DeviceScreenType.tablet
+            ? MediaQuery.of(context).size.width * 0.035
             : MediaQuery.of(context).size.width * 0.009;
 
         return Column(
@@ -62,13 +64,13 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
           children: text
               .split('<br>')
               .map((line) => Text(
-            line.trim(),
-            style: TextStyle(
-              letterSpacing: .5,
-              fontSize: fontSize,
-              color: colorblack,
-            ),
-          ))
+                    line.trim(),
+                    style: TextStyle(
+                      letterSpacing: .5,
+                      fontSize: fontSize,
+                      color: colorblack,
+                    ),
+                  ))
               .toList(),
         );
       },

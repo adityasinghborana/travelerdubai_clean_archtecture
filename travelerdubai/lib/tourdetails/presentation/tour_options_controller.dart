@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/update_cart.dart';
@@ -9,6 +10,7 @@ import 'package:travelerdubai/tourdetails/touroption_data_layer/model/request/to
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/response/tour_options_staticdata_response.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
+import '../../Components/ui_state.dart';
 import '../timeslot_data_layer/models/response/timeslot_response.dart';
 import '../touroption_data_layer/model/response/tour_option_dynamic_response.dart';
 import '../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
@@ -31,21 +33,40 @@ class TourOptionStaticDataController extends GetxController {
   TextEditingController adultTextController = TextEditingController(text: '0');
   TextEditingController childrenTextController = TextEditingController();
   TextEditingController infantTextController = TextEditingController();
+  final Rx<TextEditingController> dateTextController =
+      TextEditingController().obs;
   final RxInt timeSlotId = 0.obs; // need to check
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
   var id = "".obs;
-
   var contractid = "".obs;
-  final RxList<TourOption> options = <TourOption>[].obs;
   final RxList<Result> timeslots = <Result>[].obs;
+  //final RxList<TourOption> options = <TourOption>[].obs;
+  final Rx<UiData<List<TourOption>>> options = Rx(UiData<List<TourOption>>(
+    state: UiState.LOADING,
+    data: <TourOption>[],
+  ));
   final RxList<TourOptionDynamicResult> dynamicoptions =
       <TourOptionDynamicResult>[].obs;
 
-  RxInt adultsSelectedValue = 0.obs;
+  RxInt adultsSelectedValue = 1.obs;
   RxInt childrenSelectedValue = 0.obs;
   RxInt infantsSelectedValue = 0.obs;
+  RxDouble finalPrice = 0.0.obs;
+  var selectedTransfer = 'Without transfer'.obs;
+  Map<String, String> transferMap = {
+    "without transefer": "0",
+    "transfer1": "1",
+    "transfer2": "2",
+  };
+
+  void changeSelectedTransfer(String? newValue) {
+    if (newValue != null) {
+      selectedTransfer.value = newValue;
+    }
+  }
+
   RxInt optionid = 0.obs;
   RxInt transferid = 0.obs;
 
@@ -57,16 +78,27 @@ class TourOptionStaticDataController extends GetxController {
   void getOptionsStaticData() {
     final TourOptionStaticData data =
         TourOptionStaticData(tourId: id.value, contractId: contractid.value);
+    options.value = UiData(state: UiState.LOADING);
 
     getOptionsStaticDataUseCase.execute(data).then((response) {
-      options.assignAll(response.result?.touroption?.toList() ?? []);
+      options.value = UiData(
+        state: UiState.SUCCESS,
+        data: response.result?.touroption?.toList() ?? [],
+      );
+
+      //options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
       print("Error: $error");
       // Handle the error as needed
-    }).whenComplete(() => Loading.value = false);
+    }).whenComplete(() {
+      getOptionsdynamicData();
+
+      print(finalPrice.value);
+    });
   }
 
   void getOptionsdynamicData() async {
+    print("started");
     try {
       final TourOptionDynamicRequest data = TourOptionDynamicRequest(
         tourId: int.tryParse(id.value) ?? 0,
@@ -76,14 +108,19 @@ class TourOptionStaticDataController extends GetxController {
         noOfChild: childrenSelectedValue.value,
         noOfInfant: infantsSelectedValue.value,
       );
+      if (kDebugMode) {
+        print(data.toJson());
+      }
 
-      final response = await getOptionsDynamicDataUseCase.execute(data);
+      final response =
+          await getOptionsDynamicDataUseCase.execute(data).then((value) {
+        //  updateOptionsFinalPrice();
 
-      dynamicoptions
-          .assignAll(response.apiResponseData?.result?.toList() ?? []);
-      pricing.value = response.extractedData!;
-
-      showOptionsDialog();
+        dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
+        pricing.value = value.extractedData!;
+      });
+      print(response);
+      // showOptionsDialog();
     } catch (error, stackTrace) {
       print("Error: $error");
       print("Stack Trace: $stackTrace");
@@ -126,7 +163,8 @@ class TourOptionStaticDataController extends GetxController {
                 ));
           }).toList(),
         );
-        print(timeslots.value[0].timeSlot);
+
+        if (timeslots.isNotEmpty) print(timeslots.value[0].timeSlot);
       } else {
         print("No time Slot required");
       }
@@ -136,12 +174,12 @@ class TourOptionStaticDataController extends GetxController {
   void showOptionsDialog() {
     Get.defaultDialog(
       title: "Options",
-      content: Container(
+      content: SizedBox(
         height: Get.height * 0.80,
         width: Get.width * 0.80,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: Get.height * 0.75,
               child: Optionpricing(),
             ),

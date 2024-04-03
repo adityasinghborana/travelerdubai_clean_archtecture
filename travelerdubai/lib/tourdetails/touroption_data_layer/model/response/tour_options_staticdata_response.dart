@@ -5,7 +5,7 @@ part 'tour_options_staticdata_response.g.dart';
 @JsonSerializable()
 class TourOptionsStaticDataResponse {
   int statuscode;
-  dynamic? error;
+  dynamic error;
   String? url;
   int? count;
   TourOptionsResult? result;

@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/show_date_picker.dart';
-import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_pricing.dart';
+import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
 import '../../../Cart/data_layer/repository/cart_repository.dart';
@@ -16,7 +15,6 @@ import '../../touroption_data_layer/repository/tour_option_repository.dart';
 import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../tour_options_controller.dart';
 import 'button.dart';
-import 'dropdown_widget.dart';
 
 Widget options() {
   final TourOptionStaticDataController optionsstatic = Get.put(
@@ -40,61 +38,92 @@ Widget options() {
         )),
   );
 
-  return Container(
-    height: 300,
-    width: Get.width * .85,
-    child: ListView.builder(
-      itemCount: optionsstatic.options.length,
-      itemBuilder: (BuildContext context, int index) {
-        List<RxBool> showChanged =
-            List.generate(optionsstatic.options.length, (index) => false.obs);
-        return Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text("${optionsstatic.options[index].optionName}"),
-                  Obx(() => DropdownWidget(
-                        label: 'Adults',
-                        selectedValue: optionsstatic.adultsSelectedValue.value,
-                        onChanged: (value) => optionsstatic
-                            .adultsSelectedValue.value = value ?? 1,
-                      )),
-                  Obx(() => DropdownWidget(
-                        label: 'Children',
-                        selectedValue:
-                            optionsstatic.childrenSelectedValue.value,
-                        onChanged: (value) => optionsstatic
-                            .childrenSelectedValue.value = value ?? 0,
-                      )),
-                  Obx(() => DropdownWidget(
-                        label: 'Infants',
-                        selectedValue: optionsstatic.infantsSelectedValue.value,
-                        onChanged: (value) => optionsstatic
-                            .infantsSelectedValue.value = value ?? 0,
-                      )),
-                  Showdatepicker(),
-                  Obx(() {
-                    if (showChanged[index].value == true) {
-                      return Container(
-                          height: 300, width: 450, child: Optionpricing());
-                    } else {
-                      return InlineFlexButton(
-                        label: 'Get Price',
-                        onPressed: () async {
-                          optionsstatic.getOptionsdynamicData();
-                        },
-                      );
-                    }
-                  }),
-                ],
-              ),
-            ],
+  return Obx(() {
+    var output = optionsstatic.options.value;
+    var output1 = optionsstatic.dynamicoptions.toList();
+    var output2 = optionsstatic.timeslots.toList();
+    switch (output.state) {
+      case UiState.SUCCESS:
+        return SizedBox(
+          height: 90,
+          child: ListView.builder(
+            key: UniqueKey(),
+            itemCount: optionsstatic.options.value.data?.length,
+            itemBuilder: (BuildContext context, int index) {
+              int? id = optionsstatic.options.value.data?[index].tourId;
+              int tourIdIndex =
+                  output1.indexWhere((element) => element.tourId == id);
+              int tourIdTimeSlotIndex =
+                  output2.indexWhere((element) => element.tourOptionId == id);
+              List<RxBool> showChanged = List.generate(
+                  optionsstatic.options.value.data!.length,
+                  (index) => false.obs);
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          width: Get.width * (.90 / 3) - 10,
+                          child: index >= 0
+                              ? Text(
+                                  "${optionsstatic.options.value.data?[index].optionName}")
+                              : const Text(''),
+                        ),
+                        SizedBox(
+                          width: Get.width * (.90 / 3),
+                          child: Obx(() {
+                            if (optionsstatic.dateTextController.value.text !=
+                                '') {
+                              return Text(
+                                "${output1[index].finalAmount}",
+                              );
+                            } else {
+                              return const Text(
+                                  ""); // Return an empty Text widget if dateTextController is empty
+                            }
+                          }),
+                        ), // SizedBox(
+                        Obx(() {
+                          if (optionsstatic.dateTextController.value.text !=
+                                  '' &&
+                              tourIdTimeSlotIndex >= 0) {
+                            return Text(
+                              "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
+                            );
+                          } else {
+                            return const Text(
+                                ""); // Return an empty Text widget if dateTextController is empty
+                          }
+                        }), // SizedBox(
+                        //   height: 300,
+                        //   width: 450,
+                        //   child: Optionpricing(),
+                        // ),
+                        SizedBox(
+                          child: InlineFlexButton(
+                            label: 'Get Price',
+                            onPressed: () async {
+                              optionsstatic.getOptionsdynamicData();
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         );
-      },
-    ),
-  );
+      case UiState.EMPTY:
+        return const Text('Empty');
+      case UiState.LOADING:
+        return const CircularProgressIndicator();
+      case UiState.ERROR:
+        return const Text('Error');
+    }
+  });
 }

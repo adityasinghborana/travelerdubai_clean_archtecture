@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DropdownWidget extends StatelessWidget {
+class DropdownTransferWidget extends StatelessWidget {
   final String label;
-  final int selectedValue;
-  final void Function(int?) onChanged;
+  final String selectedValue;
+  final void Function(String?) onChanged;
 
-  DropdownWidget({
+  DropdownTransferWidget({
     required this.label,
     required this.selectedValue,
     required this.onChanged,
@@ -14,28 +14,28 @@ class DropdownWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Text(label),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: DropdownButton<int>(
-
+          child: DropdownButton<String>(
             value: selectedValue,
             onChanged: onChanged,
-            items: [0,1, 2, 3, 4,5,6] // Replace with your actual items
-                .map<DropdownMenuItem<int>>(
-                  (int value) => DropdownMenuItem<int>(
-                    alignment: Alignment.center,
+            items: <String>[
+              'Without transfer',
+              'Transfer option 1',
+              'Transfer option 2',
+              // Add more items as needed
+            ].map<DropdownMenuItem<String>>(
+                  (String value) => DropdownMenuItem<String>(
                 value: value,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("$value"),
+                  child: Text(value),
                 ),
               ),
-            )
-                .toList(),
+            ).toList(),
           ),
         ),
       ],
