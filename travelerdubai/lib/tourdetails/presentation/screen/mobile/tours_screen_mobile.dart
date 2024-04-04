@@ -116,9 +116,12 @@ class TourPageMobile extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Get.width * 0.05),
-                          child: const ButtonView(
+                          child: ButtonView(
                             btnName: 'Buy Tickets',
                             bgColor: colorblue,
+                            onButtonTap: () {
+                              Get.toNamed("/forms_mobile");
+                            },
                           ),
                         ),
                         Padding(

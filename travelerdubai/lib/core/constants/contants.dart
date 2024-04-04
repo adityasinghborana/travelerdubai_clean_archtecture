@@ -48,6 +48,16 @@ final detailBoxTextStyleMobile = GoogleFonts.outfit(
     color: color_1C2B38,
   ),
 );
+final formHeaderTextStyleMobile = GoogleFonts.roboto(
+  textStyle: const TextStyle(
+    letterSpacing: 0.5,
+    fontSize: 20,
+    color: color_1C1C1C, // Use color value in hexadecimal format
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w400,
+    height: 1.5, // You can adjust the line height as needed
+  ),
+);
 final bodyf = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
@@ -119,6 +129,7 @@ const color_088943 = Color(0xff088943);
 const color_cc7e63 = Color(0xffcc7e63);
 const color_009ab8 = Color(0xff009ab8);
 const color_1C2B38 = Color(0xff1c2b38);
+const color_1C1C1C = Color(0xff1c1c1c);
 
 // others
 const String baseurl = "http://69.48.163.45:3000";
