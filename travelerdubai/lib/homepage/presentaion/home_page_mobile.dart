@@ -20,6 +20,7 @@ import '../../Components/Advertisement.dart';
 import '../../Components/buid_heading.dart';
 import '../../Components/build_city.dart';
 import '../../core/constants/contants.dart';
+import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
 
 class HomePageMobile extends StatelessWidget {
@@ -40,6 +41,7 @@ class HomePageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawer(),

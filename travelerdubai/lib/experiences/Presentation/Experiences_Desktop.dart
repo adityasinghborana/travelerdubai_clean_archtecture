@@ -18,7 +18,6 @@ import '../../core/widgets/header.dart';
 import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {
-  String? city = Get.parameters['cityName'];
   final ExperienceController experienceController = Get.put(
     ExperienceController(
       GetExperiencesUseCase(
@@ -35,31 +34,25 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-print(city);
-    List<Experiences> allTours =
-    experienceController.selectedTourType.isEmpty
+
+    String? city = Get.parameters['cityName']; // Retrieve city inside build method
+    print(city);
+
+    List<Experiences> allTours = experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
         : experienceController.cityTours
-        .where((tour) =>
-    tour.cityTourType ==
-        experienceController.selectedTourType.value)
+        .where((tour) => tour.cityTourType == experienceController.selectedTourType.value)
         .toList();
-List<Experiences> filtercitytour =
- experienceController.cityTours
-    .where((tour) =>
-tour.cityName ==
-    city)
-    .toList();
 
-var displayedTours = city !=null  ? filtercitytour : allTours;
-//print(filteredCityTours.length);
+    List<Experiences> filterCityTour = city != null
+        ? experienceController.cityTours.where((tour) => tour.cityName == city).toList()
+        : []; // Handle null city
 
+    var displayedTours = city != null ? filterCityTour : allTours;
 
     Get.lazyPut(() => HeaderController());
 
-// Later in your code, when you need to access the HeaderController:
     HeaderController headerController = Get.find<HeaderController>();
-
 
     String currentDate = DateTime.now().toString().split(' ')[0];
 
@@ -69,83 +62,80 @@ var displayedTours = city !=null  ? filtercitytour : allTours;
         child: Column(
           children: [
             Header(),
-
             Container(
               height: 200,
-              child:SingleChildScrollView(
-                child: Column(children: [
-                  Stack(
-                    children: [
-                      SizedBox(
-                        height: Get.height * 0.20,
-                        child: Image.network(
-                          "https://source.unsplash.com/random",
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        top: 20,
-                        left: 20,
-                        right: 20,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(25),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: Get.height * 0.20,
+                          child: Image.network(
+                            "https://source.unsplash.com/random",
+                            width: double.infinity,
+                            fit: BoxFit.cover,
                           ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.search),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: TextField(
-                                  controller: searchController,
-                                  onChanged: (value) {
-                                    experienceController.searchCityTours(value);
-                                  },
-                                  decoration: const InputDecoration(
-                                    hintText: 'Search',
-                                    border: InputBorder.none,
+                        ),
+                        Positioned(
+                          top: 20,
+                          left: 20,
+                          right: 20,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.search),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: TextField(
+                                    controller: searchController,
+                                    onChanged: (value) {
+                                      experienceController.searchCityTours(value);
+                                    },
+                                    decoration: const InputDecoration(
+                                      hintText: 'Search',
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: Get.height / 10,
-                        left: Get.width / 6,
-                        child: Text("Discover All Experiences", style: H1),
-                      ),
-                    ],
-                  ),
-                ]),
-              ) ,
+                        Positioned(
+                          top: Get.height / 10,
+                          left: Get.width / 6,
+                          child: Text("Discover All Experiences", style: H1),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
             SizedBox(
               width: Get.width,
               height: Get.height * .95,
-              child: Row(children: [
-
-                Flexible(
-                  flex: 1,
-                  child: Tourtypes(
-                      (){
-
-                      }
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Tourtypes(() {}),
                   ),
-                ),
-                Flexible(
-                  flex:4,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:20.0),
-                    child: tourCards(displayedTours),
+                  Flexible(
+                    flex: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: tourCards(displayedTours,city),
+                    ),
                   ),
-                ),
-              ],
-              )
+                ],
+              ),
             ),
           ],
         ),

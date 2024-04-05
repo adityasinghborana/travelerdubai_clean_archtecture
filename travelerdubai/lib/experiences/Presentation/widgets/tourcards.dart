@@ -7,35 +7,37 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
 import '../../../tourdetails/presentation/Widgets/html.dart';
 
-Widget tourCards(List<Experiences> displayedTours) {
-
+Widget tourCards(List<Experiences> displayedTours, String? cityName) {
   final ExperienceController experienceController = Get.find();
 
   return Obx(() {
     if (experienceController.cityTours.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     } else {
-
+      List<Experiences> filteredTours = cityName != null
+          ? displayedTours
+          .where((tour) => tour.cityName == cityName)
+          .toList()
+          : displayedTours;
 
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1 / 1.1,
-            crossAxisCount: 4, // Adjust the number of columns as needed
-            crossAxisSpacing: 16, // Adjust the horizontal spacing between items
-            mainAxisSpacing: 20, // Adjust the vertical spacing between items
+            crossAxisCount: 4,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 20,
           ),
-          itemCount: displayedTours.length,
+          itemCount: filteredTours.length,
           itemBuilder: (context, index) {
-            final tour = displayedTours[index];
+            final tour = filteredTours[index];
             final tourDetailId = tour.tourdetails?[0].id;
 
             return InkWell(
               onTap: () => Get.toNamed(
                 '/tour_details',
                 parameters: {'tourId': tourDetailId.toString()},
-                // arguments: "$tourDetailId",
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
@@ -50,18 +52,19 @@ Widget tourCards(List<Experiences> displayedTours) {
                       decoration: BoxDecoration(gradient: imageGradient),
                     ),
                     Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            tour.tourName,
-                            style: GoogleFonts.playfairDisplay(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          tour.tourName,
+                          style: GoogleFonts.playfairDisplay(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -46,11 +46,11 @@ class CityList extends StatelessWidget {
               final city = controller.cities[index];
               return InkWell(
                 onTap: (){
-                  String cityName = city.CityName;
+                  String CityName = city.CityName;
 
                   Get.toNamed(
                     '/experiences',
-                    parameters: {'cityName': cityName.toString()},
+                    parameters: {'cityName': CityName.toString()},
 
                   );
                 },

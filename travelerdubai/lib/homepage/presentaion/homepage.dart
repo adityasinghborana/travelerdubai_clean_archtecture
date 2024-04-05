@@ -18,6 +18,7 @@ import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
 import '../../core/controller/headercontroller.dart';
 import '../../core/widgets/header.dart';
+import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
 
 class Homepage extends StatelessWidget {
@@ -38,7 +39,15 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
+    Get.put(
+      ExperienceController(
+        GetExperiencesUseCase(
+          ExperiencesRepositoryImpl(
+            ExperienceRemoteService(Dio()),
+          ),
+        ),
+      ),
+    );
     double? width = MediaQuery.of(context).size.width;
 
     return Stack(children: [
