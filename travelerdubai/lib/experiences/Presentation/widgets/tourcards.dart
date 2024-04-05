@@ -7,21 +7,15 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
 import '../../../tourdetails/presentation/Widgets/html.dart';
 
-Widget tourCards() {
+Widget tourCards(List<Experiences> displayedTours) {
+
   final ExperienceController experienceController = Get.find();
 
   return Obx(() {
     if (experienceController.cityTours.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     } else {
-      List<Experiences> displayedTours =
-          experienceController.selectedTourType.isEmpty
-              ? experienceController.cityTours
-              : experienceController.cityTours
-                  .where((tour) =>
-                      tour.cityTourType ==
-                      experienceController.selectedTourType.value)
-                  .toList();
+
 
       return Padding(
         padding: const EdgeInsets.all(16.0),

@@ -15,8 +15,10 @@ import 'package:travelerdubai/experiences/repository/Experiences_repository.dart
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 
 import '../../core/widgets/header.dart';
+import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {
+  String? cityName = Get.parameters['cityName'];
   final ExperienceController experienceController = Get.put(
     ExperienceController(
       GetExperiencesUseCase(
@@ -33,6 +35,18 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+print(cityName);
+    List<Experiences> displayedTours =
+    experienceController.selectedTourType.isEmpty
+        ? experienceController.cityTours
+        : experienceController.cityTours
+        .where((tour) =>
+    tour.cityTourType ==
+        experienceController.selectedTourType.value)
+        .toList();
+
+
+
     Get.lazyPut(() => HeaderController());
 
 // Later in your code, when you need to access the HeaderController:
@@ -119,7 +133,7 @@ class ExperiencesDesktop extends StatelessWidget {
                   flex:4,
                   child: Padding(
                     padding: const EdgeInsets.only(left:20.0),
-                    child: tourCards(),
+                    child: tourCards(displayedTours),
                   ),
                 ),
               ],
