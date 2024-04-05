@@ -28,9 +28,10 @@ Map<String, dynamic> _$TourOptionDynamicDataResponseToJson(
 
 ExtractedData _$ExtractedDataFromJson(Map<String, dynamic> json) =>
     ExtractedData(
-      addPriceAdult: json['addPriceAdult'] as int?,
-      addPriceChildren: json['addPriceChildren'] as int?,
-      additionalPriceInfant: json['additionalPriceInfant'] as int?,
+      addPriceAdult: (json['addPriceAdult'] as num?)?.toDouble(),
+      addPriceChildren: (json['addPriceChildren'] as num?)?.toDouble(),
+      additionalPriceInfant:
+          (json['additionalPriceInfant'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ExtractedDataToJson(ExtractedData instance) =>

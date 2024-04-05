@@ -65,9 +65,10 @@ final bodyf = GoogleFonts.outfit(
     color: colorlightgrey,
   ),
 );
-final bodyblack = GoogleFonts.outfit(
+final bodyblack = GoogleFonts.playfairDisplay(
   textStyle: const TextStyle(
     letterSpacing: .5,
+    fontSize: 14,
     color: colorblack,
   ),
 );
@@ -84,7 +85,7 @@ final ratingStyle = GoogleFonts.outfit(
       fontWeight: FontWeight.w400,
       fontSize: Get.width * 0.015,
       height: 1.26,
-      color: colorgreydark),
+      color: colorgreydark.withOpacity(0.4)),
 );
 
 // colors

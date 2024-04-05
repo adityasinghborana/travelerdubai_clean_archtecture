@@ -77,7 +77,7 @@ class TourOptionStaticDataController extends GetxController {
 
   void getOptionsStaticData() {
     final TourOptionStaticData data =
-        TourOptionStaticData(tourId: id.value, contractId: contractid.value);
+    TourOptionStaticData(tourId: id.value, contractId: contractid.value);
     options.value = UiData(state: UiState.LOADING);
 
     getOptionsStaticDataUseCase.execute(data).then((response) {
@@ -98,12 +98,15 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void getOptionsdynamicData() async {
+
     print("started");
     try {
+      dynamicoptions.assignAll([]);
+
       final TourOptionDynamicRequest data = TourOptionDynamicRequest(
         tourId: int.tryParse(id.value) ?? 0,
         contractId: int.tryParse(contractid.value) ?? 0,
-        travelDate: selectedDate.value.toString(),
+        travelDate: selectedDate.value.toString().substring(0,10),
         noOfAdult: adultsSelectedValue.value,
         noOfChild: childrenSelectedValue.value,
         noOfInfant: infantsSelectedValue.value,
@@ -113,7 +116,7 @@ class TourOptionStaticDataController extends GetxController {
       }
 
       final response =
-          await getOptionsDynamicDataUseCase.execute(data).then((value) {
+      await getOptionsDynamicDataUseCase.execute(data).then((value) {
         //  updateOptionsFinalPrice();
 
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
@@ -143,24 +146,24 @@ class TourOptionStaticDataController extends GetxController {
         dynamicWidgets.assignAll(
           response.result.map((item) {
             return Obx(() => RadioListTile<String>(
-                  title: Text(item.timeSlot),
-                  value: item.timeSlotId,
-                  groupValue: selectedTimeSlotId.value,
-                  onChanged: (String? value) {
-                    // Handle the selection, update the selectedTimeSlotId
-                    selectedTimeSlotId.value = value ?? "0";
-                    timeSlotId.value = int.parse(value!);
-                    print("Selected Time Slot ID: ${selectedTimeSlotId.value}");
-                    print("Selected Time Slot IsssD: ${item.timeSlotId}");
-                    print("Selected Time Slot IsssD: ${timeSlotId.value}");
-                  },
-                  activeColor: Colors.blue,
-                  controlAffinity: ListTileControlAffinity.trailing,
-                  tileColor: selectedTimeSlotId.value == item.timeSlotId
-                      ? Colors.blue
-                      : null,
-                  selected: selectedTimeSlotId.value == item.timeSlotId,
-                ));
+              title: Text(item.timeSlot),
+              value: item.timeSlotId,
+              groupValue: selectedTimeSlotId.value,
+              onChanged: (String? value) {
+                // Handle the selection, update the selectedTimeSlotId
+                selectedTimeSlotId.value = value ?? "0";
+                timeSlotId.value = int.parse(value!);
+                print("Selected Time Slot ID: ${selectedTimeSlotId.value}");
+                print("Selected Time Slot IsssD: ${item.timeSlotId}");
+                print("Selected Time Slot IsssD: ${timeSlotId.value}");
+              },
+              activeColor: Colors.blue,
+              controlAffinity: ListTileControlAffinity.trailing,
+              tileColor: selectedTimeSlotId.value == item.timeSlotId
+                  ? Colors.blue
+                  : null,
+              selected: selectedTimeSlotId.value == item.timeSlotId,
+            ));
           }).toList(),
         );
 

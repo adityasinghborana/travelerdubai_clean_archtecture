@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:html/dom.dart' as htmlDom;
 import 'package:html/parser.dart' as htmlParser;
 import 'package:responsive_builder/responsive_builder.dart';
@@ -13,10 +14,13 @@ class HtmlDisplayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final document = htmlParser.parse(htmlContent);
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _parseNodes(document.body!.nodes),
+    return SizedBox(
+      height: Get.width * .05,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: _parseNodes(document.body!.nodes),
+        ),
       ),
     );
   }

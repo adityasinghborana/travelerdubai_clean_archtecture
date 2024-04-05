@@ -9,6 +9,7 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
@@ -25,15 +26,11 @@ class HomePageMobile extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
 
-  final TourlistController tourlistController = Get.put(
-    TourlistController(
+  final TourlistController tourlistController = Get.put(TourlistController(
       GetExperiencesUseCase(
-        ExperiencesRepositoryImpl(
-          ExperienceRemoteService(Dio()),
-        ),
-      ),
-    ),
-  );
+          ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
+  final PageController? pageController = Get.put(PageController());
+  final ScrollController? scrollController1 = ScrollController();
 
   final ScrollController? scrollController2 = ScrollController();
   final ScrollController? scrollController3 = ScrollController();
@@ -67,8 +64,8 @@ class HomePageMobile extends StatelessWidget {
                   width),
             ),
             Obx(
-              () => buildSection("${homeController.formData.value?.heading3}",
-                  width, scrollController3),
+              () => buildSection(
+                  "${homeController.formData.value?.heading3}", width,scrollController3),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
             buildFooter(),
@@ -118,12 +115,37 @@ class HomePageMobile extends StatelessWidget {
               );
             } else {
               return TourCards(
+                scrollController: scrollController2,
                 tours: tourlistController.tours,
                 cardWidth: Get.width * .4,
                 filterProperty: '',
               );
             }
           }),
+        ],
+      ),
+    );
+  }
+
+  Widget buildCitySection(
+      String heading, ScrollController? controller, double? width) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildHeading(heading),
+              Container(
+                  height: Get.height * .3,
+                  width: Get.width,
+                  child: CityList(scrollController: scrollController2!)),
+              const SizedBox(height: 40),
+            ],
+          ),
         ],
       ),
     );
