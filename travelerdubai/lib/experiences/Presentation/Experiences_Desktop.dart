@@ -1,18 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
-
 import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourtypes.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-
 
 import '../../core/widgets/header.dart';
 import '../model/experience_response_model.dart';
@@ -35,31 +32,25 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-print(city);
-    List<Experiences> allTours =
-    experienceController.selectedTourType.isEmpty
+    print(city);
+    List<Experiences> allTours = experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
         : experienceController.cityTours
-        .where((tour) =>
-    tour.cityTourType ==
-        experienceController.selectedTourType.value)
+            .where((tour) =>
+                tour.cityTourType ==
+                experienceController.selectedTourType.value)
+            .toList();
+    List<Experiences> filtercitytour = experienceController.cityTours
+        .where((tour) => tour.cityName == city)
         .toList();
-List<Experiences> filtercitytour =
- experienceController.cityTours
-    .where((tour) =>
-tour.cityName ==
-    city)
-    .toList();
 
-var displayedTours = city !=null  ? filtercitytour : allTours;
+    var displayedTours = city != null ? filtercitytour : allTours;
 //print(filteredCityTours.length);
-
 
     Get.lazyPut(() => HeaderController());
 
 // Later in your code, when you need to access the HeaderController:
     HeaderController headerController = Get.find<HeaderController>();
-
 
     String currentDate = DateTime.now().toString().split(' ')[0];
 
@@ -69,10 +60,9 @@ var displayedTours = city !=null  ? filtercitytour : allTours;
         child: Column(
           children: [
             Header(),
-
             Container(
               height: 200,
-              child:SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Column(children: [
                   Stack(
                     children: [
@@ -122,31 +112,26 @@ var displayedTours = city !=null  ? filtercitytour : allTours;
                     ],
                   ),
                 ]),
-              ) ,
+              ),
             ),
             SizedBox(
-              width: Get.width,
-              height: Get.height * .95,
-              child: Row(children: [
-
-                Flexible(
-                  flex: 1,
-                  child: Tourtypes(
-                      (){
-
-                      }
-                  ),
-                ),
-                Flexible(
-                  flex:4,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:20.0),
-                    child: tourCards(displayedTours),
-                  ),
-                ),
-              ],
-              )
-            ),
+                width: Get.width,
+                height: Get.height * .95,
+                child: Row(
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: Tourtypes(() {}),
+                    ),
+                    Flexible(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: tourCards(displayedTours),
+                      ),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),

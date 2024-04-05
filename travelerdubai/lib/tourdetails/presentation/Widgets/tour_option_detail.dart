@@ -58,63 +58,70 @@ Widget options() {
               List<RxBool> showChanged = List.generate(
                   optionsstatic.options.value.data!.length,
                   (index) => false.obs);
-              return output1.isNotEmpty ? Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          width: Get.width * (.90 / 3) - 10,
-                          child: index >= 0
-                              ? Text(
-                              "${optionsstatic.options.value.data?[index].optionName}")
-                              : const Text(''),
-                        ),
-                        SizedBox(
-                          width: Get.width * (.90 / 3),
-                          child: Obx(() {
-                            if (optionsstatic.dateTextController.value.text !=
-                                '') {
-                              return Text(
-                                  "${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0)+ (optionsstatic.pricing.value.addPriceChildren ?? 0)+ (optionsstatic.pricing.value.additionalPriceInfant ?? 0)
-                                  }");
-                            } else {
-                              return const Text(
-                                  " fetching"); // Return an empty Text widget if dateTextController is empty
-                            }
-                          }),
-                        ), // SizedBox(
-                        Obx(() {
-                          if (optionsstatic.dateTextController.value.text !=
-                              '' &&
-                              tourIdTimeSlotIndex >= 0) {
-                            return Text(
-                              "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
-                            );
-                          } else {
-                            return const Text(
-                                "No time Slot required "); // Return an empty Text widget if dateTextController is empty
-                          }
-                        }), // SizedBox(
-                        //   height: 300,
-                        //   width: 450,
-                        //   child: Optionpricing(),
-                        // ),
-                        SizedBox(
-                          child: InlineFlexButton(
-                            label: 'Add To Cart',
-                            onPressed: () async {
-                              optionsstatic.getOptionsdynamicData();
-                            },
+              return output1.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                width: Get.width * (.90 / 3) - 10,
+                                child: index >= 0
+                                    ? Text(
+                                        "${optionsstatic.options.value.data?[index].optionName}")
+                                    : const Text(''),
+                              ),
+                              SizedBox(
+                                width: Get.width * (.75 / 3),
+                                child: Obx(() {
+                                  if (optionsstatic
+                                          .dateTextController.value.text !=
+                                      '') {
+                                    return Text(
+                                        "${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}");
+                                  } else {
+                                    return const Text(
+                                        " fetching"); // Return an empty Text widget if dateTextController is empty
+                                  }
+                                }),
+                              ), // SizedBox(
+                              Obx(() {
+                                if (optionsstatic
+                                            .dateTextController.value.text !=
+                                        '' &&
+                                    tourIdTimeSlotIndex >= 0) {
+                                  return Text(
+                                    "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
+                                  );
+                                } else {
+                                  return const Text(
+                                      "No timeslot required "); // Return an empty Text widget if dateTextController is empty
+                                }
+                              }), // SizedBox(
+                              //   height: 300,
+                              //   width: 450,
+                              //   child: Optionpricing(),
+                              // ),
+                              SizedBox(
+                                child: Expanded(
+                                  child: InlineFlexButton(
+                                    label: 'Add To Cart',
+                                    onPressed: () async {
+                                      optionsstatic.getOptionsdynamicData();
+                                    },
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ):Center(child: CircularProgressIndicator(),);
+                        ],
+                      ),
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    );
             },
           ),
         );
