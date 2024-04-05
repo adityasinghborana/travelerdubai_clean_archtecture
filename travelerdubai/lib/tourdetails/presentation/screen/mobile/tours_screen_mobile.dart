@@ -67,10 +67,11 @@ class TourPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar:    MobileHeader(),
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
-            return const CircularProgressIndicator();
+            return Center(child: const CircularProgressIndicator(color: colorblue,));
           } else {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
@@ -94,7 +95,7 @@ class TourPageMobile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //fixed the header issue
-                        MobileHeader(),
+
                         MUICarousel(
                           images: imageUrls,
                           maxWidth: double.infinity,
@@ -170,7 +171,7 @@ class TourPageMobile extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.01),
                       child: MainDetails(
                         textStyle: detailBoxTextStyleMobile,
                       ),

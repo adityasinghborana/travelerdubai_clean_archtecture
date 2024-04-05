@@ -118,8 +118,17 @@ class TourPageDesktop extends StatelessWidget {
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: Get.width * 0.05),
-                      child: MainDetails(
-                        textStyle: detailBoxTextStyle,
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex:3,
+                            child: MainDetails(
+                              textStyle: detailBoxTextStyle,
+                            ),
+                          ),
+                          Flexible(
+                              flex:1 ,child: Container())
+                        ],
                       ),
                     ),
                     buildFooter()

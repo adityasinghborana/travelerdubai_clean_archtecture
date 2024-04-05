@@ -21,6 +21,9 @@ class DetailBox extends StatelessWidget {
       color: colorwhite,
       elevation: 3,
       child: ExpansionTile(
+        shape: RoundedRectangleBorder(
+          side: BorderSide.none, // Remove the border
+        ),
         initiallyExpanded: isExpanded,
         childrenPadding: EdgeInsets.all(20),
         title: Text(

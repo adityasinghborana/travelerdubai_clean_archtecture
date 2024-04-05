@@ -25,6 +25,7 @@ class ExperienceController extends GetxController {
   }
 
   void fetchcitytours() async {
+
     try {
       final response = await experiencesUseCase.execute();
       if (response.isNotEmpty) {

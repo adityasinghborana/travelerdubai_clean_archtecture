@@ -7,7 +7,7 @@ import 'package:travelerdubai/core/constants/contants.dart';
 
 class HeaderController extends GetxController {
   final RxString userid = ''.obs;
-  Rx<Color> navItemColor = colorwhite.obs;
+  Rx<Color> navItemColor = colorblack.obs;
   final RxInt cartId = 0.obs; //need to chang for cart id
   final RxBool loggedIn = false.obs;
   final RxMap<String, bool> isHoveredMap = <String, bool>{}.obs;

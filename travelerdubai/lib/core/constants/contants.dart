@@ -17,11 +17,20 @@ final H1black = GoogleFonts.outfit(
   ),
 );
 TextStyle getH2TextStyle(BuildContext context) {
-  double width = MediaQuery.of(context).size.width;
+  double screenWidth = MediaQuery.of(context).size.width;
+  double fontSize;
+
+  // Define font sizes based on screen width
+  if (screenWidth < 600) {
+    fontSize = screenWidth *0.056; // For smaller screens like mobile
+  } else {
+    fontSize = 35.0; // For larger screens
+  }
+
   return GoogleFonts.outfit(
     textStyle: TextStyle(
-      letterSpacing: .5,
-      fontSize: width * .075,
+      letterSpacing: 0.5,
+      fontSize: fontSize,
       color: colorgreydark, // Assuming colorgreydark is defined elsewhere
     ),
   );
@@ -65,13 +74,30 @@ final bodyf = GoogleFonts.outfit(
     color: colorlightgrey,
   ),
 );
-final bodyblack = GoogleFonts.playfairDisplay(
-  textStyle: const TextStyle(
-    letterSpacing: .5,
-    fontSize: 14,
-    color: colorblack,
-  ),
+
+
+
+TextStyle bodyblack(BuildContext context) {
+double screenWidth = MediaQuery.of(context).size.width;
+double fontSize;
+
+// Define font sizes based on screen width
+if (screenWidth < 600) {
+fontSize = screenWidth *0.056; // For smaller screens like mobile
+} else {
+fontSize = 35.0; // For larger screens
+}
+
+return GoogleFonts.outfit(
+textStyle: const TextStyle(
+letterSpacing: .5,
+fontSize: 14,
+color: colorblack,
+),
 );
+}
+
+
 
 final iconText = GoogleFonts.roboto(
   fontSize: 14,

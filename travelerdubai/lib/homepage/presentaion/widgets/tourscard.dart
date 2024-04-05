@@ -64,12 +64,11 @@ class TourCards extends StatelessWidget {
   void _onTourCardTap(Experiences tour) {
 
 
-    String tourId = "${tour.tourdetails?[0].id}";
+    String tourDetailId = "${tour.tourdetails?[0].id}";
 
     Get.toNamed(
       '/tour_details',
-      arguments:
-      tourId,
+      parameters: {'tourId': tourDetailId.toString()},
 
     );
   }

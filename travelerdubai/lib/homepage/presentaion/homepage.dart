@@ -38,9 +38,7 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    scrollController4?.addListener(() {
-      headerController.updateHeaderBackground(scrollController4?.offset ?? 0);
-    });
+
     double? width = MediaQuery.of(context).size.width;
 
     return Stack(children: [

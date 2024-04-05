@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 
 class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -6,17 +7,29 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return AppBar(
+      leading: IconButton(onPressed: Get.back, icon: Icon(Icons.arrow_back_ios)),
+      automaticallyImplyLeading: true,
       backgroundColor: colorwhite,
       surfaceTintColor: Colors.transparent,
       title: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: Center(
-          child: PreferredSize(
-            preferredSize: const Size.fromHeight(kToolbarHeight),
-            child: Image.asset(
-              "./assets/logo.png",
-              width: MediaQuery.of(context).size.width * 0.4,
-              height: height * .05,
+        child: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            width: Get.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(flex: 2,
+                    child: Container()),
+                Image.asset(
+                  "./assets/logo.png",
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: height * .05,
+                ),
+                Flexible(flex: 3,
+                    child: Container()),
+              ],
             ),
           ),
         ),
