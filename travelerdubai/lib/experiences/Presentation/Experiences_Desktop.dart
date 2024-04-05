@@ -12,13 +12,13 @@ import 'package:travelerdubai/experiences/Presentation/widgets/tourtypes.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
+
 
 import '../../core/widgets/header.dart';
 import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {
-  String? cityName = Get.parameters['cityName'];
+  String? city = Get.parameters['cityName'];
   final ExperienceController experienceController = Get.put(
     ExperienceController(
       GetExperiencesUseCase(
@@ -35,8 +35,8 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-print(cityName);
-    List<Experiences> displayedTours =
+print(city);
+    List<Experiences> allTours =
     experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
         : experienceController.cityTours
@@ -44,7 +44,15 @@ print(cityName);
     tour.cityTourType ==
         experienceController.selectedTourType.value)
         .toList();
+List<Experiences> filtercitytour =
+ experienceController.cityTours
+    .where((tour) =>
+tour.cityName ==
+    city)
+    .toList();
 
+var displayedTours = city !=null  ? filtercitytour : allTours;
+//print(filteredCityTours.length);
 
 
     Get.lazyPut(() => HeaderController());
