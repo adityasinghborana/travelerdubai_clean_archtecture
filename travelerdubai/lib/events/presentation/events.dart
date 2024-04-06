@@ -122,7 +122,7 @@ class Eventspage extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               cityTourType,
-                              style: bodyblack,
+                              style: bodyblack(context),
                             ),
                           ),
                         );
@@ -221,7 +221,7 @@ class Eventspage extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   shortdescription,
-                                  style: bodyblack,
+                                  style: bodyblack(context),
                                 ),
                                 Expanded(child: Container()),
                                 Row(
@@ -230,7 +230,7 @@ class Eventspage extends StatelessWidget {
                                       'Rating: $review',
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
-                                      style: bodyblack,
+                                      style: bodyblack(context),
                                     ),
                                     const SizedBox(
                                         width:
