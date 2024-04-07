@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 

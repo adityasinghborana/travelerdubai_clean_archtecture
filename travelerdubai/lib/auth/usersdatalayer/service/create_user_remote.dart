@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/response/create_user_response.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../model/request/create_user_request.dart';
 part 'create_user_remote.g.dart';

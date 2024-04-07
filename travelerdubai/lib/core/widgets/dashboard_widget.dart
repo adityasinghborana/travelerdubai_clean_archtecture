@@ -3,7 +3,7 @@
 // import 'package:google_fonts/google_fonts.dart';
 //
 // import '../../tourdetails/presentation/Widgets/button.dart';
-// import '../constants/contants.dart';
+// import '../constants/constants.dart';
 //
 // class AccountWidget extends StatelessWidget {
 //

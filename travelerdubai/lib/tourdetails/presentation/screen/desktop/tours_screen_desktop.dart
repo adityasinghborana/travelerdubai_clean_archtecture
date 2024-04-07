@@ -6,7 +6,7 @@ import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_detail.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';

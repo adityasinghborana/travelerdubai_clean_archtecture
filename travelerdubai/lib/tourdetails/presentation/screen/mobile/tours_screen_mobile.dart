@@ -12,7 +12,7 @@ import '../../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../../../Components/build_city.dart';
 import '../../../../Components/date_picker.dart';
-import '../../../../core/constants/contants.dart';
+import '../../../../core/constants/constants.dart';
 import '../../../../homepage/presentaion/Homepagecontroller.dart';
 import '../../../../homepage/remote/homepage_remote_service.dart';
 import '../../../../homepage/repository/homepage_repository.dart';
@@ -86,7 +86,7 @@ class TourPageMobile extends StatelessWidget {
 
             return SingleChildScrollView(
               child: Container(
-                decoration: BoxDecoration(gradient: backgroundgradient),
+                decoration: BoxDecoration(color: colorwhite),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
