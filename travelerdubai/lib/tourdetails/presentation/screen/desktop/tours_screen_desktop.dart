@@ -79,12 +79,12 @@ class TourPageDesktop extends StatelessWidget {
             static.dateTextController.value.text = DateTime.now()
                 .add(
                     // Add a duration representing the specified number of hours.
-                    Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0))
+                    Duration(hours: tourController.tour.value.cutOffhrs ?? 0))
                 .toString()
                 .substring(0, 10);
             static.selectedDate.value = DateTime.now().add(
                 // Add a duration representing the specified number of hours.
-                Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0));
+                Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
             static.getOptionsStaticData();
 
             var tourImages = tourController.tourImages;
@@ -219,7 +219,7 @@ class TourPageDesktop extends StatelessWidget {
                         DateTime.parse(static.dateTextController.value.text);
                     static.getOptionsdynamicData();
                     static.gettimeSlots();
-                  }),
+                  }, null),
                 ],
               ),
               const Divider(
