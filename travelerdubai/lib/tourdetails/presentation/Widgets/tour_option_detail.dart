@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
 import '../../../Cart/data_layer/model/request/update_cart.dart';
@@ -18,9 +19,7 @@ import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart'
 import '../tour_options_controller.dart';
 import 'button.dart';
 
-Widget options( String tourname) {
-
-
+Widget options(String tourname) {
   return Obx(() {
     final TourOptionStaticDataController optionsstatic = Get.put(
       TourOptionStaticDataController(
@@ -68,29 +67,68 @@ Widget options( String tourname) {
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              SizedBox(
-                                width: Get.width * (.90 / 3) - 10,
-                                child: index >= 0
-                                    ? Text(
-                                        "${optionsstatic.options.value.data?[index].optionName}")
-                                    : const Text(''),
-                              ),
-                              SizedBox(
-                                width: Get.width * (.75 / 3),
-                                child: Obx(() {
-                                  if (optionsstatic
-                                          .dateTextController.value.text !=
-                                      '') {
-                                    return Text(
-                                        "${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}");
-                                  } else {
-                                    return const Text(
-                                        " fetching"); // Return an empty Text widget if dateTextController is empty
-                                  }
-                                }),
-                              ), // SizedBox(
+                              index >= 0
+                                  ? Text(
+                                      "${optionsstatic.options.value.data?[index].optionName}")
+                                  : const Text(''),
+                              Obx(() {
+                                if (optionsstatic
+                                        .dateTextController.value.text !=
+                                    '') {
+                                  return Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Price",
+                                        style: bodyblack(context).copyWith(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: Get.width * 0.03,
+                                      ),
+                                      Container(
+                                        width: Get.width * 0.07,
+                                        alignment: Alignment.center,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(1)),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: Get.width * 0.008),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                "AED",
+                                                style: bodyblack(context)
+                                                    .copyWith(
+                                                  fontSize: Get.width*0.01,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                              ),
+                                              Text(
+                                                  " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",style: bodyblack(context)
+                                    .copyWith(
+                                fontSize: Get.width*0.01,
+                                fontWeight:
+                                FontWeight.normal),),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  return const Text(
+                                      " fetching"); // Return an empty Text widget if dateTextController is empty
+                                }
+                              }), // SizedBox(
                               Obx(() {
                                 if (optionsstatic
                                             .dateTextController.value.text !=
@@ -109,37 +147,55 @@ Widget options( String tourname) {
                               //   child: Optionpricing(),
                               // ),
                               SizedBox(
-                                child: Expanded(
-                                  child: InlineFlexButton(
-                                    label: 'Add To Cart',
-                                    onPressed: () async {
-                                      final data = output1[index];
-                                      var value = UpdateCartTourDetail(
-                                          tourname: tourname,
-                                          tourOption: data.transferName!,
-                                          tourId: data.tourId!,
-                                          optionId: data.tourOptionId!,
-                                          adult: optionsstatic.adultsSelectedValue.value,
-                                          child:
-                                          optionsstatic.childrenSelectedValue.value,
-                                          infant:
-                                          optionsstatic.infantsSelectedValue.value,
-                                          tourDate: optionsstatic.selectedDate.value
-                                              .toString()
-                                              .substring(0, 10),
-                                          timeSlotId: optionsstatic.timeSlotId.value,
-                                          startTime: data.startTime!,
-                                          transferId: data.transferId!,
-                                          adultRate: data.adultPrice!.toDouble(),
-                                          childRate: data.childPrice?.toDouble() ?? 0.0,
-                                          serviceTotal: ((output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)),
-                                          cartId: controller.cartId.value);
-                                      print(("${controller.cartId.value} Hello"));
+                                child: InlineFlexButton(
+                                  vpadding: 20,
+                                  hpadding: 30,
+                                  bgcolor: colorblue,
+                                  label: 'Add To Cart',
+                                  onPressed: () async {
+                                    final data = output1[index];
+                                    var value = UpdateCartTourDetail(
+                                        tourname: tourname,
+                                        tourOption: data.transferName!,
+                                        tourId: data.tourId!,
+                                        optionId: data.tourOptionId!,
+                                        adult: optionsstatic
+                                            .adultsSelectedValue.value,
+                                        child: optionsstatic
+                                            .childrenSelectedValue.value,
+                                        infant: optionsstatic
+                                            .infantsSelectedValue.value,
+                                        tourDate: optionsstatic
+                                            .selectedDate.value
+                                            .toString()
+                                            .substring(0, 10),
+                                        timeSlotId: optionsstatic
+                                            .timeSlotId.value,
+                                        startTime: data.startTime!,
+                                        transferId: data.transferId!,
+                                        adultRate: data.adultPrice!.toDouble(),
+                                        childRate: data
+                                                .childPrice
+                                                ?.toDouble() ??
+                                            0.0,
+                                        serviceTotal: ((output1[index]
+                                                    .finalAmount ??
+                                                0) +
+                                            (optionsstatic.pricing.value
+                                                    .addPriceAdult ??
+                                                0) +
+                                            (optionsstatic.pricing.value
+                                                    .addPriceChildren ??
+                                                0) +
+                                            (optionsstatic.pricing.value
+                                                    .additionalPriceInfant ??
+                                                0)),
+                                        cartId: controller.cartId.value);
+                                    print(("${controller.cartId.value} Hello"));
 
-                                      optionsstatic.Addtocart(value);
-print(value.toJson());
-                                    },
-                                  ),
+                                    optionsstatic.Addtocart(value);
+                                    print(value.toJson());
+                                  },
                                 ),
                               )
                             ],

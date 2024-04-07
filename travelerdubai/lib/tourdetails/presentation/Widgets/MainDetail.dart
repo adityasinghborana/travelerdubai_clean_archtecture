@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../tourdetail_data_layer/remote/tour_remote.dart';
@@ -14,9 +15,9 @@ class MainDetails extends StatelessWidget {
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
 
-  final TextStyle? textStyle;
+   TextStyle? textStyle = bodyblack(Get.context!).copyWith(fontSize: 16) ;
 
-  MainDetails({super.key, this.textStyle});
+  MainDetails({super.key, this.textStyle  });
 
   @override
   Widget build(BuildContext context) {

@@ -38,7 +38,7 @@ class IconTextBackground extends StatelessWidget {
             child: Icon(
               iconData,
               color: iconColor,
-              size: 12,
+              size: MediaQuery.of(context).size.shortestSide < 600 ? 12 : 36,
             ),
           ),
           const SizedBox(width: 8.0),

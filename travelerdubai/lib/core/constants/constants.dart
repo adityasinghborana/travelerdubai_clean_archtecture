@@ -79,7 +79,7 @@ final H3 = GoogleFonts.outfit(
 final detailBoxTextStyle = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
-    fontSize: 42,
+    fontSize: 24,
     color: color_1C2B38,
   ),
 );

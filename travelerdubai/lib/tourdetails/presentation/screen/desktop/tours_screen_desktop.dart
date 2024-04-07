@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:modular_ui/modular_ui.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
@@ -15,6 +16,7 @@ import 'package:travelerdubai/tourdetails/timeslot_data_layer/repositories/times
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_remote.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 
+import '../../../../Components/icon_text_background.dart';
 import '../../../../core/controller/headercontroller.dart';
 import '../../../../core/widgets/footer.dart';
 import '../../../tourdetail_data_layer/Usecase/usecase.dart';
@@ -119,6 +121,54 @@ class TourPageDesktop extends StatelessWidget {
                             ],
                           ),
                         ),
+
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: Get.height*0.01),
+                          child: Row(children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.05),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconTextBackground(
+                                      iconData: Icons.remove_red_eye,
+                                      text: 'Open Today',
+                                      backgroundColor:
+                                      Color.fromRGBO(8, 137, 67, 0.12),
+                                      iconColor: color_088943,
+                                      textStyle: iconText),
+                                  Text(
+                                    'Visit Timing',
+                                    style: iconText,
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.05),
+                              child: IconTextBackground(
+                                  iconData: Icons.access_time_filled,
+                                  text: 'Explore at your pace',
+                                  backgroundColor:
+                                  const Color.fromRGBO(204, 126, 99, 0.20),
+                                  iconColor: color_cc7e63,
+                                  textStyle: iconText),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.05),
+                              child: IconTextBackground(
+                                  iconData: Icons.audiotrack,
+                                  text: 'Audio Guide',
+                                  backgroundColor:
+                                  Color.fromRGBO(0, 154, 184, 0.20),
+                                  iconColor: color_088943,
+                                  textStyle: iconText.copyWith(fontSize:16 )),
+                            ),
+                          ],),
+                        ),
                         formSection(),
                       ],
                     ),
@@ -185,13 +235,10 @@ class TourPageDesktop extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("No Of Person"),
-                  DropdownTransferWidget(
-                      label: 'type',
-                      selectedValue: static.selectedTransfer.value,
-                      onChanged: (value) => static.changeSelectedTransfer),
+
+
                   Obx(() => DropdownWidget(
                       label: 'Adults',
                       selectedValue: static.adultsSelectedValue.value,
@@ -220,19 +267,16 @@ class TourPageDesktop extends StatelessWidget {
                     static.getOptionsdynamicData();
                     static.gettimeSlots();
                   }, null),
+                  DropdownTransferWidget(
+                      label: 'type',
+                      selectedValue: static.selectedTransfer.value,
+                      onChanged: (value) => static.changeSelectedTransfer),
                 ],
               ),
               const Divider(
                 height: 1,
               ),
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Tour Options "),
-                    Text("Price"),
-                    Text("TimeSlots"),
-                    SizedBox(),
-                  ]),
+
               options( tourController.tour.value.tourName!),
             ],
           ),
