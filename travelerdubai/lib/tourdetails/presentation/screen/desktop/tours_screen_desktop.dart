@@ -15,6 +15,7 @@ import 'package:travelerdubai/tourdetails/timeslot_data_layer/repositories/times
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_remote.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 
+import '../../../../core/controller/headercontroller.dart';
 import '../../../../core/widgets/footer.dart';
 import '../../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../../tourdetail_data_layer/remote/tour_remote.dart';
@@ -28,34 +29,39 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
-  final TourOptionStaticDataController static = Get.put(
-    TourOptionStaticDataController(
-        GetTourOptionsStaticDataUseCase(
-            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-        GetTourOptionsDynamicDataUseCase(
-          TourOptionsRepositoryImpl(
-            TourOptionRemoteService(Dio()),
-          ),
-        ),
-        GetTimeSlotUseCase(
-          TimeSlotRepositoryImpl(
-            TimeSlotRemoteService(Dio()),
-          ),
-        ),
-        UpdateCartUseCase(
-          CartRepositoryImpl(
-            CartRemoteService(Dio()),
-          ),
-        )),
-  );
+
+
 
   TourPageDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TourOptionStaticDataController static = Get.put(
+      TourOptionStaticDataController(
+          GetTourOptionsStaticDataUseCase(
+              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+          GetTourOptionsDynamicDataUseCase(
+            TourOptionsRepositoryImpl(
+              TourOptionRemoteService(Dio()),
+            ),
+          ),
+          GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(
+              TimeSlotRemoteService(Dio()),
+            ),
+          ),
+          UpdateCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          )),
+    );
+    final HeaderController controller = Get.find();
+    final TourController tourController = Get.put(TourController(
+      GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+    ));
+
+    print("${controller.cartId.value} hello tour deatial");
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: ElevatedButton(
@@ -143,6 +149,30 @@ class TourPageDesktop extends StatelessWidget {
   }
 
   Widget formSection() {
+    final TourOptionStaticDataController static = Get.put(
+      TourOptionStaticDataController(
+          GetTourOptionsStaticDataUseCase(
+              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+          GetTourOptionsDynamicDataUseCase(
+            TourOptionsRepositoryImpl(
+              TourOptionRemoteService(Dio()),
+            ),
+          ),
+          GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(
+              TimeSlotRemoteService(Dio()),
+            ),
+          ),
+          UpdateCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          )),
+    );
+    final HeaderController controller = Get.put(HeaderController());
+    final TourController tourController = Get.put(TourController(
+      GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+    ));
     return Card(
       elevation: 25.0,
       child: ClipRRect(
@@ -203,7 +233,7 @@ class TourPageDesktop extends StatelessWidget {
                     Text("TimeSlots"),
                     SizedBox(),
                   ]),
-              options(),
+              options( tourController.tour.value.tourName!),
             ],
           ),
         ),

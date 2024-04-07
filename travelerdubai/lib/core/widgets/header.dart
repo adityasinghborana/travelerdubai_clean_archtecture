@@ -146,7 +146,7 @@ class Header extends StatelessWidget {
         ),
         _navItem(
           "Cart",
-          '/Login',
+          '/checkout',
         ),
         _navItem(
           "Dashboard",

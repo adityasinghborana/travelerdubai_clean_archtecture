@@ -202,7 +202,7 @@ class TourOptionStaticDataController extends GetxController {
     try {
       final value = await updateCartUseCase.execute(data);
       if (value != null) {
-        print(value.data.tourId);
+       Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
       }
     } catch (e) {
       print(data);

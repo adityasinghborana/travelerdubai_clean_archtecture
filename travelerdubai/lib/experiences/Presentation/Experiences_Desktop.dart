@@ -18,15 +18,6 @@ import '../../core/widgets/header.dart';
 import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {
-  final ExperienceController experienceController = Get.put(
-    ExperienceController(
-      GetExperiencesUseCase(
-        ExperiencesRepositoryImpl(
-          ExperienceRemoteService(Dio()),
-        ),
-      ),
-    ),
-  );
 
   final TextEditingController searchController = TextEditingController();
 
@@ -34,6 +25,16 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ExperienceController experienceController = Get.put(
+      ExperienceController(
+        GetExperiencesUseCase(
+          ExperiencesRepositoryImpl(
+            ExperienceRemoteService(Dio()),
+          ),
+        ),
+      ),
+    );
+
 
     String? city = Get.parameters['cityName']; // Retrieve city inside build method
     print(city);

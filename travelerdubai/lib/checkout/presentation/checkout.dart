@@ -66,18 +66,18 @@ class CheckoutPage extends StatelessWidget {
 
                           Row(
                             children: [
-                              Expanded(
+                              Flexible(
                                 child: buildTextFormField('Prefix',
                                     checkoutController.prefixController),
                               ),
                               SizedBox(width: 16),
-                              Expanded(
+                             Flexible(
                                 child: buildTextFormField('First Name',
                                     checkoutController.firstNameController),
                               ),
                               SizedBox(width: 16),
                               // Adjust the spacing between the text fields
-                              Expanded(
+                             Flexible(
                                 child: buildTextFormField('Last Name',
                                     checkoutController.lastNameController),
                               ),
@@ -85,13 +85,13 @@ class CheckoutPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              Expanded(
+                              Flexible(
                                 child: buildTextFormField('Email',
                                     checkoutController.emailController),
                               ),
                               SizedBox(width: 16),
                               // Adjust the spacing between the text fields
-                              Expanded(
+                              Flexible(
                                 child: buildTextFormField('Mobile No',
                                     checkoutController.mobileNoController),
                               ),
@@ -100,23 +100,23 @@ class CheckoutPage extends StatelessWidget {
                           Row(
                             children: [
                               // Adjust the spacing between the text fields
-                              Expanded(
+                              Flexible(
                                 child: buildTextFormField('Message',
                                     checkoutController.messageController),
                               ),
                               SizedBox(width: 16),
                               // Adjust the spacing between the text fields
-                              Expanded(
+                             Flexible(
                                 child: buildTextFormField('Nationality',
                                     checkoutController.nationalityController),
                               ),
-                              Expanded(
+                              Flexible(
                                 child: buildTextFormField('Pickup',
                                     checkoutController.pickupController),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Expanded(
+                                child: Flexible(
                                   child: DropdownPaxType(),
                                 ),
                               ),
