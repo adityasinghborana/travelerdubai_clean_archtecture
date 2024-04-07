@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/core/widgets/drawer.dart';
 
 class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
-  const MobileHeader({super.key});
+  final bool isBackButton ;
+
+  const MobileHeader({super.key ,  this.isBackButton =true} );
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return AppBar(
+      automaticallyImplyLeading: isBackButton,
       leading:
-          IconButton(onPressed: Get.back, icon: Icon(Icons.arrow_back_ios)),
-      automaticallyImplyLeading: true,
+      isBackButton
+          ? IconButton(
+        onPressed: Get.back,
+        icon:  Icon(Icons.arrow_back),
+      )
+          :IconButton(
+        onPressed:()=> Scaffold.of(context).openDrawer(),
+        icon:  Icon(Icons.menu),
+      ) ,
+
       backgroundColor: colorwhite,
       surfaceTintColor: Colors.transparent,
       title: Padding(

@@ -54,7 +54,7 @@ class HomePageMobile extends StatelessWidget {
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawer(),
-      appBar: MobileHeader(),
+      appBar: MobileHeader(isBackButton: false,),
       body: SingleChildScrollView(
         child: Column(
           children: [
