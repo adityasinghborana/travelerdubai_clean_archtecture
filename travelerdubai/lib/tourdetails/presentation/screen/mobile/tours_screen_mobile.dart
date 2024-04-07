@@ -67,11 +67,14 @@ class TourPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar:    MobileHeader(),
+      appBar: MobileHeader(),
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
-            return Center(child: const CircularProgressIndicator(color: colorblue,));
+            return Center(
+                child: const CircularProgressIndicator(
+              color: colorblue,
+            ));
           } else {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
@@ -237,7 +240,7 @@ class TourPageMobile extends StatelessWidget {
                         DateTime.parse(static.dateTextController.value.text);
                     static.getOptionsdynamicData();
                     static.gettimeSlots();
-                  }),
+                  }, null),
                 ],
               ),
               const Divider(

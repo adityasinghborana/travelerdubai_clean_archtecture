@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../core/constants/contants.dart';
 
 Widget dateInputField(TextEditingController controller, BuildContext context,
-    void Function() onClicked) {
+    void Function() onClicked, double? width) {
   return Container(
-    width: 200,
+    width: width ?? 200,
     height: 100,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(4.0),
