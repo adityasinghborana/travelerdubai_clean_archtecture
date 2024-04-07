@@ -88,11 +88,13 @@ class CheckoutController extends GetxController {
   Future<void> getCart() async {
     headerController.getUserUID().then((value) async {
       CreateCartRequest data = CreateCartRequest(userId: value ?? "0");
+      print(data.toJson());
 
       try {
         var response = await getCartUseCase.execute(data);
 
         if (response.data[0].TourDetails.isNotEmpty) {
+
           cartId.value = response.data[0].TourDetails[0].cartId;
           Totalprice.value = response.data[0].totalamount.toString();
           print(Totalprice.value);

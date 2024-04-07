@@ -251,7 +251,7 @@ class TourPageMobile extends StatelessWidget {
                     Text("TimeSlots"),
                     SizedBox(),
                   ]),
-              options(),
+              options(tourController.tour.value.tourName!),
             ],
           ),
         ),

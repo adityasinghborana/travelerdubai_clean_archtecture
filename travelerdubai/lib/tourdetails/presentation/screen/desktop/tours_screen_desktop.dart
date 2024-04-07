@@ -15,6 +15,7 @@ import 'package:travelerdubai/tourdetails/timeslot_data_layer/repositories/times
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_remote.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 
+import '../../../../core/controller/headercontroller.dart';
 import '../../../../core/widgets/footer.dart';
 import '../../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../../tourdetail_data_layer/remote/tour_remote.dart';
@@ -28,34 +29,39 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
-  final TourOptionStaticDataController static = Get.put(
-    TourOptionStaticDataController(
-        GetTourOptionsStaticDataUseCase(
-            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-        GetTourOptionsDynamicDataUseCase(
-          TourOptionsRepositoryImpl(
-            TourOptionRemoteService(Dio()),
-          ),
-        ),
-        GetTimeSlotUseCase(
-          TimeSlotRepositoryImpl(
-            TimeSlotRemoteService(Dio()),
-          ),
-        ),
-        UpdateCartUseCase(
-          CartRepositoryImpl(
-            CartRemoteService(Dio()),
-          ),
-        )),
-  );
+
+
 
   TourPageDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TourOptionStaticDataController static = Get.put(
+      TourOptionStaticDataController(
+          GetTourOptionsStaticDataUseCase(
+              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+          GetTourOptionsDynamicDataUseCase(
+            TourOptionsRepositoryImpl(
+              TourOptionRemoteService(Dio()),
+            ),
+          ),
+          GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(
+              TimeSlotRemoteService(Dio()),
+            ),
+          ),
+          UpdateCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          )),
+    );
+    final HeaderController controller = Get.find();
+    final TourController tourController = Get.put(TourController(
+      GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+    ));
+
+    print("${controller.cartId.value} hello tour deatial");
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: ElevatedButton(
@@ -65,19 +71,20 @@ class TourPageDesktop extends StatelessWidget {
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
-            return Center(child: const CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
-            static.dateTextController.value.text = DateTime.now().add(
-              // Add a duration representing the specified number of hours.
-                Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0)
-            ).toString().substring(0,10);
-            static.selectedDate.value= DateTime.now().add(
-              // Add a duration representing the specified number of hours.
-                Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0)
-            );
+            static.dateTextController.value.text = DateTime.now()
+                .add(
+                    // Add a duration representing the specified number of hours.
+                    Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0))
+                .toString()
+                .substring(0, 10);
+            static.selectedDate.value = DateTime.now().add(
+                // Add a duration representing the specified number of hours.
+                Duration(hours: tourController.tour?.value?.cutOffhrs ?? 0));
             static.getOptionsStaticData();
 
             var tourImages = tourController.tourImages;
@@ -121,13 +128,12 @@ class TourPageDesktop extends StatelessWidget {
                       child: Row(
                         children: [
                           Flexible(
-                            flex:3,
+                            flex: 3,
                             child: MainDetails(
                               textStyle: detailBoxTextStyle,
                             ),
                           ),
-                          Flexible(
-                              flex:1 ,child: Container())
+                          Flexible(flex: 1, child: Container())
                         ],
                       ),
                     ),
@@ -143,6 +149,30 @@ class TourPageDesktop extends StatelessWidget {
   }
 
   Widget formSection() {
+    final TourOptionStaticDataController static = Get.put(
+      TourOptionStaticDataController(
+          GetTourOptionsStaticDataUseCase(
+              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+          GetTourOptionsDynamicDataUseCase(
+            TourOptionsRepositoryImpl(
+              TourOptionRemoteService(Dio()),
+            ),
+          ),
+          GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(
+              TimeSlotRemoteService(Dio()),
+            ),
+          ),
+          UpdateCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          )),
+    );
+    final HeaderController controller = Get.put(HeaderController());
+    final TourController tourController = Get.put(TourController(
+      GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+    ));
     return Card(
       elevation: 25.0,
       child: ClipRRect(
@@ -163,27 +193,26 @@ class TourPageDesktop extends StatelessWidget {
                       selectedValue: static.selectedTransfer.value,
                       onChanged: (value) => static.changeSelectedTransfer),
                   Obx(() => DropdownWidget(
-                        label: 'Adults',
-                        selectedValue: static.adultsSelectedValue.value,
-                        onChanged: (value) {
-                          static.adultsSelectedValue.value = value ?? 1;
-                          static.getOptionsdynamicData();
-                        })),
+                      label: 'Adults',
+                      selectedValue: static.adultsSelectedValue.value,
+                      onChanged: (value) {
+                        static.adultsSelectedValue.value = value ?? 1;
+                        static.getOptionsdynamicData();
+                      })),
                   Obx(() => DropdownWidget(
-                        label: 'Children',
-                        selectedValue: static.childrenSelectedValue.value,
-                        onChanged: (value) {
-                            static.childrenSelectedValue.value = value ?? 0;
-                            static.getOptionsdynamicData();}
-                      )),
+                      label: 'Children',
+                      selectedValue: static.childrenSelectedValue.value,
+                      onChanged: (value) {
+                        static.childrenSelectedValue.value = value ?? 0;
+                        static.getOptionsdynamicData();
+                      })),
                   Obx(() => DropdownWidget(
-                        label: 'Infants',
-                        selectedValue: static.infantsSelectedValue.value,
-                        onChanged: (value) {
-                          static.infantsSelectedValue.value = value ?? 0;
-                          static.getOptionsdynamicData();
-
-                        })),
+                      label: 'Infants',
+                      selectedValue: static.infantsSelectedValue.value,
+                      onChanged: (value) {
+                        static.infantsSelectedValue.value = value ?? 0;
+                        static.getOptionsdynamicData();
+                      })),
                   dateInputField(static.dateTextController.value, Get.context!,
                       () {
                     static.selectedDate.value =
@@ -204,7 +233,7 @@ class TourPageDesktop extends StatelessWidget {
                     Text("TimeSlots"),
                     SizedBox(),
                   ]),
-              options(),
+              options( tourController.tour.value.tourName!),
             ],
           ),
         ),

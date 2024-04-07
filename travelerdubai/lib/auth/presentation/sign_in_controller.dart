@@ -76,7 +76,7 @@ class SigninController extends GetxController {
     CreateCartRequest data = CreateCartRequest(userId: uid);
 
     getCartUseCase.execute(data).then((value) {
-      if (value.data[0].TourDetails.isNotEmpty) {
+      if (value.data.isNotEmpty) {
         cartId.value = value.data[0].TourDetails[0].cartId;
         headerController.cartId.value = cartId.value;
         saveCartID(cartId.value.toString());
