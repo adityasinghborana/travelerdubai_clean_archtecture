@@ -30,7 +30,9 @@ class ExperienceController extends GetxController {
     try {
       final response = await experiencesUseCase.execute();
       if (response.isNotEmpty) {
-        List<Experiences> fetchedCityTours = response;
+        List<Experiences> visibleCityTours = response;
+
+        List<Experiences> fetchedCityTours = visibleCityTours.where((element) => element.isvisible == true).toList();
 
         cityTours.assignAll(fetchedCityTours);
         allCityTours = List.from(fetchedCityTours);

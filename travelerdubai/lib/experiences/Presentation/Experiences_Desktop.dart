@@ -64,63 +64,70 @@ class ExperiencesDesktop extends StatelessWidget {
           children: [
             Header(),
             Container(
-              height: 200,
+              height:  Get.height * 0.25,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Stack(
                       children: [
                         SizedBox(
-                          height: Get.height * 0.20,
+                          height: Get.height * 0.45,
                           child: Image.network(
                             "https://source.unsplash.com/random",
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ),
                         ),
-                        Positioned(
-                          top: 20,
-                          left: 20,
-                          right: 20,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Row(
+
+                        Container(
+                          child: Padding(
+                            padding:  EdgeInsets.symmetric(horizontal: Get.width*0.04),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                                                   crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.search),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: TextField(
-                                    controller: searchController,
-                                    onChanged: (value) {
-                                      experienceController.searchCityTours(value);
-                                    },
-                                    decoration: const InputDecoration(
-                                      hintText: 'Search',
-                                      border: InputBorder.none,
-                                    ),
+                                SizedBox(height: Get.height*0.05,),
+                                Text("Discover All Experiences", style: H1(context)),
+                                SizedBox(height: Get.height*0.02,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.search),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: TextField(
+                                          controller: searchController,
+                                          onChanged: (value) {
+                                            experienceController.searchCityTours(value);
+                                          },
+                                          decoration: const InputDecoration(
+                                            hintText: 'Search',
+                                            border: InputBorder.none,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: Get.height / 10,
-                          left: Get.width / 6,
-                          child: Text("Discover All Experiences", style: H1(context)),
-                        ),
+
                       ],
                     ),
                   ],
                 ),
               ),
             ),
+            SizedBox(height: Get.height * .03 ),
             SizedBox(
-              width: Get.width,
+              width: Get.width *0.95,
               height: Get.height * .95,
               child: Row(
                 children: [

@@ -54,7 +54,7 @@ class Tourtypes extends StatelessWidget {
                                 colorHighlights,
                                 colorPrimary
                               ], // Define your gradient colors
-                            ).createShader(Rect.fromLTWH(30, 20.0, 80.0,
+                            ).createShader(Rect.fromLTWH(Get.width*0.05, 20.0, 80.0,
                                 20.0)), // Adjust the size as needed
                         ),
                       ),
