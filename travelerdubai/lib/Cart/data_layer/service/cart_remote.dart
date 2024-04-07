@@ -4,7 +4,7 @@ import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/create_cart_response.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/get_cart_response.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/update_cart.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../model/request/update_cart.dart';
 

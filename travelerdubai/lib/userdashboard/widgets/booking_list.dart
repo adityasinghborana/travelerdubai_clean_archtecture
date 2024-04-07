@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 class BookingsList extends StatelessWidget {
   const BookingsList({super.key});

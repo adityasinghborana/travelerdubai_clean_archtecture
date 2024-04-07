@@ -1,15 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
+import 'package:travelerdubai/experiences/Presentation/widgets/tour_types_mobile.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
+
+import '../model/experience_response_model.dart';
 
 class ExperiencesMobile extends StatelessWidget {
   final ExperienceController experienceController = Get.put(
@@ -28,96 +31,121 @@ class ExperiencesMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Get.lazyPut(() => HeaderController());
 
-// Later in your code, when you need to access the HeaderController:
-    HeaderController headerController = Get.find<HeaderController>();
+    String? city = Get.parameters['cityName']; // Retrieve city inside build method
+    print(city);
 
-    headerController.navItemColor.value = colorblack;
+    List<Experiences> allTours = experienceController.selectedTourType.isEmpty
+        ? experienceController.cityTours
+        : experienceController.cityTours
+        .where((tour) => tour.cityTourType == experienceController.selectedTourType.value)
+        .toList();
+
+    List<Experiences> filterCityTour = city != null
+        ? experienceController.cityTours.where((tour) => tour.cityName == city).toList()
+        : []; // Handle null city
+
+    var displayedTours = city != null ? filterCityTour : allTours;
+
+    Get.lazyPut(() => HeaderController());
+
+
+
+
     String currentDate = DateTime.now().toString().split(' ')[0];
 
     return Scaffold(
       appBar: MobileHeader(),
       drawer: drawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              width: Get.width,
-              height: Get.height * .95,
-              child: Row(
-                children: [
-                  Flexible(
-                    flex: 85,
-                    child: SingleChildScrollView(
-                      child: Column(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+
+          Container(
+            height: Get.height*0.2,
+            child: Stack(
+            children: [
+
+
+              Image.network(
+                "https://source.unsplash.com/random",
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+
+              Container(
+                width: Get.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+
+                    Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Stack(
-                            children: [
-                              SizedBox(
-                                height: Get.height * 0.20,
-                                child: Image.network(
-                                  "https://source.unsplash.com/random",
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Positioned(
-                                top: 20,
-                                left: 20,
-                                right: 20,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.search),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: TextField(
-                                          controller: searchController,
-                                          onChanged: (value) {
-                                            experienceController
-                                                .searchCityTours(value);
-                                          },
-                                          decoration: const InputDecoration(
-                                            hintText: 'Search',
-                                            border: InputBorder.none,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                top: Get.height / 10,
-                                left: Get.width / 6,
-                                child:
-                                    Text("Discover All Experiences", style: H1),
-                              ),
-                            ],
-                          ),
-                          Container(
-                              height: MediaQuery.of(context).size.height * 0.9,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: tourCardsMobile(),
-                              )),
+                          Flexible(child: Text("Discover All Experiences", style: H1(context))),
                         ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                    SizedBox(height: Get.height*0.01,),
+                    Container(
+                      width: Get.width*0.8,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: colorwhite,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.search),
+                          const SizedBox(width: 10),
+                          Flexible(
+
+                            child: TextField(
+                              controller: searchController,
+                              onChanged: (value) {
+                                experienceController
+                                    .searchCityTours(value);
+                              },
+                              decoration: const InputDecoration(
+                                hintText: 'Search',
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],),
+              )
+            ],
+          ),),
+
+          Container(
+            height: Get.height*.20,
+            child: TourTypesMobile(),),
+          Expanded(
+
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: tourCardsMobile(displayedTours,city),
+              )),
+        ],
+      )
     );
   }
 }
+
+
+
+
+
+
+
+

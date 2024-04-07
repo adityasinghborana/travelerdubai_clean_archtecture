@@ -10,7 +10,7 @@ import 'package:travelerdubai/Cart/data_layer/usecase/create_cart_usecase.dart';
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/Components/text_on_line.dart';
 import 'package:travelerdubai/auth/presentation/sign_up_controller.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../../../usersdatalayer/repository/user_repository.dart';
 import '../../../usersdatalayer/service/create_user_remote.dart';

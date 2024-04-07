@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 class DetailBox extends StatelessWidget {
   final String title;
@@ -8,7 +8,7 @@ class DetailBox extends StatelessWidget {
   final TextStyle? textStyle;
 
   const DetailBox(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.Description,
       this.isExpanded = false,
@@ -21,11 +21,11 @@ class DetailBox extends StatelessWidget {
       color: colorwhite,
       elevation: 3,
       child: ExpansionTile(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           side: BorderSide.none, // Remove the border
         ),
         initiallyExpanded: isExpanded,
-        childrenPadding: EdgeInsets.all(20),
+        childrenPadding:const EdgeInsets.all(20),
         title: Text(
           title,
           style: textStyle,

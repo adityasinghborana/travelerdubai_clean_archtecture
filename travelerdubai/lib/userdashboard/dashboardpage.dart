@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 import 'package:travelerdubai/userdashboard/dashboard_controller.dart';

@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final H1 = GoogleFonts.outfit(
-  textStyle: const TextStyle(
-    letterSpacing: .5,
-    fontSize: 40,
-    color: colorwhite,
-  ),
-);
 final H1black = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
@@ -16,6 +9,46 @@ final H1black = GoogleFonts.outfit(
     color: colorblack,
   ),
 );
+
+TextStyle H1(BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double fontSize;
+
+  // Define font sizes based on screen width
+  if (screenWidth < 600) {
+    fontSize = screenWidth *0.056; // For smaller screens like mobile
+  } else {
+    fontSize = 35.0; // For larger screens
+  }
+
+  return GoogleFonts.outfit(
+      textStyle:  TextStyle(
+      letterSpacing: .5,
+      fontSize: fontSize,
+      color: colorwhite,
+  ));
+}
+TextStyle bodygrey(BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double fontSize;
+
+  // Define font sizes based on screen width
+  if (screenWidth < 600) {
+    fontSize = screenWidth *0.036; // For smaller screens like mobile
+  } else {
+    fontSize = 35.0; // For larger screens
+  }
+
+  return GoogleFonts.roboto(
+      textStyle:  TextStyle(
+        letterSpacing: .5,
+        fontSize: fontSize,
+        color: Color(0xff505050),
+      ));
+}
+
+
+
 TextStyle getH2TextStyle(BuildContext context) {
   double screenWidth = MediaQuery.of(context).size.width;
   double fontSize;
