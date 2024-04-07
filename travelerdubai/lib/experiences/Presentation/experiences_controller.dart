@@ -7,13 +7,14 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 import '../../tourdetails/tourdetail_data_layer/model/tour_model.dart';
 
 class ExperienceController extends GetxController {
+  String? city = Get.parameters['cityName'];
   final GetExperiencesUseCase experiencesUseCase;
 
   var tourTypes = [].obs;
   var cityTours = <Experiences>[].obs;
   var selectedTourType = ''.obs;
   List<Experiences> allCityTours = [];
-  List<TourModel> alldata = [];
+  RxList<Experiences> alldata =<Experiences> [].obs;
 
   ExperienceController(this.experiencesUseCase);
 
@@ -89,4 +90,7 @@ class ExperienceController extends GetxController {
           .toList());
     }
   }
+
+
+
 }

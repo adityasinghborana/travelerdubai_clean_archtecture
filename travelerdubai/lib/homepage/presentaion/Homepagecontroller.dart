@@ -1,9 +1,15 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/homepage/remote/response/model/homepagedata.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
+
+import '../../experiences/Presentation/experiences_controller.dart';
+import '../../experiences/Usecase/experience_usecase.dart';
+import '../../experiences/remote/experiences_remote_service.dart';
+import '../../experiences/repository/Experiences_repository.dart';
 
 class HomeController extends GetxController {
   final GetHomePageDatUseCase homePageDataUseCase;
@@ -24,6 +30,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     fetchDataFromBackend();
+
     // startImageRotation();
     //fetchCityT();
     //fetchImagesFromAPI();
