@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
@@ -18,15 +18,6 @@ import '../../core/widgets/header.dart';
 import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {
-  final ExperienceController experienceController = Get.put(
-    ExperienceController(
-      GetExperiencesUseCase(
-        ExperiencesRepositoryImpl(
-          ExperienceRemoteService(Dio()),
-        ),
-      ),
-    ),
-  );
 
   final TextEditingController searchController = TextEditingController();
 
@@ -34,6 +25,16 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ExperienceController experienceController = Get.put(
+      ExperienceController(
+        GetExperiencesUseCase(
+          ExperiencesRepositoryImpl(
+            ExperienceRemoteService(Dio()),
+          ),
+        ),
+      ),
+    );
+
 
     String? city = Get.parameters['cityName']; // Retrieve city inside build method
     print(city);
@@ -110,7 +111,7 @@ class ExperiencesDesktop extends StatelessWidget {
                         Positioned(
                           top: Get.height / 10,
                           left: Get.width / 6,
-                          child: Text("Discover All Experiences", style: H1),
+                          child: Text("Discover All Experiences", style: H1(context)),
                         ),
                       ],
                     ),
@@ -125,7 +126,7 @@ class ExperiencesDesktop extends StatelessWidget {
                 children: [
                   Flexible(
                     flex: 1,
-                    child: Tourtypes(() {}),
+                    child: Tourtypes(),
                   ),
                   Flexible(
                     flex: 4,

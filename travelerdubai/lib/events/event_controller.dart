@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 class EventController extends GetxController {
   var eventTypes = [].obs;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';

@@ -5,7 +5,7 @@ import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
 import 'package:travelerdubai/bookings/data_layer/model/request/booking_request.dart';
 import 'package:travelerdubai/checkout/data_layer/model/request/intent_request.dart';
 import 'package:travelerdubai/checkout/data_layer/usecase/intent_usecase.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -88,11 +88,13 @@ class CheckoutController extends GetxController {
   Future<void> getCart() async {
     headerController.getUserUID().then((value) async {
       CreateCartRequest data = CreateCartRequest(userId: value ?? "0");
+      print(data.toJson());
 
       try {
         var response = await getCartUseCase.execute(data);
 
         if (response.data[0].TourDetails.isNotEmpty) {
+
           cartId.value = response.data[0].TourDetails[0].cartId;
           Totalprice.value = response.data[0].totalamount.toString();
           print(Totalprice.value);

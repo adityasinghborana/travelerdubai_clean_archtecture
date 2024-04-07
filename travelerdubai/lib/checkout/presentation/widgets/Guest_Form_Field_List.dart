@@ -36,7 +36,7 @@ Widget buildGuestFormField(int index) {
     children: [
       Row(
         children: [
-          Expanded(
+          Flexible(
             child: buildTextFormField('Guest ${index + 1} Name',
                 checkoutController.guests[index].nameController),
           ),

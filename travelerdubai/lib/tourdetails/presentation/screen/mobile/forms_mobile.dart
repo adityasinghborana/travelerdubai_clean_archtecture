@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/contants.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';

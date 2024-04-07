@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import '../../../core/constants/contants.dart';
+import '../../../core/constants/constants.dart';
 import '../model/request/booking_request.dart';
 import '../model/response/BookingResponse.dart';
 part 'booking_remote.g.dart';

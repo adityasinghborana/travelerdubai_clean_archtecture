@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/homepage/model/city.dart';
 import 'package:travelerdubai/homepage/remote/response/model/homepagedata.dart';
 
