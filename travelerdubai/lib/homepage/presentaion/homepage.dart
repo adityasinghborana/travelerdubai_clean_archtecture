@@ -16,6 +16,7 @@ import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
+import '../../Components/build_city.dart';
 import '../../core/controller/headercontroller.dart';
 import '../../core/widgets/header.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
@@ -30,6 +31,7 @@ class Homepage extends StatelessWidget {
 
   final ScrollController? scrollController1 = ScrollController();
   final ScrollController? scrollController2 = ScrollController();
+
   final ScrollController? scrollController3 = ScrollController();
   final ScrollController? scrollController4 = ScrollController();
   final HeaderController headerController = Get.put(HeaderController());
@@ -69,8 +71,8 @@ controller: scrollController4,
             Obx(
               () => _buildCitySection(
                   "${homeController.formData.value?.heading2}",
-                  scrollController2,
-                  width),
+                  width,
+                  scrollController2),
             ),
 
             Obx(
@@ -122,7 +124,8 @@ controller: scrollController4,
   }
 
   Widget _buildCitySection(
-      String heading, ScrollController? controller, double? width) {
+      String heading, double? width ,ScrollController? controller) {
+
     return Container(
 
       color: Colors.white,
@@ -137,9 +140,7 @@ controller: scrollController4,
                   height: Get.height * .5,
                   width: Get.width * .9,
                   child: Stack(children: [
-                    CityList(
-                      scrollController: controller!,
-                    ),
+                    CityList(Controller: controller!),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
@@ -147,7 +148,7 @@ controller: scrollController4,
                             shape: BoxShape.circle, color: Colors.black),
                         child: IconButton(
                           onPressed: () {
-                            _scrollToPrevious(controller);
+                            _scrollToPrevious(controller!);
                           },
                           color: Colors.white,
                           icon: const Icon(Icons.arrow_back),
@@ -161,7 +162,7 @@ controller: scrollController4,
                             shape: BoxShape.circle, color: Colors.black),
                         child: IconButton(
                           onPressed: () {
-                            _scrollToNext(controller);
+                            _scrollToNext(controller!);
                           },
                           color: Colors.white,
                           icon: const Icon(
@@ -258,7 +259,7 @@ controller: scrollController4,
 
   void _scrollToNext(ScrollController? scrollController) {
     double? offset = scrollController?.offset;
-    double? newOffset = offset! + Get.width * 0.90; // Adjust width of cards
+    double? newOffset = offset! + Get.width * 0.30; // Adjust width of cards
     if (newOffset > scrollController!.position.maxScrollExtent) {
       newOffset = scrollController.position.maxScrollExtent;
     }
@@ -271,7 +272,7 @@ controller: scrollController4,
 
   void _scrollToPrevious(ScrollController? scrollController) {
     double? offset = scrollController?.offset;
-    double newOffset = offset! - Get.width * 0.90; // Adjust width of cards
+    double newOffset = offset! - Get.width * 0.30; // Adjust width of cards
     if (newOffset < scrollController!.position.minScrollExtent) {
       newOffset = scrollController.position.minScrollExtent;
     }

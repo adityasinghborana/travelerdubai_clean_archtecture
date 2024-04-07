@@ -153,7 +153,7 @@ class HomePageMobile extends StatelessWidget {
               Container(
                   height: Get.height * .3,
                   width: Get.width,
-                  child: CityList(scrollController: scrollController2!)),
+                  child: CityList(Controller: scrollController2!)),
               const SizedBox(height: 40),
             ],
           ),

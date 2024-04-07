@@ -19,7 +19,7 @@ Widget buildCitySection(
             Container(
                 height: Get.height * .3,
                 width: Get.width,
-                child: CityList(scrollController: controller!)),
+                child: CityList(Controller: controller!)),
             const SizedBox(height: 40),
           ],
         ),

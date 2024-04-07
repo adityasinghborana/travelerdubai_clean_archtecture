@@ -22,15 +22,16 @@ class CityList extends StatelessWidget {
       ),
     ),
   );
-  final ScrollController scrollController = ScrollController();
+  final ScrollController Controller ;
 
   CityList({
     super.key,
-    required ScrollController scrollController,
+     required this.Controller,
   });
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       if (controller.cities.isEmpty) {
         return const Center(child: CircularProgressIndicator());
@@ -40,7 +41,7 @@ class CityList extends StatelessWidget {
           height: Get.height * .5,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            controller: scrollController,
+            controller: Controller,
             itemCount: controller.cities.length,
             itemBuilder: (context, index) {
               final city = controller.cities[index];
@@ -61,7 +62,7 @@ class CityList extends StatelessWidget {
                     child: Stack(
                       children: [
                         AspectRatio(
-                          aspectRatio: 9 / 16,
+                          aspectRatio: 9 / 9,
                           child: Image.network(
                             "https://source.unsplash.com/random/?${city.CityName}",
                             fit: BoxFit.cover,
