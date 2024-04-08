@@ -29,12 +29,12 @@ class PageNotFound extends StatelessWidget {
   }
 Widget Mobile(){
     return Expanded(child: Center(
-        child: Container(child: Image.asset('../assets/assets/images/404mobile.png',fit: BoxFit.cover,),)));
+        child: Container(child: Image.asset('../assets/images/404mobile.png',fit: BoxFit.cover,),)));
 }
 
   Widget Desktop() {
     return Expanded(child: Center(
-        child: Container(child: Image.asset('../assets/assets/images/404.png'),)));
+        child: Container(child: Image.asset('../assets/images/404.png'),)));
   }
 }
 

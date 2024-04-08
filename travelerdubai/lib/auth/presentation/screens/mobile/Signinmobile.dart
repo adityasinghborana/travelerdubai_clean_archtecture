@@ -54,7 +54,7 @@ class SigninMobile extends StatelessWidget {
                 alignment: AlignmentDirectional.topStart,
                 children: [
                   Image.asset(
-                    "../assets/assets/images/signupmobile.png",
+                    "../assets/images/signupmobile.png",
                     width: Get.width,
                     fit: BoxFit.fill,
                   ),
@@ -63,7 +63,7 @@ class SigninMobile extends StatelessWidget {
                     left: 40,
                     bottom: 30,
                     child: Image.asset(
-                      "../assets/assets/images/whitelogo.png",
+                      "../assets/images/whitelogo.png",
                     ),
                   )
                 ],

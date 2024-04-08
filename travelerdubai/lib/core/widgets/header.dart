@@ -27,7 +27,7 @@ class Header extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
-                    "../assets/assets/images/logo.png",
+                    "../assets/images/logo.png",
                     height: 80,
                     width: width * .1,
                     fit: BoxFit.contain,

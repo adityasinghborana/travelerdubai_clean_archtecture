@@ -40,7 +40,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Image.asset(
-        "../assets/assets/images/logo.png",
+        "../assets/images/logo.png",
         width: MediaQuery.of(context).size.width * 0.20,
         height: MediaQuery.of(context).size.width * 0.20,
       ),
@@ -59,7 +59,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/discover.png",
+              "../assets/images/discover.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),
@@ -67,7 +67,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/formkit_visa.png",
+              "../assets/images/formkit_visa.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),
@@ -75,7 +75,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/formkit_gpay.png",
+              "../assets/images/formkit_gpay.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),
@@ -83,7 +83,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/amex.png",
+              "../assets/images/amex.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),
@@ -96,7 +96,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/mastercard.png",
+              "../assets/images/mastercard.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),
@@ -104,7 +104,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/paypal.png",
+              "../assets/images/paypal.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),
@@ -112,7 +112,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/assets/images/visa.png",
+              "../assets/images/visa.png",
               width: Get.width * .10,
               height: Get.width * .10,
             ),

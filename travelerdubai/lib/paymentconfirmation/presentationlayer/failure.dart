@@ -37,7 +37,7 @@ class FailureScreen extends StatelessWidget {
 
   Widget Mobile(double height, double width) {
     return Image.asset(
-      '../assets/assets/images/failedmobile.png',
+      '../assets/images/failedmobile.png',
       height: height,
       width: width,
     );
@@ -45,7 +45,7 @@ class FailureScreen extends StatelessWidget {
 
   Widget Desktop(double height, double width) {
     return Image.asset(
-      '../assets/assets/images/failureimg.png',
+      '../assets/images/failureimg.png',
       height: height,
       width: width,
     );

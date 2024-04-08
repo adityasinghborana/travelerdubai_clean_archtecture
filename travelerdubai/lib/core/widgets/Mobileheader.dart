@@ -37,7 +37,7 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 Flexible(flex: 2, child: Container()),
                 Image.asset(
-                  "../assets/assets/images/logo.png",
+                  "../assets/images/logo.png",
                   width: MediaQuery.of(context).size.width * 0.5,
                   height: height * .05,
                 ),

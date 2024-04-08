@@ -54,7 +54,7 @@ Widget advertisement({required double subHeadingfontsize, required double Headin
             width: Get.width * .10,
           ),
           Image.asset(
-            "../assets/assets/images/Iphone.png",
+            "../assets/images/Iphone.png",
             width: Get.width * .155,
             height: Get.height * .60,
           ),

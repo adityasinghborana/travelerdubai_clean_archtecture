@@ -14,7 +14,7 @@ Widget drawer (){
     child: ListView(
       padding: EdgeInsets.all(8),
       children: [
-        Image.asset("/assets/assets/images/logo.png"),
+        Image.asset("/assets/images/logo.png"),
         ListTile(
           title: Text('Home'),
           onTap: () {

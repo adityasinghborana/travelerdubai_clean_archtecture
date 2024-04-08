@@ -52,7 +52,7 @@ class SignUpMobile extends StatelessWidget {
               alignment: Alignment.center,
               child: SizedBox(
                   height: Get.height * 0.04,
-                  child: Image.asset("../assets/assets/images/logo.png",)),
+                  child: Image.asset("../assets/images/logo.png",)),
             ),
              SizedBox(height: MediaQuery.of(context).size.height*0.09),
             Align(
