@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/AboutPage/datalayer/repository/aboutus_repositiory.dart';
 import 'package:travelerdubai/AboutPage/datalayer/service/Aboutus_remote.dart';

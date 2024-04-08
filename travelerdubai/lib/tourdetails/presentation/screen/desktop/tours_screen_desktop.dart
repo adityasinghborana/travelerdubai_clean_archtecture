@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:modular_ui/modular_ui.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';

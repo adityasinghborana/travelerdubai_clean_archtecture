@@ -190,6 +190,8 @@ const color_cc7e63 = Color(0xffcc7e63);
 const color_009ab8 = Color(0xff009ab8);
 const color_1C2B38 = Color(0xff1c2b38);
 const color_1C1C1C = Color(0xff1c1c1c);
+const colorMediumBlue = Color(0xff2659C3);
+
 
 // others
 const String baseurl = "http://69.48.163.45:3000";

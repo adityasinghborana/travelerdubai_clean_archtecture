@@ -5,10 +5,7 @@ import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
 import 'package:travelerdubai/bookings/data_layer/model/request/booking_request.dart';
 import 'package:travelerdubai/checkout/data_layer/model/request/intent_request.dart';
 import 'package:travelerdubai/checkout/data_layer/usecase/intent_usecase.dart';
-import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-
 import '../../Cart/data_layer/model/response/get_cart_response.dart';
 import '../../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../../creditcard/creditcard.dart';

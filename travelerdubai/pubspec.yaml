@@ -48,7 +48,6 @@ dependencies:
   retrofit: ^4.0.3
   flutter_credit_card: ^4.0.1
   html: ^0.15.4
-  flutter_widget_from_html: ^0.9.1
   flutter_layout_grid: ^1.0.6
   shared_preferences: ^2.2.2
   shared_preferences_web: ^2.2.2
@@ -58,7 +57,6 @@ dependencies:
   google_sign_in: ^6.2.1
   google_sign_in_web: ^0.12.3+2
   font_awesome_flutter: ^10.7.0
-  gap: ^3.0.1
   modular_ui: ^0.0.5
   flutter_cache_manager: ^3.3.1
 
