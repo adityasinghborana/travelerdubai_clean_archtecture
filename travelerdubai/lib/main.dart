@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         unknownRoute: GetPage(
-          name: '/NotFound',
+          name: '/notfound',
           page: () => PageNotFound(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500),

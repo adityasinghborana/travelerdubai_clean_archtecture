@@ -101,10 +101,7 @@ class Header extends StatelessWidget {
         "Experiences",
         '/experiences',
       ),
-      _navItem(
-        "Events",
-        '/events',
-      ),
+
       _navItem(
         "Contact Us",
         '/contactus',
@@ -136,10 +133,7 @@ class Header extends StatelessWidget {
           "Experiences",
           '/experiences',
         ),
-        _navItem(
-          "Events",
-          '/events',
-        ),
+
         _navItem(
           "Contact Us",
           '/contactus',
@@ -150,7 +144,7 @@ class Header extends StatelessWidget {
         ),
         _navItem(
           "Dashboard",
-          '/Signup',
+          '/dashboardpage',
         ),
       ],
     );

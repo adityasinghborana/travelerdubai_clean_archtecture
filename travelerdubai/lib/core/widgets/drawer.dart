@@ -35,6 +35,17 @@ Widget drawer (){
             Get.to(Contactus());
           },
         ),
+        ListTile(
+          title: Text('Cart'),
+          onTap: () {
+            Get.toNamed("/checkout");
+          },
+        ), ListTile(
+          title: Text('Dashboard'),
+          onTap: () {
+            Get.toNamed("/dashboardpage");
+          },
+        ),
       ],
     ),
   );
