@@ -47,8 +47,8 @@ Widget options(String tourname) {
     var output2 = optionsstatic.timeslots.toList();
     switch (output.state) {
       case UiState.SUCCESS:
-        return SizedBox(
-          height: 90,
+        return Expanded(
+
           child: ListView.builder(
             key: UniqueKey(),
             itemCount: optionsstatic.options.value.data?.length,
@@ -63,66 +63,76 @@ Widget options(String tourname) {
                   (index) => false.obs);
               return output1.isNotEmpty
                   ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               index >= 0
-                                  ? Text(
-                                      "${optionsstatic.options.value.data?[index].optionName}")
+                                  ? SizedBox(
+                             width: Get.width*0.20,
+                                    child: Text(
+                                        "${optionsstatic.options.value.data?[index].optionName}",
+                                      style: bodyblack(context).copyWith(fontWeight: FontWeight.bold),
+
+
+                                    ),
+                                  )
                                   : const Text(''),
                               Obx(() {
                                 if (optionsstatic
                                         .dateTextController.value.text !=
                                     '') {
-                                  return Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Price",
-                                        style: bodyblack(context).copyWith(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: Get.width * 0.03,
-                                      ),
-                                      Container(
-                                        width: Get.width * 0.07,
-                                        alignment: Alignment.center,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(1)),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: Get.width * 0.008),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "AED",
-                                                style: bodyblack(context)
-                                                    .copyWith(
-                                                  fontSize: Get.width*0.01,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                              ),
-                                              Text(
-                                                  " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",style: bodyblack(context)
-                                    .copyWith(
-                                fontSize: Get.width*0.01,
-                                fontWeight:
-                                FontWeight.normal),),
-                                            ],
-                                          ),
+                                  return Flexible(
+                                    flex:1,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Price",
+                                          style: bodyblack(context).copyWith(
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                      )
-                                    ],
+                                        SizedBox(
+                                          width: Get.width * 0.03,
+                                        ),
+                                        Container(
+                                          width: Get.width * 0.07,
+                                          alignment: Alignment.center,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(width: 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(1)),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Get.width * 0.008),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "AED",
+                                                  style: bodyblack(context)
+                                                      .copyWith(
+                                                    fontSize: Get.width*0.01,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                ),
+                                                Text(
+                                                    " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",style: bodyblack(context)
+                                      .copyWith(
+                                                                    fontSize: Get.width*0.01,
+                                                                    fontWeight:
+                                                                    FontWeight.normal),),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   );
                                 } else {
                                   return const Text(
@@ -134,19 +144,26 @@ Widget options(String tourname) {
                                             .dateTextController.value.text !=
                                         '' &&
                                     tourIdTimeSlotIndex >= 0) {
-                                  return Text(
-                                    "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
+                                  return Flexible(
+                                    flex: 1,
+                                    child: Text(
+                                      "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
+                                    ),
                                   );
                                 } else {
-                                  return const Text(
-                                      "No timeslot required "); // Return an empty Text widget if dateTextController is empty
+                                  return Flexible(
+                                    flex: 1,
+                                    child: const Text(
+                                        "No timeslot required "),
+                                  ); // Return an empty Text widget if dateTextController is empty
                                 }
                               }), // SizedBox(
                               //   height: 300,
                               //   width: 450,
                               //   child: Optionpricing(),
                               // ),
-                              SizedBox(
+                              Flexible(
+                                flex:1,
                                 child: InlineFlexButton(
                                   vpadding: 20,
                                   hpadding: 30,

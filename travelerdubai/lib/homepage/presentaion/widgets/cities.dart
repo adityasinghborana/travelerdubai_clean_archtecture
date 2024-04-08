@@ -79,11 +79,7 @@ class CityList extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               "${city.CityName}",
-                              style: GoogleFonts.playfairDisplay(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
+                              style:getH2TextStyle(context).copyWith(color: colorwhite)
                             ),
                           ),
                         ),

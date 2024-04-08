@@ -9,6 +9,7 @@ import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_detail.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
@@ -58,6 +59,7 @@ class TourPageDesktop extends StatelessWidget {
             ),
           )),
     );
+    final ScrollController scrollController = ScrollController();
     final HeaderController controller = Get.find();
     final TourController tourController = Get.put(TourController(
       GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
@@ -187,6 +189,7 @@ class TourPageDesktop extends StatelessWidget {
                         ],
                       ),
                     ),
+             CityList(Controller:scrollController ),
                     buildFooter()
                   ],
                 ),
@@ -231,7 +234,7 @@ class TourPageDesktop extends StatelessWidget {
           padding: const EdgeInsets.all(50.0),
           color: colorwhite,
           width: Get.width * 0.9,
-          height: Get.height * .6,
+          height: Get.height * .5,
           child: Column(
             children: [
               Row(

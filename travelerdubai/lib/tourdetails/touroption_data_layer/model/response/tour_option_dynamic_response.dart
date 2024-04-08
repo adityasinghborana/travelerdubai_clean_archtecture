@@ -1,5 +1,6 @@
 
 
+import 'package:flutter/src/material/dropdown.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tour_option_dynamic_response.g.dart';
@@ -102,4 +103,6 @@ class TourOptionDynamicResult {
   factory TourOptionDynamicResult.fromJson(Map<String, dynamic> json) => _$TourOptionDynamicResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$TourOptionDynamicResultToJson(this);
+
+
 }

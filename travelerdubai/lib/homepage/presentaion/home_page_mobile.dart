@@ -19,6 +19,7 @@ import 'package:travelerdubai/homepage/usecase/usecase.dart';
 import '../../Components/Advertisement.dart';
 import '../../Components/buid_heading.dart';
 import '../../Components/build_city.dart';
+import '../../Components/footer_mobile.dart';
 import '../../core/constants/constants.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
@@ -79,7 +80,7 @@ class HomePageMobile extends StatelessWidget {
                   "${homeController.formData.value?.heading3}", width,scrollController3),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
-            buildFooter(),
+            buildFooterMobile(),
           ],
         ),
       ),

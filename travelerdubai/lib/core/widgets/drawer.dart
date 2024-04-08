@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/experiences/Presentation/experiences.dart';
 
 
 import '../../contactus/presentation/Contactus.dart';
@@ -13,7 +14,7 @@ Widget drawer (){
     child: ListView(
       padding: EdgeInsets.all(8),
       children: [
-        Image.asset("./assets/logo.png"),
+        Image.asset("/assets/assets/images/logo.png"),
         ListTile(
           title: Text('Home'),
           onTap: () {
@@ -25,14 +26,7 @@ Widget drawer (){
           title: Text('Experiences'),
           onTap: () {
             // Navigate to another page when item is clicked
-            Get.to(Contactus());
-          },
-        ),
-        ListTile(
-          title: Text('Account'),
-          onTap: () {
-            // Navigate to another page when item is clicked
-            Get.to(Contactus());
+            Get.to(Experiences());
           },
         ),
         ListTile(

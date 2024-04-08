@@ -69,7 +69,7 @@ controller: scrollController4,
             ),
             // This contain heading as well as list
             Obx(
-              () => _buildCitySection(
+              () => BuildCitySection(
                   "${homeController.formData.value?.heading2}",
                   width,
                   scrollController2),
@@ -123,7 +123,7 @@ controller: scrollController4,
     );
   }
 
-  Widget _buildCitySection(
+  Widget BuildCitySection(
       String heading, double? width ,ScrollController? controller) {
 
     return Container(

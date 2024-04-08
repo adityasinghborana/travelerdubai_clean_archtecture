@@ -38,7 +38,7 @@ Widget Mobile(){
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            '../assets/successmobile.png',
+            '../assets/assets/images/successmobile.png',
           ),
           Center(
             child: Text(
@@ -60,7 +60,7 @@ Widget Desktop (){
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            '../assets/success.png',
+            '../assets/assets/images/success.png',
           ),
           Center(
             child: Text(

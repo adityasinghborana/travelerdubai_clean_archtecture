@@ -11,9 +11,9 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      elevation: 5,
+
       color: colorwhite,
-      height: 70,
+      height: 50,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -26,25 +26,25 @@ class BottomNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: Icon(FontAwesomeIcons.faceSmile,size: 24),
+            icon: Icon(FontAwesomeIcons.faceSmile,size: 20),
             onPressed: () {
               // Navigate to home page
-              Get.toNamed('experiences');
+              Get.toNamed('/experiences');
             },
           ),
           IconButton(
-            icon: Icon(FontAwesomeIcons.calendarDay,size: 24),
+            icon: Icon(FontAwesomeIcons.calendarDay,size: 20),
             onPressed: () {
               // Navigate to home page
 
-                  Get.toNamed('events');
+                  Get.toNamed('/experiences');
 
             },
           ),
           IconButton(
             icon: Icon(Icons.person,size: 24),
             onPressed: () {
-              Get.toNamed('Login');
+              Get.toNamed('/Login');
             },
           ),
         ],

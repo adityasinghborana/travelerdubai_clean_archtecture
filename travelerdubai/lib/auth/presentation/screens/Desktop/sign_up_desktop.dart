@@ -76,7 +76,7 @@ class SignUpDesktop extends StatelessWidget {
                       ),
                       SizedBox(
                           height: Get.height * 0.060916,
-                          child: Image.asset("./assets/logo.png")),
+                          child: Image.asset("../assets/assets/images/logo.png")),
                       const SizedBox(height: 20),
                       Text(
                         'Sign up',

@@ -101,8 +101,7 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/experiences',
             page: () => Experiences(),
-            transition: Transition.leftToRightWithFade,
-            transitionDuration: const Duration(milliseconds: 500),
+
           ),
           GetPage(
             name: '/dashboardpage',

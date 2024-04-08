@@ -17,9 +17,10 @@ class DetailBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      surfaceTintColor: colorwhite,
-      color: colorwhite,
-      elevation: 3,
+      shadowColor: null,
+      surfaceTintColor: Colors.transparent,
+      color: Colors.transparent,
+      elevation: 0,
       child: ExpansionTile(
         shape: const RoundedRectangleBorder(
           side: BorderSide.none, // Remove the border

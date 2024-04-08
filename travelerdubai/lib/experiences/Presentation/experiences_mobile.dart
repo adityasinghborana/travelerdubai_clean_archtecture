@@ -130,12 +130,10 @@ class ExperiencesMobile extends StatelessWidget {
           Container(
             height: Get.height*.20,
             child: TourTypesMobile(),),
-          Expanded(
-
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: tourCardsMobile(displayedTours,city),
-              )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: tourCardsMobile(displayedTours,city),
+          ),
         ],
       )
     );

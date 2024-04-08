@@ -42,7 +42,7 @@ Widget advertisementMobile({required double subHeadingfontsize, required double 
                 ),
 
               Image.asset(
-                "../assets/Iphone.png",
+                "../assets/assets/images/Iphone.png",
                 width: Get.width ,
                 height: Get.height * .3,
               ),
