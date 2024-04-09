@@ -79,7 +79,7 @@ class HomePageMobile extends StatelessWidget {
                 width,
               ),
             ),
-            advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
+            advertisement(subHeadingfontsize: 18, Headingfontsize: 28,decoration: BoxDecoration(gradient: backgroundgradient)),
             buildFooterMobile(),
           ],
         ),
