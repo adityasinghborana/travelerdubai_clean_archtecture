@@ -69,7 +69,7 @@ class Header extends StatelessWidget {
             hoverColor: Colors.transparent,
             onTap: () {
               headerController.navItemColor.value = colorblack;
-              Get.toNamed(route);
+              Get.offAndToNamed(route);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),

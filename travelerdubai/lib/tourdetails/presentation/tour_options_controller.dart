@@ -37,7 +37,7 @@ class TourOptionStaticDataController extends GetxController {
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
-  var id = "".obs;
+  var id = "65".obs;
   var contractid = "".obs;
   final RxList<Result> timeslots = <Result>[].obs;
 
