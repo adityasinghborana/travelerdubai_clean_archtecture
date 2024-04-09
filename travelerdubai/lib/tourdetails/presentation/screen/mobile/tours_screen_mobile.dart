@@ -61,7 +61,6 @@ class TourPageMobile extends StatelessWidget {
   );
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
-  final ScrollController? scrollController2 = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -181,9 +180,7 @@ class TourPageMobile extends StatelessWidget {
                     ),
                     Obx(
                       () => buildCitySection(
-                          "${homeController.formData.value?.heading2}",
-                          scrollController2,
-                          width),
+                          "${homeController.formData.value?.heading2}", width),
                     ),
                     buildFooterMobile()
                   ],

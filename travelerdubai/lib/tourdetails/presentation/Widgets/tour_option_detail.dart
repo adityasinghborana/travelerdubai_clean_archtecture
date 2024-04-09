@@ -48,7 +48,6 @@ Widget options(String tourname) {
     switch (output.state) {
       case UiState.SUCCESS:
         return Expanded(
-
           child: ListView.builder(
             key: UniqueKey(),
             itemCount: optionsstatic.options.value.data?.length,
@@ -71,21 +70,20 @@ Widget options(String tourname) {
                             children: <Widget>[
                               index >= 0
                                   ? SizedBox(
-                             width: Get.width*0.20,
-                                    child: Text(
+                                      width: Get.width * 0.20,
+                                      child: Text(
                                         "${optionsstatic.options.value.data?[index].optionName}",
-                                      style: bodyblack(context).copyWith(fontWeight: FontWeight.bold),
-
-
-                                    ),
-                                  )
+                                        style: bodyblack(context).copyWith(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
                                   : const Text(''),
                               Obx(() {
                                 if (optionsstatic
                                         .dateTextController.value.text !=
                                     '') {
                                   return Flexible(
-                                    flex:1,
+                                    flex: 1,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -111,22 +109,27 @@ Widget options(String tourname) {
                                                 horizontal: Get.width * 0.008),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   "AED",
                                                   style: bodyblack(context)
                                                       .copyWith(
-                                                    fontSize: Get.width*0.01,
+                                                          fontSize:
+                                                              Get.width * 0.01,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                 ),
                                                 Text(
-                                                    " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",style: bodyblack(context)
-                                      .copyWith(
-                                                                    fontSize: Get.width*0.01,
-                                                                    fontWeight:
-                                                                    FontWeight.normal),),
+                                                  " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",
+                                                  style: bodyblack(context)
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Get.width * 0.01,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -153,8 +156,7 @@ Widget options(String tourname) {
                                 } else {
                                   return Flexible(
                                     flex: 1,
-                                    child: const Text(
-                                        "No timeslot required "),
+                                    child: const Text("No timeslot required "),
                                   ); // Return an empty Text widget if dateTextController is empty
                                 }
                               }), // SizedBox(
@@ -163,7 +165,7 @@ Widget options(String tourname) {
                               //   child: Optionpricing(),
                               // ),
                               Flexible(
-                                flex:1,
+                                flex: 1,
                                 child: InlineFlexButton(
                                   vpadding: 20,
                                   hpadding: 30,

@@ -16,7 +16,6 @@ import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
-import '../../Components/build_city.dart';
 import '../../core/controller/headercontroller.dart';
 import '../../core/widgets/header.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
@@ -40,7 +39,6 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Get.put(
       ExperienceController(
         GetExperiencesUseCase(
@@ -54,7 +52,7 @@ class Homepage extends StatelessWidget {
 
     return Stack(children: [
       SingleChildScrollView(
-controller: scrollController4,
+        controller: scrollController4,
         child: Column(
           children: [
             //This is the first section
@@ -124,10 +122,8 @@ controller: scrollController4,
   }
 
   Widget BuildCitySection(
-      String heading, double? width ,ScrollController? controller) {
-
+      String heading, double? width, ScrollController? controller) {
     return Container(
-
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +136,7 @@ controller: scrollController4,
                   height: Get.height * .5,
                   width: Get.width * .9,
                   child: Stack(children: [
-                    CityList(Controller: controller!),
+                    CityList(),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
@@ -183,7 +179,9 @@ controller: scrollController4,
   Widget _buildHeading(String heading) {
     return Padding(
       padding: EdgeInsets.only(
-        left: 60, right: 20, ),
+        left: 60,
+        right: 20,
+      ),
       child: Center(
         child: SelectableText(
           heading,
@@ -258,28 +256,32 @@ controller: scrollController4,
   }
 
   void _scrollToNext(ScrollController? scrollController) {
-    double? offset = scrollController?.offset;
-    double? newOffset = offset! + Get.width * 0.30; // Adjust width of cards
-    if (newOffset > scrollController!.position.maxScrollExtent) {
-      newOffset = scrollController.position.maxScrollExtent;
+    if (scrollController!.hasClients) {
+      double? offset = scrollController.offset;
+      double? newOffset = offset + Get.width * 0.30; // Adjust width of cards
+      if (newOffset > scrollController.position.maxScrollExtent) {
+        newOffset = scrollController.position.maxScrollExtent;
+      }
+      scrollController.animateTo(
+        newOffset,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     }
-    scrollController.animateTo(
-      newOffset,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
   }
 
   void _scrollToPrevious(ScrollController? scrollController) {
-    double? offset = scrollController?.offset;
-    double newOffset = offset! - Get.width * 0.30; // Adjust width of cards
-    if (newOffset < scrollController!.position.minScrollExtent) {
-      newOffset = scrollController.position.minScrollExtent;
+    if (scrollController!.hasClients) {
+      double? offset = scrollController?.offset;
+      double newOffset = offset! - Get.width * 0.30; // Adjust width of cards
+      if (newOffset < scrollController!.position.minScrollExtent) {
+        newOffset = scrollController.position.minScrollExtent;
+      }
+      scrollController.animateTo(
+        newOffset,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     }
-    scrollController.animateTo(
-      newOffset,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
   }
 }

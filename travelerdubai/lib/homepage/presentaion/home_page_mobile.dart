@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/Components/bottom_nav.dart';
 import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
-import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
@@ -18,7 +17,6 @@ import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
 import '../../Components/Advertisement.dart';
 import '../../Components/buid_heading.dart';
-import '../../Components/build_city.dart';
 import '../../Components/footer_mobile.dart';
 import '../../core/constants/constants.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
@@ -31,12 +29,8 @@ class HomePageMobile extends StatelessWidget {
   final TourlistController tourlistController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
-  final PageController? pageController = Get.put(PageController());
-  final ScrollController? scrollController1 = ScrollController();
 
   final ScrollController? scrollController2 = ScrollController();
-  final ScrollController? scrollController3 = ScrollController();
-  final ScrollController? scrollController4 = ScrollController();
 
   HomePageMobile({super.key});
 
@@ -55,7 +49,9 @@ class HomePageMobile extends StatelessWidget {
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawer(),
-      appBar: MobileHeader(isBackButton: false,),
+      appBar: const MobileHeader(
+        isBackButton: false,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -66,8 +62,10 @@ class HomePageMobile extends StatelessWidget {
               ),
             ),
             Obx(
-              () => buildSection("${homeController.formData.value?.heading1}",
-                  width, scrollController4),
+              () => buildSection(
+                "${homeController.formData.value?.heading1}",
+                width,
+              ),
             ),
             Obx(
               () => buildCitySection(
@@ -77,7 +75,9 @@ class HomePageMobile extends StatelessWidget {
             ),
             Obx(
               () => buildSection(
-                  "${homeController.formData.value?.heading3}", width,scrollController3),
+                "${homeController.formData.value?.heading3}",
+                width,
+              ),
             ),
             advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
             buildFooterMobile(),
@@ -88,8 +88,7 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget buildSection(
-      String heading, double? width, ScrollController? controller) {
+  Widget buildSection(String heading, double? width) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Get.height * 0.015),
       color: Colors.white,
@@ -151,10 +150,8 @@ class HomePageMobile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildHeading(heading),
-              Container(
-                  height: Get.height * .3,
-                  width: Get.width,
-                  child: CityList(Controller: scrollController2!)),
+              SizedBox(
+                  height: Get.height * .3, width: Get.width, child: CityList()),
               const SizedBox(height: 40),
             ],
           ),

@@ -21,21 +21,17 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsStaticDataUseCase getOptionsStaticDataUseCase;
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
-
-  TourOptionStaticDataController(this.getOptionsStaticDataUseCase,
+  TourOptionStaticDataController(
+      this.getOptionsStaticDataUseCase,
       this.getOptionsDynamicDataUseCase,
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
-
-
   RxString selectedTimeSlotId = RxString("0");
   final Rx<TextEditingController> dateTextController =
       TextEditingController().obs;
   final RxInt timeSlotId = 0.obs; // need to check
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
-  final Rx<DateTime?> selectedDate = DateTime
-      .now()
-      .obs;
+  final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
   var id = "".obs;
   var contractid = "".obs;
@@ -49,8 +45,8 @@ class TourOptionStaticDataController extends GetxController {
   final RxList<TourOptionDynamicResult> dynamicoptions =
       <TourOptionDynamicResult>[].obs;
 
-  final RxList<TourOptionDynamicResult> dataList = <TourOptionDynamicResult>[]
-      .obs;
+  final RxList<TourOptionDynamicResult> dataList =
+      <TourOptionDynamicResult>[].obs;
 
   RxInt adultsSelectedValue = 1.obs;
   RxInt childrenSelectedValue = 0.obs;
@@ -70,14 +66,16 @@ class TourOptionStaticDataController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getOptionsStaticData();
   }
 
   void getOptionsStaticData() {
     final TourOptionStaticData data =
-    TourOptionStaticData(tourId: id.value, contractId: contractid.value);
+        TourOptionStaticData(tourId: id.value, contractId: contractid.value);
     options.value = UiData(state: UiState.LOADING);
 
     getOptionsStaticDataUseCase.execute(data).then((response) {
+      print('getOptionStatic Completed');
       options.value = UiData(
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
@@ -85,12 +83,13 @@ class TourOptionStaticDataController extends GetxController {
 
       //options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
+      print('Error in the getOptionStatic\n');
       print("Error: $error");
       // Handle the error as needed
     }).whenComplete(() {
       getOptionsdynamicData();
 
-      print(finalPrice.value);
+      print('' + finalPrice.value.toString());
     });
   }
 
@@ -112,7 +111,7 @@ class TourOptionStaticDataController extends GetxController {
       }
 
       final response =
-      await getOptionsDynamicDataUseCase.execute(data).then((value) {
+          await getOptionsDynamicDataUseCase.execute(data).then((value) {
         //  updateOptionsFinalPrice();
 
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
@@ -143,8 +142,7 @@ class TourOptionStaticDataController extends GetxController {
         timeslots.assignAll(response.result);
         dynamicWidgets.assignAll(
           response.result.map((item) {
-            return Obx(() =>
-                RadioListTile<String>(
+            return Obx(() => RadioListTile<String>(
                   title: Text(item.timeSlot),
                   value: item.timeSlotId,
                   groupValue: selectedTimeSlotId.value,
@@ -204,14 +202,18 @@ class TourOptionStaticDataController extends GetxController {
         Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
       }
     } catch (e) {
-      print(data);
-      print(e);
+      if (kDebugMode) {
+        print(data);
+      }
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
-
   void getTransfersOptions() {
-    print(dataList.length);
+    if (kDebugMode) {
+      print(dataList.length);
+    }
   }
-
 }

@@ -10,14 +10,14 @@ class TourPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {
       if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
-        return TourPageDesktop();
+        return const TourPageDesktop();
       }
 
       if (sizingInformation.deviceScreenType == DeviceScreenType.mobile ||
           sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
         return TourPageMobile();
       } else {
-        return TourPageDesktop();
+        return const TourPageDesktop();
       }
     });
   }

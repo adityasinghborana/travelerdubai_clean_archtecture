@@ -16,10 +16,10 @@ class TourController extends GetxController {
 
   @override
   void onInit() {
+    super.onInit();
     tourId = Get.parameters['tourId'] ?? '';
     //tourId = Get.arguments as String;
     fetchCityTour();
-    super.onInit();
   }
 
   void fetchCityTour() async {
