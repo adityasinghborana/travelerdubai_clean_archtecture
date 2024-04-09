@@ -27,6 +27,10 @@ class TourOptionStaticDataController extends GetxController {
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
   RxString selectedTimeSlotId = RxString("0");
+
+  RxString mobileTourId = "".obs;
+  RxString mobilecontractId = "".obs;
+
   final Rx<TextEditingController> dateTextController =
       TextEditingController().obs;
   final RxInt timeSlotId = 0.obs; // need to check
@@ -66,7 +70,8 @@ class TourOptionStaticDataController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getOptionsStaticData();
+    //getOptionsStaticDataMObile();
+    //getOptionsStaticData();
   }
 
   void getOptionsStaticData() {
@@ -80,8 +85,9 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
+      print(options.value.data?.length??1111);
 
-      //options.assignAll(response.result?.touroption?.toList() ?? []);
+     // options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
       print('Error in the getOptionStatic\n');
       print("Error: $error");
@@ -89,7 +95,7 @@ class TourOptionStaticDataController extends GetxController {
     }).whenComplete(() {
       getOptionsdynamicData();
 
-      print('' + finalPrice.value.toString());
+      print('price' + finalPrice.value.toString());
     });
   }
 
@@ -116,6 +122,8 @@ class TourOptionStaticDataController extends GetxController {
 
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
         dataList.assignAll(value.apiResponseData?.result?.toList() ?? []);
+
+        print(dataList.value.length);
         pricing.value = value.extractedData!;
         getTransfersOptions();
       });
@@ -216,4 +224,33 @@ class TourOptionStaticDataController extends GetxController {
       print(dataList.length);
     }
   }
+
+
+  // void getOptionsStaticDataMObile() {
+  //   final TourOptionStaticData data =
+  //   TourOptionStaticData(tourId: "111", contractId: '300');
+  //   options.value = UiData(state: UiState.LOADING);
+  //
+  //   getOptionsStaticDataUseCase.execute(data).then((response) {
+  //     print('getOptionStatic Completed');
+  //     options.value = UiData(
+  //       state: UiState.SUCCESS,
+  //       data: response.result?.touroption?.toList() ?? [],
+  //     );
+  //
+  //     //options.assignAll(response.result?.touroption?.toList() ?? []);
+  //   }).catchError((error) {
+  //     print('Error in the getOptionStaticdatamobile\n');
+  //     print("Error: $error getOptionStaticdatamobile");
+  //     // Handle the error as needed
+  //   }).whenComplete(() {
+  //     getOptionsdynamicData();
+  //
+  //     print('' + finalPrice.value.toString());
+  //   });
+  // }
+
 }
+
+
+

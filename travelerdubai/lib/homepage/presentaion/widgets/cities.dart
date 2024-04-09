@@ -27,6 +27,7 @@ class CityList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController listController = ScrollController();
     return Obx(() {
       if (controller.cities.isEmpty) {
         return const Center(child: CircularProgressIndicator());
@@ -35,6 +36,7 @@ class CityList extends StatelessWidget {
           width: Get.width * .9,
           height: Get.height * .5,
           child: ListView.builder(
+            controller: listController,
             scrollDirection: Axis.horizontal,
             itemCount: controller.cities.length,
             itemBuilder: (context, index) {

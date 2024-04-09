@@ -7,6 +7,9 @@ class TourController extends GetxController {
   final GetCityTourUseCase getCityTourUseCase;
 
   late String tourId;
+
+  var tourIdMobile="".obs;
+  var tourContractIdMobile="".obs;
   var tour = TourModel().obs;
   var tourImages = <TourImageModel>[].obs;
   var isLoading = true.obs;
@@ -30,7 +33,7 @@ class TourController extends GetxController {
 
       isLoading.value = false;
     } catch (e) {
-      print('Error fetching city tour: $e');
+      print('Error fetching Tour details: $e');
       isLoading.value = false;
     }
   }

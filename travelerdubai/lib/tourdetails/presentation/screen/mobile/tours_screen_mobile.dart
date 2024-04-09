@@ -36,9 +36,6 @@ import '../../tours_controller.dart';
 
 class TourPageMobile extends StatelessWidget {
   TourPageMobile({super.key});
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -59,32 +56,41 @@ class TourPageMobile extends StatelessWidget {
           ),
         )),
   );
+  final TourController tourController = Get.put(TourController(
+    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+  ));
+
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
 
   @override
   Widget build(BuildContext context) {
+
+
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: MobileHeader(),
       body: Obx(
-        () {
+            () {
           if (tourController.isLoading.isTrue) {
             return Center(
                 child: const CircularProgressIndicator(
-              color: colorblue,
-            ));
+                  color: colorblue,
+                ));
           } else {
-            static.id.value = tourController.tour.value.TourId.toString();
-            static.contractid.value =
-                tourController.tour.value.contractId.toString();
+static.id.value = tourController.tour.value.TourId.toString();
+static.contractid.value = tourController.tour.value.contractId.toString();
+print("${static.id.value} hello tour Detail");
+print("${static.contractid.value} hello tour Detail");
 
-            static.getOptionsStaticData();
 
             var tourImages = tourController.tourImages;
             List<String> imageUrls =
-                tourImages.map((imageModel) => imageModel.imagePath!).toList();
-            double? width = MediaQuery.of(context).size.width;
+            tourImages.map((imageModel) => imageModel.imagePath!).toList();
+            double? width = MediaQuery
+                .of(context)
+                .size
+                .width;
 
             return SingleChildScrollView(
               child: Container(
@@ -101,7 +107,10 @@ class TourPageMobile extends StatelessWidget {
                         MUICarousel(
                           images: imageUrls,
                           maxWidth: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.5,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.5,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -137,7 +146,7 @@ class TourPageMobile extends StatelessWidget {
                                   iconData: Icons.remove_red_eye,
                                   text: 'Open Today',
                                   backgroundColor:
-                                      Color.fromRGBO(8, 137, 67, 0.12),
+                                  Color.fromRGBO(8, 137, 67, 0.12),
                                   iconColor: color_088943,
                                   textStyle: iconText),
                               Text(
@@ -154,7 +163,7 @@ class TourPageMobile extends StatelessWidget {
                               iconData: Icons.access_time_filled,
                               text: 'Explore at your pace',
                               backgroundColor:
-                                  const Color.fromRGBO(204, 126, 99, 0.20),
+                              const Color.fromRGBO(204, 126, 99, 0.20),
                               iconColor: color_cc7e63,
                               textStyle: iconText),
                         ),
@@ -165,7 +174,7 @@ class TourPageMobile extends StatelessWidget {
                               iconData: Icons.audiotrack,
                               text: 'Audio Guide',
                               backgroundColor:
-                                  Color.fromRGBO(0, 154, 184, 0.20),
+                              Color.fromRGBO(0, 154, 184, 0.20),
                               iconColor: color_088943,
                               textStyle: iconText),
                         ),
@@ -173,14 +182,16 @@ class TourPageMobile extends StatelessWidget {
                     ),
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.01),
+                      EdgeInsets.symmetric(horizontal: Get.width * 0.01),
                       child: MainDetails(
                         textStyle: detailBoxTextStyleMobile,
                       ),
                     ),
                     Obx(
-                      () => buildCitySection(
-                          "${homeController.formData.value?.heading2}", width),
+                          () =>
+                          buildCitySection(
+                              "${homeController.formData.value?.heading2}",
+                              width,),
                     ),
                     buildFooterMobile()
                   ],
@@ -193,69 +204,4 @@ class TourPageMobile extends StatelessWidget {
     );
   }
 
-  Widget formSection() {
-    return Card(
-      elevation: 25.0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: const EdgeInsets.all(50.0),
-          color: colorwhite,
-          width: Get.width * 0.9,
-          height: Get.height * .6,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Text("No Of Person"),
-                  DropdownTransferWidget(
-                      label: 'type',
-                      selectedValue: static.selectedTransfer.value,
-                      onChanged: (value) => static.changeSelectedTransfer),
-                  Obx(() => DropdownWidget(
-                        label: 'Adults',
-                        selectedValue: static.adultsSelectedValue.value,
-                        onChanged: (value) =>
-                            static.adultsSelectedValue.value = value ?? 1,
-                      )),
-                  Obx(() => DropdownWidget(
-                        label: 'Children',
-                        selectedValue: static.childrenSelectedValue.value,
-                        onChanged: (value) =>
-                            static.childrenSelectedValue.value = value ?? 0,
-                      )),
-                  Obx(() => DropdownWidget(
-                        label: 'Infants',
-                        selectedValue: static.infantsSelectedValue.value,
-                        onChanged: (value) =>
-                            static.infantsSelectedValue.value = value ?? 0,
-                      )),
-                  dateInputField(static.dateTextController.value, Get.context!,
-                      () {
-                    static.selectedDate.value =
-                        DateTime.parse(static.dateTextController.value.text);
-                    static.getOptionsdynamicData();
-                    static.gettimeSlots();
-                  }, null),
-                ],
-              ),
-              const Divider(
-                height: 1,
-              ),
-              const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Tour Options "),
-                    Text("Price"),
-                    Text("TimeSlots"),
-                    SizedBox(),
-                  ]),
-              options(tourController.tour.value.tourName!),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
