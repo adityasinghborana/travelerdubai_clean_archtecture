@@ -82,6 +82,7 @@ controller: scrollController4,
             advertisement(
               subHeadingfontsize: 26.14,
               Headingfontsize: 54,
+              decoration: BoxDecoration(gradient: backgroundgradient)
             ),
 
             buildFooter(),
