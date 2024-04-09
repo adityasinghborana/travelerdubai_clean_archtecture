@@ -4,6 +4,7 @@ import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../dashboard_controller.dart';
+import 'accountinfo.dart';
 import 'edit_Form.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -24,7 +25,7 @@ class ProfileInfo extends StatelessWidget {
             child: Obx(() {
               return accountController.isEditMode.value
                   ? EditForm() // Display edit form when in edit mode
-                  : AccountInfo(); // Display account info by default
+                  :  AccountInfo(); // Display account info by default
             }),
       ),
           Flexible(
@@ -47,10 +48,7 @@ class ProfileInfo extends StatelessWidget {
   }
 
 
-  Widget AccountInfo(){
 
-    return Container(color: colorblue,height: 400,);
-  }
 }
 
 

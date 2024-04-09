@@ -79,7 +79,7 @@ class HomePageMobile extends StatelessWidget {
               () => buildSection(
                   "${homeController.formData.value?.heading3}", width,scrollController3),
             ),
-            advertisement(subHeadingfontsize: 18, Headingfontsize: 28),
+            advertisement(subHeadingfontsize: 18, Headingfontsize: 28,decoration: BoxDecoration(gradient: backgroundgradient)),
             buildFooterMobile(),
           ],
         ),

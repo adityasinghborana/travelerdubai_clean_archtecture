@@ -32,6 +32,7 @@ BookingDetail _$BookingDetailFromJson(Map<String, dynamic> json) =>
     BookingDetail(
       id: json['id'] as int,
       status: json['status'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
       bookingId: json['bookingId'] as int,
       downloadRequired: json['downloadRequired'] as bool,
       serviceUniqueId: json['serviceUniqueId'] as String,
@@ -44,6 +45,7 @@ Map<String, dynamic> _$BookingDetailToJson(BookingDetail instance) =>
     <String, dynamic>{
       'id': instance.id,
       'status': instance.status,
+      'createdAt': instance.createdAt.toIso8601String(),
       'bookingId': instance.bookingId,
       'downloadRequired': instance.downloadRequired,
       'serviceUniqueId': instance.serviceUniqueId,

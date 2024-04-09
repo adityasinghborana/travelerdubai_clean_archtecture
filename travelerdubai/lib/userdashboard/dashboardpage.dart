@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
+import 'package:travelerdubai/auth/usersdatalayer/repository/user_repository.dart';
+import 'package:travelerdubai/auth/usersdatalayer/service/create_user_remote.dart';
 import 'package:travelerdubai/bookings/data_layer/repository/bookings_repository.dart';
 import 'package:travelerdubai/bookings/data_layer/service/booking_remote.dart';
 import 'package:travelerdubai/bookings/data_layer/usecase/userbookings_usecase.dart';
@@ -12,6 +14,8 @@ import 'package:travelerdubai/userdashboard/dashboard_controller.dart';
 import 'package:travelerdubai/userdashboard/widgets/Profile_info.dart';
 import 'package:travelerdubai/userdashboard/widgets/booking_list.dart';
 
+import '../auth/usersdatalayer/usecase/get_user_details.dart';
+
 class DashboardPage extends StatelessWidget {
   final DashBoardController controller = Get.put(
     DashBoardController(
@@ -20,6 +24,7 @@ class DashboardPage extends StatelessWidget {
           BookingsRemoteService(Dio()),
         ),
       ),
+      GetUserDetailsUseCase(UserRepositoryImpl(createUserRemoteService(Dio()),),),
     ),
   );
   ValueNotifier<int> transparentTabIndexNotifier = ValueNotifier<int>(0);
@@ -81,17 +86,18 @@ class DashboardPage extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: Height * 0.7,
+                        height: Height * 0.5,
                         child: ValueListenableBuilder<int>(
                           valueListenable: transparentTabIndexNotifier,
                           builder: (context, tIndex, child) {
                             Widget contentWidget;
                             switch (tIndex) {
                               case 0:
+
                                 contentWidget = Container(
                                     height: Height,
                                     child:
-                                        ProfileInfo()); // Replace with your actual widget for the first tab
+                                    ProfileInfo()); // Replace with your actual widget for the first tab
                                 break;
                               case 1:
                                 contentWidget =
@@ -108,7 +114,7 @@ class DashboardPage extends StatelessWidget {
                           },
                         ),
                       ),
-                      advertisement(subHeadingfontsize: 24, Headingfontsize: 54),
+                      advertisement(subHeadingfontsize: Get.width*0.015, Headingfontsize: Get.width*0.035,decoration: BoxDecoration()),
                     ],
                   ),
                 ),

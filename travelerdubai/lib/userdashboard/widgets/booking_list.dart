@@ -15,7 +15,7 @@ class BookingsList extends StatelessWidget {
     final DashBoardController dashBoardController = Get.find();
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: Get.height*0.04),
+      margin: EdgeInsets.only(top: Get.width*0.04),
       width: Get.width ,
 
     
@@ -29,7 +29,7 @@ margin: EdgeInsets.symmetric(vertical: Get.height*0.02),
             decoration: BoxDecoration(color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             ),
-            height: 300,
+            height: Get.width*0.18,
             child: Padding(
               padding:  EdgeInsets.symmetric(horizontal:Get.width*0.04, vertical: Get.height*0.03),
               child: Column(
@@ -38,7 +38,7 @@ margin: EdgeInsets.symmetric(vertical: Get.height*0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text("10/04/2024",style: bodyblack(context).copyWith(fontWeight: FontWeight.normal ,fontSize: Get.width*0.01,color: colorlightgrey)),
+                      Text("${list.createdAt.toString().substring(0,10)}",style: bodyblack(context).copyWith(fontWeight: FontWeight.normal ,fontSize: Get.width*0.01,color: colorlightgrey)),
                     ],
                   ),
                    Row(
@@ -64,7 +64,7 @@ margin: EdgeInsets.symmetric(vertical: Get.height*0.02),
                            children: [
                              Text("Service Type",style: bodyblack(context).copyWith(fontWeight: FontWeight.normal ,fontSize: Get.width*0.01,color: colorlightgrey),),
                              SizedBox(height: 10,),
-                             Text("${list.serviceType}",style: bodyblack(context).copyWith(fontWeight: FontWeight.bold ,fontSize: Get.width*0.012),),
+                             Text("${list.serviceType.capitalizeFirst}",style: bodyblack(context).copyWith(fontWeight: FontWeight.bold ,fontSize: Get.width*0.012),),
                            ],
                          ),
                        ],),
@@ -77,7 +77,7 @@ margin: EdgeInsets.symmetric(vertical: Get.height*0.02),
                           children: [
                             Text("Status",style: bodyblack(context).copyWith(fontWeight: FontWeight.normal ,fontSize: Get.width*0.01,color: colorlightgrey),),
                             SizedBox(height: 10,),
-                            Text("${list.status}",style: bodyblack(context).copyWith(fontWeight: FontWeight.bold ,fontSize: Get.width*0.012),),
+                            Text("${list.status.capitalizeFirst}",style: bodyblack(context).copyWith(fontWeight: FontWeight.bold ,fontSize: Get.width*0.012),),
                           ],
                         ),
                       ),

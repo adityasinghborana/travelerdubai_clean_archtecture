@@ -34,6 +34,8 @@ class User {
 class BookingDetail {
   final int id;
   final String status;
+  final DateTime createdAt;
+
   final int bookingId;
   final bool downloadRequired;
   final String serviceUniqueId;
@@ -44,6 +46,7 @@ class BookingDetail {
   BookingDetail({
     required this.id,
     required this.status,
+    required this.createdAt,
     required this.bookingId,
     required this.downloadRequired,
     required this.serviceUniqueId,

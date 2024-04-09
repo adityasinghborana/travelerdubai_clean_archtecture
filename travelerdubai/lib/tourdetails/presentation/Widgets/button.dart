@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 class InlineFlexButton extends StatelessWidget {
@@ -45,7 +46,7 @@ class InlineFlexButton extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: GoogleFonts.roboto(fontSize: 20, color: textcolor),
+        style: GoogleFonts.roboto(fontSize: Get.width*0.013, color: textcolor),
       ),
     );
   }
