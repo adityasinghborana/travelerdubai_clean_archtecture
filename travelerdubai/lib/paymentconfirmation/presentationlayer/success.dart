@@ -33,21 +33,19 @@ class PaymentSuccess extends StatelessWidget {
 Widget Mobile(){
   return Container(
     decoration: BoxDecoration(gradient: backgroundgradient),
-    child: Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            '../assets/images/successmobile.png',
-          ),
-          Center(
-            child: Text(
-              "YourBooking is successful Your Reference no is ${cc.refno.value} "),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          '../assets/images/successmobile.png',
+        ),
+        Center(
+          child: Text(
+            "YourBooking is successful Your Reference no is ${cc.refno.value} "),
 
 
-          ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }
