@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
 import 'package:travelerdubai/auth/usersdatalayer/repository/user_repository.dart';
@@ -83,6 +84,7 @@ class DashboardPage extends StatelessWidget {
                               ),
                             ),
                           ],
+
                         ),
                       ),
                       Container(
@@ -118,7 +120,7 @@ class DashboardPage extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+
             ),
           ],
         ),

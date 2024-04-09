@@ -21,21 +21,21 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsStaticDataUseCase getOptionsStaticDataUseCase;
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
-
-  TourOptionStaticDataController(this.getOptionsStaticDataUseCase,
+  TourOptionStaticDataController(
+      this.getOptionsStaticDataUseCase,
       this.getOptionsDynamicDataUseCase,
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
-
-
   RxString selectedTimeSlotId = RxString("0");
+
+  RxString mobileTourId = "".obs;
+  RxString mobilecontractId = "".obs;
+
   final Rx<TextEditingController> dateTextController =
       TextEditingController().obs;
   final RxInt timeSlotId = 0.obs; // need to check
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
-  final Rx<DateTime?> selectedDate = DateTime
-      .now()
-      .obs;
+  final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
   var id = "".obs;
   var contractid = "".obs;
@@ -49,8 +49,8 @@ class TourOptionStaticDataController extends GetxController {
   final RxList<TourOptionDynamicResult> dynamicoptions =
       <TourOptionDynamicResult>[].obs;
 
-  final RxList<TourOptionDynamicResult> dataList = <TourOptionDynamicResult>[]
-      .obs;
+  final RxList<TourOptionDynamicResult> dataList =
+      <TourOptionDynamicResult>[].obs;
 
   RxInt adultsSelectedValue = 1.obs;
   RxInt childrenSelectedValue = 0.obs;
@@ -70,32 +70,54 @@ class TourOptionStaticDataController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    //getOptionsStaticDataMObile();
+    //getOptionsStaticData();
   }
 
   void getOptionsStaticData() {
+    if (kDebugMode) {
+      print('in the getOptionsStatic data');
+    }
+    if (kDebugMode) {
+      print('TourId is :${id.value}');
+    }
+    if (kDebugMode) {
+      print('ContractId is :${contractid.value}');
+    }
     final TourOptionStaticData data =
-    TourOptionStaticData(tourId: id.value, contractId: contractid.value);
+        TourOptionStaticData(tourId: id.value, contractId: contractid.value);
     options.value = UiData(state: UiState.LOADING);
 
     getOptionsStaticDataUseCase.execute(data).then((response) {
+      print('getOptionStatic Completed');
       options.value = UiData(
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
+      print(options.value.data?.length ?? 1111);
 
-      //options.assignAll(response.result?.touroption?.toList() ?? []);
+      // options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
-      print("Error: $error");
+      if (kDebugMode) {
+        print('Error in the getOptionStatic\n');
+      }
+      if (kDebugMode) {
+        print("Error: $error");
+      }
       // Handle the error as needed
     }).whenComplete(() {
       getOptionsdynamicData();
 
-      print(finalPrice.value);
+      if (kDebugMode) {
+        print('price${finalPrice.value}');
+      }
     });
   }
 
   void getOptionsdynamicData() async {
-    print("started");
+    if (kDebugMode) {
+      print("started");
+    }
     try {
       dynamicoptions.assignAll([]);
 
@@ -112,11 +134,13 @@ class TourOptionStaticDataController extends GetxController {
       }
 
       final response =
-      await getOptionsDynamicDataUseCase.execute(data).then((value) {
+          await getOptionsDynamicDataUseCase.execute(data).then((value) {
         //  updateOptionsFinalPrice();
 
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
         dataList.assignAll(value.apiResponseData?.result?.toList() ?? []);
+
+        print(dataList.value.length);
         pricing.value = value.extractedData!;
         getTransfersOptions();
       });
@@ -130,6 +154,9 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void gettimeSlots() {
+    print('in the get time slot');
+    print(
+        'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
     final gettimeslotdata = TimeSlotRequest(
         tourId: int.tryParse(id.value)!,
         contractId: int.tryParse(contractid.value)!,
@@ -143,8 +170,7 @@ class TourOptionStaticDataController extends GetxController {
         timeslots.assignAll(response.result);
         dynamicWidgets.assignAll(
           response.result.map((item) {
-            return Obx(() =>
-                RadioListTile<String>(
+            return Obx(() => RadioListTile<String>(
                   title: Text(item.timeSlot),
                   value: item.timeSlotId,
                   groupValue: selectedTimeSlotId.value,
@@ -204,14 +230,42 @@ class TourOptionStaticDataController extends GetxController {
         Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
       }
     } catch (e) {
-      print(data);
-      print(e);
+      if (kDebugMode) {
+        print(data);
+      }
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
-
   void getTransfersOptions() {
-    print(dataList.length);
+    if (kDebugMode) {
+      print(dataList.length);
+    }
   }
 
+  // void getOptionsStaticDataMObile() {
+  //   final TourOptionStaticData data =
+  //   TourOptionStaticData(tourId: "111", contractId: '300');
+  //   options.value = UiData(state: UiState.LOADING);
+  //
+  //   getOptionsStaticDataUseCase.execute(data).then((response) {
+  //     print('getOptionStatic Completed');
+  //     options.value = UiData(
+  //       state: UiState.SUCCESS,
+  //       data: response.result?.touroption?.toList() ?? [],
+  //     );
+  //
+  //     //options.assignAll(response.result?.touroption?.toList() ?? []);
+  //   }).catchError((error) {
+  //     print('Error in the getOptionStaticdatamobile\n');
+  //     print("Error: $error getOptionStaticdatamobile");
+  //     // Handle the error as needed
+  //   }).whenComplete(() {
+  //     getOptionsdynamicData();
+  //
+  //     print('' + finalPrice.value.toString());
+  //   });
+  // }
 }

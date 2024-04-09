@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modular_ui/modular_ui.dart';
@@ -31,40 +32,37 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
-
-
-
   TourPageDesktop({super.key});
-
+  final TourOptionStaticDataController static = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
+        ),
+        GetTimeSlotUseCase(
+          TimeSlotRepositoryImpl(
+            TimeSlotRemoteService(Dio()),
+          ),
+        ),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
+  );
+  final HeaderController controller = Get.find();
+  final TourController tourController = Get.put(TourController(
+    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+  ));
   @override
   Widget build(BuildContext context) {
-    final TourOptionStaticDataController static = Get.put(
-      TourOptionStaticDataController(
-          GetTourOptionsStaticDataUseCase(
-              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-          GetTourOptionsDynamicDataUseCase(
-            TourOptionsRepositoryImpl(
-              TourOptionRemoteService(Dio()),
-            ),
-          ),
-          GetTimeSlotUseCase(
-            TimeSlotRepositoryImpl(
-              TimeSlotRemoteService(Dio()),
-            ),
-          ),
-          UpdateCartUseCase(
-            CartRepositoryImpl(
-              CartRemoteService(Dio()),
-            ),
-          )),
-    );
-    final ScrollController scrollController = ScrollController();
-    final HeaderController controller = Get.find();
-    final TourController tourController = Get.put(TourController(
-      GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-    ));
-
-    print("${controller.cartId.value} hello tour deatial");
+    static.id.value = tourController.tour.value.TourId.toString();
+    if (kDebugMode) {
+      print("${controller.cartId.value} hello tour deatial");
+    }
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: ElevatedButton(
@@ -76,7 +74,6 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
             static.dateTextController.value.text = DateTime.now()
@@ -124,51 +121,55 @@ class TourPageDesktop extends StatelessWidget {
                         ),
 
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: Get.height*0.01),
-                          child: Row(children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.05),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconTextBackground(
-                                      iconData: Icons.remove_red_eye,
-                                      text: 'Open Today',
-                                      backgroundColor:
-                                      Color.fromRGBO(8, 137, 67, 0.12),
-                                      iconColor: color_088943,
-                                      textStyle: iconText),
-                                  Text(
-                                    'Visit Timing',
-                                    style: iconText,
-                                  )
-                                ],
+                          padding:
+                              EdgeInsets.symmetric(vertical: Get.height * 0.01),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconTextBackground(
+                                        iconData: Icons.remove_red_eye,
+                                        text: 'Open Today',
+                                        backgroundColor: const Color.fromRGBO(
+                                            8, 137, 67, 0.12),
+                                        iconColor: color_088943,
+                                        textStyle: iconText),
+                                    Text(
+                                      'Visit Timing',
+                                      style: iconText,
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.05),
-                              child: IconTextBackground(
-                                  iconData: Icons.access_time_filled,
-                                  text: 'Explore at your pace',
-                                  backgroundColor:
-                                  const Color.fromRGBO(204, 126, 99, 0.20),
-                                  iconColor: color_cc7e63,
-                                  textStyle: iconText),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.05),
-                              child: IconTextBackground(
-                                  iconData: Icons.audiotrack,
-                                  text: 'Audio Guide',
-                                  backgroundColor:
-                                  Color.fromRGBO(0, 154, 184, 0.20),
-                                  iconColor: color_088943,
-                                  textStyle: iconText.copyWith(fontSize:16 )),
-                            ),
-                          ],),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: IconTextBackground(
+                                    iconData: Icons.access_time_filled,
+                                    text: 'Explore at your pace',
+                                    backgroundColor: const Color.fromRGBO(
+                                        204, 126, 99, 0.20),
+                                    iconColor: color_cc7e63,
+                                    textStyle: iconText),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: IconTextBackground(
+                                    iconData: Icons.audiotrack,
+                                    text: 'Audio Guide',
+                                    backgroundColor:
+                                        const Color.fromRGBO(0, 154, 184, 0.20),
+                                    iconColor: color_088943,
+                                    textStyle: iconText.copyWith(fontSize: 16)),
+                              ),
+                            ],
+                          ),
                         ),
                         formSection(),
                       ],
@@ -188,7 +189,7 @@ class TourPageDesktop extends StatelessWidget {
                         ],
                       ),
                     ),
-             CityList(Controller:scrollController ),
+                    CityList(),
                     buildFooter()
                   ],
                 ),
@@ -239,8 +240,6 @@ class TourPageDesktop extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
-
                   Obx(() => DropdownWidget(
                       label: 'Adults',
                       selectedValue: static.adultsSelectedValue.value,
@@ -278,8 +277,7 @@ class TourPageDesktop extends StatelessWidget {
               const Divider(
                 height: 1,
               ),
-
-              options( tourController.tour.value.tourName!),
+              options(tourController.tour.value.tourName!),
             ],
           ),
         ),

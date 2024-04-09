@@ -7,19 +7,27 @@ class TourController extends GetxController {
   final GetCityTourUseCase getCityTourUseCase;
 
   late String tourId;
+
+  var tourIdMobile = "".obs;
+  var tourContractIdMobile = "".obs;
   var tour = TourModel().obs;
   var tourImages = <TourImageModel>[].obs;
   var isLoading = true.obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
+  final tourRandomId = Rx<String>('initialValue');
 
   TourController(this.getCityTourUseCase);
 
+  void setTourRandomId(String newId) {
+    tourRandomId.value = newId;
+  }
+
   @override
   void onInit() {
+    super.onInit();
     tourId = Get.parameters['tourId'] ?? '';
     //tourId = Get.arguments as String;
     fetchCityTour();
-    super.onInit();
   }
 
   void fetchCityTour() async {
@@ -30,7 +38,7 @@ class TourController extends GetxController {
 
       isLoading.value = false;
     } catch (e) {
-      print('Error fetching city tour: $e');
+      print('Error fetching Tour details: $e');
       isLoading.value = false;
     }
   }

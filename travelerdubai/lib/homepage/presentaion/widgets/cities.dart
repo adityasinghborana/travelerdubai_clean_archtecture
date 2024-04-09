@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/homepage/cities_controller.dart';
 
@@ -10,7 +9,6 @@ import '../../repository/homepage_repository.dart';
 import '../../usecase/cities_usecase.dart';
 
 class CityList extends StatelessWidget {
-
   final CityController controller = Get.put(
     CityController(
       GetCitiesUseCase(
@@ -22,16 +20,14 @@ class CityList extends StatelessWidget {
       ),
     ),
   );
-  final ScrollController Controller ;
 
   CityList({
     super.key,
-     required this.Controller,
   });
 
   @override
   Widget build(BuildContext context) {
-
+    final ScrollController listController = ScrollController();
     return Obx(() {
       if (controller.cities.isEmpty) {
         return const Center(child: CircularProgressIndicator());
@@ -40,19 +36,18 @@ class CityList extends StatelessWidget {
           width: Get.width * .9,
           height: Get.height * .5,
           child: ListView.builder(
+            controller: listController,
             scrollDirection: Axis.horizontal,
-            controller: Controller,
             itemCount: controller.cities.length,
             itemBuilder: (context, index) {
               final city = controller.cities[index];
               return InkWell(
-                onTap: (){
+                onTap: () {
                   String CityName = city.CityName;
 
                   Get.toNamed(
                     '/experiences',
                     parameters: {'cityName': CityName.toString()},
-
                   );
                 },
                 child: Padding(
@@ -77,10 +72,9 @@ class CityList extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "${city.CityName}",
-                              style:getH2TextStyle(context).copyWith(color: colorwhite)
-                            ),
+                            child: Text(city.CityName,
+                                style: getH2TextStyle(context)
+                                    .copyWith(color: colorwhite)),
                           ),
                         ),
                       ],

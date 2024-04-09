@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
@@ -43,12 +44,16 @@ Widget options(String tourname) {
     );
     final HeaderController controller = Get.find();
     var output = optionsstatic.options.value;
+
     var output1 = optionsstatic.dynamicoptions.toList();
-    var output2 = optionsstatic.timeslots.toList();
+
+    if (kDebugMode) {
+      print('output1 is${output1.toString()}');
+    }
+
     switch (output.state) {
       case UiState.SUCCESS:
         return Expanded(
-
           child: ListView.builder(
             key: UniqueKey(),
             itemCount: optionsstatic.options.value.data?.length,
@@ -56,8 +61,17 @@ Widget options(String tourname) {
               int? id = optionsstatic.options.value.data?[index].tourId;
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
-              int tourIdTimeSlotIndex =
-                  output2.indexWhere((element) => element.tourOptionId == id);
+              optionsstatic.optionid.value = output.data![index].tourOptionId!;
+              print("optionId is ${optionsstatic.optionid.value}");
+              optionsstatic.transferid.value = output1[tourIdIndex].transferId!;
+              print('transferId is ${optionsstatic.transferid.value}');
+
+              optionsstatic.gettimeSlots();
+              var output2 = optionsstatic.timeslots;
+              if (kDebugMode) {
+                print('output2 is${output2.toString()}');
+              }
+
               List<RxBool> showChanged = List.generate(
                   optionsstatic.options.value.data!.length,
                   (index) => false.obs);
@@ -71,21 +85,20 @@ Widget options(String tourname) {
                             children: <Widget>[
                               index >= 0
                                   ? SizedBox(
-                             width: Get.width*0.20,
-                                    child: Text(
+                                      width: Get.width * 0.20,
+                                      child: Text(
                                         "${optionsstatic.options.value.data?[index].optionName}",
-                                      style: bodyblack(context).copyWith(fontWeight: FontWeight.bold),
-
-
-                                    ),
-                                  )
+                                        style: bodyblack(context).copyWith(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )
                                   : const Text(''),
                               Obx(() {
                                 if (optionsstatic
                                         .dateTextController.value.text !=
                                     '') {
                                   return Flexible(
-                                    flex:1,
+                                    flex: 1,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -99,7 +112,7 @@ Widget options(String tourname) {
                                           width: Get.width * 0.03,
                                         ),
                                         Container(
-                                          width: Get.width * 0.07,
+                                          width: Get.width * 0.09,
                                           alignment: Alignment.center,
                                           height: 50,
                                           decoration: BoxDecoration(
@@ -111,22 +124,27 @@ Widget options(String tourname) {
                                                 horizontal: Get.width * 0.008),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   "AED",
                                                   style: bodyblack(context)
                                                       .copyWith(
-                                                    fontSize: Get.width*0.01,
+                                                          fontSize:
+                                                              Get.width * 0.01,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                 ),
                                                 Text(
-                                                    " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",style: bodyblack(context)
-                                      .copyWith(
-                                                                    fontSize: Get.width*0.01,
-                                                                    fontWeight:
-                                                                    FontWeight.normal),),
+                                                  " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",
+                                                  style: bodyblack(context)
+                                                      .copyWith(
+                                                          fontSize:
+                                                              Get.width * 0.01,
+                                                          fontWeight: FontWeight
+                                                              .normal),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -140,21 +158,54 @@ Widget options(String tourname) {
                                 }
                               }), // SizedBox(
                               Obx(() {
-                                if (optionsstatic
-                                            .dateTextController.value.text !=
-                                        '' &&
-                                    tourIdTimeSlotIndex >= 0) {
-                                  return Flexible(
-                                    flex: 1,
-                                    child: Text(
-                                      "TimeSlot is ${output2[tourIdTimeSlotIndex].timeSlot}",
+                                if (optionsstatic.timeslots.isNotEmpty) {
+                                  var lst = output2.isNotEmpty
+                                      ? output2
+                                          .map((timeslot) => timeslot.timeSlot)
+                                          .toList()
+                                      : <String>['1hr', '2hr', '3hr', '4hr'];
+                                  return Expanded(
+                                    child: Container(
+                                      width: 148,
+                                      height: 40,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0),
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: const BorderSide(
+                                              width: 1,
+                                              color: Color(0xFFD9D9D9)),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: DropdownButtonFormField<String>(
+                                          decoration:
+                                              const InputDecoration.collapsed(
+                                                  hintText: ''),
+                                          // Initial value, you can change it according to your requirement
+                                          onChanged: (String? newValue) {
+                                            // Handle dropdown value change
+                                          },
+                                          items: lst // Your dropdown options
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
                                     ),
                                   );
                                 } else {
-                                  return Flexible(
+                                  return const Flexible(
                                     flex: 1,
-                                    child: const Text(
-                                        "No timeslot required "),
+                                    child: Text("No timeslot required "),
                                   ); // Return an empty Text widget if dateTextController is empty
                                 }
                               }), // SizedBox(
@@ -163,7 +214,7 @@ Widget options(String tourname) {
                               //   child: Optionpricing(),
                               // ),
                               Flexible(
-                                flex:1,
+                                flex: 1,
                                 child: InlineFlexButton(
                                   vpadding: 20,
                                   hpadding: 30,
