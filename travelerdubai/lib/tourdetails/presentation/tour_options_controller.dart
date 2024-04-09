@@ -75,6 +75,15 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void getOptionsStaticData() {
+    if (kDebugMode) {
+      print('in the getOptionsStatic data');
+    }
+    if (kDebugMode) {
+      print('TourId is :${id.value}');
+    }
+    if (kDebugMode) {
+      print('ContractId is :${contractid.value}');
+    }
     final TourOptionStaticData data =
         TourOptionStaticData(tourId: id.value, contractId: contractid.value);
     options.value = UiData(state: UiState.LOADING);
@@ -85,22 +94,30 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
-      print(options.value.data?.length??1111);
+      print(options.value.data?.length ?? 1111);
 
-     // options.assignAll(response.result?.touroption?.toList() ?? []);
+      // options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
-      print('Error in the getOptionStatic\n');
-      print("Error: $error");
+      if (kDebugMode) {
+        print('Error in the getOptionStatic\n');
+      }
+      if (kDebugMode) {
+        print("Error: $error");
+      }
       // Handle the error as needed
     }).whenComplete(() {
       getOptionsdynamicData();
 
-      print('price' + finalPrice.value.toString());
+      if (kDebugMode) {
+        print('price${finalPrice.value}');
+      }
     });
   }
 
   void getOptionsdynamicData() async {
-    print("started");
+    if (kDebugMode) {
+      print("started");
+    }
     try {
       dynamicoptions.assignAll([]);
 
@@ -137,6 +154,9 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void gettimeSlots() {
+    print('in the get time slot');
+    print(
+        'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
     final gettimeslotdata = TimeSlotRequest(
         tourId: int.tryParse(id.value)!,
         contractId: int.tryParse(contractid.value)!,
@@ -225,7 +245,6 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-
   // void getOptionsStaticDataMObile() {
   //   final TourOptionStaticData data =
   //   TourOptionStaticData(tourId: "111", contractId: '300');
@@ -249,8 +268,4 @@ class TourOptionStaticDataController extends GetxController {
   //     print('' + finalPrice.value.toString());
   //   });
   // }
-
 }
-
-
-

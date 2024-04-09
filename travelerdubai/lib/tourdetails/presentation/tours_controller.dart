@@ -8,14 +8,19 @@ class TourController extends GetxController {
 
   late String tourId;
 
-  var tourIdMobile="".obs;
-  var tourContractIdMobile="".obs;
+  var tourIdMobile = "".obs;
+  var tourContractIdMobile = "".obs;
   var tour = TourModel().obs;
   var tourImages = <TourImageModel>[].obs;
   var isLoading = true.obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
+  final tourRandomId = Rx<String>('initialValue');
 
   TourController(this.getCityTourUseCase);
+
+  void setTourRandomId(String newId) {
+    tourRandomId.value = newId;
+  }
 
   @override
   void onInit() {

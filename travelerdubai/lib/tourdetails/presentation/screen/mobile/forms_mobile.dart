@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
+
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../../Cart/data_layer/usecase/update_cart.dart';
@@ -12,6 +13,9 @@ import '../../../../core/widgets/Mobileheader.dart';
 import '../../../timeslot_data_layer/repositories/timeslot_repository.dart';
 import '../../../timeslot_data_layer/service/timslot_remote.dart';
 import '../../../timeslot_data_layer/use_cases/timeslot_usecase.dart';
+import '../../../tourdetail_data_layer/Usecase/usecase.dart';
+import '../../../tourdetail_data_layer/remote/tour_remote.dart';
+import '../../../tourdetail_data_layer/repository/tour_repository.dart';
 import '../../../touroption_data_layer/remote/service/touroption_remote.dart';
 import '../../../touroption_data_layer/repository/tour_option_repository.dart';
 import '../../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
@@ -23,8 +27,8 @@ class FormsMobile extends StatelessWidget {
   // final TourController tourController = Get.put(TourController(
   //   GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   // ));
-  final ScrollController scrollController= ScrollController();
-  final ScrollController listController= ScrollController();
+  final ScrollController scrollController = ScrollController();
+  final ScrollController listController = ScrollController();
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -46,20 +50,35 @@ class FormsMobile extends StatelessWidget {
         )),
   );
 
-
   @override
   Widget build(BuildContext context) {
+    TourController tourController = Get.put(
+      TourController(
+        GetCityTourUseCase(
+          TourRepositoryImpl(
+            TourRemoteService(
+              Dio(),
+            ),
+          ),
+        ),
+      ),
+      permanent: true,
+    );
+    tourController.tourId = Get.parameters['tourId'] ?? '';
+    tourController.fetchCityTour();
+    static.id.value = tourController.tour.value.TourId.toString();
+    static.contractid.value = tourController.tour.value.contractId.toString();
     static.getOptionsStaticData();
 
     return Scaffold(
         body: SingleChildScrollView(
-
-          controller: scrollController,
+      controller: scrollController,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const MobileHeader(isBackButton: true,),
-
+          const MobileHeader(
+            isBackButton: true,
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             child: Text(
@@ -112,9 +131,7 @@ class FormsMobile extends StatelessWidget {
             ),
           ),
           Obx(() {
-
             var outputstate = static.options.value;
-
 
             switch (outputstate.state) {
               case UiState.SUCCESS:
@@ -124,12 +141,13 @@ class FormsMobile extends StatelessWidget {
                     controller: listController,
                     itemCount: outputstate.data?.length ?? 0,
                     itemBuilder: (context, index) {
-                      var option = outputstate.data![index]; // Fetch the current option
-                     //  var output1 = static.dataList.toList();
-                     //  var output2 = static.timeslots.toList();
-                     //  int? id = option.tourId;
-                     // int tourIdIndex =output1.indexWhere((element) => element.tourId == id);
-                     // int tourIdTimeSlotIndex = output2.indexWhere((element) => element.tourOptionId == id);
+                      var option =
+                          outputstate.data![index]; // Fetch the current option
+                      //  var output1 = static.dataList.toList();
+                      //  var output2 = static.timeslots.toList();
+                      //  int? id = option.tourId;
+                      // int tourIdIndex =output1.indexWhere((element) => element.tourId == id);
+                      // int tourIdTimeSlotIndex = output2.indexWhere((element) => element.tourOptionId == id);
                       return Card(
                         elevation: 3,
                         color: Colors.white,
@@ -137,15 +155,18 @@ class FormsMobile extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ),
-                        surfaceTintColor: Colors.grey,
+                        //surfaceTintColor: Colors.grey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _buildFormHeader(option.optionName ?? ''),
-                            _buildPriceAndInfoRow((outputstate.data![index].tourOptionId??0) +
+                            _buildPriceAndInfoRow((outputstate
+                                        .data![index].tourOptionId ??
+                                    0) +
                                 (static.pricing.value.addPriceAdult ?? 0) +
                                 (static.pricing.value.addPriceChildren ?? 0) +
-                                (static.pricing.value.additionalPriceInfant ?? 0)),
+                                (static.pricing.value.additionalPriceInfant ??
+                                    0)),
                             _buildTimeRow(),
                           ],
                         ),
@@ -219,6 +240,7 @@ class FormsMobile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
             'More info',
@@ -227,23 +249,53 @@ class FormsMobile extends StatelessWidget {
               fontSize: 16,
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
-              decoration:
-                  TextDecoration.underline, // Add underline decoration here
+              decoration: TextDecoration.underline,
             ),
           ),
-          const Text(
-            'Time: ',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Enter time', // Customize hint as needed
+          Row(
+            children: [
+              const Text(
+                'Time: ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
+              const SizedBox(width: 10),
+              Container(
+                width: 148,
+                height: 40,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(width: 1, color: Color(0xFFD9D9D9)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: DropdownButtonFormField<String>(
+                    decoration: const InputDecoration.collapsed(hintText: ''),
+                    value:
+                        '1hr', // Initial value, you can change it according to your requirement
+                    onChanged: (String? newValue) {
+                      // Handle dropdown value change
+                    },
+                    items: <String>[
+                      '1hr',
+                      '2hr',
+                      '3hr',
+                      '4hr'
+                    ] // Your dropdown options
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

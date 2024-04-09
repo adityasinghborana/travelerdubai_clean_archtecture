@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modular_ui/modular_ui.dart';
@@ -11,7 +12,6 @@ import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../../../Components/build_city.dart';
-import '../../../../Components/date_picker.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../homepage/presentaion/Homepagecontroller.dart';
 import '../../../../homepage/remote/homepage_remote_service.dart';
@@ -28,73 +28,79 @@ import '../../../touroption_data_layer/repository/tour_option_repository.dart';
 import '../../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
 import '../../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../../Widgets/MainDetail.dart';
-import '../../Widgets/dropdown_widget.dart';
-import '../../Widgets/tour_option_detail.dart';
-import '../../Widgets/tranfertype_dropdown.dart';
 import '../../tour_options_controller.dart';
 import '../../tours_controller.dart';
 
 class TourPageMobile extends StatelessWidget {
   TourPageMobile({super.key});
+
   final TourOptionStaticDataController static = Get.put(
-    TourOptionStaticDataController(
-        GetTourOptionsStaticDataUseCase(
-            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-        GetTourOptionsDynamicDataUseCase(
-          TourOptionsRepositoryImpl(
-            TourOptionRemoteService(Dio()),
+      TourOptionStaticDataController(
+          GetTourOptionsStaticDataUseCase(
+              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+          GetTourOptionsDynamicDataUseCase(
+            TourOptionsRepositoryImpl(
+              TourOptionRemoteService(Dio()),
+            ),
+          ),
+          GetTimeSlotUseCase(
+            TimeSlotRepositoryImpl(
+              TimeSlotRemoteService(Dio()),
+            ),
+          ),
+          UpdateCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          )));
+  final TourController tourController = Get.put(
+    TourController(
+      GetCityTourUseCase(
+        TourRepositoryImpl(
+          TourRemoteService(
+            Dio(),
           ),
         ),
-        GetTimeSlotUseCase(
-          TimeSlotRepositoryImpl(
-            TimeSlotRemoteService(Dio()),
-          ),
-        ),
-        UpdateCartUseCase(
-          CartRepositoryImpl(
-            CartRemoteService(Dio()),
-          ),
-        )),
+      ),
+    ),
+    permanent: true,
   );
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
 
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
+  final tourId = Get.parameters['tourId'] ?? '';
 
   @override
   Widget build(BuildContext context) {
-
-
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: MobileHeader(),
+      appBar: const MobileHeader(),
       body: Obx(
-            () {
+        () {
           if (tourController.isLoading.isTrue) {
-            return Center(
-                child: const CircularProgressIndicator(
-                  color: colorblue,
-                ));
+            return const Center(
+                child: CircularProgressIndicator(
+              color: colorblue,
+            ));
           } else {
-static.id.value = tourController.tour.value.TourId.toString();
-static.contractid.value = tourController.tour.value.contractId.toString();
-print("${static.id.value} hello tour Detail");
-print("${static.contractid.value} hello tour Detail");
-
+            static.id.value = tourController.tour.value.TourId.toString();
+            static.contractid.value =
+                tourController.tour.value.contractId.toString();
+            if (kDebugMode) {
+              print("${static.id.value} hello tour Detail");
+            }
+            if (kDebugMode) {
+              print("${static.contractid.value} hello tour Detail");
+            }
 
             var tourImages = tourController.tourImages;
             List<String> imageUrls =
-            tourImages.map((imageModel) => imageModel.imagePath!).toList();
-            double? width = MediaQuery
-                .of(context)
-                .size
-                .width;
+                tourImages.map((imageModel) => imageModel.imagePath!).toList();
+            double? width = MediaQuery.of(context).size.width;
 
             return SingleChildScrollView(
               child: Container(
-                decoration: BoxDecoration(color: colorwhite),
+                decoration: const BoxDecoration(color: colorwhite),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -107,10 +113,7 @@ print("${static.contractid.value} hello tour Detail");
                         MUICarousel(
                           images: imageUrls,
                           maxWidth: double.infinity,
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.5,
+                          height: MediaQuery.of(context).size.height * 0.5,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -132,7 +135,10 @@ print("${static.contractid.value} hello tour Detail");
                             btnName: 'Buy Tickets',
                             bgColor: colorblue,
                             onButtonTap: () {
-                              Get.toNamed("/forms_mobile");
+                              Get.toNamed(
+                                "/forms_mobile",
+                                parameters: {'tourId': tourId},
+                              );
                             },
                           ),
                         ),
@@ -146,7 +152,7 @@ print("${static.contractid.value} hello tour Detail");
                                   iconData: Icons.remove_red_eye,
                                   text: 'Open Today',
                                   backgroundColor:
-                                  Color.fromRGBO(8, 137, 67, 0.12),
+                                      Color.fromRGBO(8, 137, 67, 0.12),
                                   iconColor: color_088943,
                                   textStyle: iconText),
                               Text(
@@ -163,7 +169,7 @@ print("${static.contractid.value} hello tour Detail");
                               iconData: Icons.access_time_filled,
                               text: 'Explore at your pace',
                               backgroundColor:
-                              const Color.fromRGBO(204, 126, 99, 0.20),
+                                  const Color.fromRGBO(204, 126, 99, 0.20),
                               iconColor: color_cc7e63,
                               textStyle: iconText),
                         ),
@@ -174,7 +180,7 @@ print("${static.contractid.value} hello tour Detail");
                               iconData: Icons.audiotrack,
                               text: 'Audio Guide',
                               backgroundColor:
-                              Color.fromRGBO(0, 154, 184, 0.20),
+                                  const Color.fromRGBO(0, 154, 184, 0.20),
                               iconColor: color_088943,
                               textStyle: iconText),
                         ),
@@ -182,16 +188,16 @@ print("${static.contractid.value} hello tour Detail");
                     ),
                     Padding(
                       padding:
-                      EdgeInsets.symmetric(horizontal: Get.width * 0.01),
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.01),
                       child: MainDetails(
                         textStyle: detailBoxTextStyleMobile,
                       ),
                     ),
                     Obx(
-                          () =>
-                          buildCitySection(
-                              "${homeController.formData.value?.heading2}",
-                              width,),
+                      () => buildCitySection(
+                        "${homeController.formData.value?.heading2}",
+                        width,
+                      ),
                     ),
                     buildFooterMobile()
                   ],
@@ -203,5 +209,4 @@ print("${static.contractid.value} hello tour Detail");
       ),
     );
   }
-
 }
