@@ -13,7 +13,7 @@ class _BookingsRemoteService implements BookingsRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://localhost:3000';
   }
 
   final Dio _dio;
@@ -45,6 +45,36 @@ class _BookingsRemoteService implements BookingsRemoteService {
               baseUrl,
             ))));
     final value = BookingResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<BookingList>> getBookings(UserBookingsRequest requestBody) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestBody.toJson());
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BookingList>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/userbookings',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => BookingList.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

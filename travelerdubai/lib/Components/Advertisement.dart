@@ -2,21 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget advertisement({required double subHeadingfontsize, required double Headingfontsize}) {
+Widget advertisement({required double subHeadingfontsize, required double Headingfontsize , required BoxDecoration decoration }) {
 
 
   return Container(
     height: Get.height * .80,
     width: Get.width,
-    decoration: const BoxDecoration(
-      gradient: LinearGradient(colors: [
-        Color(0xffd1d5ff),
-        Color(0xfff3c5f1),
-      ], stops: [
-        0.0,
-        1.0
-      ]),
-    ),
+    decoration:  decoration,
     child: Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
