@@ -33,6 +33,32 @@ import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
   TourPageDesktop({super.key});
+  final TourOptionStaticDataController static = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
+        ),
+        GetTimeSlotUseCase(
+          TimeSlotRepositoryImpl(
+            TimeSlotRemoteService(Dio()),
+          ),
+        ),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
+  );
+  final HeaderController controller = Get.find();
+  final TourController tourController = Get.put(TourController(
+    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+  ));
+  @override
+  Widget build(BuildContext context) {
 
   final HeaderController controller = Get.find();
   final TourController tourController = Get.put(TourController(
