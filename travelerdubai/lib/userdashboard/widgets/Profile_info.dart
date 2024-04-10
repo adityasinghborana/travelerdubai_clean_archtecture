@@ -36,6 +36,7 @@ class ProfileInfo extends StatelessWidget {
                   Container(
 
                     child: Obx(()=> InlineFlexButton(label: accountController.islabel.value, onPressed: () {
+
                       accountController.toggleEditMode();}, hpadding: Get.width*0.03,vpadding: Get.height*0.02,borderwidth: 1,textcolor: colorblack,)),
                   ),
                 ],

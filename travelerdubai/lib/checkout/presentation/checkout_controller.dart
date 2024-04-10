@@ -22,7 +22,8 @@ class CheckoutController extends GetxController {
   CheckoutController(
       {required this.getCartUseCase, required this.intentUseCase , required this.doBookingUseCase});
 
-  var selectedValue = 'adult'.obs;
+  var selectedValue = 'Adult'.obs;
+  var selectedPrefixValue = 'Mr'.obs;
   RxInt cartId = 0.obs;
 
 
@@ -50,37 +51,7 @@ class CheckoutController extends GetxController {
     super.onInit();
   }
 
-  // Future<void> getCart() async {
-  //
-  //   headerController.getUserUID().then((value) {
-  //     CreateCartRequest data =
-  //     CreateCartRequest(userId: value??"0");
-  //
-  //
-  //
-  //   await getCartUseCase.execute(data).then((value) {
-  //     if (value.data[0].TourDetails.isNotEmpty) {
-  //       cartId.value = value.data[0].TourDetails[0].cartId;
-  //       Totalprice.value = value.data[0].totalamount.toString();
-  //       print(Totalprice.value);
-  //       cartTours.assignAll(value.data[0].TourDetails);
-  //
-  //       for (CartTourDetail tourDetail in cartTours) {
-  //         print('Tour Name: ${tourDetail.tourname}');
-  //         print('Adult Rate: ${tourDetail.adultRate} AUD');
-  //         print('Adult Rate: ${tourDetail.cartId} AUD');
-  //         // Add other properties as needed
-  //       }
-  //     });
-  //     } else {
-  //       // Handle error
-  //       print('Error fetching cart: ${value.success}');
-  //     }
-  //   }).catchError((error) {
-  //     // Handle generic error
-  //     print('Error: $error');
-  //   });
-  // }
+
 
   Future<void> getCart() async {
     headerController.getUserUID().then((value) async {
@@ -119,6 +90,9 @@ class CheckoutController extends GetxController {
   void updateSelectedValue(String newValue) {
     selectedValue.value = newValue;
   }
+  void updateSelectedPrefixValue(String newValue) {
+    selectedPrefixValue.value = newValue;
+  }
 
   void bookOrder() {}
 
@@ -139,10 +113,10 @@ class CheckoutController extends GetxController {
   }
 
   void doBookings (){
-    List<Passenger>  passengerdata = [Passenger(serviceType: "Tour", prefix: prefixController.text, firstName: firstNameController.text, lastName: lastNameController.text, email: emailController.text, mobile: mobileNoController.text, nationality: nationalityController.text, message: messageController.text, leadPassenger: 1, paxType: selectedValue.value)];
+    List<Passenger>  passengerdata = [Passenger(serviceType: selectedPrefixValue.value, prefix: prefixController.text, firstName: firstNameController.text, lastName: lastNameController.text, email: emailController.text, mobile: mobileNoController.text, nationality: nationalityController.text, message: messageController.text, leadPassenger: 1, paxType: selectedValue.value)];
 
     BookingRequest data = BookingRequest(pickup: pickupController.text, User: headerController.userid.value, cartid: cartId.value, passengers: passengerdata);
-
+print(passengerdata);
     doBookingUseCase.execute(data).then((value) {
       if (value.result?.referenceNo != null) {
         print(value.result!.referenceNo);

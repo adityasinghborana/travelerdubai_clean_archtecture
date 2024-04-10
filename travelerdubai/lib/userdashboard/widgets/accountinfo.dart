@@ -17,6 +17,7 @@ import '../../bookings/data_layer/usecase/userbookings_usecase.dart';
 import '../../core/constants/constants.dart';
 
 class AccountInfo extends StatelessWidget {
+
   AccountInfo({Key? key}) : super(key: key);
 
   @override
@@ -34,21 +35,16 @@ class AccountInfo extends StatelessWidget {
       ),
     );
 
-    // Check if userDetails list is empty or null
 
-    // Access the first element of userDetails list
-    Rx<UserDetail> details = dashBoardController.userDetails[0].obs;
-    // if (dashBoardController.isLoading.value == true) {
-    //   return dataNotFound(width: 400, height: 200); // Display data not found widget
-    // }
 final EdgeInsets padding = EdgeInsets.all(20);
     return Obx(
             () {
-          if (dashBoardController.isLoading.isTrue) {
-            return dataNotFound(width: 400, height: 200);
+          if (dashBoardController.userDetails.isEmpty) {
+            return dataNotFound(width: double.infinity, height: 200);
           }
 
           else {
+            Rx<UserDetail> details = dashBoardController.userDetails[0].obs;
            return  Column(
               children: [
                 Row(

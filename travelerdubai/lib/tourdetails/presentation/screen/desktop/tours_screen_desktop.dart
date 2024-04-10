@@ -60,7 +60,7 @@ class TourPageDesktop extends StatelessWidget {
             ),
           )),
     );
-    static.id.value = tourController.tour.value.TourId.toString();
+
     if (kDebugMode) {
       print("${controller.cartId.value} hello tour deatial");
     }
@@ -75,6 +75,7 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
+            static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
             static.dateTextController.value.text = DateTime.now()
