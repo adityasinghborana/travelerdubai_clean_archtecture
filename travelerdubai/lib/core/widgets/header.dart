@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+
 import '../controller/headercontroller.dart';
 
 class Header extends StatelessWidget {
@@ -14,44 +15,43 @@ class Header extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return Container(
-        height: 60,
-        width: width,
-        color: Colors.white,
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1440),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: width * .005, vertical: height * .001),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.asset(
-                    "../assets/images/logo.png",
-                    height: 80,
-                    width: width * .1,
-                    fit: BoxFit.contain,
-                  ),
-                  SizedBox(
-                    width: width * 0.10,
-                  ),
-                  GetBuilder<HeaderController>(
-                    builder: (headerController) {
-                      var status = headerController.loggedIn.value;
-                      if (status != null && status != false) {
-                        return MenuLoggedin();
-                      } else {
-                        return Menu();
-                      }
-                    },
-                  )
-                ],
-              ),
+      height: 60,
+      width: width,
+      color: Colors.white,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 1440),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: width * .005, vertical: height * .001),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.asset(
+                  "../assets/images/logo.png",
+                  height: 80,
+                  width: width * .1,
+                  fit: BoxFit.contain,
+                ),
+                SizedBox(
+                  width: width * 0.10,
+                ),
+                GetBuilder<HeaderController>(
+                  builder: (headerController) {
+                    var status = headerController.loggedIn.value;
+                    if (status != null && status != false) {
+                      return MenuLoggedin();
+                    } else {
+                      return Menu();
+                    }
+                  },
+                )
+              ],
             ),
           ),
         ),
-      );
-
+      ),
+    );
   }
 
   Widget _navItem(String title, String route) {
@@ -69,7 +69,7 @@ class Header extends StatelessWidget {
             hoverColor: Colors.transparent,
             onTap: () {
               headerController.navItemColor.value = colorblack;
-              Get.toNamed(route);
+              Get.offAndToNamed(route);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -101,7 +101,6 @@ class Header extends StatelessWidget {
         "Experiences",
         '/experiences',
       ),
-
       _navItem(
         "Contact Us",
         '/contactus',
@@ -133,7 +132,6 @@ class Header extends StatelessWidget {
           "Experiences",
           '/experiences',
         ),
-
         _navItem(
           "Contact Us",
           '/contactus',
