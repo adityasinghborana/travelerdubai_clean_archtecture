@@ -62,9 +62,14 @@ Widget options(String tourname) {
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
               optionsstatic.optionid.value = output.data![index].tourOptionId!;
-              print("optionId is ${optionsstatic.optionid.value}");
-              optionsstatic.transferid.value = output1[tourIdIndex].transferId!;
-              print('transferId is ${optionsstatic.transferid.value}');
+              if (kDebugMode) {
+                print("optionId is ${optionsstatic.optionid.value}");
+              }
+              optionsstatic.transferid.value =
+                  output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
+              if (kDebugMode) {
+                print('transferId is ${optionsstatic.transferid.value}');
+              }
 
               optionsstatic.gettimeSlots();
               var output2 = optionsstatic.timeslots;
