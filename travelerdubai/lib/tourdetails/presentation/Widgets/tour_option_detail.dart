@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
@@ -66,7 +67,7 @@ Widget options(String tourname) {
                 print("optionId is ${optionsstatic.optionid.value}");
               }
               optionsstatic.transferid.value =
-                  output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
+                  output1.isNotEmpty ? output1[tourIdIndex].transferId! : 41865;
               if (kDebugMode) {
                 print('transferId is ${optionsstatic.transferid.value}');
               }
@@ -162,13 +163,37 @@ Widget options(String tourname) {
                                       " fetching"); // Return an empty Text widget if dateTextController is empty
                                 }
                               }), // SizedBox(
+
                               Obx(() {
                                 if (optionsstatic.timeslots.isNotEmpty) {
                                   var lst = output2.isNotEmpty
                                       ? output2
-                                          .map((timeslot) => timeslot.timeSlot)
+                                          .map((timeslot) => {
+                                                'timeSlot':
+                                                    timeslot.timeSlot,
+                                                'timeSlotId':
+                                                    timeslot.timeSlotId
+                                              })
                                           .toList()
-                                      : <String>['1hr', '2hr', '3hr', '4hr'];
+                                      : [
+                                          {
+                                            'timeSlot': '1hr',
+                                            'timeSlotId': 'id1'
+                                          },
+                                          {
+                                            'timeSlot': '2hr',
+                                            'timeSlotId': 'id2'
+                                          },
+                                          {
+                                            'timeSlot': '3hr',
+                                            'timeSlotId': 'id3'
+                                          },
+                                          {
+                                            'timeSlot': '4hr',
+                                            'timeSlotId': 'id4'
+                                          }
+                                        ];
+
                                   return Expanded(
                                     child: Container(
                                       width: 148,
@@ -178,8 +203,9 @@ Widget options(String tourname) {
                                       decoration: ShapeDecoration(
                                         shape: RoundedRectangleBorder(
                                           side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xFFD9D9D9)),
+                                            width: 1,
+                                            color: Color(0xFFD9D9D9),
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(8),
                                         ),
@@ -187,20 +213,33 @@ Widget options(String tourname) {
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
-                                        child: DropdownButtonFormField<String>(
-                                          decoration:
-                                              const InputDecoration.collapsed(
-                                                  hintText: ''),
+                                        child: DropdownButtonFormField<
+                                            Map<String, dynamic>>(
+                                          decoration: InputDecoration.collapsed(
+                                            floatingLabelAlignment:
+                                                FloatingLabelAlignment.center,
+                                            hintStyle: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey,
+                                            ),
+                                            hintText:
+                                                "timeslots".capitalizeFirst,
+                                          ),
                                           // Initial value, you can change it according to your requirement
-                                          onChanged: (String? newValue) {
-                                            // Handle dropdown value change
+                                          onChanged:
+                                              (Map<String, dynamic>? newValue) {
+                                                optionsstatic.changeSelectedTimeSlot(newValue??{});
+
+
                                           },
-                                          items: lst // Your dropdown options
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
+                                          items: lst.map<
+                                                  DropdownMenuItem<
+                                                      Map<String, dynamic>>>(
+                                              (value) {
+                                            return DropdownMenuItem<
+                                                Map<String, dynamic>>(
                                               value: value,
-                                              child: Text(value),
+                                              child: Text(value['timeSlot'] ?? "No Time Slots Available"),
                                             );
                                           }).toList(),
                                         ),
@@ -211,9 +250,11 @@ Widget options(String tourname) {
                                   return const Flexible(
                                     flex: 1,
                                     child: Text("No timeslot required "),
-                                  ); // Return an empty Text widget if dateTextController is empty
+                                  );
                                 }
-                              }), // SizedBox(
+                              }),
+
+                              // SizedBox(
                               //   height: 300,
                               //   width: 450,
                               //   child: Optionpricing(),
@@ -242,8 +283,8 @@ Widget options(String tourname) {
                                             .selectedDate.value
                                             .toString()
                                             .substring(0, 10),
-                                        timeSlotId: optionsstatic
-                                            .timeSlotId.value,
+                                        timeSlotId: int.parse(optionsstatic
+                                            .selectedTimeSlotId.value),
                                         startTime: data.startTime!,
                                         transferId: data.transferId!,
                                         adultRate: data.adultPrice!.toDouble(),

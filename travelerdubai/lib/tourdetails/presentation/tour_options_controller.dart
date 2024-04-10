@@ -21,11 +21,13 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsStaticDataUseCase getOptionsStaticDataUseCase;
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
+
   TourOptionStaticDataController(
       this.getOptionsStaticDataUseCase,
       this.getOptionsDynamicDataUseCase,
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
+
   RxString selectedTimeSlotId = RxString("0");
 
   RxString mobileTourId = "".obs;
@@ -40,6 +42,7 @@ class TourOptionStaticDataController extends GetxController {
   var id = "".obs;
   var contractid = "".obs;
   final RxList<Result> timeslots = <Result>[].obs;
+  RxMap<String, dynamic> timeslotmap = <String, dynamic>{}.obs;
 
   //final RxList<TourOption> options = <TourOption>[].obs;
   final Rx<UiData<List<TourOption>>> options = Rx(UiData<List<TourOption>>(
@@ -64,14 +67,23 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
+  void changeSelectedTimeSlot(Map<String , dynamic> newValue) {
+    if (newValue != null) {
+      selectedTimeSlotId.value = newValue['timeSlotId'];
+      print(selectedTimeSlotId.value);
+    }
+    else{
+      print("this is empty");
+    }
+  }
+
   RxInt optionid = 0.obs;
-  RxInt transferid = 0.obs;
+  RxInt transferid = 41865.obs;
 
   @override
   void onInit() {
     super.onInit();
-    //getOptionsStaticDataMObile();
-    //getOptionsStaticData();
+
   }
 
   void getOptionsStaticData() {
@@ -168,29 +180,6 @@ class TourOptionStaticDataController extends GetxController {
         .then((TimeSlotResponse response) {
       if (response.result != null) {
         timeslots.assignAll(response.result);
-        dynamicWidgets.assignAll(
-          response.result.map((item) {
-            return Obx(() => RadioListTile<String>(
-                  title: Text(item.timeSlot),
-                  value: item.timeSlotId,
-                  groupValue: selectedTimeSlotId.value,
-                  onChanged: (String? value) {
-                    // Handle the selection, update the selectedTimeSlotId
-                    selectedTimeSlotId.value = value ?? "0";
-                    timeSlotId.value = int.parse(value!);
-                    print("Selected Time Slot ID: ${selectedTimeSlotId.value}");
-                    print("Selected Time Slot IsssD: ${item.timeSlotId}");
-                    print("Selected Time Slot IsssD: ${timeSlotId.value}");
-                  },
-                  activeColor: Colors.blue,
-                  controlAffinity: ListTileControlAffinity.trailing,
-                  tileColor: selectedTimeSlotId.value == item.timeSlotId
-                      ? Colors.blue
-                      : null,
-                  selected: selectedTimeSlotId.value == item.timeSlotId,
-                ));
-          }).toList(),
-        );
 
         if (timeslots.isNotEmpty) print(timeslots.value[0].timeSlot);
       } else {
@@ -199,7 +188,7 @@ class TourOptionStaticDataController extends GetxController {
     });
   }
 
-  void showOptionsDialog() {
+  void showStaticOptionsDetailsDialog() {
     Get.defaultDialog(
       title: "Options",
       content: SizedBox(
@@ -244,28 +233,4 @@ class TourOptionStaticDataController extends GetxController {
       print(dataList.length);
     }
   }
-
-  // void getOptionsStaticDataMObile() {
-  //   final TourOptionStaticData data =
-  //   TourOptionStaticData(tourId: "111", contractId: '300');
-  //   options.value = UiData(state: UiState.LOADING);
-  //
-  //   getOptionsStaticDataUseCase.execute(data).then((response) {
-  //     print('getOptionStatic Completed');
-  //     options.value = UiData(
-  //       state: UiState.SUCCESS,
-  //       data: response.result?.touroption?.toList() ?? [],
-  //     );
-  //
-  //     //options.assignAll(response.result?.touroption?.toList() ?? []);
-  //   }).catchError((error) {
-  //     print('Error in the getOptionStaticdatamobile\n');
-  //     print("Error: $error getOptionStaticdatamobile");
-  //     // Handle the error as needed
-  //   }).whenComplete(() {
-  //     getOptionsdynamicData();
-  //
-  //     print('' + finalPrice.value.toString());
-  //   });
-  // }
 }
