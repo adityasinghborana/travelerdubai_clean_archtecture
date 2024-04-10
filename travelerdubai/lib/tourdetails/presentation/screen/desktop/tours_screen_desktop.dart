@@ -59,13 +59,6 @@ class TourPageDesktop extends StatelessWidget {
   ));
   @override
   Widget build(BuildContext context) {
-
-  final HeaderController controller = Get.find();
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
-  @override
-  Widget build(BuildContext context) {
     final TourOptionStaticDataController static = Get.put(
       TourOptionStaticDataController(
           GetTourOptionsStaticDataUseCase(
@@ -101,7 +94,6 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
             static.dateTextController.value.text = DateTime.now()
