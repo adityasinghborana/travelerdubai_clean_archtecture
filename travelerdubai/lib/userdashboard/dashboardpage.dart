@@ -18,6 +18,7 @@ import '../auth/usersdatalayer/usecase/get_user_details.dart';
 import '../core/widgets/header.dart';
 
 class DashboardPage extends StatelessWidget {
+
   final DashBoardController controller = Get.put(
     DashBoardController(
       GetUserBookingsUseCase(

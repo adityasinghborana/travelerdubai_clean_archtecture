@@ -13,19 +13,19 @@ import '../../../bookings/data_layer/service/booking_remote.dart';
 import '../../../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../checkout_controller.dart';
 
-Widget DropdownPaxType() {
+Widget DropdownPrefix() {
   final CheckoutController controller = Get.put(
     CheckoutController(
-      getCartUseCase: GetCartUseCase(
-        CartRepositoryImpl(
-          CartRemoteService(Dio()),
+        getCartUseCase: GetCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
         ),
-      ),
-      intentUseCase: IntentUseCase(
-        StripeIntentRepositoryImpl(
-          StripeRemoteService(Dio()),
+        intentUseCase: IntentUseCase(
+          StripeIntentRepositoryImpl(
+            StripeRemoteService(Dio()),
+          ),
         ),
-      ),
         doBookingUseCase: DoBookingUseCase(BookingsRepositoryImpl(BookingsRemoteService(Dio())))
     ),
   );
@@ -33,13 +33,13 @@ Widget DropdownPaxType() {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: DropdownButton<String>(
-        value: controller.selectedValue.value,
+        value: controller.selectedPrefixValue.value,
         onChanged: (String? newValue) {
           if (newValue != null) {
-            controller.updateSelectedValue(newValue);
+            controller.updateSelectedPrefixValue(newValue);
           }
         },
-        items: <String>['Adult', 'Child', 'Infant']
+        items: <String>['Mr', 'Mrs', 'Miss','Master']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
