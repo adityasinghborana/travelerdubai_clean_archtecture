@@ -7,10 +7,11 @@ class BookingsList extends StatelessWidget {
 
 
 
-  const BookingsList({Key? key});
+  BookingsList({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController controller  = ScrollController();
 
     final DashBoardController dashBoardController = Get.find();
 
@@ -20,6 +21,7 @@ class BookingsList extends StatelessWidget {
 
     
       child: ListView.builder(
+        controller: controller,
         itemCount:dashBoardController.userBookingList.length ,
         itemBuilder: (context, index) {
           final list = dashBoardController.userbookings[index];

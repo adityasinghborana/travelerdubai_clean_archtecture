@@ -8,6 +8,7 @@ class Tourtypes extends StatelessWidget {
   const Tourtypes({super.key});
   @override
   Widget build(BuildContext context) {
+    final ScrollController listcontroller = ScrollController();
     ExperienceController experienceController = Get.find();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
@@ -73,6 +74,7 @@ class Tourtypes extends StatelessWidget {
                           return const Center(child: Text('Empty'));
                         } else {
                           return ListView(
+                            controller: listcontroller,
                             children: List.generate(
                               experienceController.tourTypes.length,
                               (index) {

@@ -19,22 +19,13 @@ import '../core/widgets/header.dart';
 
 class DashboardPage extends StatelessWidget {
 
-  final DashBoardController controller = Get.put(
-    DashBoardController(
-      GetUserBookingsUseCase(
-        BookingsRepositoryImpl(
-          BookingsRemoteService(Dio()),
-        ),
-      ),
-      GetUserDetailsUseCase(
-        UserRepositoryImpl(createUserRemoteService(Dio()),),),
-    ),
-  );
+
 
   ValueNotifier<int> transparentTabIndexNotifier = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
+
     final double width = MediaQuery
         .of(context)
         .size
@@ -43,9 +34,10 @@ class DashboardPage extends StatelessWidget {
         .of(context)
         .size
         .height;
-
+    final ScrollController controller = ScrollController();
     return Scaffold(
         body: SingleChildScrollView(
+          controller: controller,
             child: Column(
                 children: [
                   Header(),

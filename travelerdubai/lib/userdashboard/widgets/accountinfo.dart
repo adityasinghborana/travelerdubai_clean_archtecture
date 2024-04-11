@@ -39,109 +39,111 @@ class AccountInfo extends StatelessWidget {
 final EdgeInsets padding = EdgeInsets.all(20);
     return Obx(
             () {
-          if (dashBoardController.userDetails.isEmpty) {
+          if (dashBoardController.isLoading.isTrue) {
             return dataNotFound(width: double.infinity, height: 200);
           }
 
           else {
             Rx<UserDetail> details = dashBoardController.userDetails[0].obs;
-           return  Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: padding,
-                        decoration: BoxDecoration(
+           return  Obx(
+             ()=> Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: padding,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                              color: colorwhite
+                          ),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Text("${details.value.username}"),
+                        ),
+                      ),
+                      SizedBox(width: 40),
+                      // Adjust spacing between text form fields
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
                             color: colorwhite
-                        ),
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        child: Text("${details.value.username}"),
-                      ),
-                    ),
-                    SizedBox(width: 40),
-                    // Adjust spacing between text form fields
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
-                          color: colorwhite
-                        ),
-                        padding: padding,
+                          ),
+                          padding: padding,
 
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        child: Text("${details.value.email}"),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: padding,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
-                            color: colorwhite
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Text("${details.value.email}"),
                         ),
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        child: Text(
-                            "${details.value.dob?.toString().substring(0, 10) ??
-                                'N/A'}"),
                       ),
-                    ),
-                    SizedBox(width: 40),
-                    // Adjust spacing between text form fields
-                    Expanded(
-                      child: Container(padding: padding,
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: padding,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                              color: colorwhite
+                          ),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                              "${details.value.dob?.toString().substring(0, 10) ??
+                                  'N/A'}"),
+                        ),
+                      ),
+                      SizedBox(width: 40),
+                      // Adjust spacing between text form fields
+                      Expanded(
+                        child: Container(padding: padding,
 
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
-                            color: colorwhite
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                              color: colorwhite
+                          ),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Text("${details.value.uid}"),
                         ),
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        child: Text("${details.value.uid}"),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: padding,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
-                            color: colorwhite
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: padding,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                              color: colorwhite
+                          ),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Text("${details.value.age}"),
                         ),
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        child: Text("${details.value.age}"),
                       ),
-                    ),
-                    SizedBox(width: 40),
-                    // Adjust spacing between text form fields
-                    Expanded(
-                      child: Container(
-                        padding: padding,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
-                            color: colorwhite
+                      SizedBox(width: 40),
+                      // Adjust spacing between text form fields
+                      Expanded(
+                        child: Container(
+                          padding: padding,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                              color: colorwhite
+                          ),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Text("${details.value.address ?? 'N/A'}"),
                         ),
-                        margin: EdgeInsets.only(bottom: 8.0),
-                        child: Text("${details.value.address ?? 'N/A'}"),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            );
+                    ],
+                  ),
+                ],
+              ),
+           );
           }
         }
     );

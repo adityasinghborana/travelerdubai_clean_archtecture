@@ -9,6 +9,7 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
 Widget tourCards(List<Experiences> displayedTours, String? cityName) {
   final ExperienceController experienceController = Get.find();
+  final ScrollController controller = ScrollController();
 
   return Obx(() {
     if (experienceController.cityTours.isEmpty) {
@@ -23,6 +24,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName) {
       return Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.builder(
+          controller: controller,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1 / 1.5,
             crossAxisCount: 4,

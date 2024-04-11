@@ -11,7 +11,7 @@ class HeroImageWidget extends StatelessWidget {
   final double titlefontsize ;
 
 
-  HeroImageWidget({super.key, required  this.titlefontsize});
+  const HeroImageWidget({super.key, required  this.titlefontsize});
 
   @override
   Widget build(BuildContext context) {
