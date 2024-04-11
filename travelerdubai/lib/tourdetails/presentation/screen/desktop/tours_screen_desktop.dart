@@ -105,6 +105,7 @@ class TourPageDesktop extends StatelessWidget {
                           images: imageUrls,
                           maxWidth: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.5,
+                          showButtons: false,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(

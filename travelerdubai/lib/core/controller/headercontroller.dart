@@ -14,31 +14,24 @@ class HeaderController extends GetxController {
   final RxBool isHeaderTransparent = true.obs;
 
   @override
-
   void onInit() {
     ever(loggedIn, (_) {
-
       // Triggered whenever loggedin changes
       if (kDebugMode) {
         print("LoggedIn changed: $loggedIn");
       }
     });
 
-
-
     getUserUID();
     getCartID();
     super.onInit();
   }
+
   void updateHeaderBackground(double scrollOffset) {
     if (scrollOffset > 0) {
       navItemColor.value = colorgreenishblack;
       isHeaderTransparent.value = false; // Set to false when scrolled
-    }
-
-
-
-    else {
+    } else {
       navItemColor.value = colorwhite;
       isHeaderTransparent.value = true; // Set to true when at the top
     }
@@ -67,9 +60,9 @@ class HeaderController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? cartIdCustom = prefs.getString('CartID');
 
-    if (cartId != null) {
-      cartId.value = int.parse(cartIdCustom ?? "00");
+    cartId.value = int.parse(cartIdCustom ?? "00");
 
+    if (kDebugMode) {
       print("User is logged in: ${cartId.value}");
     }
 

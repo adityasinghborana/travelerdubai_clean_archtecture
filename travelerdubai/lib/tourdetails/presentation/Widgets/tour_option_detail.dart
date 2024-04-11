@@ -77,9 +77,9 @@ Widget options(String tourname) {
                 print('output2 is${output2.toString()}');
               }
 
-              List<RxBool> showChanged = List.generate(
-                  optionsstatic.options.value.data!.length,
-                  (index) => false.obs);
+              // List<RxBool> showChanged = List.generate(
+              //     optionsstatic.options.value.data!.length,
+              //     (index) => false.obs);
               return output1.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),

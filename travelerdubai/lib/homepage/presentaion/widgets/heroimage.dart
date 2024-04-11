@@ -8,10 +8,9 @@ import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 class HeroImageWidget extends StatelessWidget {
-  final double titlefontsize ;
+  final double titlefontsize;
 
-
-  HeroImageWidget({super.key, required  this.titlefontsize});
+  HeroImageWidget({super.key, required this.titlefontsize});
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +27,27 @@ class HeroImageWidget extends StatelessWidget {
 
         return Stack(
           children: [
-
             MUICarousel(
-              curve: Curves.easeIn,
               showButtons: false,
               images: controller.imageList,
-              indicatorType: CarouselIndicatorType.dot,
-              duration: const Duration(seconds: 2),
+              // indicatorType: CarouselIndicatorType.dot,
+              // duration: const Duration(seconds: 2),
               height: double.infinity,
               maxWidth: double.infinity,
             ),
+            // MUICarousel(
+            //   images: imageUrls,
+            //   maxWidth: double.infinity,
+            //   height: MediaQuery.of(context).size.height * 0.5,
+            //   showButtons: false,
+            // ),
 
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.10),
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.10),
                 child: Container(
-                  height: Get.height*.80,
+                  height: Get.height * .80,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +78,7 @@ class HeroImageWidget extends StatelessWidget {
                         ),
                       ),
                       InlineFlexButton(
-                        bgcolor: colorblue,
+                          bgcolor: colorblue,
                           fontsize: 28,
                           vpadding: 20,
                           label: "Explore More",
@@ -85,13 +88,9 @@ class HeroImageWidget extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         );
       }),
     );
   }
-
-
-
 }

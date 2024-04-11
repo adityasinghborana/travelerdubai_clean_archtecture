@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
@@ -132,6 +133,11 @@ class FormsMobile extends StatelessWidget {
           ),
           Obx(() {
             var outputstate = static.options.value;
+            var output1 = static.dynamicoptions.toList();
+
+            if (kDebugMode) {
+              print('output1 is${output1.toString()}');
+            }
 
             switch (outputstate.state) {
               case UiState.SUCCESS:
@@ -141,8 +147,30 @@ class FormsMobile extends StatelessWidget {
                     controller: listController,
                     itemCount: outputstate.data?.length ?? 0,
                     itemBuilder: (context, index) {
-                      var option =
-                          outputstate.data![index]; // Fetch the current option
+                      var option = outputstate.data![index];
+
+                      int? id = static.options.value.data?[index].tourId;
+                      int tourIdIndex =
+                          output1.indexWhere((element) => element.tourId == id);
+                      static.optionid.value =
+                          outputstate.data![index].tourOptionId!;
+                      if (kDebugMode) {
+                        print("optionId is ${static.optionid.value}");
+                      }
+                      static.transferid.value = output1.isNotEmpty
+                          ? output1[tourIdIndex].transferId!
+                          : 0;
+                      if (kDebugMode) {
+                        print('transferId is ${static.transferid.value}');
+                      }
+
+                      static.gettimeSlots();
+                      var output2 = static.timeslots;
+                      if (kDebugMode) {
+                        print('output2 is${output2.toString()}');
+                      }
+
+                      // Fetch the current option
                       //  var output1 = static.dataList.toList();
                       //  var output2 = static.timeslots.toList();
                       //  int? id = option.tourId;
@@ -167,7 +195,18 @@ class FormsMobile extends StatelessWidget {
                                 (static.pricing.value.addPriceChildren ?? 0) +
                                 (static.pricing.value.additionalPriceInfant ??
                                     0)),
-                            _buildTimeRow(),
+                            Obx(() {
+                              if (static.timeslots.isNotEmpty) {
+                                var lst = output2.isNotEmpty
+                                    ? output2
+                                        .map((timeslot) => timeslot.timeSlot)
+                                        .toList()
+                                    : <String>['1hr', '2hr', '3hr', '4hr'];
+                                return _buildTimeRow(lst);
+                              } else {
+                                return Text("No timeslot required "); //
+                              }
+                            }),
                           ],
                         ),
                       );
@@ -236,68 +275,65 @@ class FormsMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildTimeRow() {
+  Widget _buildTimeRow(var lst) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'More info',
-            style: TextStyle(
-              color: Color(0xFF2659C3),
-              fontSize: 16,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
+      child: Expanded(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'More info',
+              style: TextStyle(
+                color: Color(0xFF2659C3),
+                fontSize: 16,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w600,
+                decoration: TextDecoration.underline,
+              ),
             ),
-          ),
-          Row(
-            children: [
-              const Text(
-                'Time: ',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                width: 148,
-                height: 40,
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(width: 1, color: Color(0xFFD9D9D9)),
-                    borderRadius: BorderRadius.circular(8),
+            Row(
+              children: [
+                const Text(
+                  'Time: ',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: DropdownButtonFormField<String>(
-                    decoration: const InputDecoration.collapsed(hintText: ''),
-                    value:
-                        '1hr', // Initial value, you can change it according to your requirement
-                    onChanged: (String? newValue) {
-                      // Handle dropdown value change
-                    },
-                    items: <String>[
-                      '1hr',
-                      '2hr',
-                      '3hr',
-                      '4hr'
-                    ] // Your dropdown options
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+                const SizedBox(width: 10),
+                Container(
+                  width: 148,
+                  height: 40,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      side:
+                          const BorderSide(width: 1, color: Color(0xFFD9D9D9)),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: DropdownButtonFormField<String>(
+                      decoration: const InputDecoration.collapsed(hintText: ''),
+                      // Initial value, you can change it according to your requirement
+                      onChanged: (String? newValue) {
+                        // Handle dropdown value change
+                      },
+                      items: lst // Your dropdown options
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

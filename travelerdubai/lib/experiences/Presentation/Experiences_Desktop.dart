@@ -66,7 +66,7 @@ class ExperiencesDesktop extends StatelessWidget {
         child: Column(
           children: [
             Header(),
-            Container(
+            SizedBox(
               height: Get.height * 0.25,
               child: SingleChildScrollView(
                 child: Column(
@@ -81,51 +81,49 @@ class ExperiencesDesktop extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        Container(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.04),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: Get.height * 0.05,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.04),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: Get.height * 0.05,
+                              ),
+                              Text("Discover All Experiences",
+                                  style: H1(context)),
+                              SizedBox(
+                                height: Get.height * 0.02,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                Text("Discover All Experiences",
-                                    style: H1(context)),
-                                SizedBox(
-                                  height: Get.height * 0.02,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.search),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: TextField(
-                                          controller: searchController,
-                                          onChanged: (value) {
-                                            experienceController
-                                                .searchCityTours(value);
-                                          },
-                                          decoration: const InputDecoration(
-                                            hintText: 'Search',
-                                            border: InputBorder.none,
-                                          ),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.search),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: searchController,
+                                        onChanged: (value) {
+                                          experienceController
+                                              .searchCityTours(value);
+                                        },
+                                        decoration: const InputDecoration(
+                                          hintText: 'Search',
+                                          border: InputBorder.none,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
