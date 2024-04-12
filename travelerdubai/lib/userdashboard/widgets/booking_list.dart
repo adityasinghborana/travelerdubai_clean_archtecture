@@ -31,7 +31,7 @@ margin: EdgeInsets.symmetric(vertical: Get.height*0.02),
             decoration: BoxDecoration(color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             ),
-            height: Get.width*0.18,
+            height: Get.width>1000 ? Get.width*0.18  : Get.height*0.2,
             child: Padding(
               padding:  EdgeInsets.symmetric(horizontal:Get.width*0.04, vertical: Get.height*0.03),
               child: Column(

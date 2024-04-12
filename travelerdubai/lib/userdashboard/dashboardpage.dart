@@ -4,12 +4,15 @@ import 'package:get/get.dart';
 
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
+import 'package:travelerdubai/Components/footer_mobile.dart';
 import 'package:travelerdubai/auth/usersdatalayer/repository/user_repository.dart';
 import 'package:travelerdubai/auth/usersdatalayer/service/create_user_remote.dart';
 import 'package:travelerdubai/bookings/data_layer/repository/bookings_repository.dart';
 import 'package:travelerdubai/bookings/data_layer/service/booking_remote.dart';
 import 'package:travelerdubai/bookings/data_layer/usecase/userbookings_usecase.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/core/widgets/Mobileheader.dart';
+import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/userdashboard/dashboard_controller.dart';
 import 'package:travelerdubai/userdashboard/widgets/Profile_info.dart';
 import 'package:travelerdubai/userdashboard/widgets/booking_list.dart';
@@ -36,18 +39,20 @@ class DashboardPage extends StatelessWidget {
         .height;
     final ScrollController controller = ScrollController();
     return Scaffold(
+
         body: SingleChildScrollView(
           controller: controller,
             child: Column(
+
                 children: [
-                  Header(),
+                  Get.width>1000? Header():MobileHeader(),
                   Container(
 
                     decoration: BoxDecoration(gradient: backgroundgradient),
                     child: Padding(
                       padding:
                       EdgeInsets.symmetric(
-                          vertical: 50, horizontal: Get.width * 0.12),
+                          vertical: 50, horizontal: Get.width /10),
                       child: DefaultTabController(
                         length: 2,
                         child: Column(
@@ -66,7 +71,7 @@ class DashboardPage extends StatelessWidget {
                                 children: [
                                   Container(
                                     height: Height * .5,
-                                    width: Get.width * 0.15,
+                                    width: Get.width>1000? Get.width * 0.2:Get.width*0.8,
                                     child: TabBar(
                                       labelColor: colorwhite,
                                       indicator: BoxDecoration(
@@ -122,6 +127,8 @@ class DashboardPage extends StatelessWidget {
                             advertisement(subHeadingfontsize: Get.width * 0.015,
                                 Headingfontsize: Get.width * 0.035,
                                 decoration: BoxDecoration()),
+
+
                           ],
                         ),
                       ),
@@ -129,6 +136,7 @@ class DashboardPage extends StatelessWidget {
                     ),
 
                   ),
+                  Get.width>1000 ? buildFooter():buildFooterMobile()
                 ])
         ));
   }

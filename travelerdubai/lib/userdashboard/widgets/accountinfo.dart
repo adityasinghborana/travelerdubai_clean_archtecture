@@ -22,6 +22,14 @@ class AccountInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    return Get.width>1000 ? Desktop() : Mobile();
+  }
+
+
+
+
+  Widget Mobile(){
     final DashBoardController dashBoardController = Get.put(
       DashBoardController(
         GetUserBookingsUseCase(
@@ -34,9 +42,7 @@ class AccountInfo extends StatelessWidget {
         ),
       ),
     );
-
-
-final EdgeInsets padding = EdgeInsets.all(20);
+    final EdgeInsets padding = EdgeInsets.all(1);
     return Obx(
             () {
           if (dashBoardController.isLoading.isTrue) {
@@ -45,8 +51,138 @@ final EdgeInsets padding = EdgeInsets.all(20);
 
           else {
             Rx<UserDetail> details = dashBoardController.userDetails[0].obs;
-           return  Obx(
-             ()=> Column(
+            return  Obx(
+                  ()=> Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: double.infinity,
+                      padding: padding,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                          color: colorwhite
+                      ),
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Text("${details.value.username}"),
+                    ),
+                  ),
+                  SizedBox(width: 40),
+                  // Adjust spacing between text form fields
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                          color: colorwhite
+                      ),
+                      padding: padding,
+
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Text("${details.value.email}"),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: double.infinity,
+                      padding: padding,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                          color: colorwhite
+                      ),
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                            "${details.value.dob?.toString().substring(0, 10) ??
+                                'N/A'}"),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 40),
+                  // Adjust spacing between text form fields
+                  Expanded(
+                    child: Container(padding: padding,
+                      alignment: Alignment.centerLeft,
+                      height: 10,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                          color: colorwhite
+                      ),
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Text("${details.value.uid}"),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: double.infinity,
+                      padding: padding,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                          color: colorwhite
+                      ),
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Text("${details.value.age ?? "Not Defined"}"),
+                    ),
+                  ),
+                  SizedBox(width: 40),
+                  // Adjust spacing between text form fields
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: double.infinity,
+                      padding: padding,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                          color: colorwhite
+                      ),
+                      margin: EdgeInsets.only(bottom: 8.0),
+                      child: Text("${details.value.address ?? 'N/A'}"),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+        }
+    );
+  }
+
+
+  Widget Desktop (){
+    final DashBoardController dashBoardController = Get.put(
+      DashBoardController(
+        GetUserBookingsUseCase(
+          BookingsRepositoryImpl(
+            BookingsRemoteService(Dio()),
+          ),
+        ),
+        GetUserDetailsUseCase(
+          UserRepositoryImpl(createUserRemoteService(Dio())),
+        ),
+      ),
+    );
+    final EdgeInsets padding = EdgeInsets.all(20);
+    return Obx(
+            () {
+          if (dashBoardController.isLoading.isTrue) {
+            return dataNotFound(width: double.infinity, height: 200);
+          }
+
+          else {
+            Rx<UserDetail> details = dashBoardController.userDetails[0].obs;
+            return  Obx(
+                  ()=> Column(
                 children: [
                   Row(
                     children: [
@@ -67,9 +203,9 @@ final EdgeInsets padding = EdgeInsets.all(20);
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
-                            color: colorwhite
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: colorlightgrey.withOpacity(0.5),width: 1),
+                              color: colorwhite
                           ),
                           padding: padding,
 
@@ -143,7 +279,7 @@ final EdgeInsets padding = EdgeInsets.all(20);
                   ),
                 ],
               ),
-           );
+            );
           }
         }
     );

@@ -33,13 +33,15 @@ class ProfileInfo extends StatelessWidget {
 
     return Container(
       width: Get.width,
-      height: Get.height / 2,
-      child: Row(
+      height: Get.height ,
+      child: Flex(
+        
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
+        direction: Get.width>1000 ? Axis.horizontal:Axis.vertical,
         children: [
           Flexible(
-            flex: 2,
+            flex: Get.width>600?2:5,
             child: Obx(() {
               return accountController.isEditMode.value
                   ? EditForm() // Display edit form when in edit mode
