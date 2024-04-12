@@ -77,20 +77,21 @@ class TourPageDesktop extends StatelessWidget {
       ),
       body: Obx(
         () {
+          print('in the body obx');
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
             static.dummyId.value = tourController.tour.value.TourId.toString();
-            static.dateTextController.value.text = DateTime.now()
-                .add(
-                  // Add a duration representing the specified number of hours.
-                  Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
-                )
-                .toString()
-                .substring(0, 10);
-            static.selectedDate.value = DateTime.now().add(
-                // Add a duration representing the specified number of hours.
-                Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
+            // static.dateTextController.value.text = DateTime.now()
+            //     .add(
+            //       // Add a duration representing the specified number of hours.
+            //       Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
+            //     )
+            //     .toString()
+            //     .substring(0, 10);
+            // static.selectedDate.value = DateTime.now().add(
+            //     // Add a duration representing the specified number of hours.
+            //     Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
             if (kDebugMode) {
               print(
                   'in the obx the options stats is ${static.options.value.state}');
@@ -245,6 +246,7 @@ class TourPageDesktop extends StatelessWidget {
     }
     return Obx(() {
       static.dummyId = 'abc'.obs;
+
       return Card(
         elevation: 25.0,
         child: ClipRRect(
@@ -282,8 +284,12 @@ class TourPageDesktop extends StatelessWidget {
                         })),
                     dateInputField(
                         static.dateTextController.value, Get.context!, () {
-                      static.selectedDate.value =
-                          DateTime.parse(static.dateTextController.value.text);
+                      static.selectedDate.value = DateTime.parse(static
+                          .dateTextController.value
+                          .toString()
+                          .substring(0, 10));
+                      static.dateTextController.value.text =
+                          static.selectedDate.value.toString();
                       static.getOptionsdynamicData();
                       static.dummyId = ''.obs;
                       static.gettimeSlots();
