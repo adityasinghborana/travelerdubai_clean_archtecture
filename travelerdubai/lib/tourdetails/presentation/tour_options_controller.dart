@@ -56,7 +56,7 @@ class TourOptionStaticDataController extends GetxController {
   RxInt childrenSelectedValue = 0.obs;
   RxInt infantsSelectedValue = 0.obs;
   RxDouble finalPrice = 0.0.obs;
-  var selectedTransfer = 'Without transfer'.obs;
+  var selectedTransfer = 'Without Transfers'.obs;
 
   void changeSelectedTransfer(String? newValue) {
     if (newValue != null) {
@@ -67,14 +67,7 @@ class TourOptionStaticDataController extends GetxController {
   RxInt optionid = 0.obs;
   RxInt transferid = 0.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    //getOptionsStaticDataMObile();
-    //getOptionsStaticData();
-  }
-
-  void getOptionsStaticData() {
+  Future<void> getOptionsStaticData() async {
     if (kDebugMode) {
       print('in the getOptionsStatic data');
     }
@@ -88,12 +81,13 @@ class TourOptionStaticDataController extends GetxController {
         TourOptionStaticData(tourId: id.value, contractId: contractid.value);
     options.value = UiData(state: UiState.LOADING);
 
-    getOptionsStaticDataUseCase.execute(data).then((response) {
+    await getOptionsStaticDataUseCase.execute(data).then((response) {
       print('getOptionStatic Completed');
       options.value = UiData(
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
+      print('options state in the function is: ${options.value.state}');
       print(options.value.data?.length ?? 1111);
 
       // options.assignAll(response.result?.touroption?.toList() ?? []);
@@ -109,14 +103,14 @@ class TourOptionStaticDataController extends GetxController {
       getOptionsdynamicData();
 
       if (kDebugMode) {
-        print('price${finalPrice.value}');
+        print('price total is ${finalPrice.value}');
       }
     });
   }
 
   void getOptionsdynamicData() async {
     if (kDebugMode) {
-      print("started");
+      print("started getOptionDynamic Data function");
     }
     try {
       dynamicoptions.assignAll([]);
@@ -140,15 +134,23 @@ class TourOptionStaticDataController extends GetxController {
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
         dataList.assignAll(value.apiResponseData?.result?.toList() ?? []);
 
-        print(dataList.value.length);
+        if (kDebugMode) {
+          print(dataList.length);
+        }
         pricing.value = value.extractedData!;
         getTransfersOptions();
       });
-      print(response);
+      if (kDebugMode) {
+        print(response);
+      }
       // showOptionsDialog();
     } catch (error, stackTrace) {
-      print("Error: $error");
-      print("Stack Trace: $stackTrace");
+      if (kDebugMode) {
+        print("Error in the getOptionsDynamic data: $error");
+      }
+      if (kDebugMode) {
+        print("Stack Trace: $stackTrace");
+      }
       // Handle the error as needed
     }
   }
@@ -242,6 +244,14 @@ class TourOptionStaticDataController extends GetxController {
   void getTransfersOptions() {
     if (kDebugMode) {
       print(dataList.length);
+    }
+  }
+
+  void addUniquePair(Map<String, int> map, String key, int value) {
+    // Check if the key already exists in the map
+    if (!map.containsKey(key)) {
+      // If the key is not already in the map, add the key-value pair
+      map[key] = value;
     }
   }
 

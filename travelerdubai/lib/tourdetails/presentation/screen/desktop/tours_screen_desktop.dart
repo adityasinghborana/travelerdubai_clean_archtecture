@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
+import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
@@ -33,6 +36,7 @@ import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
   TourPageDesktop({super.key});
+
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -57,11 +61,15 @@ class TourPageDesktop extends StatelessWidget {
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
+
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
-      print("${controller.cartId.value} hello tour deatial");
+      print("${controller.cartId.value} hello tour detail");
     }
+    static.id.value = tourController.tour.value.TourId.toString();
+    static.contractid.value = tourController.tour.value.contractId.toString();
+    static.getOptionsStaticData();
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: ElevatedButton(
@@ -73,129 +81,141 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            static.id.value = tourController.tour.value.TourId.toString();
-            static.contractid.value =
-                tourController.tour.value.contractId.toString();
             static.dateTextController.value.text = DateTime.now()
                 .add(
-                    // Add a duration representing the specified number of hours.
-                    Duration(hours: tourController.tour.value.cutOffhrs ?? 0))
+                  // Add a duration representing the specified number of hours.
+                  Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
+                )
                 .toString()
                 .substring(0, 10);
             static.selectedDate.value = DateTime.now().add(
                 // Add a duration representing the specified number of hours.
                 Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
-            static.getOptionsStaticData();
-
+            if (kDebugMode) {
+              print(
+                  'in the obx the options stats is ${static.options.value.state}');
+            }
             var tourImages = tourController.tourImages;
             List<String> imageUrls =
                 tourImages.map((imageModel) => imageModel.imagePath!).toList();
 
-            return SingleChildScrollView(
-              child: Container(
-                decoration: BoxDecoration(gradient: backgroundgradient),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Column(
+            var optionsOutput = static.options.value.state;
+            switch (optionsOutput) {
+              case UiState.LOADING:
+                return const CircularProgressIndicator();
+              case UiState.SUCCESS:
+                return SingleChildScrollView(
+                  child: Container(
+                    decoration: BoxDecoration(gradient: backgroundgradient),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        //fixed the header issue
-                        Header(),
-                        MUICarousel(
-                          images: imageUrls,
-                          maxWidth: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          showButtons: false,
+                        Column(
+                          children: [
+                            //fixed the header issue
+                            Header(),
+                            MUICarousel(
+                              images: imageUrls,
+                              maxWidth: double.infinity,
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              showButtons: false,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * 0.05),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${tourController.tour.value.tourName}",
+                                    style: getH2TextStyle(context),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: Get.height * 0.01),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Get.width * 0.05),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconTextBackground(
+                                            iconData: Icons.remove_red_eye,
+                                            text: 'Open Today',
+                                            backgroundColor:
+                                                const Color.fromRGBO(
+                                                    8, 137, 67, 0.12),
+                                            iconColor: color_088943,
+                                            textStyle: iconText),
+                                        Text(
+                                          'Visit Timing',
+                                          style: iconText,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Get.width * 0.05),
+                                    child: IconTextBackground(
+                                        iconData: Icons.access_time_filled,
+                                        text: 'Explore at your pace',
+                                        backgroundColor: const Color.fromRGBO(
+                                            204, 126, 99, 0.20),
+                                        iconColor: color_cc7e63,
+                                        textStyle: iconText),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: Get.width * 0.05),
+                                    child: IconTextBackground(
+                                        iconData: Icons.audiotrack,
+                                        text: 'Audio Guide',
+                                        backgroundColor: const Color.fromRGBO(
+                                            0, 154, 184, 0.20),
+                                        iconColor: color_088943,
+                                        textStyle:
+                                            iconText.copyWith(fontSize: 16)),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            formSection(),
+                          ],
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Get.width * 0.05),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                "${tourController.tour.value.tourName}",
-                                style: getH2TextStyle(context),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(vertical: Get.height * 0.01),
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.05),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconTextBackground(
-                                        iconData: Icons.remove_red_eye,
-                                        text: 'Open Today',
-                                        backgroundColor: const Color.fromRGBO(
-                                            8, 137, 67, 0.12),
-                                        iconColor: color_088943,
-                                        textStyle: iconText),
-                                    Text(
-                                      'Visit Timing',
-                                      style: iconText,
-                                    )
-                                  ],
+                              Flexible(
+                                flex: 3,
+                                child: MainDetails(
+                                  textStyle: detailBoxTextStyle,
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.05),
-                                child: IconTextBackground(
-                                    iconData: Icons.access_time_filled,
-                                    text: 'Explore at your pace',
-                                    backgroundColor: const Color.fromRGBO(
-                                        204, 126, 99, 0.20),
-                                    iconColor: color_cc7e63,
-                                    textStyle: iconText),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.05),
-                                child: IconTextBackground(
-                                    iconData: Icons.audiotrack,
-                                    text: 'Audio Guide',
-                                    backgroundColor:
-                                        const Color.fromRGBO(0, 154, 184, 0.20),
-                                    iconColor: color_088943,
-                                    textStyle: iconText.copyWith(fontSize: 16)),
-                              ),
+                              Flexible(flex: 1, child: Container())
                             ],
                           ),
                         ),
-                        formSection(),
+                        CityList(),
+                        buildFooter()
                       ],
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            flex: 3,
-                            child: MainDetails(
-                              textStyle: detailBoxTextStyle,
-                            ),
-                          ),
-                          Flexible(flex: 1, child: Container())
-                        ],
-                      ),
-                    ),
-                    CityList(),
-                    buildFooter()
-                  ],
-                ),
-              ),
-            );
+                  ),
+                );
+              case UiState.EMPTY:
+                return const Text('Empty');
+              case UiState.ERROR:
+                return const Text('Error');
+            }
           }
         },
       ),
@@ -203,30 +223,27 @@ class TourPageDesktop extends StatelessWidget {
   }
 
   Widget formSection() {
-    final TourOptionStaticDataController static = Get.put(
-      TourOptionStaticDataController(
-          GetTourOptionsStaticDataUseCase(
-              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-          GetTourOptionsDynamicDataUseCase(
-            TourOptionsRepositoryImpl(
-              TourOptionRemoteService(Dio()),
-            ),
-          ),
-          GetTimeSlotUseCase(
-            TimeSlotRepositoryImpl(
-              TimeSlotRemoteService(Dio()),
-            ),
-          ),
-          UpdateCartUseCase(
-            CartRepositoryImpl(
-              CartRemoteService(Dio()),
-            ),
-          )),
-    );
-    final HeaderController controller = Get.put(HeaderController());
-    final TourController tourController = Get.put(TourController(
-      GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-    ));
+    HashMap<String, int> transferOptionsMap = HashMap<String, int>();
+    if (kDebugMode) {
+      print('static.dynamic length is ${static.dynamicoptions.length}');
+      print(
+          'in the form section optins state is ${static.options.value.state}');
+    }
+
+    if (static.dynamicoptions.isNotEmpty) {
+      static.dynamicoptions.forEach((tourOptionsDynamicResult) {
+        // Assuming tourOptionsDynamicResult.transferName and tourOptionsDynamicResult.transferId are not null
+        static.addUniquePair(
+          transferOptionsMap,
+          tourOptionsDynamicResult.transferName!,
+          tourOptionsDynamicResult.transferId!,
+        );
+      });
+      static.selectedTransfer.value = static.dynamicoptions[0].transferName!;
+    }
+    if (kDebugMode) {
+      print('transferOptionMap is$transferOptionsMap');
+    }
     return Card(
       elevation: 25.0,
       child: ClipRRect(
@@ -270,9 +287,11 @@ class TourPageDesktop extends StatelessWidget {
                     static.gettimeSlots();
                   }, null),
                   DropdownTransferWidget(
-                      label: 'type',
-                      selectedValue: static.selectedTransfer.value,
-                      onChanged: (value) => static.changeSelectedTransfer),
+                    label: 'type',
+                    selectedValue: 'Without Transfers',
+                    onChanged: (value) => static.changeSelectedTransfer,
+                    items: transferOptionsMap.keys.toList(),
+                  ),
                 ],
               ),
               const Divider(
