@@ -3,7 +3,7 @@ import 'package:travelerdubai/core/constants/constants.dart';
 
 Widget buildTextFormField(String label, TextEditingController controller,String errormessage) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    padding: const EdgeInsets.symmetric(vertical: 8.0 ),
     child: TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {

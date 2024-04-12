@@ -13,7 +13,7 @@ import '../../../bookings/data_layer/service/booking_remote.dart';
 import '../../../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../checkout_controller.dart';
 
-Widget DropdownPrefix() {
+Widget DropdownPrefix({double width = 150}) {
   final CheckoutController controller = Get.put(
     CheckoutController(
         getCartUseCase: GetCartUseCase(
@@ -30,9 +30,7 @@ Widget DropdownPrefix() {
     ),
   );
   return Obx(() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: DropdownButton<String>(
+    return DropdownButton<String>(
         value: controller.selectedPrefixValue.value,
         onChanged: (String? newValue) {
           if (newValue != null) {
@@ -42,11 +40,13 @@ Widget DropdownPrefix() {
         items: <String>['Mr', 'Mrs', 'Miss','Master']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
+
             value: value,
-            child: Text(value),
+            child: Container(
+                width:width,child: Text(value)),
           );
         }).toList(),
-      ),
+
     );
   });
 }

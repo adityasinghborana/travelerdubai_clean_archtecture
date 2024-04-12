@@ -46,7 +46,7 @@ class InlineFlexButton extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: GoogleFonts.roboto(fontSize: Get.width*0.013, color: textcolor),
+        style: GoogleFonts.roboto(fontSize: fontsize, color: textcolor),
       ),
     );
   }

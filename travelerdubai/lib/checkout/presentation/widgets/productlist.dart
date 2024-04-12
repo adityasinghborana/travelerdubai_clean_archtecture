@@ -18,6 +18,9 @@ import '../../data_layer/usecase/intent_usecase.dart';
 import '../checkout_controller.dart';
 
 class ProductList extends StatelessWidget {
+  final double height ;
+  final double width ;
+  ProductList({this.height = 500 , this.width =500});
   @override
   Widget build(BuildContext context) {
     final CheckoutController cc = Get.put(
@@ -43,7 +46,7 @@ class ProductList extends StatelessWidget {
 
     return Container(
       height: Get.height*0.7,
-      width: 500,
+      width: width,
       child: Obx(
         () => ListView.builder(
           controller: controller,
@@ -56,7 +59,7 @@ class ProductList extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),  color: colorwhite,),
                   padding: const EdgeInsets.all(18.0) ,
-                  height: Get.height*0.5,
+                  height: height,
 
 
                   child: Column(children: [
