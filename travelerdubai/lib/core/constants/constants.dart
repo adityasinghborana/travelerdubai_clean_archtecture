@@ -118,13 +118,13 @@ double fontSize;
 if (screenWidth < 600) {
 fontSize = screenWidth *0.056; // For smaller screens like mobile
 } else {
-fontSize = 35.0; // For larger screens
+fontSize = screenWidth*0.01; // For larger screens
 }
 
 return GoogleFonts.outfit(
-textStyle: const TextStyle(
+textStyle:  TextStyle(
 letterSpacing: .5,
-fontSize: 14,
+fontSize: fontSize,
 color: colorblack,
 ),
 );

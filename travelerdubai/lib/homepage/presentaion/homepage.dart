@@ -28,17 +28,18 @@ class Homepage extends StatelessWidget {
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
 
-  final ScrollController? scrollController1 = ScrollController();
-  final ScrollController? scrollController2 = ScrollController();
 
-  final ScrollController? scrollController3 = ScrollController();
-  final ScrollController? scrollController4 = ScrollController();
-  final HeaderController headerController = Get.put(HeaderController());
 
   Homepage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController1 = ScrollController();
+    final ScrollController scrollController2 = ScrollController();
+
+    final ScrollController scrollController3 = ScrollController();
+    final ScrollController scrollController4 = ScrollController();
+
     Get.put(
       ExperienceController(
         GetExperiencesUseCase(

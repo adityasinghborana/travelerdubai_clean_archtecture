@@ -15,11 +15,11 @@ import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/Textformfield.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/ordersummary.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
-import '../data_layer/repository/Intent_repository.dart';
-import '../data_layer/service/remote.dart';
-import '../data_layer/usecase/intent_usecase.dart';
+import '../../../data_layer/repository/Intent_repository.dart';
+import '../../../data_layer/service/remote.dart';
+import '../../../data_layer/usecase/intent_usecase.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutScreenDesktop extends StatelessWidget {
   final CheckoutController checkoutController = Get.put(
     CheckoutController(
         getCartUseCase: GetCartUseCase(
@@ -36,8 +36,6 @@ class CheckoutPage extends StatelessWidget {
             BookingsRepositoryImpl(BookingsRemoteService(Dio())))),
   );
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +46,9 @@ class CheckoutPage extends StatelessWidget {
           children: [
             Header(),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
+              padding:  EdgeInsets.only(left: Get.width*0.018,right: 48,bottom: 16, top: 16),
+              child: Padding(
+                padding: EdgeInsets.only(left: Get.width / 20,right: (Get.width*0.01)/4),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,24 +57,21 @@ class CheckoutPage extends StatelessWidget {
                       flex: 3,
                       child: Container(
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: Get.width / 12),
+
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
 
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0,right: 4),
-                              child: Container(
-                                padding: EdgeInsets.only(left: 30),
-                                alignment: Alignment.centerLeft,
-                                height: 60,
-                                width:double.infinity,
-                                decoration:BoxDecoration(color: colorwhite,borderRadius: BorderRadius.circular(10)),
-                                child: Text(
-                                  'Primary Guest Infomation',
-                                  style: TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
+                            Container(
+                              padding: EdgeInsets.only(left:  Get.width*0.025),
+                              alignment: Alignment.centerLeft,
+                              height: 60,
+                              width:double.infinity,
+                              decoration:BoxDecoration(color: colorwhite,borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                'Primary Guest Infomation',
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                             // Add widgets for displaying order items and total amount
@@ -88,20 +84,20 @@ class CheckoutPage extends StatelessWidget {
                                 Flexible(
                                   flex:1,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: DropdownPrefix(),
+                                    padding:  EdgeInsets.all(Get.width*0.005),
+                                    child: DropdownPrefix(width: Get.width*0.04),
                                   ),
                                 ),
-                                SizedBox(width: 16),
-                               Flexible(
-                                 flex:3,
+                                SizedBox(width :Get.width*0.015),
+                                Flexible(
+                                  flex:3,
                                   child: buildTextFormField('First Name',
                                       checkoutController.firstNameController,"this field is required"),
                                 ),
-                                SizedBox(width: 16),
+                                SizedBox(width :Get.width*0.015),
                                 // Adjust the spacing between the text fields
-                               Flexible(
-                                 flex:3,
+                                Flexible(
+                                  flex:3,
                                   child: buildTextFormField('Last Name',
                                       checkoutController.lastNameController,"this field is required"),
                                 ),
@@ -113,17 +109,17 @@ class CheckoutPage extends StatelessWidget {
                                 Flexible(
                                   flex:1,
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: DropdownPaxType(),
+                                    padding: EdgeInsets.all(Get.width*0.005),
+                                    child: DropdownPaxType(width: Get.width*0.04),
                                   ),
                                 ),
-                                SizedBox(width: 16),
+                                SizedBox(width :Get.width*0.015),
                                 Flexible(
                                   flex:3,
                                   child: buildTextFormField('Email',
                                       checkoutController.emailController,"this field is required"),
                                 ),
-                                SizedBox(width: 16),
+                                SizedBox(width :Get.width*0.015),
                                 // Adjust the spacing between the text fields
                                 Flexible(
                                   flex:3,
@@ -137,19 +133,15 @@ class CheckoutPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
 
-                                Flexible(
-                                  flex:1,
-                                  child: Container(),
-                                ),
-        SizedBox(width: 8,),
+                              SizedBox(width: Get.width*0.086),
 
                                 // Adjust the spacing between the text fields
-                               Flexible(
-                                 flex: 3,
+                                Flexible(
+                                  flex: 3,
                                   child: buildTextFormField('Nationality',
                                       checkoutController.nationalityController,"this field is required"),
                                 ),
-                                SizedBox(width: 16),
+                                SizedBox(width :Get.width*0.02),
                                 Flexible(
                                   flex: 3,
                                   child: buildTextFormField('Pickup',
@@ -174,6 +166,7 @@ class CheckoutPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(width: Get.width*0.1,),
                     Flexible(
                       flex: 1,
                       child: Column(
@@ -194,12 +187,12 @@ class CheckoutPage extends StatelessWidget {
                             ),
                           ),
 
-                          ProductList(),
-                          Card(
-                            elevation: 5,
-                            child: Obx(
-                                  () => OrderSumary(checkoutController.Totalprice.value),
-                            ),
+                          Padding(
+                            padding:  EdgeInsets.only(left:20.0,right: 4),
+                            child: ProductList(height: Get.height*0.5,),
+                          ),
+                          Obx(
+                                () => OrderSumary(checkoutController.Totalprice.value),
                           ),
                           SizedBox(height: 20),
 

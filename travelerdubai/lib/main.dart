@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
-import 'package:travelerdubai/checkout/presentation/checkout.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
@@ -19,6 +18,7 @@ import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart'
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 
 import 'NotFound/404Screen.dart';
+import 'checkout/presentation/checkoutscreen.dart';
 import 'core/controller/headercontroller.dart';
 
 void main() async {
@@ -130,7 +130,7 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/checkout',
-            page: () => CheckoutPage(),
+            page: () => Checkout(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),

@@ -22,6 +22,7 @@ class ExperiencesDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController= ScrollController();
     final ExperienceController experienceController = Get.put(
       ExperienceController(
         GetExperiencesUseCase(
@@ -56,82 +57,82 @@ class ExperiencesDesktop extends StatelessWidget {
 
     Get.lazyPut(() => HeaderController());
 
-    HeaderController headerController = Get.find<HeaderController>();
 
-    String currentDate = DateTime.now().toString().split(' ')[0];
+
+
+
 
     return Scaffold(
       drawer: drawer(),
       body: SingleChildScrollView(
+        controller:scrollController ,
         child: Column(
           children: [
             Header(),
             Container(
               height: Get.height * 0.25,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        SizedBox(
-                          height: Get.height * 0.45,
-                          child: Image.network(
-                            "https://source.unsplash.com/random",
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      SizedBox(
+                        height: Get.height * 0.25,
+                        child: Image.network(
+                          "https://source.unsplash.com/random",
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
-                        Container(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Get.width * 0.04),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: Get.height * 0.05,
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.04),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: Get.height * 0.05,
+                              ),
+                              Text("Discover All Experiences",
+                                  style: H1(context)),
+                              SizedBox(
+                                height: Get.height * 0.02,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                Text("Discover All Experiences",
-                                    style: H1(context)),
-                                SizedBox(
-                                  height: Get.height * 0.02,
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.search),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: TextField(
-                                          controller: searchController,
-                                          onChanged: (value) {
-                                            experienceController
-                                                .searchCityTours(value);
-                                          },
-                                          decoration: const InputDecoration(
-                                            hintText: 'Search',
-                                            border: InputBorder.none,
-                                          ),
+                                child: Row(
+                                  children: [
+                                    const Icon(Icons.search),
+                                    const SizedBox(width: 10),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: searchController,
+                                        onChanged: (value) {
+                                          experienceController
+                                              .searchCityTours(value);
+                                        },
+                                        decoration: const InputDecoration(
+                                          hintText: 'Search',
+                                          border: InputBorder.none,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             SizedBox(height: Get.height * .03),

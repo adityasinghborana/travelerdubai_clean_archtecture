@@ -4,23 +4,14 @@ import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
 
 Widget OrderSumary(String totalprice) {
   return Container(
-
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-
-
-
-
-        // Add widgets for displaying order items and total amount
-
-        SizedBox(height: 20),
-        Row(children: <Widget>[
-          Text("TotalPrice"),
+padding: EdgeInsets.all(Get.height*0.03),
+    child:
+        Row(
+            mainAxisAlignment:MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+          Text("Total"),
           Text(totalprice),
         ]),
-      ],
-    ),
+     
   );
 }
