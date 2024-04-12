@@ -287,7 +287,7 @@ class TourPageDesktop extends StatelessWidget {
                       static.selectedDate.value = DateTime.parse(static
                           .dateTextController.value
                           .toString()
-                          .substring(0, 10));
+                          .substring(0, 10x));
                       static.dateTextController.value.text =
                           static.selectedDate.value.toString();
                       static.getOptionsdynamicData();

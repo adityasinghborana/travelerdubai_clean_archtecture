@@ -191,7 +191,9 @@ class TourOptionStaticDataController extends GetxController {
                     timeSlotId.value = int.parse(value!);
                     print("Selected Time Slot ID: ${selectedTimeSlotId.value}");
                     print("Selected Time Slot IsssD: ${item.timeSlotId}");
-                    print("Selected Time Slot IsssD: ${timeSlotId.value}");
+                    if (kDebugMode) {
+                      print("Selected Time Slot IsssD: ${timeSlotId.value}");
+                    }
                   },
                   activeColor: Colors.blue,
                   controlAffinity: ListTileControlAffinity.trailing,
