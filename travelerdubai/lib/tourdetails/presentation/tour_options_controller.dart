@@ -21,11 +21,13 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsStaticDataUseCase getOptionsStaticDataUseCase;
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
+
   TourOptionStaticDataController(
       this.getOptionsStaticDataUseCase,
       this.getOptionsDynamicDataUseCase,
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
+
   RxString selectedTimeSlotId = RxString("0");
 
   RxString mobileTourId = "".obs;
@@ -58,13 +60,6 @@ class TourOptionStaticDataController extends GetxController {
   RxInt infantsSelectedValue = 0.obs;
   RxDouble finalPrice = 0.0.obs;
   var selectedTransfer = 'Without Transfers'.obs;
-
-  void changeSelectedTransfer(String? newValue) {
-    if (newValue != null) {
-      selectedTransfer.value = newValue;
-    }
-  }
-
   RxInt optionid = 0.obs;
   RxInt transferid = 0.obs;
 
@@ -179,31 +174,6 @@ class TourOptionStaticDataController extends GetxController {
         .then((TimeSlotResponse response) {
       if (response.result != null) {
         timeslots.assignAll(response.result);
-        dynamicWidgets.assignAll(
-          response.result.map((item) {
-            return Obx(() => RadioListTile<String>(
-                  title: Text(item.timeSlot),
-                  value: item.timeSlotId,
-                  groupValue: selectedTimeSlotId.value,
-                  onChanged: (String? value) {
-                    // Handle the selection, update the selectedTimeSlotId
-                    selectedTimeSlotId.value = value ?? "0";
-                    timeSlotId.value = int.parse(value!);
-                    print("Selected Time Slot ID: ${selectedTimeSlotId.value}");
-                    print("Selected Time Slot IsssD: ${item.timeSlotId}");
-                    if (kDebugMode) {
-                      print("Selected Time Slot IsssD: ${timeSlotId.value}");
-                    }
-                  },
-                  activeColor: Colors.blue,
-                  controlAffinity: ListTileControlAffinity.trailing,
-                  tileColor: selectedTimeSlotId.value == item.timeSlotId
-                      ? Colors.blue
-                      : null,
-                  selected: selectedTimeSlotId.value == item.timeSlotId,
-                ));
-          }).toList(),
-        );
 
         if (timeslots.isNotEmpty) print(timeslots.value[0].timeSlot);
       } else {
@@ -264,27 +234,37 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-  // void getOptionsStaticDataMObile() {
-  //   final TourOptionStaticData data =
-  //   TourOptionStaticData(tourId: "111", contractId: '300');
-  //   options.value = UiData(state: UiState.LOADING);
-  //
-  //   getOptionsStaticDataUseCase.execute(data).then((response) {
-  //     print('getOptionStatic Completed');
-  //     options.value = UiData(
-  //       state: UiState.SUCCESS,
-  //       data: response.result?.touroption?.toList() ?? [],
-  //     );
-  //
-  //     //options.assignAll(response.result?.touroption?.toList() ?? []);
-  //   }).catchError((error) {
-  //     print('Error in the getOptionStaticdatamobile\n');
-  //     print("Error: $error getOptionStaticdatamobile");
-  //     // Handle the error as needed
-  //   }).whenComplete(() {
-  //     getOptionsdynamicData();
-  //
-  //     print('' + finalPrice.value.toString());
-  //   });
-  // }
+  void changePickedDate(selecteddate) {
+    selectedDate.value = selecteddate;
+    dateTextController.value.text =
+        selectedDate.value.toString().substring(0, 10);
+    getOptionsdynamicData();
+    gettimeSlots();
+  }
+
+
+  void changeSelectedTransfer(String? newValue) {
+    if (newValue != null) {
+      selectedTransfer.value = newValue;
+      print("$newValue transfer id ");
+
+      switch (newValue) {
+        case "Without Transfers":
+          transferid.value = 41865;
+          break;
+        case "Sharing Transfers":
+          transferid.value = 41843;
+          break;
+        case "Private Transfers":
+          transferid.value = 41844;
+          break;
+
+          break;
+        default:
+          print("Invalid transfer type");
+      }
+      print(transferid.value);
+    }
+  }
+
 }

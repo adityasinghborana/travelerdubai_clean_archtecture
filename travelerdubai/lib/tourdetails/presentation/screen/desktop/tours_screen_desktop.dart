@@ -35,10 +35,12 @@ import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
   TourPageDesktop({super.key});
+
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
   final HeaderController controller = Get.find();
+
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -62,6 +64,16 @@ class TourPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    static.dateTextController.value.text = DateTime.now()
+        .add(
+          // Add a duration representing the specified number of hours.
+          Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
+        )
+        .toString()
+        .substring(0, 10);
+    static.selectedDate.value = DateTime.now().add(
+        // Add a duration representing the specified number of hours.
+        Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
     if (kDebugMode) {
       print("${controller.cartId.value} hello tour detail");
     }
@@ -81,17 +93,8 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            static.dummyId.value = tourController.tour.value.TourId.toString();
-            // static.dateTextController.value.text = DateTime.now()
-            //     .add(
-            //       // Add a duration representing the specified number of hours.
-            //       Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
-            //     )
-            //     .toString()
-            //     .substring(0, 10);
-            // static.selectedDate.value = DateTime.now().add(
-            //     // Add a duration representing the specified number of hours.
-            //     Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
+
+
             if (kDebugMode) {
               print(
                   'in the obx the options stats is ${static.options.value.state}');
@@ -282,18 +285,25 @@ class TourPageDesktop extends StatelessWidget {
                           static.infantsSelectedValue.value = value ?? 0;
                           static.getOptionsdynamicData();
                         })),
-                    dateInputField(
-                        static.dateTextController.value, Get.context!, () {
-                      static.selectedDate.value = DateTime.parse(static
-                          .dateTextController.value
-                          .toString()
-                          .substring(0, 10x));
-                      static.dateTextController.value.text =
-                          static.selectedDate.value.toString();
-                      static.getOptionsdynamicData();
-                      static.dummyId = ''.obs;
-                      static.gettimeSlots();
-                    }, null),
+                    // dateInputField(
+                    //     static.dateTextController.value, Get.context!, () {
+                    //   static.selectedDate.value = DateTime.parse(static
+                    //       .dateTextController.value
+                    //       .toString()
+                    //       .substring(0, 10));
+                    //   static.dateTextController.value.text =
+                    //       static.selectedDate.value.toString();
+                    //   static.getOptionsdynamicData();
+                    //   static.dummyId = ''.obs;
+                    //   static.gettimeSlots();
+                    // }, null),
+                    Obx(() {
+                      return dateInputField(
+                          static.dateTextController.value, Get.context!, () {
+                        static.changePickedDate(DateTime.parse(
+                            static.dateTextController.value.text));
+                      }, null);
+                    }),
                     DropdownTransferWidget(
                       label: 'type',
                       selectedValue: static.selectedTransfer.value,
