@@ -9,7 +9,6 @@ import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
-import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
@@ -36,7 +35,10 @@ import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
   TourPageDesktop({super.key});
-
+  final TourController tourController = Get.put(TourController(
+    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+  ));
+  final HeaderController controller = Get.find();
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -57,10 +59,6 @@ class TourPageDesktop extends StatelessWidget {
           ),
         )),
   );
-  final HeaderController controller = Get.find();
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +68,7 @@ class TourPageDesktop extends StatelessWidget {
     static.id.value = tourController.tour.value.TourId.toString();
     static.contractid.value = tourController.tour.value.contractId.toString();
     static.getOptionsStaticData();
+
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButton: ElevatedButton(
@@ -81,6 +80,7 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
+            static.dummyId.value = tourController.tour.value.TourId.toString();
             static.dateTextController.value.text = DateTime.now()
                 .add(
                   // Add a duration representing the specified number of hours.
@@ -100,122 +100,121 @@ class TourPageDesktop extends StatelessWidget {
                 tourImages.map((imageModel) => imageModel.imagePath!).toList();
 
             var optionsOutput = static.options.value.state;
-            switch (optionsOutput) {
-              case UiState.LOADING:
-                return const CircularProgressIndicator();
-              case UiState.SUCCESS:
-                return SingleChildScrollView(
-                  child: Container(
-                    decoration: BoxDecoration(gradient: backgroundgradient),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+            return SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(gradient: backgroundgradient),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
                       children: [
-                        Column(
-                          children: [
-                            //fixed the header issue
-                            Header(),
-                            MUICarousel(
-                              images: imageUrls,
-                              maxWidth: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.5,
-                              showButtons: false,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * 0.05),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "${tourController.tour.value.tourName}",
-                                    style: getH2TextStyle(context),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: Get.height * 0.01),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: Get.width * 0.05),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        IconTextBackground(
-                                            iconData: Icons.remove_red_eye,
-                                            text: 'Open Today',
-                                            backgroundColor:
-                                                const Color.fromRGBO(
-                                                    8, 137, 67, 0.12),
-                                            iconColor: color_088943,
-                                            textStyle: iconText),
-                                        Text(
-                                          'Visit Timing',
-                                          style: iconText,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: Get.width * 0.05),
-                                    child: IconTextBackground(
-                                        iconData: Icons.access_time_filled,
-                                        text: 'Explore at your pace',
-                                        backgroundColor: const Color.fromRGBO(
-                                            204, 126, 99, 0.20),
-                                        iconColor: color_cc7e63,
-                                        textStyle: iconText),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: Get.width * 0.05),
-                                    child: IconTextBackground(
-                                        iconData: Icons.audiotrack,
-                                        text: 'Audio Guide',
-                                        backgroundColor: const Color.fromRGBO(
-                                            0, 154, 184, 0.20),
-                                        iconColor: color_088943,
-                                        textStyle:
-                                            iconText.copyWith(fontSize: 16)),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            formSection(),
-                          ],
+                        //fixed the header issue
+                        Header(),
+                        MUICarousel(
+                          images: imageUrls,
+                          maxWidth: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          showButtons: false,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Get.width * 0.05),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Flexible(
-                                flex: 3,
-                                child: MainDetails(
-                                  textStyle: detailBoxTextStyle,
-                                ),
+                              Text(
+                                "${tourController.tour.value.tourName}",
+                                style: getH2TextStyle(context),
                               ),
-                              Flexible(flex: 1, child: Container())
                             ],
                           ),
                         ),
-                        CityList(),
-                        buildFooter()
+
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(vertical: Get.height * 0.01),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconTextBackground(
+                                        iconData: Icons.remove_red_eye,
+                                        text: 'Open Today',
+                                        backgroundColor: const Color.fromRGBO(
+                                            8, 137, 67, 0.12),
+                                        iconColor: color_088943,
+                                        textStyle: iconText),
+                                    Text(
+                                      'Visit Timing',
+                                      style: iconText,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: IconTextBackground(
+                                    iconData: Icons.access_time_filled,
+                                    text: 'Explore at your pace',
+                                    backgroundColor: const Color.fromRGBO(
+                                        204, 126, 99, 0.20),
+                                    iconColor: color_cc7e63,
+                                    textStyle: iconText),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: IconTextBackground(
+                                    iconData: Icons.audiotrack,
+                                    text: 'Audio Guide',
+                                    backgroundColor:
+                                        const Color.fromRGBO(0, 154, 184, 0.20),
+                                    iconColor: color_088943,
+                                    textStyle: iconText.copyWith(fontSize: 16)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        formSection(),
                       ],
                     ),
-                  ),
-                );
-              case UiState.EMPTY:
-                return const Text('Empty');
-              case UiState.ERROR:
-                return const Text('Error');
-            }
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex: 3,
+                            child: MainDetails(
+                              textStyle: detailBoxTextStyle,
+                            ),
+                          ),
+                          Flexible(flex: 1, child: Container())
+                        ],
+                      ),
+                    ),
+                    CityList(),
+                    buildFooter()
+                  ],
+                ),
+              ),
+            );
+            // switch (optionsOutput) {
+            //   case UiState.LOADING:
+            //     return const CircularProgressIndicator();
+            //   case UiState.SUCCESS:
+            //     return Text('Hello');
+            //   case UiState.EMPTY:
+            //     return const Text('Empty');
+            //   case UiState.ERROR:
+            //     return const Text('Error');
+            // }
           }
         },
       ),
@@ -244,64 +243,73 @@ class TourPageDesktop extends StatelessWidget {
     if (kDebugMode) {
       print('transferOptionMap is$transferOptionsMap');
     }
-    return Card(
-      elevation: 25.0,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: const EdgeInsets.all(50.0),
-          color: colorwhite,
-          width: Get.width * 0.9,
-          height: Get.height * .5,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Obx(() => DropdownWidget(
-                      label: 'Adults',
-                      selectedValue: static.adultsSelectedValue.value,
-                      onChanged: (value) {
-                        static.adultsSelectedValue.value = value ?? 1;
-                        static.getOptionsdynamicData();
-                      })),
-                  Obx(() => DropdownWidget(
-                      label: 'Children',
-                      selectedValue: static.childrenSelectedValue.value,
-                      onChanged: (value) {
-                        static.childrenSelectedValue.value = value ?? 0;
-                        static.getOptionsdynamicData();
-                      })),
-                  Obx(() => DropdownWidget(
-                      label: 'Infants',
-                      selectedValue: static.infantsSelectedValue.value,
-                      onChanged: (value) {
-                        static.infantsSelectedValue.value = value ?? 0;
-                        static.getOptionsdynamicData();
-                      })),
-                  dateInputField(static.dateTextController.value, Get.context!,
-                      () {
-                    static.selectedDate.value =
-                        DateTime.parse(static.dateTextController.value.text);
-                    static.getOptionsdynamicData();
-                    static.gettimeSlots();
-                  }, null),
-                  DropdownTransferWidget(
-                    label: 'type',
-                    selectedValue: 'Without Transfers',
-                    onChanged: (value) => static.changeSelectedTransfer,
-                    items: transferOptionsMap.keys.toList(),
-                  ),
-                ],
-              ),
-              const Divider(
-                height: 1,
-              ),
-              options(tourController.tour.value.tourName!),
-            ],
+    return Obx(() {
+      static.dummyId = 'abc'.obs;
+      return Card(
+        elevation: 25.0,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: const EdgeInsets.all(50.0),
+            color: colorwhite,
+            width: Get.width * 0.9,
+            height: Get.height * .5,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Obx(() => DropdownWidget(
+                        label: 'Adults',
+                        selectedValue: static.adultsSelectedValue.value,
+                        onChanged: (value) {
+                          static.adultsSelectedValue.value = value ?? 1;
+                          static.getOptionsdynamicData();
+                        })),
+                    Obx(() => DropdownWidget(
+                        label: 'Children',
+                        selectedValue: static.childrenSelectedValue.value,
+                        onChanged: (value) {
+                          static.childrenSelectedValue.value = value ?? 0;
+                          static.getOptionsdynamicData();
+                        })),
+                    Obx(() => DropdownWidget(
+                        label: 'Infants',
+                        selectedValue: static.infantsSelectedValue.value,
+                        onChanged: (value) {
+                          static.infantsSelectedValue.value = value ?? 0;
+                          static.getOptionsdynamicData();
+                        })),
+                    dateInputField(
+                        static.dateTextController.value, Get.context!, () {
+                      static.selectedDate.value =
+                          DateTime.parse(static.dateTextController.value.text);
+                      static.getOptionsdynamicData();
+                      static.dummyId = ''.obs;
+                      static.gettimeSlots();
+                    }, null),
+                    DropdownTransferWidget(
+                      label: 'type',
+                      selectedValue: static.selectedTransfer.value,
+                      // onChanged: (value) {
+                      //   static.selectedTransfer.value = value!;
+                      //
+                      // },
+                      onChanged: (value) =>
+                          static.changeSelectedTransfer(value),
+                      items: transferOptionsMap.keys.toList(),
+                    ),
+                  ],
+                ),
+                const Divider(
+                  height: 1,
+                ),
+                options(tourController.tour.value.tourName!),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

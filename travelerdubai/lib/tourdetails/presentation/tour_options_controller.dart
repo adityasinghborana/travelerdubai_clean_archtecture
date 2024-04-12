@@ -38,6 +38,7 @@ class TourOptionStaticDataController extends GetxController {
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
   var id = "65".obs;
+  var dummyId = "65".obs;
   var contractid = "".obs;
   final RxList<Result> timeslots = <Result>[].obs;
 
@@ -87,8 +88,12 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
-      print('options state in the function is: ${options.value.state}');
-      print(options.value.data?.length ?? 1111);
+      if (kDebugMode) {
+        print('options state in the function is: ${options.value.state}');
+      }
+      if (kDebugMode) {
+        print(options.value.data?.length ?? 1111);
+      }
 
       // options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
@@ -156,9 +161,13 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void gettimeSlots() {
-    print('in the get time slot');
-    print(
-        'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
+    if (kDebugMode) {
+      print('in the get time slot');
+    }
+    if (kDebugMode) {
+      print(
+          'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
+    }
     final gettimeslotdata = TimeSlotRequest(
         tourId: int.tryParse(id.value)!,
         contractId: int.tryParse(contractid.value)!,
@@ -220,7 +229,7 @@ class TourOptionStaticDataController extends GetxController {
         onPressed: () {
           Get.back(); // Close the dialog
         },
-        child: Text("Go Back"),
+        child: const Text("Go Back"),
       ),
     );
   }
@@ -228,9 +237,7 @@ class TourOptionStaticDataController extends GetxController {
   void Addtocart(UpdateCartTourDetail data) async {
     try {
       final value = await updateCartUseCase.execute(data);
-      if (value != null) {
-        Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
-      }
+      Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
     } catch (e) {
       if (kDebugMode) {
         print(data);

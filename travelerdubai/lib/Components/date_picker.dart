@@ -7,7 +7,8 @@ Widget dateInputField(TextEditingController controller, BuildContext context,
   return Container(
     width: width ?? 200,
     height: 50,
-    decoration: BoxDecoration(border: Border.all(width: 1 , color: colorlightgrey.withOpacity(0.5)),
+    decoration: BoxDecoration(
+      border: Border.all(width: 1, color: colorlightgrey.withOpacity(0.5)),
       borderRadius: BorderRadius.circular(10.0),
     ),
     child: Row(
@@ -16,7 +17,7 @@ Widget dateInputField(TextEditingController controller, BuildContext context,
       children: [
         Expanded(
           child: TextField(
-            style: TextStyle(color: colorlightgrey),
+            style: const TextStyle(color: colorlightgrey),
             controller: controller,
             readOnly: true,
             onTap: () async {
@@ -24,7 +25,7 @@ Widget dateInputField(TextEditingController controller, BuildContext context,
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime(2024),
-                lastDate:DateTime.now().add(Duration(days: 3 * 30)),
+                lastDate: DateTime.now().add(const Duration(days: 3 * 30)),
               );
               if (pickedDate != null) {
                 String month = pickedDate.month.toString().padLeft(2, '0');
@@ -34,19 +35,24 @@ Widget dateInputField(TextEditingController controller, BuildContext context,
               onClicked();
             },
             decoration: const InputDecoration(
-
               hintText: 'Select Date',
               border: OutlineInputBorder(borderSide: BorderSide.none),
             ),
           ),
         ),
         Container(
-          decoration: BoxDecoration(color: color_EEEEEE,borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight:  Radius.circular(10))),
+          decoration: const BoxDecoration(
+              color: color_EEEEEE,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10))),
           width: 60,
           height: 60,
-
           child: IconButton(
-            icon: const Icon(Icons.calendar_month,color: colorlightgrey,),
+            icon: const Icon(
+              Icons.calendar_month,
+              color: colorlightgrey,
+            ),
             onPressed: () async {
               DateTime? pickedDate = await showDatePicker(
                 context: context,
