@@ -28,7 +28,7 @@ class TourOptionStaticDataController extends GetxController {
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
 
-  RxString selectedTimeSlotId = RxString("0");
+  RxInt selectedTimeSlotId = 0.obs;
 
   RxString mobileTourId = "".obs;
   RxString mobilecontractId = "".obs;
@@ -62,7 +62,7 @@ class TourOptionStaticDataController extends GetxController {
   RxDouble finalPrice = 0.0.obs;
   var selectedTransfer = 'Without Transfers'.obs;
   RxInt optionid = 0.obs;
-  RxInt transferid = 0.obs;
+  RxInt transferid = 41865.obs;
 
   Future<void> getOptionsStaticData() async {
     if (kDebugMode) {
@@ -269,5 +269,13 @@ class TourOptionStaticDataController extends GetxController {
       }
       print(transferid.value);
     }
+  }
+
+  void changeTimeSlotId(value){
+print("$value change timeslot id");
+    selectedTimeSlotId.value=int.parse(value)??0;
+print("${selectedTimeSlotId.value} selected timeslotsssss id");
+
+
   }
 }

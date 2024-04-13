@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/tourdetails/presentation/Widgets/transfer_time_dropdown.dart';
 
 import '../../../Cart/data_layer/model/request/update_cart.dart';
 import '../../../core/controller/headercontroller.dart';
@@ -31,6 +32,7 @@ Widget options(String tourname) {
             key: UniqueKey(),
             itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
+              var output2 = optionsStatic.timeslots;
               int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
@@ -45,14 +47,12 @@ Widget options(String tourname) {
               }
 
               optionsStatic.gettimeSlots();
-              var output2 = optionsStatic.timeslots;
+
               if (kDebugMode) {
                 print('output2 is${output2.toString()}');
               }
 
-              // List<RxBool> showChanged = List.generate(
-              //     optionsstatic.options.value.data!.length,
-              //     (index) => false.obs);
+
               return output1.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -134,116 +134,65 @@ Widget options(String tourname) {
                                   return const Text(
                                       " fetching"); // Return an empty Text widget if dateTextController is empty
                                 }
-                              }), // SizedBox(
-                              Obx(() {
-                                if (optionsStatic.timeslots.isNotEmpty) {
-                                  var lst = output2.isNotEmpty
-                                      ? output2
-                                          .map((timeslot) => timeslot.timeSlot)
-                                          .toList()
-                                      : <String>['1hr', '2hr', '3hr', '4hr'];
-                                  return Expanded(
-                                    child: Container(
-                                      width: 148,
-                                      height: 40,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      decoration: ShapeDecoration(
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xFFD9D9D9)),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: DropdownButtonFormField<String>(
-                                          decoration:
-                                              const InputDecoration.collapsed(
-                                                  hintText: ''),
-                                          // Initial value, you can change it according to your requirement
-                                          onChanged: (String? newValue) {
-                                            // Handle dropdown value change
-                                          },
-                                          items: lst // Your dropdown options
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  return const Flexible(
-                                    flex: 1,
-                                    child: Text("No timeslot required "),
-                                  ); // Return an empty Text widget if dateTextController is empty
-                                }
-                              }), // SizedBox(
-                              //   height: 300,
-                              //   width: 450,
-                              //   child: Optionpricing(),
-                              // ),
-                              Flexible(
-                                flex: 1,
-                                child: InlineFlexButton(
-                                  vpadding: 20,
-                                  hpadding: 30,
-                                  bgcolor: colorblue,
-                                  label: 'Add To Cart',
-                                  onPressed: () async {
-                                    final data = output1[index];
-                                    var value = UpdateCartTourDetail(
-                                        tourname: tourname,
-                                        tourOption: data.transferName!,
-                                        tourId: data.tourId!,
-                                        optionId: data.tourOptionId!,
-                                        adult: optionsStatic
-                                            .adultsSelectedValue.value,
-                                        child: optionsStatic
-                                            .childrenSelectedValue.value,
-                                        infant: optionsStatic
-                                            .infantsSelectedValue.value,
-                                        tourDate: optionsStatic
-                                            .selectedDate.value
-                                            .toString()
-                                            .substring(0, 10),
-                                        timeSlotId: optionsStatic
-                                            .timeSlotId.value,
-                                        startTime: data.startTime!,
-                                        transferId: data.transferId!,
-                                        adultRate: data.adultPrice!.toDouble(),
-                                        childRate: data
-                                                .childPrice
-                                                ?.toDouble() ??
-                                            0.0,
-                                        serviceTotal: ((output1[index]
-                                                    .finalAmount ??
-                                                0) +
-                                            (optionsStatic.pricing.value
-                                                    .addPriceAdult ??
-                                                0) +
-                                            (optionsStatic.pricing.value
-                                                    .addPriceChildren ??
-                                                0) +
-                                            (optionsStatic.pricing.value
-                                                    .additionalPriceInfant ??
-                                                0)),
-                                        cartId: controller.cartId.value);
-                                    print(("${controller.cartId.value} Hello"));
+                              }), //
 
-                                    optionsStatic.Addtocart(value);
-                                    print(value.toJson());
-                                  },
+                              TimeDropdownWidget(timeSlotList: output2,),// SizedBox(
+
+                             Flexible(
+                                  flex: 1,
+                                  child:  InlineFlexButton(
+                                      vpadding: 20,
+                                      hpadding: 30,
+                                      bgcolor: colorblue,
+                                      label: 'Add To Cart',
+                                      onPressed: () async {
+                                        final data = output1[index];
+                                        var value = UpdateCartTourDetail(
+                                            tourname: tourname,
+                                            tourOption: data.transferName!,
+                                            tourId: data.tourId!,
+                                            optionId: data.tourOptionId!,
+                                            adult: optionsStatic
+                                                .adultsSelectedValue.value,
+                                            child: optionsStatic
+                                                .childrenSelectedValue.value,
+                                            infant: optionsStatic
+                                                .infantsSelectedValue.value,
+                                            tourDate: optionsStatic
+                                                .selectedDate.value
+                                                .toString()
+                                                .substring(0, 10),
+                                            timeSlotId: optionsStatic
+                                                .selectedTimeSlotId.value,
+                                            startTime: data.startTime!,
+                                            transferId: optionsStatic.transferid.value,
+                                            adultRate: data.adultPrice!.toDouble(),
+                                            childRate: data
+                                                    .childPrice
+                                                    ?.toDouble() ??
+                                                0.0,
+                                            serviceTotal: ((output1[index]
+                                                        .finalAmount ??
+                                                    0) +
+                                                (optionsStatic.pricing.value
+                                                        .addPriceAdult ??
+                                                    0) +
+                                                (optionsStatic.pricing.value
+                                                        .addPriceChildren ??
+                                                    0) +
+                                                (optionsStatic.pricing.value
+                                                        .additionalPriceInfant ??
+                                                    0)),
+                                            cartId: controller.cartId.value);
+                                        print(("${controller.cartId.value} Hello"));
+
+                                        optionsStatic.Addtocart(value);
+                                        print(value.toJson());
+                                      },
+                                    ),
+
                                 ),
-                              )
+
                             ],
                           ),
                         ],

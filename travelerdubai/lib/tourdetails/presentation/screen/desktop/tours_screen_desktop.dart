@@ -240,7 +240,7 @@ class TourPageDesktop extends StatelessWidget {
       print('transferOptionMap is$transferOptionsMap');
     }
     return Obx(() {
-      static.dummyId = 'abc'.obs;
+      //static.dummyId = 'abc'.obs;
 
       return Card(
         elevation: 25.0,
@@ -305,8 +305,10 @@ class TourPageDesktop extends StatelessWidget {
                       //   static.selectedTransfer.value = value!;
                       //
                       // },
-                      onChanged: (value) =>
-                          static.changeSelectedTransfer(value),
+                      onChanged: (value) {
+                        static.changeSelectedTransfer(value);
+                        static.gettimeSlots();
+                      },
                       items: transferOptionsMap.keys.toList(),
                     ),
                   ],
