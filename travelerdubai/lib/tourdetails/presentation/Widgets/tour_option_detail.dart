@@ -17,11 +17,9 @@ Widget options(String tourname) {
     if (kDebugMode) {
       print('output state is ${output.state}');
     }
-
     var output1 = optionsStatic.dynamicoptions.toList();
-
     if (kDebugMode) {
-      print('output1 is${output1.toString()}');
+      print('output1 is ${output1.toString()}');
     }
 
     switch (output.state) {
@@ -142,6 +140,7 @@ Widget options(String tourname) {
                                           .map((timeslot) => timeslot.timeSlot)
                                           .toList()
                                       : <String>['1hr', '2hr', '3hr', '4hr'];
+                                  RxString? val = lst[0].obs;
                                   return Expanded(
                                     child: Container(
                                       width: 148,
@@ -161,22 +160,25 @@ Widget options(String tourname) {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
                                         child: DropdownButtonFormField<String>(
-                                          decoration:
-                                              const InputDecoration.collapsed(
-                                                  hintText: ''),
-                                          // Initial value, you can change it according to your requirement
-                                          onChanged: (String? newValue) {
-                                            // Handle dropdown value change
-                                          },
-                                          items: lst // Your dropdown options
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        ),
+                                            decoration:
+                                                const InputDecoration.collapsed(
+                                                    hintText: ''),
+                                            // Initial value, you can change it according to your requirement
+                                            onChanged: (String? newValue) {
+                                              // Handle dropdown value change
+                                              optionsStatic.timeSlotId.value =
+                                                  int.parse(newValue ?? "0");
+                                              val.value = newValue!;
+                                            },
+                                            items: lst // Your dropdown options
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                            value: val.value),
                                       ),
                                     ),
                                   );
@@ -249,7 +251,7 @@ Widget options(String tourname) {
                         ],
                       ),
                     )
-                  : Center(
+                  : const Center(
                       child: CircularProgressIndicator(),
                     );
             },

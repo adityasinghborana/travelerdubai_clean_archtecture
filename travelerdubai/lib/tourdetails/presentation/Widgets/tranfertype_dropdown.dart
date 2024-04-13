@@ -34,7 +34,7 @@ class DropdownTransferWidget extends StatelessWidget {
         icon: const Icon(Icons.arrow_drop_down_circle_rounded),
         underline: Container(),
         borderRadius: BorderRadius.circular(10),
-        value: selectedValue,
+        value: selectedValue ?? item?[0],
         onChanged: onChanged,
         items: item
             ?.map<DropdownMenuItem<String>>(

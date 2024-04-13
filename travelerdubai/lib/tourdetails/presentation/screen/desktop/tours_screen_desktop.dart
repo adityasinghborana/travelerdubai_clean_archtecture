@@ -240,8 +240,6 @@ class TourPageDesktop extends StatelessWidget {
       print('transferOptionMap is$transferOptionsMap');
     }
     return Obx(() {
-      static.dummyId = 'abc'.obs;
-
       return Card(
         elevation: 25.0,
         child: ClipRRect(
@@ -305,8 +303,14 @@ class TourPageDesktop extends StatelessWidget {
                       //   static.selectedTransfer.value = value!;
                       //
                       // },
-                      onChanged: (value) =>
-                          static.changeSelectedTransfer(value),
+                      onChanged: (value) async {
+                        static.selectedTransfer.value = value!;
+                        print('above await');
+                        await static.gettimeSlots();
+                        print('after await');
+                        // static.options.value.state = UiState.SUCCESS;
+                        // static.getOptionsStaticData();
+                      },
                       items: transferOptionsMap.keys.toList(),
                     ),
                   ],

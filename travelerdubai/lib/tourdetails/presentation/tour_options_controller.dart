@@ -160,31 +160,37 @@ class TourOptionStaticDataController extends GetxController {
     if (kDebugMode) {
       print('in the get time slot');
     }
+
     if (kDebugMode) {
       print(
           'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
     }
-    final gettimeslotdata = await TimeSlotRequest(
-        tourId: int.tryParse(id.value)!,
-        contractId: int.tryParse(contractid.value)!,
-        travelDate: selectedDate.value.toString().substring(0, 10),
-        tourOptionId: optionid.value,
-        transferId: transferid.value);
-    getTimeSlotUseCase
-        .execute(gettimeslotdata)
-        .then((TimeSlotResponse response) {
-      if (response.result != null) {
-        timeslots.assignAll(response.result);
 
-        if (timeslots.isNotEmpty) if (kDebugMode) {
+    final gettimeslotdata = TimeSlotRequest(
+      tourId: int.tryParse(id.value)!,
+      contractId: int.tryParse(contractid.value)!,
+      travelDate: selectedDate.value.toString().substring(0, 10),
+      tourOptionId: optionid.value,
+      transferId: transferid.value,
+    );
+
+    try {
+      final response = await getTimeSlotUseCase.execute(gettimeslotdata);
+
+      timeslots.assignAll(response.result);
+
+      if (timeslots.isNotEmpty) {
+        if (kDebugMode) {
           print(timeslots.value[0].timeSlot);
         }
-      } else {
-        if (kDebugMode) {
-          print("No time Slot required");
-        }
       }
-    });
+      if (kDebugMode) {
+        print('get time slot completed');
+      }
+    } catch (e) {
+      // Handle any potential errors here
+      print('Error fetching time slots: $e');
+    }
   }
 
   void showOptionsDialog() {
