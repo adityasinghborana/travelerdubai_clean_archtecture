@@ -41,6 +41,7 @@ class TourOptionStaticDataController extends GetxController {
   var pricing = ExtractedData().obs;
   var id = "65".obs;
   var dummyId = "65".obs;
+  var dummy = 0;
   var contractid = "".obs;
   final RxList<Result> timeslots = <Result>[].obs;
 
@@ -155,7 +156,7 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-  void gettimeSlots() {
+  Future<void> gettimeSlots() async {
     if (kDebugMode) {
       print('in the get time slot');
     }
@@ -163,7 +164,7 @@ class TourOptionStaticDataController extends GetxController {
       print(
           'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
     }
-    final gettimeslotdata = TimeSlotRequest(
+    final gettimeslotdata = await TimeSlotRequest(
         tourId: int.tryParse(id.value)!,
         contractId: int.tryParse(contractid.value)!,
         travelDate: selectedDate.value.toString().substring(0, 10),
@@ -175,9 +176,13 @@ class TourOptionStaticDataController extends GetxController {
       if (response.result != null) {
         timeslots.assignAll(response.result);
 
-        if (timeslots.isNotEmpty) print(timeslots.value[0].timeSlot);
+        if (timeslots.isNotEmpty) if (kDebugMode) {
+          print(timeslots.value[0].timeSlot);
+        }
       } else {
-        print("No time Slot required");
+        if (kDebugMode) {
+          print("No time Slot required");
+        }
       }
     });
   }
@@ -242,7 +247,6 @@ class TourOptionStaticDataController extends GetxController {
     gettimeSlots();
   }
 
-
   void changeSelectedTransfer(String? newValue) {
     if (newValue != null) {
       selectedTransfer.value = newValue;
@@ -266,5 +270,4 @@ class TourOptionStaticDataController extends GetxController {
       print(transferid.value);
     }
   }
-
 }

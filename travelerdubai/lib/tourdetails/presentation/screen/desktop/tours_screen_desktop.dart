@@ -35,7 +35,6 @@ import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
   TourPageDesktop({super.key});
-
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
@@ -77,9 +76,14 @@ class TourPageDesktop extends StatelessWidget {
     if (kDebugMode) {
       print("${controller.cartId.value} hello tour detail");
     }
-    static.id.value = tourController.tour.value.TourId.toString();
-    static.contractid.value = tourController.tour.value.contractId.toString();
-    static.getOptionsStaticData();
+    ever(tourController.isLoading, (isLoading) {
+      if (!isLoading) {
+        static.id.value = tourController.tour.value.TourId.toString();
+        static.contractid.value =
+            tourController.tour.value.contractId.toString();
+        static.getOptionsStaticData();
+      }
+    });
 
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -93,8 +97,6 @@ class TourPageDesktop extends StatelessWidget {
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
-
-
             if (kDebugMode) {
               print(
                   'in the obx the options stats is ${static.options.value.state}');
@@ -209,16 +211,6 @@ class TourPageDesktop extends StatelessWidget {
                 ),
               ),
             );
-            // switch (optionsOutput) {
-            //   case UiState.LOADING:
-            //     return const CircularProgressIndicator();
-            //   case UiState.SUCCESS:
-            //     return Text('Hello');
-            //   case UiState.EMPTY:
-            //     return const Text('Empty');
-            //   case UiState.ERROR:
-            //     return const Text('Error');
-            // }
           }
         },
       ),
@@ -302,6 +294,8 @@ class TourPageDesktop extends StatelessWidget {
                           static.dateTextController.value, Get.context!, () {
                         static.changePickedDate(DateTime.parse(
                             static.dateTextController.value.text));
+
+                        static.gettimeSlots();
                       }, null);
                     }),
                     DropdownTransferWidget(

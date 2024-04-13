@@ -10,15 +10,15 @@ import '../tour_options_controller.dart';
 import 'button.dart';
 
 Widget options(String tourname) {
-  final TourOptionStaticDataController optionsstatic = Get.find();
+  final TourOptionStaticDataController optionsStatic = Get.find();
   final HeaderController controller = Get.find();
   return Obx(() {
-    var output = optionsstatic.options.value;
+    var output = optionsStatic.options.value;
     if (kDebugMode) {
       print('output state is ${output.state}');
     }
 
-    var output1 = optionsstatic.dynamicoptions.toList();
+    var output1 = optionsStatic.dynamicoptions.toList();
 
     if (kDebugMode) {
       print('output1 is${output1.toString()}');
@@ -29,23 +29,23 @@ Widget options(String tourname) {
         return Expanded(
           child: ListView.builder(
             key: UniqueKey(),
-            itemCount: optionsstatic.options.value.data?.length,
+            itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
-              int? id = optionsstatic.options.value.data?[index].tourId;
+              int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
-              // optionsstatic.optionid.value = output.data![index].tourOptionId!;
+              optionsStatic.optionid.value = output.data![index].tourOptionId!;
               if (kDebugMode) {
-                print("optionId is ${optionsstatic.optionid.value}");
+                print("optionId is ${optionsStatic.optionid.value}");
               }
               // optionsstatic.transferid.value =
               //     output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
               if (kDebugMode) {
-                print('transferId is ${optionsstatic.transferid.value}');
+                print('transferId is ${optionsStatic.transferid.value}');
               }
 
-              optionsstatic.gettimeSlots();
-              var output2 = optionsstatic.timeslots;
+              optionsStatic.gettimeSlots();
+              var output2 = optionsStatic.timeslots;
               if (kDebugMode) {
                 print('output2 is${output2.toString()}');
               }
@@ -65,14 +65,14 @@ Widget options(String tourname) {
                                   ? SizedBox(
                                       width: Get.width * 0.20,
                                       child: Text(
-                                        "${optionsstatic.options.value.data?[index].optionName}",
+                                        "${optionsStatic.options.value.data?[index].optionName}",
                                         style: bodyblack(context).copyWith(
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
                                   : const Text(''),
                               Obx(() {
-                                if (optionsstatic
+                                if (optionsStatic
                                         .dateTextController.value.text !=
                                     '') {
                                   return Flexible(
@@ -115,7 +115,7 @@ Widget options(String tourname) {
                                                               FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",
+                                                  " ${(output1[index].finalAmount ?? 0) + (optionsStatic.pricing.value.addPriceAdult ?? 0) + (optionsStatic.pricing.value.addPriceChildren ?? 0) + (optionsStatic.pricing.value.additionalPriceInfant ?? 0)}",
                                                   style: bodyblack(context)
                                                       .copyWith(
                                                           fontSize:
@@ -136,7 +136,7 @@ Widget options(String tourname) {
                                 }
                               }), // SizedBox(
                               Obx(() {
-                                if (optionsstatic.timeslots.isNotEmpty) {
+                                if (optionsStatic.timeslots.isNotEmpty) {
                                   var lst = output2.isNotEmpty
                                       ? output2
                                           .map((timeslot) => timeslot.timeSlot)
@@ -205,17 +205,17 @@ Widget options(String tourname) {
                                         tourOption: data.transferName!,
                                         tourId: data.tourId!,
                                         optionId: data.tourOptionId!,
-                                        adult: optionsstatic
+                                        adult: optionsStatic
                                             .adultsSelectedValue.value,
-                                        child: optionsstatic
+                                        child: optionsStatic
                                             .childrenSelectedValue.value,
-                                        infant: optionsstatic
+                                        infant: optionsStatic
                                             .infantsSelectedValue.value,
-                                        tourDate: optionsstatic
+                                        tourDate: optionsStatic
                                             .selectedDate.value
                                             .toString()
                                             .substring(0, 10),
-                                        timeSlotId: optionsstatic
+                                        timeSlotId: optionsStatic
                                             .timeSlotId.value,
                                         startTime: data.startTime!,
                                         transferId: data.transferId!,
@@ -227,19 +227,19 @@ Widget options(String tourname) {
                                         serviceTotal: ((output1[index]
                                                     .finalAmount ??
                                                 0) +
-                                            (optionsstatic.pricing.value
+                                            (optionsStatic.pricing.value
                                                     .addPriceAdult ??
                                                 0) +
-                                            (optionsstatic.pricing.value
+                                            (optionsStatic.pricing.value
                                                     .addPriceChildren ??
                                                 0) +
-                                            (optionsstatic.pricing.value
+                                            (optionsStatic.pricing.value
                                                     .additionalPriceInfant ??
                                                 0)),
                                         cartId: controller.cartId.value);
                                     print(("${controller.cartId.value} Hello"));
 
-                                    optionsstatic.Addtocart(value);
+                                    optionsStatic.Addtocart(value);
                                     print(value.toJson());
                                   },
                                 ),
