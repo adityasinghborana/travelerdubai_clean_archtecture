@@ -9,10 +9,13 @@ import '../../../core/controller/headercontroller.dart';
 import '../tour_options_controller.dart';
 import 'button.dart';
 
-Widget options(String tourname) {
+Widget options(String tourName) {
   final TourOptionStaticDataController optionsStatic = Get.find();
   final HeaderController controller = Get.find();
   return Obx(() {
+    if (kDebugMode) {
+      print('in the options first obx line');
+    }
     var output = optionsStatic.options.value;
     if (kDebugMode) {
       print('output state is ${output.state}');
@@ -32,21 +35,25 @@ Widget options(String tourname) {
               int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
-              optionsStatic.optionid.value = output.data![index].tourOptionId!;
+              optionsStatic.optionId.value = output.data![index].tourOptionId!;
               if (kDebugMode) {
-                print("optionId is ${optionsStatic.optionid.value}");
+                print("optionId is ${optionsStatic.optionId.value}");
               }
-              // optionsstatic.transferid.value =
-              //     output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
+              if (optionsStatic.transferId.value == 0) {
+                optionsStatic.transferId.value =
+                    output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
+              }
               if (kDebugMode) {
-                print('transferId is ${optionsStatic.transferid.value}');
+                print('transferId is ${optionsStatic.transferId.value}');
               }
-
-              optionsStatic.gettimeSlots();
-              var output2 = optionsStatic.timeslots;
-              if (kDebugMode) {
-                print('output2 is${output2.toString()}');
-              }
+              optionsStatic.getTimeSlots();
+              // var output2 = optionsStatic.timeslots.value.data!;
+              // ever(optionsStatic.timeslots, (timeSlotResult) {
+              //   output2 = optionsStatic.timeslots.value.data!;
+              //   if (kDebugMode) {
+              //     print('output2 is${output2.toString()}');
+              //   }
+              // });
 
               // List<RxBool> showChanged = List.generate(
               //     optionsstatic.options.value.data!.length,
@@ -134,59 +141,82 @@ Widget options(String tourname) {
                                 }
                               }), // SizedBox(
                               Obx(() {
-                                if (optionsStatic.timeslots.isNotEmpty) {
-                                  var lst = output2.isNotEmpty
-                                      ? output2
-                                          .map((timeslot) => timeslot.timeSlot)
-                                          .toList()
-                                      : <String>['1hr', '2hr', '3hr', '4hr'];
-                                  RxString? val = lst[0].obs;
-                                  return Expanded(
-                                    child: Container(
-                                      width: 148,
-                                      height: 40,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      decoration: ShapeDecoration(
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              width: 1,
-                                              color: Color(0xFFD9D9D9)),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                switch (optionsStatic.timeslots.value.state) {
+                                  case UiState.LOADING:
+                                    return const CircularProgressIndicator();
+                                  case UiState.SUCCESS:
+                                    {
+                                      var lst = optionsStatic
+                                              .timeslots.value.data!.isNotEmpty
+                                          ? optionsStatic.timeslots.value.data!
+                                              .map((timeslot) =>
+                                                  timeslot.timeSlot)
+                                              .toList()
+                                          : <String>[
+                                              '1hr',
+                                              '2hr',
+                                              '3hr',
+                                              '4hr'
+                                            ];
+                                      RxString? val = lst[0].obs;
+                                      return Expanded(
+                                        child: Container(
+                                          width: 148,
+                                          height: 40,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: const BorderSide(
+                                                  width: 1,
+                                                  color: Color(0xFFD9D9D9)),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: DropdownButtonFormField<
+                                                    String>(
+                                                decoration:
+                                                    const InputDecoration
+                                                        .collapsed(
+                                                        hintText: ''),
+                                                // Initial value, you can change it according to your requirement
+                                                onChanged: (String? newValue) {
+                                                  // Handle dropdown value change
+                                                  optionsStatic
+                                                          .timeSlotId.value =
+                                                      int.parse(
+                                                          newValue ?? "0");
+                                                  val.value = newValue!;
+                                                },
+                                                items:
+                                                    lst // Your dropdown options
+                                                        .map<
+                                                            DropdownMenuItem<
+                                                                String>>((String
+                                                            value) {
+                                                  return DropdownMenuItem<
+                                                      String>(
+                                                    value: value,
+                                                    child: Text(value),
+                                                  );
+                                                }).toList(),
+                                                value: val.value),
+                                          ),
                                         ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: DropdownButtonFormField<String>(
-                                            decoration:
-                                                const InputDecoration.collapsed(
-                                                    hintText: ''),
-                                            // Initial value, you can change it according to your requirement
-                                            onChanged: (String? newValue) {
-                                              // Handle dropdown value change
-                                              optionsStatic.timeSlotId.value =
-                                                  int.parse(newValue ?? "0");
-                                              val.value = newValue!;
-                                            },
-                                            items: lst // Your dropdown options
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                            value: val.value),
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  return const Flexible(
-                                    flex: 1,
-                                    child: Text("No timeslot required "),
-                                  ); // Return an empty Text widget if dateTextController is empty
+                                      );
+                                    }
+
+                                  case UiState.EMPTY:
+                                    return const Flexible(
+                                      flex: 1,
+                                      child: Text("No timeslot required "),
+                                    );
+                                  case UiState.ERROR:
+                                    return Text('Error');
                                 }
                               }), // SizedBox(
                               //   height: 300,
@@ -203,7 +233,7 @@ Widget options(String tourname) {
                                   onPressed: () async {
                                     final data = output1[index];
                                     var value = UpdateCartTourDetail(
-                                        tourname: tourname,
+                                        tourname: tourName,
                                         tourOption: data.transferName!,
                                         tourId: data.tourId!,
                                         optionId: data.tourOptionId!,

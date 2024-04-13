@@ -43,7 +43,11 @@ class TourOptionStaticDataController extends GetxController {
   var dummyId = "65".obs;
   var dummy = 0;
   var contractid = "".obs;
-  final RxList<Result> timeslots = <Result>[].obs;
+  // final RxList<Result> timeslots = <Result>[].obs;
+  final Rx<UiData<List<Result>>> timeslots = Rx(UiData<List<Result>>(
+    state: UiState.LOADING,
+    data: <Result>[],
+  ));
 
   //final RxList<TourOption> options = <TourOption>[].obs;
   final Rx<UiData<List<TourOption>>> options = Rx(UiData<List<TourOption>>(
@@ -61,8 +65,8 @@ class TourOptionStaticDataController extends GetxController {
   RxInt infantsSelectedValue = 0.obs;
   RxDouble finalPrice = 0.0.obs;
   var selectedTransfer = 'Without Transfers'.obs;
-  RxInt optionid = 0.obs;
-  RxInt transferid = 0.obs;
+  RxInt optionId = 0.obs;
+  RxInt transferId = 0.obs;
 
   Future<void> getOptionsStaticData() async {
     if (kDebugMode) {
@@ -79,7 +83,9 @@ class TourOptionStaticDataController extends GetxController {
     options.value = UiData(state: UiState.LOADING);
 
     await getOptionsStaticDataUseCase.execute(data).then((response) {
-      print('getOptionStatic Completed');
+      if (kDebugMode) {
+        print('getOptionStatic Completed');
+      }
       options.value = UiData(
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
@@ -101,7 +107,7 @@ class TourOptionStaticDataController extends GetxController {
       }
       // Handle the error as needed
     }).whenComplete(() {
-      getOptionsdynamicData();
+      getOptionsDynamicData();
 
       if (kDebugMode) {
         print('price total is ${finalPrice.value}');
@@ -109,7 +115,7 @@ class TourOptionStaticDataController extends GetxController {
     });
   }
 
-  void getOptionsdynamicData() async {
+  void getOptionsDynamicData() async {
     if (kDebugMode) {
       print("started getOptionDynamic Data function");
     }
@@ -156,32 +162,43 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-  Future<void> gettimeSlots() async {
+  Future<void> getTimeSlots() async {
     if (kDebugMode) {
       print('in the get time slot');
     }
 
     if (kDebugMode) {
       print(
-          'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
+          'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionId.value},transferId:${transferId.value}');
     }
 
-    final gettimeslotdata = TimeSlotRequest(
+    final getTimeslotData = TimeSlotRequest(
       tourId: int.tryParse(id.value)!,
       contractId: int.tryParse(contractid.value)!,
       travelDate: selectedDate.value.toString().substring(0, 10),
-      tourOptionId: optionid.value,
-      transferId: transferid.value,
+      tourOptionId: optionId.value,
+      transferId: transferId.value,
     );
 
     try {
-      final response = await getTimeSlotUseCase.execute(gettimeslotdata);
+      final response = await getTimeSlotUseCase.execute(getTimeslotData);
 
-      timeslots.assignAll(response.result);
+      //timeslots.value.data!.assignAll(response.result);
+      if (response.result.isNotEmpty) {
+        timeslots.value = UiData(
+          state: UiState.SUCCESS,
+          data: response.result,
+        );
+      } else {
+        timeslots.value = UiData(
+          state: UiState.EMPTY,
+          data: response.result,
+        );
+      }
 
-      if (timeslots.isNotEmpty) {
+      if (timeslots.value.data!.isNotEmpty) {
         if (kDebugMode) {
-          print(timeslots.value[0].timeSlot);
+          print(timeslots.value.data![0].timeSlot);
         }
       }
       if (kDebugMode) {
@@ -249,8 +266,8 @@ class TourOptionStaticDataController extends GetxController {
     selectedDate.value = selecteddate;
     dateTextController.value.text =
         selectedDate.value.toString().substring(0, 10);
-    getOptionsdynamicData();
-    gettimeSlots();
+    getOptionsDynamicData();
+    getTimeSlots();
   }
 
   void changeSelectedTransfer(String? newValue) {
@@ -260,20 +277,20 @@ class TourOptionStaticDataController extends GetxController {
 
       switch (newValue) {
         case "Without Transfers":
-          transferid.value = 41865;
+          transferId.value = 41865;
           break;
         case "Sharing Transfers":
-          transferid.value = 41843;
+          transferId.value = 41843;
           break;
         case "Private Transfers":
-          transferid.value = 41844;
+          transferId.value = 41844;
           break;
 
           break;
         default:
           print("Invalid transfer type");
       }
-      print(transferid.value);
+      print(transferId.value);
     }
   }
 }

@@ -100,8 +100,8 @@ class FormsMobile extends StatelessWidget {
               static.selectedDate.value =
                   DateTime.parse(static.dateTextController.value.text);
 
-              static.getOptionsdynamicData();
-              static.gettimeSlots();
+              static.getOptionsDynamicData();
+              static.getTimeSlots();
             }, MediaQuery.of(context).size.width),
           ),
           const Padding(
@@ -152,20 +152,20 @@ class FormsMobile extends StatelessWidget {
                       int? id = static.options.value.data?[index].tourId;
                       int tourIdIndex =
                           output1.indexWhere((element) => element.tourId == id);
-                      static.optionid.value =
+                      static.optionId.value =
                           outputstate.data![index].tourOptionId!;
                       if (kDebugMode) {
-                        print("optionId is ${static.optionid.value}");
+                        print("optionId is ${static.optionId.value}");
                       }
-                      static.transferid.value = output1.isNotEmpty
+                      static.transferId.value = output1.isNotEmpty
                           ? output1[tourIdIndex].transferId!
                           : 0;
                       if (kDebugMode) {
-                        print('transferId is ${static.transferid.value}');
+                        print('transferId is ${static.transferId.value}');
                       }
 
-                      static.gettimeSlots();
-                      var output2 = static.timeslots;
+                      static.getTimeSlots();
+                      var output2 = static.timeslots.value.data!;
                       if (kDebugMode) {
                         print('output2 is${output2.toString()}');
                       }
@@ -196,7 +196,7 @@ class FormsMobile extends StatelessWidget {
                                 (static.pricing.value.additionalPriceInfant ??
                                     0)),
                             Obx(() {
-                              if (static.timeslots.isNotEmpty) {
+                              if (static.timeslots.value.data!.isNotEmpty) {
                                 var lst = output2.isNotEmpty
                                     ? output2
                                         .map((timeslot) => timeslot.timeSlot)

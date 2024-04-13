@@ -48,109 +48,117 @@ class Optionpricing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    optionsdynamic.getOptionsdynamicData();
-    return optionsdynamic.dynamicoptions.isNotEmpty ? ListView.builder(
-      itemCount: optionsdynamic.dynamicoptions.length,
-      itemBuilder: (BuildContext context, int index) {
-        optionsdynamic.getOptionsdynamicData();
-        final data = optionsdynamic.dynamicoptions[index];
-        return Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Use Expanded to make sure Text widget doesn't overflow
-              Expanded(
-                child: Column(
+    optionsdynamic.getOptionsDynamicData();
+    return optionsdynamic.dynamicoptions.isNotEmpty
+        ? ListView.builder(
+            itemCount: optionsdynamic.dynamicoptions.length,
+            itemBuilder: (BuildContext context, int index) {
+              optionsdynamic.getOptionsDynamicData();
+              final data = optionsdynamic.dynamicoptions[index];
+              return Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${data.transferName}"),
-                    Text("${data.tourOptionId}"),
-                    Text(
-                      "Amount ${(optionsdynamic.pricing.value.addPriceAdult!.toDouble() + optionsdynamic.pricing.value.addPriceChildren!.toDouble() + optionsdynamic.pricing.value.additionalPriceInfant!.toDouble() + data.finalAmount!.toDouble())}",
-                    ),
-                  ],
-                ),
-              ),
-
-              // Use Expanded for the ExpansionTile and Obx
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ExpansionTile(
-                      title: Text('TimeSlots'),
-                      onExpansionChanged: (value) {
-                        // Fetch data when the expansion tile is clicked
-                        if (value) {
-                          optionsdynamic.optionid.value = data.tourOptionId!;
-                          optionsdynamic.transferid.value = data.transferId!;
-                          optionsdynamic.gettimeSlots();
-                        }
-                      },
-                      children: [
-                        Obx(
-                              () => optionsdynamic.dynamicWidgets.isEmpty
-                              ? Text('Loading...')
-                              : Column(
-                            children: optionsdynamic.dynamicWidgets,
+                    // Use Expanded to make sure Text widget doesn't overflow
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${data.transferName}"),
+                          Text("${data.tourOptionId}"),
+                          Text(
+                            "Amount ${(optionsdynamic.pricing.value.addPriceAdult!.toDouble() + optionsdynamic.pricing.value.addPriceChildren!.toDouble() + optionsdynamic.pricing.value.additionalPriceInfant!.toDouble() + data.finalAmount!.toDouble())}",
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                    Obx(() {
-                      if (controller.loggedIn.value == true) {
-                        // User is logged in
-                        return InlineFlexButton(
-                          label: "Add to Cart",
-                          onPressed: () {
-                            var value = UpdateCartTourDetail(
-                                tourname: "hello",
-                                tourOption: data.transferName!,
-                                tourId: data.tourId!,
-                                optionId: data.tourOptionId!,
-                                adult: optionsdynamic.adultsSelectedValue.value,
-                                child:
-                                optionsdynamic.childrenSelectedValue.value,
-                                infant:
-                                optionsdynamic.infantsSelectedValue.value,
-                                tourDate: optionsdynamic.selectedDate.value
-                                    .toString()
-                                    .substring(0, 10),
-                                timeSlotId: optionsdynamic.timeSlotId.value,
-                                startTime: data.startTime!,
-                                transferId: data.transferId!,
-                                adultRate: data.adultPrice!.toDouble(),
-                                childRate: data.childPrice?.toDouble() ?? 0.0,
-                                serviceTotal: data?.finalAmount ?? 0.0,
-                                cartId: controller.cartId.value);
-                            print(controller.cartId.value);
-                            print(value.tourOption);
-                            print(value.tourname);
-                            print(value.tourDate);
-                            print(value.startTime);
-                            print(value.pickup);
-                            optionsdynamic.Addtocart(value);
-                            print(value.childRate);
-                          },
-                        );
-                      } else {
-                        // User is not logged in
-                        return InlineFlexButton(
-                          label: "Login",
-                          onPressed: () {
-                            Get.toNamed('/Login');
-                          },
-                        );
-                      }
-                    }),
+
+                    // Use Expanded for the ExpansionTile and Obx
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ExpansionTile(
+                            title: Text('TimeSlots'),
+                            onExpansionChanged: (value) {
+                              // Fetch data when the expansion tile is clicked
+                              if (value) {
+                                optionsdynamic.optionId.value =
+                                    data.tourOptionId!;
+                                optionsdynamic.transferId.value =
+                                    data.transferId!;
+                                optionsdynamic.getTimeSlots();
+                              }
+                            },
+                            children: [
+                              Obx(
+                                () => optionsdynamic.dynamicWidgets.isEmpty
+                                    ? Text('Loading...')
+                                    : Column(
+                                        children: optionsdynamic.dynamicWidgets,
+                                      ),
+                              ),
+                            ],
+                          ),
+                          Obx(() {
+                            if (controller.loggedIn.value == true) {
+                              // User is logged in
+                              return InlineFlexButton(
+                                label: "Add to Cart",
+                                onPressed: () {
+                                  var value = UpdateCartTourDetail(
+                                      tourname: "hello",
+                                      tourOption: data.transferName!,
+                                      tourId: data.tourId!,
+                                      optionId: data.tourOptionId!,
+                                      adult: optionsdynamic
+                                          .adultsSelectedValue.value,
+                                      child: optionsdynamic
+                                          .childrenSelectedValue.value,
+                                      infant: optionsdynamic
+                                          .infantsSelectedValue.value,
+                                      tourDate: optionsdynamic
+                                          .selectedDate.value
+                                          .toString()
+                                          .substring(0, 10),
+                                      timeSlotId:
+                                          optionsdynamic.timeSlotId.value,
+                                      startTime: data.startTime!,
+                                      transferId: data.transferId!,
+                                      adultRate: data.adultPrice!.toDouble(),
+                                      childRate:
+                                          data.childPrice?.toDouble() ?? 0.0,
+                                      serviceTotal: data?.finalAmount ?? 0.0,
+                                      cartId: controller.cartId.value);
+                                  print(controller.cartId.value);
+                                  print(value.tourOption);
+                                  print(value.tourname);
+                                  print(value.tourDate);
+                                  print(value.startTime);
+                                  print(value.pickup);
+                                  optionsdynamic.Addtocart(value);
+                                  print(value.childRate);
+                                },
+                              );
+                            } else {
+                              // User is not logged in
+                              return InlineFlexButton(
+                                label: "Login",
+                                onPressed: () {
+                                  Get.toNamed('/Login');
+                                },
+                              );
+                            }
+                          }),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        );
-      },
-    ): Text("No Options Available");
+              );
+            },
+          )
+        : Text("No Options Available");
   }
 }

@@ -9,6 +9,7 @@ import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
+import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
@@ -259,21 +260,21 @@ class TourPageDesktop extends StatelessWidget {
                         selectedValue: static.adultsSelectedValue.value,
                         onChanged: (value) {
                           static.adultsSelectedValue.value = value ?? 1;
-                          static.getOptionsdynamicData();
+                          static.getOptionsDynamicData();
                         })),
                     Obx(() => DropdownWidget(
                         label: 'Children',
                         selectedValue: static.childrenSelectedValue.value,
                         onChanged: (value) {
                           static.childrenSelectedValue.value = value ?? 0;
-                          static.getOptionsdynamicData();
+                          static.getOptionsDynamicData();
                         })),
                     Obx(() => DropdownWidget(
                         label: 'Infants',
                         selectedValue: static.infantsSelectedValue.value,
                         onChanged: (value) {
                           static.infantsSelectedValue.value = value ?? 0;
-                          static.getOptionsdynamicData();
+                          static.getOptionsDynamicData();
                         })),
                     // dateInputField(
                     //     static.dateTextController.value, Get.context!, () {
@@ -293,7 +294,7 @@ class TourPageDesktop extends StatelessWidget {
                         static.changePickedDate(DateTime.parse(
                             static.dateTextController.value.text));
 
-                        static.gettimeSlots();
+                        static.getTimeSlots();
                       }, null);
                     }),
                     DropdownTransferWidget(
@@ -305,9 +306,15 @@ class TourPageDesktop extends StatelessWidget {
                       // },
                       onChanged: (value) async {
                         static.selectedTransfer.value = value!;
-                        print('above await');
-                        await static.gettimeSlots();
-                        print('after await');
+                        static.transferId.value =
+                            transferOptionsMap[static.selectedTransfer.value]!;
+                        if (kDebugMode) {
+                          print(transferOptionsMap.toString());
+                        }
+                        static.timeslots.value.state = UiState.LOADING;
+                        // await static.getTimeSlots();
+                        print(
+                            'after await ${transferOptionsMap[static.selectedTransfer.value]!}');
                         // static.options.value.state = UiState.SUCCESS;
                         // static.getOptionsStaticData();
                       },
