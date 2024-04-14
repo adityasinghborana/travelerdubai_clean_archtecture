@@ -21,6 +21,7 @@ import '../../../touroption_data_layer/remote/service/touroption_remote.dart';
 import '../../../touroption_data_layer/repository/tour_option_repository.dart';
 import '../../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
 import '../../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
+import '../../Widgets/dropdown_widget.dart';
 import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
@@ -121,6 +122,57 @@ class FormsMobile extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
+              'Select Travellers',
+              style: TextStyle(
+                color: Color(0xFF828282),
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w600,
+                height: 0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Obx(() => Material(
+                      elevation: 4.0,
+                      child: DropdownWidget(
+                          label: 'Adults',
+                          selectedValue: static.adultsSelectedValue.value,
+                          onChanged: (value) {
+                            static.adultsSelectedValue.value = value ?? 1;
+                            static.getOptionsDynamicData();
+                          }),
+                    )),
+                Obx(() => Material(
+                      elevation: 4.0,
+                      child: DropdownWidget(
+                          label: 'Children',
+                          selectedValue: static.childrenSelectedValue.value,
+                          onChanged: (value) {
+                            static.childrenSelectedValue.value = value ?? 0;
+                            static.getOptionsDynamicData();
+                          }),
+                    )),
+                Obx(() => Material(
+                      elevation: 4.0,
+                      child: DropdownWidget(
+                          label: 'Infants',
+                          selectedValue: static.infantsSelectedValue.value,
+                          onChanged: (value) {
+                            static.infantsSelectedValue.value = value ?? 0;
+                            static.getOptionsDynamicData();
+                          }),
+                    )),
+              ],
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
               'Packages',
               style: TextStyle(
                 color: Color(0xFF828282),
@@ -204,7 +256,7 @@ class FormsMobile extends StatelessWidget {
                                     : <String>['1hr', '2hr', '3hr', '4hr'];
                                 return _buildTimeRow(lst);
                               } else {
-                                return Text("No timeslot required "); //
+                                return const Text("No timeslot required "); //
                               }
                             }),
                           ],
