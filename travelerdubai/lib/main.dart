@@ -116,12 +116,12 @@ class MyApp extends StatelessWidget {
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
-          // GetPage(
-          //   name: '/forms_mobile',
-          //   page: () => FormsMobile(),
-          //   transition: Transition.leftToRightWithFade,
-          //   transitionDuration: const Duration(milliseconds: 500),
-          // ),
+          GetPage(
+            name: '/forms_mobile',
+            page: () => FormsMobile(),
+            transition: Transition.leftToRightWithFade,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
           GetPage(
             name: '/events',
             page: () => Eventspage(),
