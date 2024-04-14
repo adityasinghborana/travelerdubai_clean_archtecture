@@ -274,20 +274,9 @@ class TourPageDesktop extends StatelessWidget {
                         selectedValue: static.infantsSelectedValue.value,
                         onChanged: (value) {
                           static.infantsSelectedValue.value = value ?? 0;
-                          static.getOptionsDynamicData();
+                        //  static.getOptionsDynamicData();
                         })),
-                    // dateInputField(
-                    //     static.dateTextController.value, Get.context!, () {
-                    //   static.selectedDate.value = DateTime.parse(static
-                    //       .dateTextController.value
-                    //       .toString()
-                    //       .substring(0, 10));
-                    //   static.dateTextController.value.text =
-                    //       static.selectedDate.value.toString();
-                    //   static.getOptionsdynamicData();
-                    //   static.dummyId = ''.obs;
-                    //   static.gettimeSlots();
-                    // }, null),
+
                     Obx(() {
                       return dateInputField(
                           static.dateTextController.value, Get.context!, () {
@@ -304,19 +293,8 @@ class TourPageDesktop extends StatelessWidget {
                       //   static.selectedTransfer.value = value!;
                       //
                       // },
-                      onChanged: (value) async {
-                        static.selectedTransfer.value = value!;
-                        static.transferId.value =
-                            transferOptionsMap[static.selectedTransfer.value]!;
-                        if (kDebugMode) {
-                          print(transferOptionsMap.toString());
-                        }
-                        //static.timeslots.value.state = UiState.LOADING;
-                        // await static.getTimeSlots();
-                        print(
-                            'after await ${transferOptionsMap[static.selectedTransfer.value]!}');
-                        // static.options.value.state = UiState.SUCCESS;
-                        // static.getOptionsStaticData();
+                      onChanged: (value) {
+                       static.changeSelectedTransfer(value);
                       },
                       items: transferOptionsMap.keys.toList(),
                     ),

@@ -10,7 +10,10 @@ import '../tour_options_controller.dart';
 import 'button.dart';
 
 Widget options(String tourName) {
+
   final TourOptionStaticDataController optionsStatic = Get.find();
+
+
   final HeaderController controller = Get.find();
   return Obx(() {
     if (kDebugMode) {
@@ -26,12 +29,16 @@ Widget options(String tourName) {
     }
 
     switch (output.state) {
+
       case UiState.SUCCESS:
         return Expanded(
           child: ListView.builder(
             key: UniqueKey(),
             itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
+              optionsStatic.timeslots.clear();
+              optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
+
               int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
@@ -46,7 +53,7 @@ Widget options(String tourName) {
               if (kDebugMode) {
                 print('transferId is ${optionsStatic.transferId.value}');
               }
-              optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
+
               // var output2 = optionsStatic.timeslots.value.data!;
               // ever(optionsStatic.timeslots, (timeSlotResult) {
               //   output2 = optionsStatic.timeslots.value.data!;
@@ -142,8 +149,9 @@ Widget options(String tourName) {
                               }), // SizedBox(
                               Obx(() {
 
+
                                 var optionsSize=optionsStatic.timeslots.value.length;
-                                if (index>=optionsSize){
+                                if (index>=optionsSize  ){
                                   return Text("Time Slot not avialable");
                                 }
                                 var lst = optionsStatic
@@ -209,22 +217,6 @@ Widget options(String tourName) {
                                     ),
                                   ),
                                 );
-                                // switch (optionsStatic.timeslots.value) {
-                                //   case UiState.LOADING:
-                                //     return const CircularProgressIndicator();
-                                //   case UiState.SUCCESS:
-                                //     {
-                                //
-                                //     }
-                                //
-                                //   case UiState.EMPTY:
-                                //     return const Flexible(
-                                //       flex: 1,
-                                //       child: Text("No timeslot required "),
-                                //     );
-                                //   case UiState.ERROR:
-                                //     return Text('Error');
-                                // }
                               }), // SizedBox(
                               //   height: 300,
                               //   width: 450,

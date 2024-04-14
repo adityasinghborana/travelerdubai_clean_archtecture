@@ -66,7 +66,8 @@ class TourOptionStaticDataController extends GetxController {
   RxInt transferId = 0.obs;
 
   Future<void> getOptionsStaticData() async {
-    timeslots.clear();
+    timeslots.value.clear();
+
     if (kDebugMode) {
       print('in the getOptionsStatic data');
     }
@@ -88,6 +89,7 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
+      timeslots.clear();
       if (kDebugMode) {
         print('options state in the function is: ${options.value.state}');
       }
@@ -114,6 +116,7 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void getOptionsDynamicData() async {
+
     if (kDebugMode) {
       print("started getOptionDynamic Data function");
     }
@@ -161,6 +164,7 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void getTimeSlots( int singleOptionId) async  {
+
     if (kDebugMode) {
       print('in the get time slot');
     }
@@ -236,10 +240,11 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void changePickedDate(selecteddate) {
+
     selectedDate.value = selecteddate;
     dateTextController.value.text =
         selectedDate.value.toString().substring(0, 10);
-    getOptionsDynamicData();
+    getOptionsStaticData();
    // getTimeSlots();
   }
 
