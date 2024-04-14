@@ -25,6 +25,7 @@ import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
   FormsMobile({Key? key}) : super(key: key);
+
   // final TourController tourController = Get.put(TourController(
   //   GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   // ));
@@ -101,7 +102,7 @@ class FormsMobile extends StatelessWidget {
                   DateTime.parse(static.dateTextController.value.text);
 
               static.getOptionsDynamicData();
-              static.getTimeSlots();
+              // static.getTimeSlots();
             }, MediaQuery.of(context).size.width),
           ),
           const Padding(
@@ -164,8 +165,8 @@ class FormsMobile extends StatelessWidget {
                         print('transferId is ${static.transferId.value}');
                       }
 
-                      static.getTimeSlots();
-                      var output2 = static.timeslots.value.data!;
+                      // static.getTimeSlots();
+                      var output2 = static.timeslots.value;
                       if (kDebugMode) {
                         print('output2 is${output2.toString()}');
                       }
@@ -196,16 +197,18 @@ class FormsMobile extends StatelessWidget {
                                 (static.pricing.value.additionalPriceInfant ??
                                     0)),
                             Obx(() {
-                              if (static.timeslots.value.data!.isNotEmpty) {
-                                var lst = output2.isNotEmpty
-                                    ? output2
-                                        .map((timeslot) => timeslot.timeSlot)
-                                        .toList()
-                                    : <String>['1hr', '2hr', '3hr', '4hr'];
-                                return _buildTimeRow(lst);
-                              } else {
-                                return Text("No timeslot required "); //
+                              var optionsSize = static.timeslots.value.length;
+                              if (index >= optionsSize) {
+                                return Text("Time Slot not avialable");
                               }
+
+                              var lst = static.timeslots.value.isNotEmpty
+                                  ? static.timeslots.value[index]
+                                      .map((timeslot) => timeslot.timeSlot)
+                                      .toList()
+                                  : <String>['1hr', '2hr', '3hr', '4hr'];
+                              // RxString? val = lst[0].obs;
+                              return _buildTimeRow(lst);
                             }),
                           ],
                         ),

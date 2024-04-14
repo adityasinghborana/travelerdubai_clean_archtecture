@@ -44,10 +44,7 @@ class TourOptionStaticDataController extends GetxController {
   var dummy = 0;
   var contractid = "".obs;
   // final RxList<Result> timeslots = <Result>[].obs;
-  final Rx<UiData<List<Result>>> timeslots = Rx(UiData<List<Result>>(
-    state: UiState.LOADING,
-    data: <Result>[],
-  ));
+  final RxList<List<Result>> timeslots = RxList<List<Result>>();
 
   //final RxList<TourOption> options = <TourOption>[].obs;
   final Rx<UiData<List<TourOption>>> options = Rx(UiData<List<TourOption>>(
@@ -69,6 +66,7 @@ class TourOptionStaticDataController extends GetxController {
   RxInt transferId = 0.obs;
 
   Future<void> getOptionsStaticData() async {
+    timeslots.clear();
     if (kDebugMode) {
       print('in the getOptionsStatic data');
     }
@@ -162,7 +160,7 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-  Future<void> getTimeSlots() async {
+  void getTimeSlots( int singleOptionId) async  {
     if (kDebugMode) {
       print('in the get time slot');
     }
@@ -176,31 +174,29 @@ class TourOptionStaticDataController extends GetxController {
       tourId: int.tryParse(id.value)!,
       contractId: int.tryParse(contractid.value)!,
       travelDate: selectedDate.value.toString().substring(0, 10),
-      tourOptionId: optionId.value,
+      tourOptionId: singleOptionId,
       transferId: transferId.value,
     );
 
     try {
-      final response = await getTimeSlotUseCase.execute(getTimeslotData);
+
+     final response = await getTimeSlotUseCase.execute(getTimeslotData);
 
       //timeslots.value.data!.assignAll(response.result);
       if (response.result.isNotEmpty) {
-        timeslots.value = UiData(
-          state: UiState.SUCCESS,
-          data: response.result,
-        );
+        timeslots.add( response.result);
       } else {
-        timeslots.value = UiData(
-          state: UiState.EMPTY,
-          data: response.result,
-        );
+        // timeslots.value = UiData(
+        //   state: UiState.EMPTY,
+        //   data: response.result,
+        // );
       }
 
-      if (timeslots.value.data!.isNotEmpty) {
-        if (kDebugMode) {
-          print(timeslots.value.data![0].timeSlot);
-        }
-      }
+      // if (timeslots.value.data!.isNotEmpty) {
+      //   if (kDebugMode) {
+      //     print(timeslots.value.data![0].timeSlot);
+      //   }
+      // }
       if (kDebugMode) {
         print('get time slot completed');
       }
@@ -210,29 +206,6 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-  void showOptionsDialog() {
-    Get.defaultDialog(
-      title: "Options",
-      content: SizedBox(
-        height: Get.height * 0.80,
-        width: Get.width * 0.80,
-        child: Column(
-          children: [
-            SizedBox(
-              height: Get.height * 0.75,
-              child: Optionpricing(),
-            ),
-          ],
-        ),
-      ),
-      confirm: ElevatedButton(
-        onPressed: () {
-          Get.back(); // Close the dialog
-        },
-        child: const Text("Go Back"),
-      ),
-    );
-  }
 
   void Addtocart(UpdateCartTourDetail data) async {
     try {
@@ -267,7 +240,7 @@ class TourOptionStaticDataController extends GetxController {
     dateTextController.value.text =
         selectedDate.value.toString().substring(0, 10);
     getOptionsDynamicData();
-    getTimeSlots();
+   // getTimeSlots();
   }
 
   void changeSelectedTransfer(String? newValue) {
@@ -293,4 +266,6 @@ class TourOptionStaticDataController extends GetxController {
       print(transferId.value);
     }
   }
+
+
 }

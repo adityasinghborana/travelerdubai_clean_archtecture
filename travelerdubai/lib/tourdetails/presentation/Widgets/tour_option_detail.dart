@@ -46,7 +46,7 @@ Widget options(String tourName) {
               if (kDebugMode) {
                 print('transferId is ${optionsStatic.transferId.value}');
               }
-              optionsStatic.getTimeSlots();
+              optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
               // var output2 = optionsStatic.timeslots.value.data!;
               // ever(optionsStatic.timeslots, (timeSlotResult) {
               //   output2 = optionsStatic.timeslots.value.data!;
@@ -141,83 +141,90 @@ Widget options(String tourName) {
                                 }
                               }), // SizedBox(
                               Obx(() {
-                                switch (optionsStatic.timeslots.value.state) {
-                                  case UiState.LOADING:
-                                    return const CircularProgressIndicator();
-                                  case UiState.SUCCESS:
-                                    {
-                                      var lst = optionsStatic
-                                              .timeslots.value.data!.isNotEmpty
-                                          ? optionsStatic.timeslots.value.data!
-                                              .map((timeslot) =>
-                                                  timeslot.timeSlot)
-                                              .toList()
-                                          : <String>[
-                                              '1hr',
-                                              '2hr',
-                                              '3hr',
-                                              '4hr'
-                                            ];
-                                      RxString? val = lst[0].obs;
-                                      return Expanded(
-                                        child: Container(
-                                          width: 148,
-                                          height: 40,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0),
-                                          decoration: ShapeDecoration(
-                                            shape: RoundedRectangleBorder(
-                                              side: const BorderSide(
-                                                  width: 1,
-                                                  color: Color(0xFFD9D9D9)),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
-                                            child: DropdownButtonFormField<
-                                                    String>(
-                                                decoration:
-                                                    const InputDecoration
-                                                        .collapsed(
-                                                        hintText: ''),
-                                                // Initial value, you can change it according to your requirement
-                                                onChanged: (String? newValue) {
-                                                  // Handle dropdown value change
-                                                  optionsStatic
-                                                          .timeSlotId.value =
-                                                      int.parse(
-                                                          newValue ?? "0");
-                                                  val.value = newValue!;
-                                                },
-                                                items:
-                                                    lst // Your dropdown options
-                                                        .map<
-                                                            DropdownMenuItem<
-                                                                String>>((String
-                                                            value) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: value,
-                                                    child: Text(value),
-                                                  );
-                                                }).toList(),
-                                                value: val.value),
-                                          ),
-                                        ),
-                                      );
-                                    }
 
-                                  case UiState.EMPTY:
-                                    return const Flexible(
-                                      flex: 1,
-                                      child: Text("No timeslot required "),
-                                    );
-                                  case UiState.ERROR:
-                                    return Text('Error');
+                                var optionsSize=optionsStatic.timeslots.value.length;
+                                if (index>=optionsSize){
+                                  return Text("Time Slot not avialable");
                                 }
+                                var lst = optionsStatic
+                                    .timeslots.value.isNotEmpty
+                                    ? optionsStatic.timeslots.value[index]
+                                    .map((timeslot) =>
+                                timeslot.timeSlot)
+                                    .toList()
+                                    : <String>[
+                                  '1hr',
+                                  '2hr',
+                                  '3hr',
+                                  '4hr'
+                                ];
+                                RxString? val = lst[0].obs;
+
+                                return Expanded(
+                                  child: Container(
+                                    width: 148,
+                                    height: 40,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
+                                            width: 1,
+                                            color: Color(0xFFD9D9D9)),
+                                        borderRadius:
+                                        BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: DropdownButtonFormField<
+                                          String>(
+                                          decoration:
+                                          const InputDecoration
+                                              .collapsed(
+                                              hintText: ''),
+                                          // Initial value, you can change it according to your requirement
+                                          onChanged: (String? newValue) {
+                                            // Handle dropdown value change
+                                            optionsStatic
+                                                .timeSlotId.value =
+                                                int.parse(
+                                                    newValue ?? "0");
+                                            val.value = newValue!;
+                                          },
+                                          items:
+                                          lst // Your dropdown options
+                                              .map<
+                                              DropdownMenuItem<
+                                                  String>>((String
+                                          value) {
+                                            return DropdownMenuItem<
+                                                String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                          value: val.value),
+                                    ),
+                                  ),
+                                );
+                                // switch (optionsStatic.timeslots.value) {
+                                //   case UiState.LOADING:
+                                //     return const CircularProgressIndicator();
+                                //   case UiState.SUCCESS:
+                                //     {
+                                //
+                                //     }
+                                //
+                                //   case UiState.EMPTY:
+                                //     return const Flexible(
+                                //       flex: 1,
+                                //       child: Text("No timeslot required "),
+                                //     );
+                                //   case UiState.ERROR:
+                                //     return Text('Error');
+                                // }
                               }), // SizedBox(
                               //   height: 300,
                               //   width: 450,

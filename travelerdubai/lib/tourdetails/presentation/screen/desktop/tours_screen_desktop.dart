@@ -294,7 +294,7 @@ class TourPageDesktop extends StatelessWidget {
                         static.changePickedDate(DateTime.parse(
                             static.dateTextController.value.text));
 
-                        static.getTimeSlots();
+                        //static.getTimeSlots();
                       }, null);
                     }),
                     DropdownTransferWidget(
@@ -311,7 +311,7 @@ class TourPageDesktop extends StatelessWidget {
                         if (kDebugMode) {
                           print(transferOptionsMap.toString());
                         }
-                        static.timeslots.value.state = UiState.LOADING;
+                        //static.timeslots.value.state = UiState.LOADING;
                         // await static.getTimeSlots();
                         print(
                             'after await ${transferOptionsMap[static.selectedTransfer.value]!}');
