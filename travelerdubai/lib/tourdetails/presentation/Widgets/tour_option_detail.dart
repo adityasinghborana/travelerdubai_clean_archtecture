@@ -10,9 +10,7 @@ import '../tour_options_controller.dart';
 import 'button.dart';
 
 Widget options(String tourName) {
-
   final TourOptionStaticDataController optionsStatic = Get.find();
-
 
   final HeaderController controller = Get.find();
   return Obx(() {
@@ -29,7 +27,6 @@ Widget options(String tourName) {
     }
 
     switch (output.state) {
-
       case UiState.SUCCESS:
         return Expanded(
           child: ListView.builder(
@@ -37,7 +34,8 @@ Widget options(String tourName) {
             itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
               optionsStatic.timeslots.clear();
-              optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
+              optionsStatic.getTimeSlots(
+                  optionsStatic.options.value.data?[index].tourOptionId ?? 0);
 
               int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
@@ -78,7 +76,7 @@ Widget options(String tourName) {
                                       width: Get.width * 0.20,
                                       child: Text(
                                         "${optionsStatic.options.value.data?[index].optionName}",
-                                        style: bodyblack(context).copyWith(
+                                        style: bodyBlack(context).copyWith(
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
@@ -95,7 +93,7 @@ Widget options(String tourName) {
                                       children: [
                                         Text(
                                           "Price",
-                                          style: bodyblack(context).copyWith(
+                                          style: bodyBlack(context).copyWith(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(
@@ -119,7 +117,7 @@ Widget options(String tourName) {
                                               children: [
                                                 Text(
                                                   "AED",
-                                                  style: bodyblack(context)
+                                                  style: bodyBlack(context)
                                                       .copyWith(
                                                           fontSize:
                                                               Get.width * 0.01,
@@ -128,7 +126,7 @@ Widget options(String tourName) {
                                                 ),
                                                 Text(
                                                   " ${(output1[index].finalAmount ?? 0) + (optionsStatic.pricing.value.addPriceAdult ?? 0) + (optionsStatic.pricing.value.addPriceChildren ?? 0) + (optionsStatic.pricing.value.additionalPriceInfant ?? 0)}",
-                                                  style: bodyblack(context)
+                                                  style: bodyBlack(context)
                                                       .copyWith(
                                                           fontSize:
                                                               Get.width * 0.01,
@@ -148,24 +146,17 @@ Widget options(String tourName) {
                                 }
                               }), // SizedBox(
                               Obx(() {
-
-
-                                var optionsSize=optionsStatic.timeslots.value.length;
-                                if (index>=optionsSize  ){
+                                var optionsSize =
+                                    optionsStatic.timeslots.value.length;
+                                if (index >= optionsSize) {
                                   return Text("Time Slot not avialable");
                                 }
                                 var lst = optionsStatic
-                                    .timeslots.value.isNotEmpty
+                                        .timeslots.value.isNotEmpty
                                     ? optionsStatic.timeslots.value[index]
-                                    .map((timeslot) =>
-                                timeslot.timeSlot)
-                                    .toList()
-                                    : <String>[
-                                  '1hr',
-                                  '2hr',
-                                  '3hr',
-                                  '4hr'
-                                ];
+                                        .map((timeslot) => timeslot.timeSlot)
+                                        .toList()
+                                    : <String>['1hr', '2hr', '3hr', '4hr'];
                                 RxString? val = lst[0].obs;
 
                                 return Expanded(
@@ -177,38 +168,28 @@ Widget options(String tourName) {
                                     decoration: ShapeDecoration(
                                       shape: RoundedRectangleBorder(
                                         side: const BorderSide(
-                                            width: 1,
-                                            color: Color(0xFFD9D9D9)),
-                                        borderRadius:
-                                        BorderRadius.circular(8),
+                                            width: 1, color: Color(0xFFD9D9D9)),
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 8.0),
-                                      child: DropdownButtonFormField<
-                                          String>(
+                                      child: DropdownButtonFormField<String>(
                                           decoration:
-                                          const InputDecoration
-                                              .collapsed(
-                                              hintText: ''),
+                                              const InputDecoration.collapsed(
+                                                  hintText: ''),
                                           // Initial value, you can change it according to your requirement
                                           onChanged: (String? newValue) {
                                             // Handle dropdown value change
-                                            optionsStatic
-                                                .timeSlotId.value =
-                                                int.parse(
-                                                    newValue ?? "0");
+                                            optionsStatic.timeSlotId.value =
+                                                int.parse(newValue ?? "0");
                                             val.value = newValue!;
                                           },
-                                          items:
-                                          lst // Your dropdown options
-                                              .map<
-                                              DropdownMenuItem<
-                                                  String>>((String
-                                          value) {
-                                            return DropdownMenuItem<
-                                                String>(
+                                          items: lst // Your dropdown options
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
                                               value: value,
                                               child: Text(value),
                                             );

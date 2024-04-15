@@ -8,7 +8,9 @@ import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../../Cart/data_layer/usecase/update_cart.dart';
+import '../../../../Components/custom_button.dart';
 import '../../../../Components/date_picker.dart';
+import '../../../../Components/dropdown_widget_mobile.dart';
 import '../../../../Components/ui_state.dart';
 import '../../../../core/widgets/Mobileheader.dart';
 import '../../../timeslot_data_layer/repositories/timeslot_repository.dart';
@@ -25,7 +27,6 @@ import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
   FormsMobile({Key? key}) : super(key: key);
-
   // final TourController tourController = Get.put(TourController(
   //   GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   // ));
@@ -102,7 +103,7 @@ class FormsMobile extends StatelessWidget {
                   DateTime.parse(static.dateTextController.value.text);
 
               static.getOptionsDynamicData();
-              // static.getTimeSlots();
+              static.getTimeSlots(static.transferId.value);
             }, MediaQuery.of(context).size.width),
           ),
           const Padding(
@@ -119,6 +120,69 @@ class FormsMobile extends StatelessWidget {
             ),
           ),
           const TransferOptions(),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Select Travellers',
+              style: TextStyle(
+                color: Color(0xFF828282),
+                fontSize: 20,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w600,
+                height: 0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Obx(() => Material(
+                      elevation: 4.0,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * .28,
+                        child: DropdownWidgetMobile(
+                          label: 'Adults',
+                          selectedValue: static.adultsSelectedValue.value,
+                          onChanged: (value) {
+                            static.adultsSelectedValue.value = value ?? 1;
+                            static.getOptionsDynamicData();
+                          },
+                        ),
+                      ),
+                    )),
+                Obx(() => Material(
+                      elevation: 4.0,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * .28,
+                        child: DropdownWidgetMobile(
+                          label: 'Children',
+                          selectedValue: static.childrenSelectedValue.value,
+                          onChanged: (value) {
+                            static.childrenSelectedValue.value = value ?? 0;
+                            static.getOptionsDynamicData();
+                          },
+                        ),
+                      ),
+                    )),
+                Obx(() => Material(
+                      elevation: 4.0,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * .28,
+                        child: DropdownWidgetMobile(
+                          label: 'Infants',
+                          selectedValue: static.infantsSelectedValue.value,
+                          onChanged: (value) {
+                            static.infantsSelectedValue.value = value ?? 0;
+                            static.getOptionsDynamicData();
+                          },
+                        ),
+                      ),
+                    )),
+              ],
+            ),
+          ),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
@@ -165,7 +229,7 @@ class FormsMobile extends StatelessWidget {
                         print('transferId is ${static.transferId.value}');
                       }
 
-                      // static.getTimeSlots();
+                      static.getTimeSlots(static.transferId.value);
                       var output2 = static.timeslots.value;
                       if (kDebugMode) {
                         print('output2 is${output2.toString()}');
@@ -197,19 +261,16 @@ class FormsMobile extends StatelessWidget {
                                 (static.pricing.value.additionalPriceInfant ??
                                     0)),
                             Obx(() {
-                              var optionsSize = static.timeslots.value.length;
-                              if (index >= optionsSize) {
-                                return Text("Time Slot not avialable");
+                              if (static.timeslots.isNotEmpty) {
+                                var lst = static.timeslots.isNotEmpty
+                                    ? static.timeslots
+                                    : <String>['1hr', '2hr', '3hr', '4hr'];
+                                return _buildTimeRow(lst);
+                              } else {
+                                return const Text("No timeslot required "); //
                               }
-
-                              var lst = static.timeslots.value.isNotEmpty
-                                  ? static.timeslots.value[index]
-                                      .map((timeslot) => timeslot.timeSlot)
-                                      .toList()
-                                  : <String>['1hr', '2hr', '3hr', '4hr'];
-                              // RxString? val = lst[0].obs;
-                              return _buildTimeRow(lst);
                             }),
+                            _buildInfoAndButtonRow(),
                           ],
                         ),
                       );
@@ -272,6 +333,33 @@ class FormsMobile extends StatelessWidget {
               fontWeight: FontWeight.w600,
               height: 0,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoAndButtonRow() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'More Info ',
+            style: TextStyle(
+              color: Color(0xFF828282),
+              fontSize: 16,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              height: 0,
+            ),
+          ),
+          ButtonView(
+            btnName: 'Add to Cart',
+            onButtonTap: () {
+              Get.toNamed('/popup_card');
+            },
           ),
         ],
       ),

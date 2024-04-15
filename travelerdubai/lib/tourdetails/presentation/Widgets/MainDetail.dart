@@ -15,9 +15,10 @@ class MainDetails extends StatelessWidget {
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
 
-   TextStyle? textStyle = bodyblack(Get.context!).copyWith(fontSize: 20,fontWeight: FontWeight.bold) ;
+  TextStyle? textStyle = bodyBlack(Get.context!)
+      .copyWith(fontSize: 20, fontWeight: FontWeight.bold);
 
-  MainDetails({super.key, this.textStyle  });
+  MainDetails({super.key, this.textStyle});
 
   @override
   Widget build(BuildContext context) {

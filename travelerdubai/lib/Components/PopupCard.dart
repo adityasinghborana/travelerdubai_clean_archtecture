@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PopupCard extends StatelessWidget {
-  const PopupCard({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Stack(
