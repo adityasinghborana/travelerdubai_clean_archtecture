@@ -39,10 +39,12 @@ class TourOptionStaticDataController extends GetxController {
   RxList<Widget> dynamicWidgets = <Widget>[].obs;
   final Rx<DateTime?> selectedDate = DateTime.now().obs;
   var pricing = ExtractedData().obs;
-  var id = "".obs;
+  var id = "65".obs;
+  var dummyId = "65".obs;
+  var dummy = 0;
   var contractid = "".obs;
-  final RxList<Result> timeslots = <Result>[].obs;
-  RxMap<String, dynamic> timeslotmap = <String, dynamic>{}.obs;
+  // final RxList<Result> timeslots = <Result>[].obs;
+  final RxList<List<Result>> timeslots = RxList<List<Result>>();
 
   //final RxList<TourOption> options = <TourOption>[].obs;
   final Rx<UiData<List<TourOption>>> options = Rx(UiData<List<TourOption>>(
@@ -59,34 +61,13 @@ class TourOptionStaticDataController extends GetxController {
   RxInt childrenSelectedValue = 0.obs;
   RxInt infantsSelectedValue = 0.obs;
   RxDouble finalPrice = 0.0.obs;
-  var selectedTransfer = 'Without transfer'.obs;
+  var selectedTransfer = 'Without Transfers'.obs;
+  RxInt optionId = 0.obs;
+  RxInt transferId = 0.obs;
 
-  void changeSelectedTransfer(String? newValue) {
-    if (newValue != null) {
-      selectedTransfer.value = newValue;
-    }
-  }
+  Future<void> getOptionsStaticData() async {
+    timeslots.value.clear();
 
-  void changeSelectedTimeSlot(Map<String , dynamic> newValue) {
-    if (newValue != null) {
-      selectedTimeSlotId.value = newValue['timeSlotId'];
-      print(selectedTimeSlotId.value);
-    }
-    else{
-      print("this is empty");
-    }
-  }
-
-  RxInt optionid = 0.obs;
-  RxInt transferid = 41865.obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-
-  }
-
-  void getOptionsStaticData() {
     if (kDebugMode) {
       print('in the getOptionsStatic data');
     }
@@ -100,13 +81,21 @@ class TourOptionStaticDataController extends GetxController {
         TourOptionStaticData(tourId: id.value, contractId: contractid.value);
     options.value = UiData(state: UiState.LOADING);
 
-    getOptionsStaticDataUseCase.execute(data).then((response) {
-      print('getOptionStatic Completed');
+    await getOptionsStaticDataUseCase.execute(data).then((response) {
+      if (kDebugMode) {
+        print('getOptionStatic Completed');
+      }
       options.value = UiData(
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
-      print(options.value.data?.length ?? 1111);
+      timeslots.clear();
+      if (kDebugMode) {
+        print('options state in the function is: ${options.value.state}');
+      }
+      if (kDebugMode) {
+        print(options.value.data?.length ?? 1111);
+      }
 
       // options.assignAll(response.result?.touroption?.toList() ?? []);
     }).catchError((error) {
@@ -118,17 +107,18 @@ class TourOptionStaticDataController extends GetxController {
       }
       // Handle the error as needed
     }).whenComplete(() {
-      getOptionsdynamicData();
+      getOptionsDynamicData();
 
       if (kDebugMode) {
-        print('price${finalPrice.value}');
+        print('price total is ${finalPrice.value}');
       }
     });
   }
 
-  void getOptionsdynamicData() async {
+  void getOptionsDynamicData() async {
+
     if (kDebugMode) {
-      print("started");
+      print("started getOptionDynamic Data function");
     }
     try {
       dynamicoptions.assignAll([]);
@@ -152,72 +142,79 @@ class TourOptionStaticDataController extends GetxController {
         dynamicoptions.assignAll(value.apiResponseData?.result?.toList() ?? []);
         dataList.assignAll(value.apiResponseData?.result?.toList() ?? []);
 
-        print(dataList.value.length);
+        if (kDebugMode) {
+          print(dataList.length);
+        }
         pricing.value = value.extractedData!;
         getTransfersOptions();
       });
-      print(response);
+      if (kDebugMode) {
+        print(response);
+      }
       // showOptionsDialog();
     } catch (error, stackTrace) {
-      print("Error: $error");
-      print("Stack Trace: $stackTrace");
+      if (kDebugMode) {
+        print("Error in the getOptionsDynamic data: $error");
+      }
+      if (kDebugMode) {
+        print("Stack Trace: $stackTrace");
+      }
       // Handle the error as needed
     }
   }
 
-  void gettimeSlots() {
-    print('in the get time slot');
-    print(
-        'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionid.value},transferId:${transferid.value}');
-    final gettimeslotdata = TimeSlotRequest(
-        tourId: int.tryParse(id.value)!,
-        contractId: int.tryParse(contractid.value)!,
-        travelDate: selectedDate.value.toString().substring(0, 10),
-        tourOptionId: optionid.value,
-        transferId: transferid.value);
-    getTimeSlotUseCase
-        .execute(gettimeslotdata)
-        .then((TimeSlotResponse response) {
-      if (response.result != null) {
-        timeslots.assignAll(response.result);
+  void getTimeSlots( int singleOptionId) async  {
 
-        if (timeslots.isNotEmpty) print(timeslots.value[0].timeSlot);
-      } else {
-        print("No time Slot required");
-      }
-    });
-  }
+    if (kDebugMode) {
+      print('in the get time slot');
+    }
 
-  void showStaticOptionsDetailsDialog() {
-    Get.defaultDialog(
-      title: "Options",
-      content: SizedBox(
-        height: Get.height * 0.80,
-        width: Get.width * 0.80,
-        child: Column(
-          children: [
-            SizedBox(
-              height: Get.height * 0.75,
-              child: Optionpricing(),
-            ),
-          ],
-        ),
-      ),
-      confirm: ElevatedButton(
-        onPressed: () {
-          Get.back(); // Close the dialog
-        },
-        child: Text("Go Back"),
-      ),
+    if (kDebugMode) {
+      print(
+          'tourId:$id, contractId:${contractid.value}, travelData:${selectedDate.value}, tourOptionId:${optionId.value},transferId:${transferId.value}');
+    }
+
+    final getTimeslotData = TimeSlotRequest(
+      tourId: int.tryParse(id.value)!,
+      contractId: int.tryParse(contractid.value)!,
+      travelDate: selectedDate.value.toString().substring(0, 10),
+      tourOptionId: singleOptionId,
+      transferId: transferId.value,
     );
+
+    try {
+
+     final response = await getTimeSlotUseCase.execute(getTimeslotData);
+
+      //timeslots.value.data!.assignAll(response.result);
+      if (response.result.isNotEmpty) {
+        timeslots.add( response.result);
+      } else {
+        // timeslots.value = UiData(
+        //   state: UiState.EMPTY,
+        //   data: response.result,
+        // );
+      }
+
+      // if (timeslots.value.data!.isNotEmpty) {
+      //   if (kDebugMode) {
+      //     print(timeslots.value.data![0].timeSlot);
+      //   }
+      // }
+      if (kDebugMode) {
+        print('get time slot completed');
+      }
+    } catch (e) {
+      // Handle any potential errors here
+      print('Error fetching time slots: $e');
+    }
   }
+
 
   void Addtocart(UpdateCartTourDetail data) async {
     try {
       final value = await updateCartUseCase.execute(data);
-      if (value != null) {
-        Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
-      }
+      Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
     } catch (e) {
       if (kDebugMode) {
         print(data);
@@ -233,4 +230,47 @@ class TourOptionStaticDataController extends GetxController {
       print(dataList.length);
     }
   }
+
+  void addUniquePair(Map<String, int> map, String key, int value) {
+    // Check if the key already exists in the map
+    if (!map.containsKey(key)) {
+      // If the key is not already in the map, add the key-value pair
+      map[key] = value;
+    }
+  }
+
+  void changePickedDate(selecteddate) {
+
+    selectedDate.value = selecteddate;
+    dateTextController.value.text =
+        selectedDate.value.toString().substring(0, 10);
+    getOptionsStaticData();
+   // getTimeSlots();
+  }
+
+  void changeSelectedTransfer(String? newValue) {
+    if (newValue != null) {
+      selectedTransfer.value = newValue;
+      print("$newValue transfer id ");
+
+      switch (newValue) {
+        case "Without Transfers":
+          transferId.value = 41865;
+          break;
+        case "Sharing Transfers":
+          transferId.value = 41843;
+          break;
+        case "Private Transfers":
+          transferId.value = 41844;
+          break;
+
+          break;
+        default:
+          print("Invalid transfer type");
+      }
+      print(transferId.value);
+    }
+  }
+
+
 }
