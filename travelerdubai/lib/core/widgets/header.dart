@@ -39,7 +39,7 @@ class Header extends StatelessWidget {
                 GetBuilder<HeaderController>(
                   builder: (headerController) {
                     var status = headerController.loggedIn.value;
-                    if (status != null && status != false) {
+                    if (status != false) {
                       return MenuLoggedin();
                     } else {
                       return Menu();

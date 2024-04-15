@@ -1,86 +1,70 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
 import '../../../Cart/data_layer/model/request/update_cart.dart';
-import '../../../Cart/data_layer/repository/cart_repository.dart';
-import '../../../Cart/data_layer/service/cart_remote.dart';
-import '../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../../core/controller/headercontroller.dart';
-import '../../timeslot_data_layer/repositories/timeslot_repository.dart';
-import '../../timeslot_data_layer/service/timslot_remote.dart';
-import '../../timeslot_data_layer/use_cases/timeslot_usecase.dart';
-import '../../touroption_data_layer/remote/service/touroption_remote.dart';
-import '../../touroption_data_layer/repository/tour_option_repository.dart';
-import '../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../tour_options_controller.dart';
 import 'button.dart';
 
-Widget options(String tourname) {
+Widget options(String tourName) {
+
+  final TourOptionStaticDataController optionsStatic = Get.find();
+
+
+  final HeaderController controller = Get.find();
   return Obx(() {
-    final TourOptionStaticDataController optionsstatic = Get.put(
-      TourOptionStaticDataController(
-          GetTourOptionsStaticDataUseCase(
-            TourOptionsRepositoryImpl(
-              TourOptionRemoteService(Dio()),
-            ),
-          ),
-          GetTourOptionsDynamicDataUseCase(
-            TourOptionsRepositoryImpl(
-              TourOptionRemoteService(Dio()),
-            ),
-          ),
-          GetTimeSlotUseCase(
-              TimeSlotRepositoryImpl(TimeSlotRemoteService(Dio()))),
-          UpdateCartUseCase(
-            CartRepositoryImpl(
-              CartRemoteService(Dio()),
-            ),
-          )),
-    );
-    final HeaderController controller = Get.find();
-    var output = optionsstatic.options.value;
-
-    var output1 = optionsstatic.dynamicoptions.toList();
-
     if (kDebugMode) {
-      print('output1 is${output1.toString()}');
+      print('in the options first obx line');
+    }
+    var output = optionsStatic.options.value;
+    if (kDebugMode) {
+      print('output state is ${output.state}');
+    }
+    var output1 = optionsStatic.dynamicoptions.toList();
+    if (kDebugMode) {
+      print('output1 is ${output1.toString()}');
     }
 
     switch (output.state) {
+
       case UiState.SUCCESS:
         return Expanded(
           child: ListView.builder(
             key: UniqueKey(),
-            itemCount: optionsstatic.options.value.data?.length,
+            itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
-              int? id = optionsstatic.options.value.data?[index].tourId;
+              optionsStatic.timeslots.clear();
+              optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
+
+              int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
                   output1.indexWhere((element) => element.tourId == id);
-              optionsstatic.optionid.value = output.data![index].tourOptionId!;
+              optionsStatic.optionId.value = output.data![index].tourOptionId!;
               if (kDebugMode) {
-                print("optionId is ${optionsstatic.optionid.value}");
+                print("optionId is ${optionsStatic.optionId.value}");
               }
-              optionsstatic.transferid.value =
-                  output1.isNotEmpty ? output1[tourIdIndex].transferId! : 41865;
-              if (kDebugMode) {
-                print('transferId is ${optionsstatic.transferid.value}');
+              if (optionsStatic.transferId.value == 0) {
+                optionsStatic.transferId.value =
+                    output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
               }
-
-              optionsstatic.gettimeSlots();
-              var output2 = optionsstatic.timeslots;
               if (kDebugMode) {
-                print('output2 is${output2.toString()}');
+                print('transferId is ${optionsStatic.transferId.value}');
               }
 
-              List<RxBool> showChanged = List.generate(
-                  optionsstatic.options.value.data!.length,
-                  (index) => false.obs);
+              // var output2 = optionsStatic.timeslots.value.data!;
+              // ever(optionsStatic.timeslots, (timeSlotResult) {
+              //   output2 = optionsStatic.timeslots.value.data!;
+              //   if (kDebugMode) {
+              //     print('output2 is${output2.toString()}');
+              //   }
+              // });
+
+              // List<RxBool> showChanged = List.generate(
+              //     optionsstatic.options.value.data!.length,
+              //     (index) => false.obs);
               return output1.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -93,14 +77,14 @@ Widget options(String tourname) {
                                   ? SizedBox(
                                       width: Get.width * 0.20,
                                       child: Text(
-                                        "${optionsstatic.options.value.data?[index].optionName}",
+                                        "${optionsStatic.options.value.data?[index].optionName}",
                                         style: bodyblack(context).copyWith(
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
                                   : const Text(''),
                               Obx(() {
-                                if (optionsstatic
+                                if (optionsStatic
                                         .dateTextController.value.text !=
                                     '') {
                                   return Flexible(
@@ -143,7 +127,7 @@ Widget options(String tourname) {
                                                               FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  " ${(output1[index].finalAmount ?? 0) + (optionsstatic.pricing.value.addPriceAdult ?? 0) + (optionsstatic.pricing.value.addPriceChildren ?? 0) + (optionsstatic.pricing.value.additionalPriceInfant ?? 0)}",
+                                                  " ${(output1[index].finalAmount ?? 0) + (optionsStatic.pricing.value.addPriceAdult ?? 0) + (optionsStatic.pricing.value.addPriceChildren ?? 0) + (optionsStatic.pricing.value.additionalPriceInfant ?? 0)}",
                                                   style: bodyblack(context)
                                                       .copyWith(
                                                           fontSize:
@@ -163,98 +147,77 @@ Widget options(String tourname) {
                                       " fetching"); // Return an empty Text widget if dateTextController is empty
                                 }
                               }), // SizedBox(
-
                               Obx(() {
-                                if (optionsstatic.timeslots.isNotEmpty) {
-                                  var lst = output2.isNotEmpty
-                                      ? output2
-                                          .map((timeslot) => {
-                                                'timeSlot':
-                                                    timeslot.timeSlot,
-                                                'timeSlotId':
-                                                    timeslot.timeSlotId
-                                              })
-                                          .toList()
-                                      : [
-                                          {
-                                            'timeSlot': '1hr',
-                                            'timeSlotId': 'id1'
-                                          },
-                                          {
-                                            'timeSlot': '2hr',
-                                            'timeSlotId': 'id2'
-                                          },
-                                          {
-                                            'timeSlot': '3hr',
-                                            'timeSlotId': 'id3'
-                                          },
-                                          {
-                                            'timeSlot': '4hr',
-                                            'timeSlotId': 'id4'
-                                          }
-                                        ];
 
-                                  return Expanded(
-                                    child: Container(
-                                      width: 148,
-                                      height: 40,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0),
-                                      decoration: ShapeDecoration(
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
+
+                                var optionsSize=optionsStatic.timeslots.value.length;
+                                if (index>=optionsSize  ){
+                                  return Text("Time Slot not avialable");
+                                }
+                                var lst = optionsStatic
+                                    .timeslots.value.isNotEmpty
+                                    ? optionsStatic.timeslots.value[index]
+                                    .map((timeslot) =>
+                                timeslot.timeSlot)
+                                    .toList()
+                                    : <String>[
+                                  '1hr',
+                                  '2hr',
+                                  '3hr',
+                                  '4hr'
+                                ];
+                                RxString? val = lst[0].obs;
+
+                                return Expanded(
+                                  child: Container(
+                                    width: 148,
+                                    height: 40,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    decoration: ShapeDecoration(
+                                      shape: RoundedRectangleBorder(
+                                        side: const BorderSide(
                                             width: 1,
-                                            color: Color(0xFFD9D9D9),
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: DropdownButtonFormField<
-                                            Map<String, dynamic>>(
-                                          decoration: InputDecoration.collapsed(
-                                            floatingLabelAlignment:
-                                                FloatingLabelAlignment.center,
-                                            hintStyle: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.grey,
-                                            ),
-                                            hintText:
-                                                "timeslots".capitalizeFirst,
-                                          ),
-                                          // Initial value, you can change it according to your requirement
-                                          onChanged:
-                                              (Map<String, dynamic>? newValue) {
-                                                optionsstatic.changeSelectedTimeSlot(newValue??{});
-
-
-                                          },
-                                          items: lst.map<
-                                                  DropdownMenuItem<
-                                                      Map<String, dynamic>>>(
-                                              (value) {
-                                            return DropdownMenuItem<
-                                                Map<String, dynamic>>(
-                                              value: value,
-                                              child: Text(value['timeSlot'] ?? "No Time Slots Available"),
-                                            );
-                                          }).toList(),
-                                        ),
+                                            color: Color(0xFFD9D9D9)),
+                                        borderRadius:
+                                        BorderRadius.circular(8),
                                       ),
                                     ),
-                                  );
-                                } else {
-                                  return const Flexible(
-                                    flex: 1,
-                                    child: Text("No timeslot required "),
-                                  );
-                                }
-                              }),
-
-                              // SizedBox(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: DropdownButtonFormField<
+                                          String>(
+                                          decoration:
+                                          const InputDecoration
+                                              .collapsed(
+                                              hintText: ''),
+                                          // Initial value, you can change it according to your requirement
+                                          onChanged: (String? newValue) {
+                                            // Handle dropdown value change
+                                            optionsStatic
+                                                .timeSlotId.value =
+                                                int.parse(
+                                                    newValue ?? "0");
+                                            val.value = newValue!;
+                                          },
+                                          items:
+                                          lst // Your dropdown options
+                                              .map<
+                                              DropdownMenuItem<
+                                                  String>>((String
+                                          value) {
+                                            return DropdownMenuItem<
+                                                String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                          value: val.value),
+                                    ),
+                                  ),
+                                );
+                              }), // SizedBox(
                               //   height: 300,
                               //   width: 450,
                               //   child: Optionpricing(),
@@ -269,22 +232,22 @@ Widget options(String tourname) {
                                   onPressed: () async {
                                     final data = output1[index];
                                     var value = UpdateCartTourDetail(
-                                        tourname: tourname,
+                                        tourname: tourName,
                                         tourOption: data.transferName!,
                                         tourId: data.tourId!,
                                         optionId: data.tourOptionId!,
-                                        adult: optionsstatic
+                                        adult: optionsStatic
                                             .adultsSelectedValue.value,
-                                        child: optionsstatic
+                                        child: optionsStatic
                                             .childrenSelectedValue.value,
-                                        infant: optionsstatic
+                                        infant: optionsStatic
                                             .infantsSelectedValue.value,
-                                        tourDate: optionsstatic
+                                        tourDate: optionsStatic
                                             .selectedDate.value
                                             .toString()
                                             .substring(0, 10),
-                                        timeSlotId: int.parse(optionsstatic
-                                            .selectedTimeSlotId.value),
+                                        timeSlotId: optionsStatic
+                                            .timeSlotId.value,
                                         startTime: data.startTime!,
                                         transferId: data.transferId!,
                                         adultRate: data.adultPrice!.toDouble(),
@@ -295,19 +258,19 @@ Widget options(String tourname) {
                                         serviceTotal: ((output1[index]
                                                     .finalAmount ??
                                                 0) +
-                                            (optionsstatic.pricing.value
+                                            (optionsStatic.pricing.value
                                                     .addPriceAdult ??
                                                 0) +
-                                            (optionsstatic.pricing.value
+                                            (optionsStatic.pricing.value
                                                     .addPriceChildren ??
                                                 0) +
-                                            (optionsstatic.pricing.value
+                                            (optionsStatic.pricing.value
                                                     .additionalPriceInfant ??
                                                 0)),
                                         cartId: controller.cartId.value);
                                     print(("${controller.cartId.value} Hello"));
 
-                                    optionsstatic.Addtocart(value);
+                                    optionsStatic.Addtocart(value);
                                     print(value.toJson());
                                   },
                                 ),
@@ -317,7 +280,7 @@ Widget options(String tourname) {
                         ],
                       ),
                     )
-                  : Center(
+                  : const Center(
                       child: CircularProgressIndicator(),
                     );
             },
