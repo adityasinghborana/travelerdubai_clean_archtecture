@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/homepage/remote/response/model/homepagedata.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
@@ -24,7 +25,7 @@ class HomeController extends GetxController {
   );
   var currentIndex = 0.obs;
   late Timer rotationTimer;
-
+  late final PageController pageController=PageController();
   HomeController(this.homePageDataUseCase);
 
   @override
@@ -35,6 +36,11 @@ class HomeController extends GetxController {
     //fetchCityT();
     //fetchImagesFromAPI();
     super.onInit();
+  }
+  @override
+  void dispose() {
+    pageController.dispose(); // Dispose of the PageController
+    super.dispose();
   }
 
   void fetchDataFromBackend() async {

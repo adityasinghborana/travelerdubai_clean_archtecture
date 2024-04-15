@@ -1,8 +1,9 @@
+import 'package:auraa_ui/aura_ui.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:modular_ui/modular_ui.dart';
+
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/Components/footer_mobile.dart';
 import 'package:travelerdubai/Components/icon_text_background.dart';
@@ -33,7 +34,7 @@ import '../../tours_controller.dart';
 
 class TourPageMobile extends StatelessWidget {
   TourPageMobile({super.key});
-
+  final PageController pageController = PageController();
   final TourOptionStaticDataController static = Get.put(
       TourOptionStaticDataController(
           GetTourOptionsStaticDataUseCase(
@@ -110,10 +111,11 @@ class TourPageMobile extends StatelessWidget {
                       children: [
                         //fixed the header issue
 
-                        MUICarousel(
+                        AuraUICarousel(
+                          
                           images: imageUrls,
                           maxWidth: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.5,
+                          height: MediaQuery.of(context).size.height * 0.5, pageController: pageController,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(

@@ -37,6 +37,13 @@
             </list>
           </value>
         </entry>
+        <entry key="auraa_ui">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/auraa_ui-1.0.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="boolean_selector">
           <value>
             <list>
@@ -576,13 +583,6 @@
             </list>
           </value>
         </entry>
-        <entry key="modular_ui">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/modular_ui-0.0.5/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="mouse_parallax">
           <value>
             <list>
@@ -1074,6 +1074,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/analyzer-6.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/args-2.4.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/async-2.11.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/auraa_ui-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/boolean_selector-2.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/browser_launcher-1.1.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/build-2.4.1/lib" />
@@ -1148,7 +1149,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/material_color_utilities-0.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/meta-1.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mime-1.0.4/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/modular_ui-0.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/mouse_parallax-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/nested-1.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/package_config-2.1.0/lib" />

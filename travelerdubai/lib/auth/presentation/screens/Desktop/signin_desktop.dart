@@ -70,7 +70,7 @@ class SigninDesktop extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      'Login to access your Rayna account',
+                      'Login to access your TravelerDubai account',
                       style: GoogleFonts.roboto(
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
@@ -182,7 +182,7 @@ class SigninDesktop extends StatelessWidget {
                       height: Get.height * .10,
                     ),
                     Image.asset(
-                      'signup_side_image.png',
+                      '../assets/images/signup_side_image.png',
                       height: Get.height * .83,
                       width: Get.width * .3227,
                     ),

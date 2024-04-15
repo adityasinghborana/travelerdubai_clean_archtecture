@@ -23,54 +23,56 @@ class ProfileInfo extends StatelessWidget {
         ),
       ),
       GetUserDetailsUseCase(
-        UserRepositoryImpl(createUserRemoteService(Dio()),),),
+        UserRepositoryImpl(
+          createUserRemoteService(Dio()),
+        ),
+      ),
     ),
   );
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       width: Get.width,
-      height: Get.height ,
+      height: Get.height,
       child: Flex(
-        
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        direction: Get.width>1000 ? Axis.horizontal:Axis.vertical,
+        direction: Get.width > 1000 ? Axis.horizontal : Axis.vertical,
         children: [
           Flexible(
-            flex: Get.width>600?2:5,
+            flex: Get.width > 600 ? 2 : 5,
             child: Obx(() {
               return accountController.isEditMode.value
                   ? EditForm() // Display edit form when in edit mode
-                  :  AccountInfo(); // Display account info by default
+                  : AccountInfo(); // Display account info by default
             }),
-      ),
+          ),
           Flexible(
-              flex:1,
+              flex: 1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-
-                    child: Obx(()=> InlineFlexButton(label: accountController.islabel.value, onPressed: () {
-
-                      accountController.toggleEditMode();}, hpadding: Get.width*0.03,vpadding: Get.height*0.02,borderwidth: 1,textcolor: colorblack,)),
+                    child: Obx(() => InlineFlexButton(
+                          label: accountController.islabel.value,
+                          onPressed: () {
+                            if (accountController.isEditMode.isTrue) {
+                              Get.snackbar("Info Saved",
+                                  "Your Account Information is Added");
+                            }
+                            accountController.toggleEditMode();
+                          },
+                          hpadding: Get.width * 0.03,
+                          vpadding: Get.height * 0.02,
+                          borderwidth: 1,
+                          textcolor: colorblack,
+                        )),
                   ),
                 ],
               ))
-         
         ],
       ),
     );
-
   }
-
-
-
 }
-
-
-

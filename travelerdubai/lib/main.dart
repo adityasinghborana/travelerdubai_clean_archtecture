@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/home',
         getPages: [
           GetPage(
-            name: '/Login',
+            name: '/login',
             page: () => SigninPage(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),

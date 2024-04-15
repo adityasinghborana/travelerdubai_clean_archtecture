@@ -1,10 +1,10 @@
 import 'dart:collection';
 
+import 'package:auraa_ui/aura_ui.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:modular_ui/modular_ui.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
@@ -35,12 +35,13 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
+
   TourPageDesktop({super.key});
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
   final HeaderController controller = Get.find();
-
+final PageController pageController = PageController();
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -117,11 +118,11 @@ class TourPageDesktop extends StatelessWidget {
                       children: [
                         //fixed the header issue
                         Header(),
-                        MUICarousel(
+                        AuraUICarousel(
                           images: imageUrls,
                           maxWidth: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.5,
-                          showButtons: false,
+                          showButtons: false, pageController: pageController,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
