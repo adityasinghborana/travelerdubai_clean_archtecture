@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/Components/footer_mobile.dart';
 import 'package:travelerdubai/Components/icon_text_background.dart';
@@ -75,7 +74,9 @@ class TourPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const MobileHeader(),
+      appBar: MobileHeader(
+        context: context,
+      ),
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
@@ -112,10 +113,10 @@ class TourPageMobile extends StatelessWidget {
                         //fixed the header issue
 
                         AuraUICarousel(
-                          
                           images: imageUrls,
                           maxWidth: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.5, pageController: pageController,
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          pageController: pageController,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(

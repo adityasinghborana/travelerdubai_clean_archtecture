@@ -43,7 +43,9 @@ class CheckoutScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MobileHeader(),
+      appBar: MobileHeader(
+        context: context,
+      ),
       body: Container(
         height: Get.height,
         width: Get.width,

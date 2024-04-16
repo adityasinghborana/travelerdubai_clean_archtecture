@@ -18,12 +18,13 @@ Widget options(String tourName) {
       print('in the options first obx line');
     }
     var output = optionsStatic.options.value;
+
     if (kDebugMode) {
       print('output state is ${output.state}');
     }
-    var output1 = optionsStatic.dynamicoptions.toList();
+    var tourOptionsDynamicList = optionsStatic.dynamicoptions.toList();
     if (kDebugMode) {
-      print('output1 is ${output1.toString()}');
+      print('tourOptionsDynamicList is ${tourOptionsDynamicList.toString()}');
     }
 
     switch (output.state) {
@@ -38,15 +39,17 @@ Widget options(String tourName) {
                   optionsStatic.options.value.data?[index].tourOptionId ?? 0);
 
               int? id = optionsStatic.options.value.data?[index].tourId;
-              int tourIdIndex =
-                  output1.indexWhere((element) => element.tourId == id);
+              int tourIdIndex = tourOptionsDynamicList
+                  .indexWhere((element) => element.tourId == id);
               optionsStatic.optionId.value = output.data![index].tourOptionId!;
               if (kDebugMode) {
                 print("optionId is ${optionsStatic.optionId.value}");
               }
               if (optionsStatic.transferId.value == 0) {
                 optionsStatic.transferId.value =
-                    output1.isNotEmpty ? output1[tourIdIndex].transferId! : 0;
+                    tourOptionsDynamicList.isNotEmpty
+                        ? tourOptionsDynamicList[tourIdIndex].transferId!
+                        : 0;
               }
               if (kDebugMode) {
                 print('transferId is ${optionsStatic.transferId.value}');
@@ -63,7 +66,7 @@ Widget options(String tourName) {
               // List<RxBool> showChanged = List.generate(
               //     optionsstatic.options.value.data!.length,
               //     (index) => false.obs);
-              return output1.isNotEmpty
+              return tourOptionsDynamicList.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Column(
@@ -125,7 +128,7 @@ Widget options(String tourName) {
                                                               FontWeight.bold),
                                                 ),
                                                 Text(
-                                                  " ${(output1[index].finalAmount ?? 0) + (optionsStatic.pricing.value.addPriceAdult ?? 0) + (optionsStatic.pricing.value.addPriceChildren ?? 0) + (optionsStatic.pricing.value.additionalPriceInfant ?? 0)}",
+                                                  " ${(tourOptionsDynamicList[index].finalAmount ?? 0) + (optionsStatic.pricing.value.addPriceAdult ?? 0) + (optionsStatic.pricing.value.addPriceChildren ?? 0) + (optionsStatic.pricing.value.additionalPriceInfant ?? 0)}",
                                                   style: bodyBlack(context)
                                                       .copyWith(
                                                           fontSize:
@@ -211,7 +214,7 @@ Widget options(String tourName) {
                                   bgcolor: colorblue,
                                   label: 'Add To Cart',
                                   onPressed: () async {
-                                    final data = output1[index];
+                                    final data = tourOptionsDynamicList[index];
                                     var value = UpdateCartTourDetail(
                                         tourname: tourName,
                                         tourOption: data.transferName!,
@@ -232,11 +235,10 @@ Widget options(String tourName) {
                                         startTime: data.startTime!,
                                         transferId: data.transferId!,
                                         adultRate: data.adultPrice!.toDouble(),
-                                        childRate: data
-                                                .childPrice
-                                                ?.toDouble() ??
+                                        childRate: data.childPrice?.toDouble() ??
                                             0.0,
-                                        serviceTotal: ((output1[index]
+                                        serviceTotal: ((tourOptionsDynamicList[
+                                                        index]
                                                     .finalAmount ??
                                                 0) +
                                             (optionsStatic.pricing.value
