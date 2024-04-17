@@ -152,7 +152,7 @@ Widget options(String tourName) {
                                 var optionsSize =
                                     optionsStatic.timeslots.value.length;
                                 if (index >= optionsSize) {
-                                  return Text("Time Slot not avialable");
+                                  return const Text("Time Slot not avialable");
                                 }
                                 var lst = optionsStatic
                                         .timeslots.value.isNotEmpty
@@ -161,6 +161,7 @@ Widget options(String tourName) {
                                         .toList()
                                     : <String>['1hr', '2hr', '3hr', '4hr'];
                                 RxString? val = lst[0].obs;
+
 
                                 return Expanded(
                                   child: Container(

@@ -92,7 +92,7 @@ class FormsMobile extends StatelessWidget {
       if (kDebugMode) {
         print('static.dynamic length is ${static.dynamicoptions.length}');
         print(
-            'in the form section optins state is ${static.options.value.state}');
+            'in the form section options state is ${static.options.value.state}');
       }
 
       if (static.dynamicoptions.isNotEmpty) {
@@ -259,7 +259,7 @@ class FormsMobile extends StatelessWidget {
                         controller: listController,
                         itemCount: outputState.data?.length ?? 0,
                         itemBuilder: (context, index) {
-                          var option = outputState.data![index];
+                          //var option = outputState.data![index];
                           static.timeslots.clear();
                           static.getTimeSlots(
                               static.options.value.data?[index].tourOptionId ??
@@ -305,18 +305,23 @@ class FormsMobile extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      _buildFormHeader(option.optionName ?? ''),
-                                      _buildPriceAndInfoRow((outputState
-                                                  .data![index].tourOptionId ??
-                                              0) +
-                                          (static.pricing.value.addPriceAdult ??
-                                              0) +
-                                          (static.pricing.value
-                                                  .addPriceChildren ??
-                                              0) +
-                                          (static.pricing.value
-                                                  .additionalPriceInfant ??
-                                              0)),
+                                      _buildFormHeader(static.options.value
+                                              .data?[index].optionName ??
+                                          ''),
+                                      _buildPriceAndInfoRow(
+                                          (tourOptionsDynamicList[
+                                                          index]
+                                                      .finalAmount ??
+                                                  0) +
+                                              (static.pricing.value
+                                                      .addPriceAdult ??
+                                                  0) +
+                                              (static.pricing.value
+                                                      .addPriceChildren ??
+                                                  0) +
+                                              (static.pricing.value
+                                                      .additionalPriceInfant ??
+                                                  0)),
                                       // Obx(() {
                                       //   if (static.timeslots.isNotEmpty) {
                                       //     var lst = static.timeslots.isNotEmpty
@@ -402,40 +407,54 @@ class FormsMobile extends StatelessWidget {
   }
 
   Widget _buildInfoAndButtonRow(BuildContext context, int index) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'More Info $index ',
-            style: const TextStyle(
-              color: Color(0xFF828282),
-              fontSize: 16,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
-              height: 0,
-            ),
+    return Obx(
+      () {
+        var lst = static.timeslots.isNotEmpty
+            ? static.timeslots[index]
+                .map((timeslot) => timeslot.timeSlot)
+                .toList()
+            : <String>['1hr', '2hr', '3hr', '4hr'];
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'More Info $index ',
+                style: const TextStyle(
+                  color: Color(0xFF828282),
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .55,
+                child: ButtonView(
+                  btnName: 'Add to Cart',
+                  bgColor: Colors.blue,
+                  onButtonTap: () {
+                    if (static.timeslots.isNotEmpty) {
+                      Get.toNamed('/popup_card', arguments: [lst, index]);
+                      // for (int i = 0; i < static.timeslots.length; i++) {
+                      //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
+                      //     print(static.timeslots.value[i][j].timeSlot);
+                      //   }
+                      // }
+                    } else {
+                      if (kDebugMode) {
+                        Get.toNamed('/popup_card',
+                            preventDuplicates: true, arguments: [lst, index]);
+                      }
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .55,
-            child: ButtonView(
-              btnName: 'Add to Cart',
-              bgColor: Colors.blue,
-              onButtonTap: () {
-                if (static.timeslots.isNotEmpty) {
-                  Get.toNamed('/popup_card', arguments: index);
-                } else {
-                  if (kDebugMode) {
-                    Get.toNamed('/popup_card',
-                        preventDuplicates: true, arguments: index);
-                  }
-                }
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 

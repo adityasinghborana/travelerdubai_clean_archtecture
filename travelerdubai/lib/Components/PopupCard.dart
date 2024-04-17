@@ -43,8 +43,11 @@ class PopupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int? index = Get.arguments as int;
+    final List<dynamic> args = Get.arguments;
+    final List<String> lst = args[0] as List<String>;
+    final int index = args[1] as int;
     print('index is $index');
+    var selectedValue = lst[0].obs;
 
     return Stack(
       children: <Widget>[
@@ -110,24 +113,46 @@ class PopupCard extends StatelessWidget {
                         )
                       ],
                     ),
-                    ListView.builder(
-                        itemCount: static.timeslots[index].length,
-                        itemBuilder: (context, i) {
-                          return Row(
-                            children: [
-                              Text(
-                                '${static.timeslots[index][i].timeSlot}11:00',
-                                style: const TextStyle(
-                                  color: Color(0xFF828282),
-                                  fontSize: 14,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .50,
+                      height: MediaQuery.of(context).size.width * .50,
+                      child: ListView.builder(
+                          itemCount: lst.length,
+                          itemBuilder: (context, i) {
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Obx(
+                                          () => Radio<String>(
+                                              value: lst[i],
+                                              groupValue: selectedValue.value,
+                                              onChanged: (value) =>
+                                                  selectedValue.value = value!),
+                                        ),
+                                        Text(
+                                          lst[i],
+                                          style: TextStyle(
+                                            color: Color(0xFF828282),
+                                            fontSize:
+                                                MediaQuery.of(context).size.width *
+                                                    .04,
+                                            fontFamily: 'Roboto',
+                                            fontWeight: FontWeight.w400,
+                                            height: 0,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              )
-                            ],
-                          );
-                        }),
+                                SizedBox(height: MediaQuery.of(context).size.width * .05,),
+                              ],
+                            );
+                          }),
+                    ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop(); // Close the popup
