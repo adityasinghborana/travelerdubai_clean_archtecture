@@ -16,38 +16,37 @@ TextStyle H1(BuildContext context) {
 
   // Define font sizes based on screen width
   if (screenWidth < 600) {
-    fontSize = screenWidth *0.056; // For smaller screens like mobile
+    fontSize = screenWidth * 0.056; // For smaller screens like mobile
   } else {
     fontSize = 35.0; // For larger screens
   }
 
   return GoogleFonts.outfit(
-      textStyle:  TextStyle(
-      letterSpacing: .5,
-      fontSize: fontSize,
-      color: colorwhite,
+      textStyle: TextStyle(
+    letterSpacing: .5,
+    fontSize: fontSize,
+    color: colorwhite,
   ));
 }
+
 TextStyle bodygrey(BuildContext context) {
   double screenWidth = MediaQuery.of(context).size.width;
   double fontSize;
 
   // Define font sizes based on screen width
   if (screenWidth < 600) {
-    fontSize = screenWidth *0.036; // For smaller screens like mobile
+    fontSize = screenWidth * 0.036; // For smaller screens like mobile
   } else {
     fontSize = 35.0; // For larger screens
   }
 
   return GoogleFonts.roboto(
-      textStyle:  TextStyle(
-        letterSpacing: .5,
-        fontSize: fontSize,
-        color: Color(0xff505050),
-      ));
+      textStyle: TextStyle(
+    letterSpacing: .5,
+    fontSize: fontSize,
+    color: Color(0xff505050),
+  ));
 }
-
-
 
 TextStyle getH2TextStyle(BuildContext context) {
   double screenWidth = MediaQuery.of(context).size.width;
@@ -55,7 +54,7 @@ TextStyle getH2TextStyle(BuildContext context) {
 
   // Define font sizes based on screen width
   if (screenWidth < 600) {
-    fontSize = screenWidth *0.056; // For smaller screens like mobile
+    fontSize = screenWidth * 0.056; // For smaller screens like mobile
   } else {
     fontSize = 35.0; // For larger screens
   }
@@ -108,29 +107,24 @@ final bodyf = GoogleFonts.outfit(
   ),
 );
 
-
-
-TextStyle bodyblack(BuildContext context) {
-double screenWidth = MediaQuery.of(context).size.width;
-double fontSize;
-
+TextStyle bodyBlack(BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double fontSize;
 // Define font sizes based on screen width
-if (screenWidth < 600) {
-fontSize = screenWidth *0.056; // For smaller screens like mobile
-} else {
-fontSize = screenWidth*0.01; // For larger screens
+  if (screenWidth < 600) {
+    fontSize = screenWidth * 0.056; // For smaller screens like mobile
+  } else {
+    fontSize = screenWidth * 0.01; // For larger screens
+  }
+
+  return GoogleFonts.outfit(
+    textStyle: TextStyle(
+      letterSpacing: .5,
+      fontSize: fontSize,
+      color: colorblack,
+    ),
+  );
 }
-
-return GoogleFonts.outfit(
-textStyle:  TextStyle(
-letterSpacing: .5,
-fontSize: fontSize,
-color: colorblack,
-),
-);
-}
-
-
 
 final iconText = GoogleFonts.roboto(
   fontSize: 14,
@@ -191,7 +185,6 @@ const color_009ab8 = Color(0xff009ab8);
 const color_1C2B38 = Color(0xff1c2b38);
 const color_1C1C1C = Color(0xff1c1c1c);
 const colorMediumBlue = Color(0xff2659C3);
-
 
 // others
 const String baseurl = "http://69.48.163.45:3000";

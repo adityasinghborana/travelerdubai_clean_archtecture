@@ -119,7 +119,7 @@ class Tourtypes extends StatelessWidget {
                                                   cityTourType,
                                                   textAlign: TextAlign.center,
                                                   style:
-                                                      bodyblack(Get.context!),
+                                                      bodyBlack(Get.context!),
                                                 ),
                                               ),
                                             ),

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
+import 'package:travelerdubai/Components/PopupCard.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
@@ -40,7 +41,6 @@ void main() async {
 
   Get.put(prefs);
   Get.put(HeaderController());
-
 
   runApp(MyApp());
 }
@@ -102,7 +102,6 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/experiences',
             page: () => Experiences(),
-
           ),
           GetPage(
             name: '/dashboardpage',
@@ -119,6 +118,12 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/forms_mobile',
             page: () => FormsMobile(),
+            transition: Transition.leftToRightWithFade,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
+          GetPage(
+            name: '/popup_card',
+            page: () => PopupCard(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
-class DropdownWidget extends StatelessWidget {
+class DropdownWidgetMobile extends StatelessWidget {
   final String label;
   final int selectedValue;
   final void Function(int?) onChanged;
 
-  const DropdownWidget({
+  const DropdownWidgetMobile({
     super.key,
     required this.label,
     required this.selectedValue,
@@ -21,11 +21,11 @@ class DropdownWidget extends StatelessWidget {
         Text(
           label,
           style: bodyBlack(context).copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+              fontWeight: FontWeight.bold,
+              fontSize: MediaQuery.of(context).size.width * .03),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(3.0),
           child: DropdownButton<int>(
             underline: Container(),
             borderRadius: BorderRadius.circular(10),
@@ -38,7 +38,12 @@ class DropdownWidget extends StatelessWidget {
                     value: value,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("$value", style: bodyBlack(context)),
+                      child: Text(
+                        "$value",
+                        style: bodyBlack(context).copyWith(
+                            fontSize:
+                                MediaQuery.of(context).size.width * 0.0230),
+                      ),
                     ),
                   ),
                 )

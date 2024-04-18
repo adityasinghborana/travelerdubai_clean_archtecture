@@ -9,7 +9,6 @@ import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
-import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
@@ -35,13 +34,12 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
-
   TourPageDesktop({super.key});
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
   final HeaderController controller = Get.find();
-final PageController pageController = PageController();
+  final PageController pageController = PageController();
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
         GetTourOptionsStaticDataUseCase(
@@ -68,13 +66,13 @@ final PageController pageController = PageController();
 
     static.dateTextController.value.text = DateTime.now()
         .add(
-      // Add a duration representing the specified number of hours.
-      Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
-    )
+          // Add a duration representing the specified number of hours.
+          Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
+        )
         .toString()
         .substring(0, 10);
     static.selectedDate.value = DateTime.now().add(
-      // Add a duration representing the specified number of hours.
+        // Add a duration representing the specified number of hours.
         Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
     if (kDebugMode) {
       print("${controller.cartId.value} hello tour detail");
@@ -95,8 +93,10 @@ final PageController pageController = PageController();
         onPressed: () => Get.toNamed("/checkout"),
       ),
       body: Obx(
-            () {
-          print('in the body obx');
+        () {
+          if (kDebugMode) {
+            print('in the body obx');
+          }
           if (tourController.isLoading.isTrue) {
             return const Center(child: CircularProgressIndicator());
           } else {
@@ -106,7 +106,7 @@ final PageController pageController = PageController();
             }
             var tourImages = tourController.tourImages;
             List<String> imageUrls =
-            tourImages.map((imageModel) => imageModel.imagePath!).toList();
+                tourImages.map((imageModel) => imageModel.imagePath!).toList();
 
             var optionsOutput = static.options.value.state;
             return SingleChildScrollView(
@@ -123,7 +123,8 @@ final PageController pageController = PageController();
                           images: imageUrls,
                           maxWidth: double.infinity,
                           height: MediaQuery.of(context).size.height * 0.5,
-                          showButtons: false, pageController: pageController,
+                          showButtons: false,
+                          pageController: pageController,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
@@ -141,7 +142,7 @@ final PageController pageController = PageController();
 
                         Padding(
                           padding:
-                          EdgeInsets.symmetric(vertical: Get.height * 0.01),
+                              EdgeInsets.symmetric(vertical: Get.height * 0.01),
                           child: Row(
                             children: [
                               Padding(
@@ -149,7 +150,7 @@ final PageController pageController = PageController();
                                     horizontal: Get.width * 0.05),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     IconTextBackground(
                                         iconData: Icons.remove_red_eye,
@@ -183,7 +184,7 @@ final PageController pageController = PageController();
                                     iconData: Icons.audiotrack,
                                     text: 'Audio Guide',
                                     backgroundColor:
-                                    const Color.fromRGBO(0, 154, 184, 0.20),
+                                        const Color.fromRGBO(0, 154, 184, 0.20),
                                     iconColor: color_088943,
                                     textStyle: iconText.copyWith(fontSize: 16)),
                               ),
@@ -195,7 +196,7 @@ final PageController pageController = PageController();
                     ),
                     Padding(
                       padding:
-                      EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
                       child: Row(
                         children: [
                           Flexible(
@@ -258,19 +259,21 @@ final PageController pageController = PageController();
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Obx(() => DropdownWidget(
-                        label: 'Adults',
-                        selectedValue: static.adultsSelectedValue.value,
-                        onChanged: (value) {
-                          static.adultsSelectedValue.value = value ?? 1;
-                          static.getOptionsDynamicData();
-                        })),
+                          label: 'Adults',
+                          selectedValue: static.adultsSelectedValue.value,
+                          onChanged: (value) {
+                            static.adultsSelectedValue.value = value ?? 1;
+                            static.getOptionsDynamicData();
+                          },
+                        )),
                     Obx(() => DropdownWidget(
-                        label: 'Children',
-                        selectedValue: static.childrenSelectedValue.value,
-                        onChanged: (value) {
-                          static.childrenSelectedValue.value = value ?? 0;
-                          static.getOptionsDynamicData();
-                        })),
+                          label: 'Children',
+                          selectedValue: static.childrenSelectedValue.value,
+                          onChanged: (value) {
+                            static.childrenSelectedValue.value = value ?? 0;
+                            static.getOptionsDynamicData();
+                          },
+                        )),
                     Obx(() => DropdownWidget(
                         label: 'Infants',
                         selectedValue: static.infantsSelectedValue.value,
@@ -278,7 +281,6 @@ final PageController pageController = PageController();
                           static.infantsSelectedValue.value = value ?? 0;
                           //  static.getOptionsDynamicData();
                         })),
-
                     Obx(() {
                       return dateInputField(
                           static.dateTextController.value, Get.context!, () {

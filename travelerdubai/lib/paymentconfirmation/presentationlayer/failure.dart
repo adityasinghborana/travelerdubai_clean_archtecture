@@ -11,7 +11,9 @@ class FailureScreen extends StatelessWidget {
     final double Height = MediaQuery.of(context).size.height;
     final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: MobileHeader(),
+      appBar: MobileHeader(
+        context: context,
+      ),
       body: Container(
         decoration: BoxDecoration(gradient: backgroundgradient),
         child: Expanded(
@@ -21,11 +23,12 @@ class FailureScreen extends StatelessWidget {
                   DeviceScreenType.desktop) {
                 return Desktop(Height, Width);
               }
-              if (sizingInformation.deviceScreenType == DeviceScreenType.mobile||
-                  sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
+              if (sizingInformation.deviceScreenType ==
+                      DeviceScreenType.mobile ||
+                  sizingInformation.deviceScreenType ==
+                      DeviceScreenType.tablet) {
                 return Mobile(Height, Width);
-              }
-              else{
+              } else {
                 return Mobile(Height, Width);
               }
             },

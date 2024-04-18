@@ -49,8 +49,9 @@ class HomePageMobile extends StatelessWidget {
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: drawer(),
-      appBar: const MobileHeader(
+      appBar: MobileHeader(
         isBackButton: false,
+        context: context,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -79,7 +80,10 @@ class HomePageMobile extends StatelessWidget {
                 width,
               ),
             ),
-            advertisement(subHeadingfontsize: 18, Headingfontsize: 28,decoration: BoxDecoration(gradient: backgroundgradient)),
+            advertisement(
+                subHeadingfontsize: 18,
+                Headingfontsize: 28,
+                decoration: BoxDecoration(gradient: backgroundgradient)),
             buildFooterMobile(),
           ],
         ),

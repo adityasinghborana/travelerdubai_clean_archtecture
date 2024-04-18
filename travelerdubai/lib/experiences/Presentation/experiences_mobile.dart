@@ -31,119 +31,110 @@ class ExperiencesMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Get.lazyPut(() => HeaderController());
 
-    String? city = Get.parameters['cityName']; // Retrieve city inside build method
+    String? city =
+        Get.parameters['cityName']; // Retrieve city inside build method
     print(city);
 
     List<Experiences> allTours = experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
         : experienceController.cityTours
-        .where((tour) => tour.cityTourType == experienceController.selectedTourType.value)
-        .toList();
+            .where((tour) =>
+                tour.cityTourType ==
+                experienceController.selectedTourType.value)
+            .toList();
 
     List<Experiences> filterCityTour = city != null
-        ? experienceController.cityTours.where((tour) => tour.cityName == city).toList()
+        ? experienceController.cityTours
+            .where((tour) => tour.cityName == city)
+            .toList()
         : []; // Handle null city
 
     var displayedTours = city != null ? filterCityTour : allTours;
 
     Get.lazyPut(() => HeaderController());
 
-
-
-
     String currentDate = DateTime.now().toString().split(' ')[0];
 
     return Scaffold(
-      appBar: MobileHeader(),
-      drawer: drawer(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-
-          Container(
-            height: Get.height*0.2,
-            child: Stack(
-            children: [
-
-
-              Image.network(
-                "https://source.unsplash.com/random",
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-
-              Container(
-                width: Get.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-
-
-                    Align(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(child: Text("Discover All Experiences", style: H1(context))),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: Get.height*0.01,),
-                    Container(
-                      width: Get.width*0.8,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: colorwhite,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.search),
-                          const SizedBox(width: 10),
-                          Flexible(
-
-                            child: TextField(
-                              controller: searchController,
-                              onChanged: (value) {
-                                experienceController
-                                    .searchCityTours(value);
-                              },
-                              decoration: const InputDecoration(
-                                hintText: 'Search',
-                                border: InputBorder.none,
-                              ),
-                            ),
+        appBar: MobileHeader(
+          context: context,
+        ),
+        drawer: drawer(),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: Get.height * 0.2,
+              child: Stack(
+                children: [
+                  Image.network(
+                    "https://source.unsplash.com/random",
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  Container(
+                    width: Get.width,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                  child: Text("Discover All Experiences",
+                                      style: H1(context))),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: Get.height * 0.01,
+                        ),
+                        Container(
+                          width: Get.width * 0.8,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: colorwhite,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.search),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: TextField(
+                                  controller: searchController,
+                                  onChanged: (value) {
+                                    experienceController.searchCityTours(value);
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintText: 'Search',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],),
-              )
-            ],
-          ),),
-
-          Container(
-            height: Get.height*.20,
-            child: TourTypesMobile(),),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: tourCardsMobile(displayedTours,city),
-          ),
-        ],
-      )
-    );
+                  )
+                ],
+              ),
+            ),
+            Container(
+              height: Get.height * .20,
+              child: TourTypesMobile(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: tourCardsMobile(displayedTours, city),
+            ),
+          ],
+        ));
   }
 }
-
-
-
-
-
-
-
-
