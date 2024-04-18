@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
+import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
 import '../Cart/data_layer/repository/cart_repository.dart';
 import '../Cart/data_layer/service/cart_remote.dart';
@@ -44,9 +45,9 @@ class PopupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<dynamic> args = Get.arguments;
-    final List<String> lst = args[0] as List<String>;
-    final int index = args[1] as int;
-    print('index is $index');
+    final List<Result> lst = args[0] as List<Result>;
+    //final int index = args[1] as int;
+    //print('index is $index');
     var selectedValue = lst[0].obs;
 
     return Stack(
@@ -125,20 +126,16 @@ class PopupCard extends StatelessWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        Obx(
-                                          () => Radio<String>(
-                                              value: lst[i],
-                                              groupValue: selectedValue.value,
-                                              onChanged: (value) =>
-                                                  selectedValue.value = value!),
+                                        Radio<String>(
+                                          value: lst[i].timeSlotId.toString(),
+                                          groupValue: selectedValue.value?.timeSlotId.toString(),
+                                          onChanged: (value) => selectedValue.value = lst[i],
                                         ),
                                         Text(
-                                          lst[i],
+                                          lst[i].timeSlot,
                                           style: TextStyle(
                                             color: Color(0xFF828282),
-                                            fontSize:
-                                                MediaQuery.of(context).size.width *
-                                                    .04,
+                                            fontSize: MediaQuery.of(context).size.width * .04,
                                             fontFamily: 'Roboto',
                                             fontWeight: FontWeight.w400,
                                             height: 0,

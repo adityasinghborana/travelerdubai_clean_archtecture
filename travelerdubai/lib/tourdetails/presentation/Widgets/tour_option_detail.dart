@@ -69,7 +69,7 @@ Widget options(String tourName) {
                                       width: Get.width * 0.20,
                                       child: Text(
                                         "${optionsStatic.options.value.data?[index].optionName}",
-                                        style: bodyblack(context).copyWith(
+                                        style: bodyBlack(context).copyWith(
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
@@ -86,7 +86,7 @@ Widget options(String tourName) {
                                       children: [
                                         Text(
                                           "Price",
-                                          style: bodyblack(context).copyWith(
+                                          style: bodyBlack(context).copyWith(
                                               fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(
@@ -110,7 +110,7 @@ Widget options(String tourName) {
                                               children: [
                                                 Text(
                                                   "AED",
-                                                  style: bodyblack(context)
+                                                  style: bodyBlack(context)
                                                       .copyWith(
                                                           fontSize:
                                                               Get.width * 0.01,
@@ -119,7 +119,7 @@ Widget options(String tourName) {
                                                 ),
                                                 Text(
                                                   " ${(output1[index].finalAmount ?? 0) + (optionsStatic.pricing.value.addPriceAdult ?? 0) + (optionsStatic.pricing.value.addPriceChildren ?? 0) + (optionsStatic.pricing.value.additionalPriceInfant ?? 0)}",
-                                                  style: bodyblack(context)
+                                                  style: bodyBlack(context)
                                                       .copyWith(
                                                           fontSize:
                                                               Get.width * 0.01,

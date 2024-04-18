@@ -332,7 +332,7 @@ class FormsMobile extends StatelessWidget {
                                       //     return const Text("No timeslot required "); //
                                       //   }
                                       // }),
-                                      _buildInfoAndButtonRow(context, index),
+                                      _buildInfoAndButtonRow(context, static.options.value.data?[index].tourOptionId  ??  0),
                                     ],
                                   ),
                                 )
@@ -406,21 +406,19 @@ class FormsMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoAndButtonRow(BuildContext context, int index) {
+  Widget _buildInfoAndButtonRow(BuildContext context, int tourOptionId) {
     return Obx(
       () {
-        var lst = static.timeslots.isNotEmpty
-            ? static.timeslots[index]
-                .map((timeslot) => timeslot.timeSlot)
-                .toList()
-            : <String>['1hr', '2hr', '3hr', '4hr'];
+        var filteredTimeSlots = static.timeslots.value
+            .firstWhere((ts) => ts[0].tourOptionId == tourOptionId, orElse: () => [])
+            .toList();
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'More Info $index ',
+                'More Info  ',
                 style: const TextStyle(
                   color: Color(0xFF828282),
                   fontSize: 16,
@@ -436,7 +434,7 @@ class FormsMobile extends StatelessWidget {
                   bgColor: Colors.blue,
                   onButtonTap: () {
                     if (static.timeslots.isNotEmpty) {
-                      Get.toNamed('/popup_card', arguments: [lst, index]);
+                      Get.toNamed('/popup_card', arguments: [filteredTimeSlots, tourOptionId]);
                       // for (int i = 0; i < static.timeslots.length; i++) {
                       //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
                       //     print(static.timeslots.value[i][j].timeSlot);
@@ -445,7 +443,7 @@ class FormsMobile extends StatelessWidget {
                     } else {
                       if (kDebugMode) {
                         Get.toNamed('/popup_card',
-                            preventDuplicates: true, arguments: [lst, index]);
+                            preventDuplicates: true, arguments: [filteredTimeSlots, tourOptionId]);
                       }
                     }
                   },
