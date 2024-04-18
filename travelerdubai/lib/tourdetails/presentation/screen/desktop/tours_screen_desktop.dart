@@ -65,6 +65,7 @@ final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
+
     static.dateTextController.value.text = DateTime.now()
         .add(
       // Add a duration representing the specified number of hours.

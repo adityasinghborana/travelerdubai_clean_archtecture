@@ -89,7 +89,7 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
-      timeslots.clear();
+
       if (kDebugMode) {
         print('options state in the function is: ${options.value.state}');
       }
@@ -270,6 +270,11 @@ class TourOptionStaticDataController extends GetxController {
       }
       print(transferId.value);
     }
+  }
+  void changeTimeSlotId(selectedValue){
+    timeSlotId.value=selectedValue;
+    print(selectedValue);
+
   }
 
 

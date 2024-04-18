@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/tourdetails/presentation/Widgets/transfer_time_dropdown.dart';
+import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
 import '../../../Cart/data_layer/model/request/update_cart.dart';
 import '../../../core/controller/headercontroller.dart';
@@ -36,7 +38,7 @@ Widget options(String tourName) {
             key: UniqueKey(),
             itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
-              optionsStatic.timeslots.clear();
+              optionsStatic.timeslots.value.clear();
               optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
 
               int? id = optionsStatic.options.value.data?[index].tourId;
@@ -54,17 +56,6 @@ Widget options(String tourName) {
                 print('transferId is ${optionsStatic.transferId.value}');
               }
 
-              // var output2 = optionsStatic.timeslots.value.data!;
-              // ever(optionsStatic.timeslots, (timeSlotResult) {
-              //   output2 = optionsStatic.timeslots.value.data!;
-              //   if (kDebugMode) {
-              //     print('output2 is${output2.toString()}');
-              //   }
-              // });
-
-              // List<RxBool> showChanged = List.generate(
-              //     optionsstatic.options.value.data!.length,
-              //     (index) => false.obs);
               return output1.isNotEmpty
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -152,72 +143,16 @@ Widget options(String tourName) {
 
                                 var optionsSize=optionsStatic.timeslots.value.length;
                                 if (index>=optionsSize  ){
-                                  return Text("Time Slot not avialable");
+                                  return Text("Time Slot not Available");
                                 }
-                                var lst = optionsStatic
-                                    .timeslots.value.isNotEmpty
-                                    ? optionsStatic.timeslots.value[index]
-                                    .map((timeslot) =>
-                                timeslot.timeSlot)
-                                    .toList()
-                                    : <String>[
-                                  '1hr',
-                                  '2hr',
-                                  '3hr',
-                                  '4hr'
-                                ];
-                                RxString? val = lst[0].obs;
+                                else{
+                                  return TimeDropdownWidget( tourOptionId: optionsStatic.options.value.data?[index].tourOptionId??0,);
+                                }
 
-                                return Expanded(
-                                  child: Container(
-                                    width: 148,
-                                    height: 40,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10.0),
-                                    decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                            width: 1,
-                                            color: Color(0xFFD9D9D9)),
-                                        borderRadius:
-                                        BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: DropdownButtonFormField<
-                                          String>(
-                                          decoration:
-                                          const InputDecoration
-                                              .collapsed(
-                                              hintText: ''),
-                                          // Initial value, you can change it according to your requirement
-                                          onChanged: (String? newValue) {
-                                            // Handle dropdown value change
-                                            optionsStatic
-                                                .timeSlotId.value =
-                                                int.parse(
-                                                    newValue ?? "0");
-                                            val.value = newValue!;
-                                          },
-                                          items:
-                                          lst // Your dropdown options
-                                              .map<
-                                              DropdownMenuItem<
-                                                  String>>((String
-                                          value) {
-                                            return DropdownMenuItem<
-                                                String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                          value: val.value),
-                                    ),
-                                  ),
-                                );
-                              }), // SizedBox(
+                              }
+
+
+                              ), // SizedBox(
                               //   height: 300,
                               //   width: 450,
                               //   child: Optionpricing(),
@@ -252,20 +187,20 @@ Widget options(String tourName) {
                                         transferId: data.transferId!,
                                         adultRate: data.adultPrice!.toDouble(),
                                         childRate: data
-                                                .childPrice
-                                                ?.toDouble() ??
+                                            .childPrice
+                                            ?.toDouble() ??
                                             0.0,
                                         serviceTotal: ((output1[index]
-                                                    .finalAmount ??
+                                            .finalAmount ??
+                                            0) +
+                                            (optionsStatic.pricing.value
+                                                .addPriceAdult ??
                                                 0) +
                                             (optionsStatic.pricing.value
-                                                    .addPriceAdult ??
+                                                .addPriceChildren ??
                                                 0) +
                                             (optionsStatic.pricing.value
-                                                    .addPriceChildren ??
-                                                0) +
-                                            (optionsStatic.pricing.value
-                                                    .additionalPriceInfant ??
+                                                .additionalPriceInfant ??
                                                 0)),
                                         cartId: controller.cartId.value);
                                     print(("${controller.cartId.value} Hello"));
@@ -274,7 +209,7 @@ Widget options(String tourName) {
                                     print(value.toJson());
                                   },
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ],
