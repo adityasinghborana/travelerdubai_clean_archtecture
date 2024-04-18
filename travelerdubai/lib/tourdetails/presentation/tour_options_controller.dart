@@ -14,6 +14,7 @@ import '../../Components/ui_state.dart';
 import '../timeslot_data_layer/models/response/timeslot_response.dart';
 import '../touroption_data_layer/model/response/tour_option_dynamic_response.dart';
 import '../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
+import 'Widgets/tour_option_pricing.dart';
 
 class TourOptionStaticDataController extends GetxController {
   final GetTimeSlotUseCase getTimeSlotUseCase;
@@ -88,7 +89,7 @@ class TourOptionStaticDataController extends GetxController {
         state: UiState.SUCCESS,
         data: response.result?.touroption?.toList() ?? [],
       );
-      timeslots.clear();
+
       if (kDebugMode) {
         print('options state in the function is: ${options.value.state}');
       }
@@ -115,6 +116,7 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void getOptionsDynamicData() async {
+
     if (kDebugMode) {
       print("started getOptionDynamic Data function");
     }
@@ -161,7 +163,8 @@ class TourOptionStaticDataController extends GetxController {
     }
   }
 
-  void getTimeSlots(int singleOptionId) async {
+  void getTimeSlots( int singleOptionId) async  {
+
     if (kDebugMode) {
       print('in the get time slot');
     }
@@ -180,11 +183,12 @@ class TourOptionStaticDataController extends GetxController {
     );
 
     try {
-      final response = await getTimeSlotUseCase.execute(getTimeslotData);
+
+     final response = await getTimeSlotUseCase.execute(getTimeslotData);
 
       //timeslots.value.data!.assignAll(response.result);
       if (response.result.isNotEmpty) {
-        timeslots.add(response.result);
+        timeslots.add( response.result);
       } else {
         // timeslots.value = UiData(
         //   state: UiState.EMPTY,
@@ -205,6 +209,7 @@ class TourOptionStaticDataController extends GetxController {
       print('Error fetching time slots: $e');
     }
   }
+
 
   void Addtocart(UpdateCartTourDetail data) async {
     try {
@@ -235,11 +240,12 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void changePickedDate(selecteddate) {
+
     selectedDate.value = selecteddate;
     dateTextController.value.text =
         selectedDate.value.toString().substring(0, 10);
     getOptionsStaticData();
-    // getTimeSlots();
+   // getTimeSlots();
   }
 
   void changeSelectedTransfer(String? newValue) {
@@ -265,4 +271,11 @@ class TourOptionStaticDataController extends GetxController {
       print(transferId.value);
     }
   }
+  void changeTimeSlotId(selectedValue){
+    timeSlotId.value=selectedValue;
+    print(selectedValue);
+
+  }
+
+
 }
