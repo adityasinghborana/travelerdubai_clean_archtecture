@@ -88,8 +88,8 @@ class HeroImageWidget extends StatelessWidget {
                       ),
                       InlineFlexButton(
                         bgcolor: colorblue,
-                          fontsize: 28,
-                          vpadding: 20,
+                          fontsize: Get.width>600 ? 20:14,
+                          vpadding: Get.width>600 ? 20:14,
                           label: "Explore More",
                           onPressed: (() => Get.toNamed('/experiences')))
                     ],

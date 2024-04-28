@@ -39,7 +39,6 @@ class FormsMobile extends StatelessWidget {
           ),
         ),
       ),
-      permanent: true,
     );
     static.dateTextController.value.text = DateTime.now()
         .add(
@@ -224,7 +223,7 @@ class FormsMobile extends StatelessWidget {
                 switch (outputState.state) {
                   case UiState.SUCCESS:
                     return SizedBox(
-                      height: MediaQuery.of(context).size.width * .65,
+                      height: MediaQuery.of(context).size.width * .98,
                       child: ListView.builder(
                         controller: listController,
                         itemCount: outputState.data?.length ?? 0,
@@ -382,6 +381,7 @@ class FormsMobile extends StatelessWidget {
   }
 
   Widget _buildInfoAndButtonRow(BuildContext context, int tourOptionId) {
+    final TourController tourController = Get.find();
     return Obx(
       () {
         var filteredTimeSlots = static.timeslots.value
@@ -406,7 +406,7 @@ class FormsMobile extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * .55,
                 child: ButtonView(
-                  btnName: 'Add to Cart',
+                  btnName: 'Time Slots',
                   bgColor: Colors.blue,
                   onButtonTap: () {
                     if (static.timeslots.isNotEmpty) {
@@ -417,9 +417,20 @@ class FormsMobile extends StatelessWidget {
                       //     print(static.timeslots.value[i][j].timeSlot);
                       //   }
                       // }
-                    } else {
-                      if (kDebugMode) {
+                    }
+                    else if(tourController.tour.value.isSlot == true){
                         Get.toNamed('/popup_card',
+                          arguments: [filteredTimeSlots, tourOptionId]);
+                      // for (int i = 0; i < static.timeslots.length; i++) {
+                      //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
+                      //     print(static.timeslots.value[i][j].timeSlot);
+                      //   }
+                      // }
+                    }
+
+                    else {
+                      if (kDebugMode) {
+                        Get.toNamed('/home',
                             preventDuplicates: true,
                             arguments: [filteredTimeSlots, tourOptionId]);
                       }
