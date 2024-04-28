@@ -7,24 +7,14 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 
-import '../../../../Cart/data_layer/repository/cart_repository.dart';
-import '../../../../Cart/data_layer/service/cart_remote.dart';
-import '../../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../../../Components/custom_button.dart';
 import '../../../../Components/date_picker.dart';
 import '../../../../Components/dropdown_widget_mobile.dart';
 import '../../../../Components/ui_state.dart';
 import '../../../../core/widgets/Mobileheader.dart';
-import '../../../timeslot_data_layer/repositories/timeslot_repository.dart';
-import '../../../timeslot_data_layer/service/timslot_remote.dart';
-import '../../../timeslot_data_layer/use_cases/timeslot_usecase.dart';
 import '../../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../../tourdetail_data_layer/remote/tour_remote.dart';
 import '../../../tourdetail_data_layer/repository/tour_repository.dart';
-import '../../../touroption_data_layer/remote/service/touroption_remote.dart';
-import '../../../touroption_data_layer/repository/tour_option_repository.dart';
-import '../../../touroption_data_layer/usecase/touroption_dynamic_data.dart';
-import '../../../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
@@ -35,27 +25,7 @@ class FormsMobile extends StatelessWidget {
   // ));
   final ScrollController scrollController = ScrollController();
   final ScrollController listController = ScrollController();
-  final TourOptionStaticDataController static = Get.put(
-    TourOptionStaticDataController(
-        GetTourOptionsStaticDataUseCase(
-            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-        GetTourOptionsDynamicDataUseCase(
-          TourOptionsRepositoryImpl(
-            TourOptionRemoteService(Dio()),
-          ),
-        ),
-        GetTimeSlotUseCase(
-          TimeSlotRepositoryImpl(
-            TimeSlotRemoteService(Dio()),
-          ),
-        ),
-        UpdateCartUseCase(
-          CartRepositoryImpl(
-            CartRemoteService(Dio()),
-          ),
-        )),
-    permanent: true,
-  );
+  final TourOptionStaticDataController static = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -280,6 +250,7 @@ class FormsMobile extends StatelessWidget {
                           if (kDebugMode) {
                             print('transferId is ${static.transferId.value}');
                           }
+                          static.currOptionId = static.optionId.value;
 
                           // var output2 = static.timeslots.value;
                           // if (kDebugMode) {
@@ -332,7 +303,11 @@ class FormsMobile extends StatelessWidget {
                                       //     return const Text("No timeslot required "); //
                                       //   }
                                       // }),
-                                      _buildInfoAndButtonRow(context, static.options.value.data?[index].tourOptionId  ??  0),
+                                      _buildInfoAndButtonRow(
+                                          context,
+                                          static.options.value.data?[index]
+                                                  .tourOptionId ??
+                                              0),
                                     ],
                                   ),
                                 )
@@ -410,16 +385,17 @@ class FormsMobile extends StatelessWidget {
     return Obx(
       () {
         var filteredTimeSlots = static.timeslots.value
-            .firstWhere((ts) => ts[0].tourOptionId == tourOptionId, orElse: () => [])
+            .firstWhere((ts) => ts[0].tourOptionId == tourOptionId,
+                orElse: () => [])
             .toList();
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'More Info  ',
-                style: const TextStyle(
+                style: TextStyle(
                   color: Color(0xFF828282),
                   fontSize: 16,
                   fontFamily: 'Roboto',
@@ -434,7 +410,8 @@ class FormsMobile extends StatelessWidget {
                   bgColor: Colors.blue,
                   onButtonTap: () {
                     if (static.timeslots.isNotEmpty) {
-                      Get.toNamed('/popup_card', arguments: [filteredTimeSlots, tourOptionId]);
+                      Get.toNamed('/popup_card',
+                          arguments: [filteredTimeSlots, tourOptionId]);
                       // for (int i = 0; i < static.timeslots.length; i++) {
                       //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
                       //     print(static.timeslots.value[i][j].timeSlot);
@@ -443,7 +420,8 @@ class FormsMobile extends StatelessWidget {
                     } else {
                       if (kDebugMode) {
                         Get.toNamed('/popup_card',
-                            preventDuplicates: true, arguments: [filteredTimeSlots, tourOptionId]);
+                            preventDuplicates: true,
+                            arguments: [filteredTimeSlots, tourOptionId]);
                       }
                     }
                   },
