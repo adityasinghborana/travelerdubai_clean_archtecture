@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/transfer_time_dropdown.dart';
+import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
 import '../../../Cart/data_layer/model/request/update_cart.dart';
@@ -12,9 +13,8 @@ import '../tour_options_controller.dart';
 import 'button.dart';
 
 Widget options(String tourName) {
-
   final TourOptionStaticDataController optionsStatic = Get.find();
-
+  final TourController tourController = Get.find();
 
   final HeaderController controller = Get.find();
   return Obx(() {
@@ -31,7 +31,6 @@ Widget options(String tourName) {
     }
 
     switch (output.state) {
-
       case UiState.SUCCESS:
         return Expanded(
           child: ListView.builder(
@@ -39,7 +38,8 @@ Widget options(String tourName) {
             itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
               optionsStatic.timeslots.value.clear();
-              optionsStatic.getTimeSlots(optionsStatic.options.value.data?[index].tourOptionId??0);
+              optionsStatic.getTimeSlots(
+                  optionsStatic.options.value.data?[index].tourOptionId ?? 0);
 
               int? id = optionsStatic.options.value.data?[index].tourId;
               int tourIdIndex =
@@ -139,20 +139,24 @@ Widget options(String tourName) {
                                 }
                               }), // SizedBox(
                               Obx(() {
+                                var optionsSize =
+                                    optionsStatic.timeslots.value.length;
+                                if (tourController.tour.value.isSlot==true && index >= optionsSize) {
+                                  return Text("Loading ");
 
-
-                                var optionsSize=optionsStatic.timeslots.value.length;
-                                if (index>=optionsSize  ){
-                                  return Text("Time Slot not Available");
-                                }
-                                else{
-                                  return TimeDropdownWidget( tourOptionId: optionsStatic.options.value.data?[index].tourOptionId??0,);
                                 }
 
-                              }
-
-
-                              ), // SizedBox(
+                                else if (tourController.tour.value.isSlot==false){
+                                  return Text("No time Slot required ");
+                                }
+                                else {
+                                  return TimeDropdownWidget(
+                                    tourOptionId: optionsStatic.options.value
+                                            .data?[index].tourOptionId ??
+                                        0,
+                                  );
+                                }
+                              }), // SizedBox(
                               //   height: 300,
                               //   width: 450,
                               //   child: Optionpricing(),
@@ -187,20 +191,20 @@ Widget options(String tourName) {
                                         transferId: data.transferId!,
                                         adultRate: data.adultPrice!.toDouble(),
                                         childRate: data
-                                            .childPrice
-                                            ?.toDouble() ??
+                                                .childPrice
+                                                ?.toDouble() ??
                                             0.0,
                                         serviceTotal: ((output1[index]
-                                            .finalAmount ??
-                                            0) +
-                                            (optionsStatic.pricing.value
-                                                .addPriceAdult ??
+                                                    .finalAmount ??
                                                 0) +
                                             (optionsStatic.pricing.value
-                                                .addPriceChildren ??
+                                                    .addPriceAdult ??
                                                 0) +
                                             (optionsStatic.pricing.value
-                                                .additionalPriceInfant ??
+                                                    .addPriceChildren ??
+                                                0) +
+                                            (optionsStatic.pricing.value
+                                                    .additionalPriceInfant ??
                                                 0)),
                                         cartId: controller.cartId.value);
                                     print(("${controller.cartId.value} Hello"));

@@ -93,7 +93,7 @@ Widget tourCardsMobile(List<Experiences> displayedTours, String? cityName) {
           : displayedTours;
 
       return Container(
-        height: Get.width*0.9,
+        height: Get.width *1.1,
         child: Padding(
           padding: EdgeInsets.all(Get.width*0.02),
           child: GridView.builder(
