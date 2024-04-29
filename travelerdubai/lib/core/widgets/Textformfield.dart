@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
-Widget buildTextFormField(String label, TextEditingController controller,String errormessage) {
+Widget buildTextFormField(
+    String label, TextEditingController controller, String errormessage) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0 ),
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -12,10 +13,12 @@ Widget buildTextFormField(String label, TextEditingController controller,String 
         return null;
       },
       controller: controller,
-      decoration: InputDecoration(fillColor: colorwhite,
+      decoration: InputDecoration(
+        fillColor: colorwhite,
         filled: true,
         labelText: label,
-        border: OutlineInputBorder().copyWith(borderRadius: BorderRadius.circular(10)),
+        border: const OutlineInputBorder()
+            .copyWith(borderRadius: BorderRadius.circular(10)),
       ),
     ),
   );

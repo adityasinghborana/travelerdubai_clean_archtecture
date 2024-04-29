@@ -122,7 +122,7 @@ class CheckoutScreenMobile extends StatelessWidget {
                             child: InlineFlexButton(
                                 label: "Place Order",
                                 onPressed: () {
-                                  checkoutController.initiatechekout();
+                                  checkoutController.initiateCheckout();
                                 },
                                 bgcolor: colorMediumBlue,
                                 fontsize: Get.width > 600 ? 24 : 16,

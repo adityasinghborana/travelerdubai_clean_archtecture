@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
+import '../../Components/footer_mobile.dart';
+
 Widget buildFooter() {
   return ResponsiveBuilder(builder: (context, sizingInformation) {
     if (sizingInformation.deviceScreenType == DeviceScreenType.desktop ||
@@ -37,7 +39,7 @@ Widget buildFooter() {
     }
 
     if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
-      return const Text("mobile");
+      return  buildFooterMobile();
     } else {
       return const Text("others");
     }

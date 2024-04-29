@@ -5,6 +5,7 @@ import 'package:travelerdubai/AboutPage/datalayer/repository/aboutus_repositiory
 import 'package:travelerdubai/AboutPage/datalayer/service/Aboutus_remote.dart';
 import 'package:travelerdubai/AboutPage/datalayer/usecase/Aboutus_usecase.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/about_us_controller.dart';
+import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 import 'package:travelerdubai/core/widgets/footer.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
@@ -36,49 +37,67 @@ class AboutUsPage extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
-              Header(),
+              Get.width > 1024
+                  ? Header()
+                  : MobileHeader(
+                      context: context,
+                      isBackButton: true,
+                    ),
               bannerWithOverlayText(context, aboutData.imagepath,
                   aboutData.title, aboutData.subtitle),
               Padding(
-                padding: const EdgeInsets.all(80.0),
+                padding: Get.width > 600
+                    ? EdgeInsets.all(80.0)
+                    : EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: twoColumnSection(context, aboutData.imagepath2,
-                          aboutData.heading1, aboutData.detail1),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.062,
-                    ),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            child: Container(
-                              child: Text(
-                                aboutData.text,
-                                style: bodyBlack(context),
-                              ),
-                            ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Get.width > 600
+                            ? twoColumnSection(context, aboutData.imagepath2,
+                                aboutData.heading1, aboutData.detail1)
+                            : SingleColumn(context, aboutData.imagepath,
+                                aboutData.heading1, aboutData.detail1)),
+                    Get.width > 600
+                        ? SizedBox(
+                            height: Get.height * 0.065,
+                          )
+                        : SizedBox(),
+                    Get.width < 600
+                        ? Container()
+                        : Row(
+                            children: [
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Container(
+                                    child: Text(
+                                      aboutData.text,
+                                      style: bodyBlack(context),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.062,
-                    ),
+                    Get.width > 600
+                        ? SizedBox(
+                            height: Get.height * 0.065,
+                          )
+                        : SizedBox(),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: twoColumnSection(
-                        context,
-                        aboutData.imagepath3,
-                        aboutData.heading2,
-                        aboutData.detail2,
-                        invert: true,
-                      ),
-                    ),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Get.width > 600
+                            ? twoColumnSection(
+                                context,
+                                aboutData.imagepath3,
+                                aboutData.heading2,
+                                aboutData.detail2,
+                                invert: true,
+                              )
+                            : SingleColumn(context, aboutData.imagepath3,
+                                aboutData.heading2, aboutData.detail2)),
                   ],
                 ),
               ),
@@ -158,21 +177,19 @@ class AboutUsPage extends StatelessWidget {
   Widget imageColumn(
     String imageUrl,
   ) {
-    return Column(
-      children: [
-        Expanded(
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-              imageUrl,
-              width: MediaQuery.of(Get.context!).size.width * 0.4,
-              height: MediaQuery.of(Get.context!).size.height * 0.2,
-              fit: BoxFit.cover,
-              scale: 1,
-            ),
-          ),
+    return Expanded(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.network(
+          imageUrl,
+          width: MediaQuery.of(Get.context!).size.width > 600
+              ? MediaQuery.of(Get.context!).size.width * 0.4
+              : MediaQuery.of(Get.context!).size.width * 0.8,
+          height: MediaQuery.of(Get.context!).size.height * 0.4,
+          fit: BoxFit.cover,
+          scale: 1,
         ),
-      ],
+      ),
     );
   }
 
@@ -188,7 +205,7 @@ class AboutUsPage extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.032,
           ),
-          Text(description, style: const TextStyle(fontSize: 18)),
+          Flexible(child: Text(description, style: const TextStyle(fontSize: 18))),
         ],
       ),
     );
@@ -215,6 +232,32 @@ class AboutUsPage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget SingleColumn(BuildContext context, String imageUrl, String heading,
+      String description) {
+    return Column(
+      children: [
+        Container(
+          width: 380,
+          height: 150,
+          child: Row(
+            children: [
+              imageColumn(imageUrl),
+            ],
+          ),
+        ),
+        Container(
+          height: 400,
+          width: 380,
+          child: Row(
+            children: [
+              textColumn(heading, description),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
