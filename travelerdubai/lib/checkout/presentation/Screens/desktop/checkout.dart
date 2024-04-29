@@ -15,6 +15,7 @@ import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/widgets/Textformfield.dart';
 import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../../data_layer/repository/Intent_repository.dart';
 import '../../../data_layer/service/remote.dart';
@@ -243,11 +244,16 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                 SizedBox(
                                     height: MediaQuery.of(context).size.width *
                                         .01),
-                                ElevatedButton(
+                                InlineFlexButton(
                                   onPressed: () {
                                     checkoutController.initiateCheckout();
-                                  },
-                                  child: const Text('Place Order'),
+                                  }, label: 'Place Order',
+                                  bgcolor: colorMediumBlue,
+                                  borderwidth: 0,
+                                  vpadding: 10,
+                                  hpadding: 50,
+                                  fontsize: 16,
+
                                 ),
                               ],
                             ),

@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
+import '../Cart/data_layer/model/request/update_cart.dart';
+import '../core/controller/headercontroller.dart';
 import 'custom_button.dart';
 import 'format_date.dart';
 
 class PopupCard extends StatelessWidget {
   final TourOptionStaticDataController static = Get.find();
-
+  final HeaderController controller = Get.find();
   PopupCard({
     super.key,
   });
@@ -195,7 +197,9 @@ class PopupCard extends StatelessWidget {
                           child: ButtonView(
                             btnName: 'Add to Cart',
                             bgColor: Colors.blue,
-                            onButtonTap: () {},
+                            onButtonTap: (){
+                              Get.snackbar("Error", "Internal Server Error");
+                            }
                           ),
                         ),
                       ),

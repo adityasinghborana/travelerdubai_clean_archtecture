@@ -69,7 +69,7 @@ class Header extends StatelessWidget {
             hoverColor: Colors.transparent,
             onTap: () {
               headerController.navItemColor.value = colorblack;
-              Get.offAndToNamed(route);
+              Get.toNamed(route);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -101,10 +101,10 @@ class Header extends StatelessWidget {
         "Experiences",
         '/experiences',
       ),
-      _navItem(
-        "Contact Us",
-        '/contactus',
-      ),
+      // _navItem(
+      //   "Contact Us",
+      //   '/contactus',
+      // ),
       _navItem(
         "Login",
         '/Login',
@@ -132,10 +132,10 @@ class Header extends StatelessWidget {
           "Experiences",
           '/experiences',
         ),
-        _navItem(
-          "Contact Us",
-          '/contactus',
-        ),
+        // _navItem(
+        //   "Contact Us",
+        //   '/contactus',
+        // ),
         _navItem(
           "Cart",
           '/checkout',
