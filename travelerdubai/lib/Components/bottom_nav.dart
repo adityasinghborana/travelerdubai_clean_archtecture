@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/constants/constants{
-  const BottomNavBar({super.key});
 
+import '../core/constants/constants.dart';
+
+class BottomNavBar extends StatelessWidget {
+  const BottomNavBar({super.key});
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -13,7 +15,7 @@ import 'package:travelerdubai/core/constants/constants{
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.house,
               size: 24,
             ),

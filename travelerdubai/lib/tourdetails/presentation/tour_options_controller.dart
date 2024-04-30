@@ -21,7 +21,9 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
   int currOptionId = 0;
+  late UpdateCartTourDetail value;
   String? selectedTimeSlot = '';
+  var output1;
 
   TourOptionStaticDataController(
       this.getOptionsStaticDataUseCase,
@@ -204,7 +206,9 @@ class TourOptionStaticDataController extends GetxController {
       }
     } catch (e) {
       // Handle any potential errors here
-      print('Error fetching time slots: $e');
+      if (kDebugMode) {
+        print('Error fetching time slots: $e');
+      }
     }
   }
 

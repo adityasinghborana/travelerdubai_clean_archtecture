@@ -1,6 +1,5 @@
-
-
 import 'package:json_annotation/json_annotation.dart';
+
 part 'update_cart.g.dart';
 
 @JsonSerializable()
@@ -10,10 +9,10 @@ class UpdateCartTourDetail {
   final int tourId;
   final int optionId;
   final int? adult;
-  final int ?child;
-  final int ?infant;
+  final int? child;
+  final int? infant;
   final String tourDate;
-  final int? timeSlotId;
+  int? timeSlotId;
   final String startTime;
   final int transferId;
   final String? pickup;
@@ -23,7 +22,6 @@ class UpdateCartTourDetail {
   final int cartId;
 
   UpdateCartTourDetail({
-
     required this.tourname,
     required this.tourOption,
     required this.tourId,
@@ -41,7 +39,7 @@ class UpdateCartTourDetail {
     required this.serviceTotal,
     required this.cartId,
   });
-  factory UpdateCartTourDetail.fromJson(Map<String, dynamic> json) => _$UpdateCartTourDetailFromJson(json);
+  factory UpdateCartTourDetail.fromJson(Map<String, dynamic> json) =>
+      _$UpdateCartTourDetailFromJson(json);
   Map<String, dynamic> toJson() => _$UpdateCartTourDetailToJson(this);
-
 }

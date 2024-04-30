@@ -17,7 +17,6 @@ class PopupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('static controller in pop up is$static');
-    final List<dynamic> args = Get.arguments;
     final List<Result> lst = static.timeslots.value
         .firstWhere((ts) => ts[0].tourOptionId == static.currOptionId,
             orElse: () => [])
@@ -90,8 +89,7 @@ class PopupCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            formatDate(static.dateTextController.value.text ??
-                                '2024-03-16'),
+                            formatDate(static.dateTextController.value.text),
                             style: TextStyle(
                               color: const Color(0xFF1C1C1C),
                               fontSize:
@@ -200,6 +198,11 @@ class PopupCard extends StatelessWidget {
                             onButtonTap: () {
                               print(
                                   'selected timeslot id is ${selectedValue.value.timeSlot}');
+                              static.value.timeSlotId =
+                                  int.parse(selectedValue.value.timeSlotId);
+
+                              static.Addtocart(static.value);
+                              print(static.value.toJson());
                             },
                           ),
                         ),

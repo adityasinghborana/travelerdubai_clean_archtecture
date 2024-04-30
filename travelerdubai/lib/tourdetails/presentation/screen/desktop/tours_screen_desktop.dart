@@ -63,7 +63,6 @@ class TourPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     static.dateTextController.value.text = DateTime.now()
         .add(
           // Add a duration representing the specified number of hours.
