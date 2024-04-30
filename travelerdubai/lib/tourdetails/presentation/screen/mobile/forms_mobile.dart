@@ -410,6 +410,8 @@ class FormsMobile extends StatelessWidget {
                   bgColor: Colors.blue,
                   onButtonTap: () {
                     if (static.timeslots.isNotEmpty) {
+                      static.currOptionId = tourOptionId;
+                      print('curr OptionId is ${static.currOptionId}');
                       Get.toNamed('/popup_card',
                           arguments: [filteredTimeSlots, tourOptionId]);
                       // for (int i = 0; i < static.timeslots.length; i++) {
@@ -417,18 +419,15 @@ class FormsMobile extends StatelessWidget {
                       //     print(static.timeslots.value[i][j].timeSlot);
                       //   }
                       // }
-                    }
-                    else if(tourController.tour.value.isSlot == true){
-                        Get.toNamed('/popup_card',
+                    } else if (tourController.tour.value.isSlot == true) {
+                      Get.toNamed('/popup_card',
                           arguments: [filteredTimeSlots, tourOptionId]);
                       // for (int i = 0; i < static.timeslots.length; i++) {
                       //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
                       //     print(static.timeslots.value[i][j].timeSlot);
                       //   }
                       // }
-                    }
-
-                    else {
+                    } else {
                       if (kDebugMode) {
                         Get.toNamed('/home',
                             preventDuplicates: true,

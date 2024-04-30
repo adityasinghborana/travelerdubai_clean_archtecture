@@ -21,6 +21,7 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
   int currOptionId = 0;
+  String? selectedTimeSlot = '';
 
   TourOptionStaticDataController(
       this.getOptionsStaticDataUseCase,
