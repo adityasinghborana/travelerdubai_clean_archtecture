@@ -66,7 +66,7 @@ class ExperiencesMobile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 height: Get.height * 0.2,
                 child: Stack(
                   children: [

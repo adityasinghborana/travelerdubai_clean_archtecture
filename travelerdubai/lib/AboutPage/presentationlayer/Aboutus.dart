@@ -205,7 +205,8 @@ class AboutUsPage extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.032,
           ),
-          Flexible(child: Text(description, style: const TextStyle(fontSize: 18))),
+          Flexible(
+              child: Text(description, style: const TextStyle(fontSize: 18))),
         ],
       ),
     );
@@ -239,7 +240,7 @@ class AboutUsPage extends StatelessWidget {
       String description) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: 380,
           height: 150,
           child: Row(

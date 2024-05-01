@@ -5,7 +5,6 @@ import 'package:travelerdubai/tourdetails/presentation/screen/mobile/tours_scree
 
 class TourPage extends StatelessWidget {
   const TourPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {

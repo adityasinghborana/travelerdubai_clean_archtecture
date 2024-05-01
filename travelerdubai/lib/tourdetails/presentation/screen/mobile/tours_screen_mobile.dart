@@ -63,7 +63,6 @@ class TourPageMobile extends StatelessWidget {
         ),
       ),
     ),
-    permanent: true,
   );
 
   final HomeController homeController = Get.put(HomeController(

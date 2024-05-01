@@ -19,11 +19,11 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
             )
           : IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
             ),
       backgroundColor: colorwhite,
       surfaceTintColor: Colors.transparent,
@@ -31,7 +31,7 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Container(
+          child: SizedBox(
             width: Get.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

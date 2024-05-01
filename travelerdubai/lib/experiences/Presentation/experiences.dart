@@ -4,6 +4,8 @@ import 'package:travelerdubai/experiences/Presentation/Experiences_Desktop.dart'
 import 'package:travelerdubai/experiences/Presentation/experiences_mobile.dart';
 
 class Experiences extends StatelessWidget {
+  const Experiences({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

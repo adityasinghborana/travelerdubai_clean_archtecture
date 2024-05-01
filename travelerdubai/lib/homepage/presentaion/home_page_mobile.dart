@@ -25,13 +25,10 @@ import '../../experiences/remote/experiences_remote_service.dart';
 class HomePageMobile extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
       GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
-
-  final TourlistController tourlistController = Get.put(TourlistController(
+  final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
-
   final ScrollController? scrollController2 = ScrollController();
-
   HomePageMobile({super.key});
 
   @override
@@ -56,7 +53,7 @@ class HomePageMobile extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: Get.height * 0.4,
               child: HeroImageWidget(
                 titlefontsize: 32,
@@ -124,14 +121,14 @@ class HomePageMobile extends StatelessWidget {
       child: Stack(
         children: [
           Obx(() {
-            if (tourlistController.tours.isEmpty) {
+            if (tourListController.tours.isEmpty) {
               return const CircularProgressIndicator(
                 color: colorPrimary,
               );
             } else {
               return TourCards(
                 scrollController: scrollController2,
-                tours: tourlistController.tours,
+                tours: tourListController.tours,
                 cardWidth: Get.width * .4,
                 filterProperty: '',
               );
