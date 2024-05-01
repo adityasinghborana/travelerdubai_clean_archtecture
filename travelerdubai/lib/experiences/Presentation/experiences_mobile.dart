@@ -62,79 +62,82 @@ class ExperiencesMobile extends StatelessWidget {
           context: context,
         ),
         drawer: drawer(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: Get.height * 0.2,
-              child: Stack(
-                children: [
-                  Image.network(
-                    "https://source.unsplash.com/random",
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    width: Get.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
-                                  child: Text("Discover All Experiences",
-                                      style: H1(context))),
-                            ],
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: Get.height * 0.2,
+                child: Stack(
+                  children: [
+                    Image.network(
+                      "https://source.unsplash.com/random",
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    Container(
+                      width: Get.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                    child: Text("Discover All Experiences",
+                                        style: H1(context))),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.01,
-                        ),
-                        Container(
-                          width: Get.width * 0.8,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: colorwhite,
-                            borderRadius: BorderRadius.circular(25),
+                          SizedBox(
+                            height: Get.height * 0.01,
                           ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.search),
-                              const SizedBox(width: 10),
-                              Flexible(
-                                child: TextField(
-                                  controller: searchController,
-                                  onChanged: (value) {
-                                    experienceController.searchCityTours(value);
-                                  },
-                                  decoration: const InputDecoration(
-                                    hintText: 'Search',
-                                    border: InputBorder.none,
+                          Container(
+                            width: Get.width * 0.8,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            decoration: BoxDecoration(
+                              color: colorwhite,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.search),
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  child: TextField(
+                                    controller: searchController,
+                                    onChanged: (value) {
+                                      experienceController
+                                          .searchCityTours(value);
+                                    },
+                                    decoration: const InputDecoration(
+                                      hintText: 'Search',
+                                      border: InputBorder.none,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: Get.height * .20,
-              child: TourTypesMobile(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: tourCardsMobile(displayedTours, city),
-            ),
-          ],
+              Container(
+                height: Get.height * .20,
+                child: TourTypesMobile(),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: tourCardsMobile(displayedTours, city),
+              ),
+            ],
+          ),
         ));
   }
 }
