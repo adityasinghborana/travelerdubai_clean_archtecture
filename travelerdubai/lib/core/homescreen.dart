@@ -8,7 +8,6 @@ import 'package:travelerdubai/homepage/presentaion/homepage.dart';
 import 'controller/headercontroller.dart';
 
 class HomeScreen extends StatelessWidget {
-
   const HomeScreen({super.key});
 
   @override
@@ -18,16 +17,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: ResponsiveBuilder(
         builder: (context, sizingInformation) {
-          if (sizingInformation.deviceScreenType == DeviceScreenType.desktop ) {
+          if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
             return Homepage();
           }
 
-
-          if (sizingInformation.deviceScreenType == DeviceScreenType.mobile||
-          sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
+          if (sizingInformation.deviceScreenType == DeviceScreenType.mobile ||
+              sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
             return HomePageMobile();
           } else {
-            return Homepage();
+            return HomePageMobile();
           }
         },
       ),

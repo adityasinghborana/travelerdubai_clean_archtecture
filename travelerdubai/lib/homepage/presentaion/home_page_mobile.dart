@@ -29,6 +29,7 @@ class HomePageMobile extends StatelessWidget {
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
   final ScrollController? scrollController2 = ScrollController();
+
   HomePageMobile({super.key});
 
   @override
@@ -142,7 +143,6 @@ class HomePageMobile extends StatelessWidget {
   Widget buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

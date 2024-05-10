@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 
-class Tourtypes extends StatelessWidget {
-  const Tourtypes({super.key});
+class TourTypes extends StatelessWidget {
+  const TourTypes({super.key});
   @override
   Widget build(BuildContext context) {
-    final ScrollController listcontroller = ScrollController();
+    final ScrollController listController = ScrollController();
     ExperienceController experienceController = Get.find();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
@@ -29,18 +28,11 @@ class Tourtypes extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: Get.width * 0.011, vertical: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Browse By Themes",
-                  style: GoogleFonts.roboto(
-                      fontSize: Get.width * 0.015,
-                      fontWeight: FontWeight.w600,
-                      height: 1),
-                ),
-                ExpansionTile(
-                  title: RichText(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
                     text: TextSpan(
                       style: const TextStyle(
                         fontSize: 20,
@@ -48,7 +40,7 @@ class Tourtypes extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: 'Tours ',
+                          text: 'Browse By Themes ',
                           style: TextStyle(
                             foreground: Paint()
                               ..shader = const LinearGradient(
@@ -66,78 +58,75 @@ class Tourtypes extends StatelessWidget {
                       ],
                     ),
                   ),
-                  children: [
-                    SizedBox(
-                      height: Get.height * 0.8,
-                      child: Obx(() {
-                        if (experienceController.tourTypes.isEmpty) {
-                          return const Center(child: Text('Empty'));
-                        } else {
-                          return ListView(
-                            controller: listcontroller,
-                            children: List.generate(
-                              experienceController.tourTypes.length,
-                              (index) {
-                                String cityTourType = experienceController
-                                    .tourTypes[index]['cityTourType'];
-                                return InkWell(
-                                  onTap: () {
-                                    experienceController
-                                        .filterCityToursByType(cityTourType);
-                                  },
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: Get.height * 0.01),
-                                    child: Card(
-                                      surfaceTintColor: colorwhite,
-                                      elevation: 4,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          border: Border.all(
-                                            color:
-                                                colorlightgrey.withOpacity(0.2),
-                                            // Set the color of the border
-                                            width:
-                                                2.0, // Set the width of the border
-                                          ),
+                  SizedBox(
+                    height: Get.height * 0.8,
+                    child: Obx(() {
+                      if (experienceController.tourTypes.isEmpty) {
+                        return const Center(child: Text('Empty'));
+                      } else {
+                        return ListView(
+                          controller: listController,
+                          children: List.generate(
+                            experienceController.tourTypes.length,
+                            (index) {
+                              String cityTourType = experienceController
+                                  .tourTypes[index]['cityTourType'];
+                              return InkWell(
+                                onTap: () {
+                                  experienceController
+                                      .filterCityToursByType(cityTourType);
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: Get.height * 0.01),
+                                  child: Card(
+                                    surfaceTintColor: colorwhite,
+                                    elevation: 4,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        border: Border.all(
+                                          color:
+                                              colorlightgrey.withOpacity(0.2),
+                                          // Set the color of the border
+                                          width:
+                                              2.0, // Set the width of the border
                                         ),
-                                        height: Get.height * 0.05,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        Get.width * 0.009),
-                                                child: Text(
-                                                  cityTourType,
-                                                  textAlign: TextAlign.center,
-                                                  style:
-                                                      bodyBlack(Get.context!),
-                                                ),
+                                      ),
+                                      height: Get.height * 0.05,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      Get.width * 0.009),
+                                              child: Text(
+                                                cityTourType,
+                                                textAlign: TextAlign.center,
+                                                style: bodyBlack(Get.context!),
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                );
-                              },
-                            ),
-                          );
-                        }
-                      }),
-                    ),
-                  ],
-                ),
-              ],
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    }),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

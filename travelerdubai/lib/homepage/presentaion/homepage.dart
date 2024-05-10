@@ -16,7 +16,6 @@ import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
-import '../../core/controller/headercontroller.dart';
 import '../../core/widgets/header.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
@@ -27,16 +26,11 @@ class Homepage extends StatelessWidget {
   final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
-
-
-
   Homepage({super.key});
-
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController1 = ScrollController();
     final ScrollController scrollController2 = ScrollController();
-
     final ScrollController scrollController3 = ScrollController();
     final ScrollController scrollController4 = ScrollController();
 
@@ -68,7 +62,7 @@ class Homepage extends StatelessWidget {
             ),
             // This contain heading as well as list
             Obx(
-              () => BuildCitySection(
+              () => buildCitySection(
                   "${homeController.formData.value?.heading2}",
                   width,
                   scrollController2),
@@ -79,10 +73,9 @@ class Homepage extends StatelessWidget {
                   scrollController3, width, 'isPopular'),
             ),
             advertisement(
-              subHeadingfontsize: 26.14,
-              Headingfontsize: 54,
-              decoration: BoxDecoration(gradient: backgroundgradient)
-            ),
+                subHeadingfontsize: 26.14,
+                Headingfontsize: 54,
+                decoration: BoxDecoration(gradient: backgroundgradient)),
 
             buildFooter(),
           ],
@@ -123,7 +116,7 @@ class Homepage extends StatelessWidget {
     );
   }
 
-  Widget BuildCitySection(
+  Widget buildCitySection(
       String heading, double? width, ScrollController? controller) {
     return Container(
       color: Colors.white,
@@ -134,7 +127,7 @@ class Homepage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeading(heading),
-              Container(
+              SizedBox(
                   height: Get.height * .5,
                   width: Get.width * .9,
                   child: Stack(children: [
@@ -180,8 +173,8 @@ class Homepage extends StatelessWidget {
 
   Widget _buildHeading(String heading) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: 60,
+      padding: const EdgeInsets.only(
+        left: 16.0,
         right: 20,
       ),
       child: Center(
