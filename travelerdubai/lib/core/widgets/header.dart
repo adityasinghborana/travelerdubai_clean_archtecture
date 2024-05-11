@@ -27,11 +27,16 @@ class Header extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Image.asset(
-                  "../assets/images/logo.png",
-                  height: 80,
-                  width: width * .1,
-                  fit: BoxFit.contain,
+                InkWell(
+                  onTap: () {
+                    Get.toNamed('/home');
+                  },
+                  child: Image.asset(
+                    "../assets/images/logo.png",
+                    height: 80,
+                    width: width * .1,
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 SizedBox(
                   width: width * 0.10,

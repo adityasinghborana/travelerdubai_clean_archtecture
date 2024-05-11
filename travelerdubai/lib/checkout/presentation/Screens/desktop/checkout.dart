@@ -38,6 +38,8 @@ class CheckoutScreenDesktop extends StatelessWidget {
             BookingsRepositoryImpl(BookingsRemoteService(Dio())))),
   );
 
+  CheckoutScreenDesktop({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +109,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
-                                          'First Name',
+                                          'First Name *',
                                           checkoutController
                                               .firstNameController,
                                           "this field is required"),
@@ -117,7 +119,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
-                                          'Last Name',
+                                          'Last Name*',
                                           checkoutController.lastNameController,
                                           "this field is required"),
                                     ),
@@ -140,7 +142,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
-                                          'Email',
+                                          'Email*',
                                           checkoutController.emailController,
                                           "this field is required"),
                                     ),
@@ -149,7 +151,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
-                                          'Mobile Number',
+                                          'Mobile Number*',
                                           checkoutController.mobileNoController,
                                           "this field is required"),
                                     ),
@@ -165,7 +167,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
-                                          'Nationality',
+                                          'Nationality*',
                                           checkoutController
                                               .nationalityController,
                                           "this field is required"),
@@ -174,7 +176,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
-                                          'Pickup',
+                                          'Pickup*',
                                           checkoutController.pickupController,
                                           "this field is required"),
                                     ),
@@ -189,7 +191,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     Flexible(
                                       flex: 6,
                                       child: buildTextFormField(
-                                          'Message',
+                                          'Message*',
                                           checkoutController.messageController,
                                           "this field is required"),
                                     ),
@@ -247,13 +249,13 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                 InlineFlexButton(
                                   onPressed: () {
                                     checkoutController.initiateCheckout();
-                                  }, label: 'Place Order',
+                                  },
+                                  label: 'Place Order',
                                   bgcolor: colorMediumBlue,
                                   borderwidth: 0,
                                   vpadding: 10,
                                   hpadding: 50,
                                   fontsize: 16,
-
                                 ),
                               ],
                             ),

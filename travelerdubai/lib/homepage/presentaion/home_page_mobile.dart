@@ -56,8 +56,8 @@ class HomePageMobile extends StatelessWidget {
           children: [
             SizedBox(
               height: Get.height * 0.4,
-              child: HeroImageWidget(
-                titlefontsize: 32,
+              child: const HeroImageWidget(
+                titleFontSize: 32,
               ),
             ),
             Obx(

@@ -26,7 +26,9 @@ class Homepage extends StatelessWidget {
   final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
+
   Homepage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController1 = ScrollController();
@@ -90,7 +92,7 @@ class Homepage extends StatelessWidget {
       height: Get.height * .85,
       color: Theme.of(context).colorScheme.secondary,
       child: HeroImageWidget(
-        titlefontsize: 80,
+        titleFontSize: 80,
       ),
     );
   }
