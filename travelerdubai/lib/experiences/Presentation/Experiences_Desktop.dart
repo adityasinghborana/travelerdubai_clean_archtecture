@@ -17,12 +17,12 @@ import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
 
   ExperiencesDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ScrollController scrollController = ScrollController();
     final ExperienceController experienceController = Get.put(
       ExperienceController(
         GetExperiencesUseCase(
@@ -140,7 +140,7 @@ class ExperiencesDesktop extends StatelessWidget {
                     flex: 4,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
-                      child: tourCards(displayedTours, city),
+                      child: tourCards(displayedTours, city, scrollController),
                     ),
                   ),
                 ],

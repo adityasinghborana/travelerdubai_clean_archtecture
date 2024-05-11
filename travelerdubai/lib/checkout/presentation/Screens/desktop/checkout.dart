@@ -42,11 +42,14 @@ class CheckoutScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(gradient: backgroundgradient),
         height: Get.height,
         child: SingleChildScrollView(
+          controller: scrollController,
           child: Column(
             children: [
               Header(),

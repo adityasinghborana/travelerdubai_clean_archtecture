@@ -45,9 +45,9 @@ class Header extends StatelessWidget {
                   builder: (headerController) {
                     var status = headerController.loggedIn.value;
                     if (status != false) {
-                      return MenuLoggedin();
+                      return menuLoggedIn();
                     } else {
-                      return Menu();
+                      return menu();
                     }
                   },
                 )
@@ -59,7 +59,7 @@ class Header extends StatelessWidget {
     );
   }
 
-  Widget _navItem(String title, String route) {
+  Widget _navItem(String title, String route, IconData? icon) {
     headerController.isHoveredMap.putIfAbsent(title, () => false);
 
     return Obx(() {
@@ -76,35 +76,48 @@ class Header extends StatelessWidget {
               headerController.navItemColor.value = colorblack;
               Get.toNamed(route);
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                title,
-                style: GoogleFonts.outfit(
-                  fontSize: 16,
-                  color: headerController.isHoveredMap[title] ?? false
-                      ? colorblue
-                      : headerController.navItemColor.value,
-                ),
-              ),
-            ),
+            child: icon == null
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      title,
+                      style: GoogleFonts.outfit(
+                        fontSize: 16,
+                        color: headerController.isHoveredMap[title] ?? false
+                            ? colorblue
+                            : headerController.navItemColor.value,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Icon(
+                      icon,
+                      color: headerController.isHoveredMap[title] ?? false
+                          ? colorblue
+                          : headerController.navItemColor.value,
+                    ),
+                  ),
           ));
     });
   }
 
-  Widget Menu() {
+  Widget menu() {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       _navItem(
         "Home",
         '/home',
+        null,
       ),
       _navItem(
         "About Us",
         '/Aboutus',
+        null,
       ),
       _navItem(
         "Experiences",
         '/experiences',
+        null,
       ),
       // _navItem(
       //   "Contact Us",
@@ -113,30 +126,31 @@ class Header extends StatelessWidget {
       _navItem(
         "Login",
         '/Login',
+        null,
       ),
       _navItem(
         "SignUp",
         '/Signup',
+        null,
       ),
     ]);
   }
 
-  Widget MenuLoggedin() {
+  Widget menuLoggedIn() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _navItem(
           "Home",
           '/home',
+          null,
         ),
         _navItem(
           "About Us",
           '/Aboutus',
+          null,
         ),
-        _navItem(
-          "Experiences",
-          '/experiences',
-        ),
+        _navItem("Experiences", '/experiences', null),
         // _navItem(
         //   "Contact Us",
         //   '/contactus',
@@ -144,10 +158,12 @@ class Header extends StatelessWidget {
         _navItem(
           "Cart",
           '/checkout',
+          Icons.shopping_cart,
         ),
         _navItem(
           "Dashboard",
           '/dashboardpage',
+          null,
         ),
       ],
     );
