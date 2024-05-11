@@ -6,23 +6,32 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
-import 'package:travelerdubai/auth/usersdatalayer/model/request/create_user_request.dart'as UserData;
+import 'package:travelerdubai/auth/usersdatalayer/model/request/create_user_request.dart'
+    as UserData;
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/service/auth.dart';
 
 import '../../Cart/data_layer/usecase/create_cart_usecase.dart';
 import '../usersdatalayer/usecase/create_user_usecase.dart';
 
+enum PasswordState { entered, notEntered }
+
 class SignupController extends GetxController {
   final HeaderController headerController = Get.find();
   final CreateUserUseCase createUserUseCase;
   final CreateCartUseCase createCartUseCase;
   final RxBool obscureText = true.obs;
+  RxBool passwordMatched = false.obs;
+  RxBool checkBoxValue = false.obs;
+  var passwordState = PasswordState.notEntered.obs;
 
-  SignupController({required this.createUserUseCase, required this.createCartUseCase});
+  SignupController(
+      {required this.createUserUseCase, required this.createCartUseCase});
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   final AuthClass authClass = AuthClass();
   final Dio dio = Dio();
@@ -36,7 +45,8 @@ class SignupController extends GetxController {
 
   void signUp() async {
     try {
-      final authResult = await firebase_auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final authResult = await firebase_auth.FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -78,16 +88,21 @@ class SignupController extends GetxController {
 
   Future<void> googleSignUp(BuildContext context) async {
     try {
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-      if (googleSignInAccount == null) throw 'Google sign-in process canceled by user.';
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+      if (googleSignInAccount == null)
+        throw 'Google sign-in process canceled by user.';
 
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
 
-      final UserCredential userCredential = await firebase_auth.FirebaseAuth.instance.signInWithCredential(credential);
+      final UserCredential userCredential = await firebase_auth
+          .FirebaseAuth.instance
+          .signInWithCredential(credential);
       final user = userCredential.user;
       if (user != null) {
         final token = await user.getIdToken() ?? '';
