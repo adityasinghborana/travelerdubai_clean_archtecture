@@ -15,7 +15,7 @@ class PolicyPage extends StatelessWidget {
         child: DetailBox(
           isExpanded: true,
           title: "PrivacyPolicy",
-          Description: HtmlDisplayWidget(
+          description: HtmlDisplayWidget(
               htmlContent:
                   "Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy Privacy POlicy "),
           textStyle: bodyBlack(context),
@@ -26,7 +26,7 @@ class PolicyPage extends StatelessWidget {
         child: DetailBox(
           isExpanded: true,
           title: "Terms And Condition",
-          Description: HtmlDisplayWidget(
+          description: HtmlDisplayWidget(
               htmlContent:
                   "Terms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And ConditionTerms And Condition "),
           textStyle: bodyBlack(context),
@@ -37,7 +37,7 @@ class PolicyPage extends StatelessWidget {
         child: DetailBox(
           isExpanded: true,
           title: "Cancelation Policy",
-          Description: HtmlDisplayWidget(
+          description: HtmlDisplayWidget(
               htmlContent:
                   "Cancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation PolicyCancelation Policy "),
           textStyle: bodyBlack(context),

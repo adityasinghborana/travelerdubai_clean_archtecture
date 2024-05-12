@@ -29,7 +29,7 @@ class MainDetails extends StatelessWidget {
           child: DetailBox(
             isExpanded: true,
             title: "Tour Description",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.tourDescription),
             textStyle: textStyle,
           ),
@@ -38,7 +38,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "Tour Inclusion",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.tourInclusion),
             textStyle: textStyle,
           ),
@@ -47,7 +47,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "Rayna Tours Advantage",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.raynaToursAdvantage),
             textStyle: textStyle,
           ),
@@ -56,7 +56,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "What's In This Tour",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.whatsInThisTour),
             textStyle: textStyle,
           ),
@@ -65,7 +65,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "Important Information",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.importantInformation),
             textStyle: textStyle,
           ),
@@ -74,7 +74,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "Itinerary Description",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.itenararyDescription),
             textStyle: textStyle,
           ),
@@ -83,7 +83,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "Useful Information",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.usefulInformation),
             textStyle: textStyle,
           ),
@@ -92,7 +92,7 @@ class MainDetails extends StatelessWidget {
           padding: const EdgeInsets.all(20.0),
           child: DetailBox(
             title: "FAQ Details",
-            Description: HtmlDisplayWidget(
+            description: HtmlDisplayWidget(
                 htmlContent: tourController.tour.value.faqDetails),
             textStyle: textStyle,
           ),

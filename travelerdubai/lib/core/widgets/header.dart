@@ -163,7 +163,7 @@ class Header extends StatelessWidget {
         _navItem(
           "Dashboard",
           '/dashboardpage',
-          null,
+          Icons.account_circle,
         ),
       ],
     );

@@ -38,6 +38,7 @@ class CheckoutScreenMobile extends StatelessWidget {
         doBookingUseCase: DoBookingUseCase(
             BookingsRepositoryImpl(BookingsRemoteService(Dio())))),
   );
+
   CheckoutScreenMobile({super.key});
 
   @override
@@ -166,7 +167,8 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: buildTextFormField(
                     'First Name',
                     checkoutController.firstNameController,
-                    "this field is required"),
+                    "this field is required",
+                    null),
               ),
 
               // Adjust the spacing between the text fields
@@ -180,12 +182,12 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: DropdownPaxType(width: Get.width * 0.15),
               ),
               Flexible(
-                flex: 2,
-                child: buildTextFormField(
-                    'Last Name',
-                    checkoutController.lastNameController,
-                    "this field is required"),
-              ),
+                  flex: 2,
+                  child: buildTextFormField(
+                      'Last Name',
+                      checkoutController.lastNameController,
+                      "this field is required",
+                      null)),
             ],
           ),
           Row(
@@ -195,7 +197,8 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: buildTextFormField(
                     'Email',
                     checkoutController.emailController,
-                    "this field is required"),
+                    "this field is required",
+                    null),
               ),
             ],
           ),
@@ -206,7 +209,8 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: buildTextFormField(
                     'Mobile Number',
                     checkoutController.mobileNoController,
-                    "this field is required"),
+                    "this field is required",
+                    null),
               ),
             ],
           ),
@@ -218,7 +222,8 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: buildTextFormField(
                     'Nationality',
                     checkoutController.nationalityController,
-                    "this field is required"),
+                    "this field is required",
+                    null),
               ),
             ],
           ),
@@ -229,7 +234,8 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: buildTextFormField(
                     'Pickup',
                     checkoutController.pickupController,
-                    "this field is required"),
+                    "this field is required",
+                    null),
               ),
             ],
           ),
@@ -240,7 +246,8 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: buildTextFormField(
                     'Message',
                     checkoutController.messageController,
-                    "this field is required"),
+                    "this field is required",
+                    null),
               ),
             ],
           ),
