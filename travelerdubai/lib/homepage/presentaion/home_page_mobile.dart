@@ -63,19 +63,22 @@ class HomePageMobile extends StatelessWidget {
             Obx(
               () => buildSection(
                 "${homeController.formData.value?.heading1}",
-                width,
+                width,"isRecommended"
               ),
             ),
             Obx(
-              () => buildCitySection(
-                  "${homeController.formData.value?.heading2}",
-                  scrollController2,
-                  width),
+              () => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: buildCitySection(
+                    "${homeController.formData.value?.heading2}",
+                    scrollController2,
+                    width),
+              ),
             ),
             Obx(
               () => buildSection(
                 "${homeController.formData.value?.heading3}",
-                width,
+                width,"isPopular"
               ),
             ),
             advertisement(
@@ -86,12 +89,13 @@ class HomePageMobile extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 
-  Widget buildSection(String heading, double? width) {
+  Widget buildSection(String heading,
+      double? width, String? filterProperty) {
     return Container(
+
       margin: EdgeInsets.symmetric(vertical: Get.height * 0.015),
       color: Colors.white,
       child: Row(
@@ -100,9 +104,12 @@ class HomePageMobile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildHeading(heading),
-              buildTourCards(),
-              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: buildHeading(heading),
+              ),
+              buildTourCards( filterProperty),
+              const SizedBox(height: 10),
             ],
           ),
         ],
@@ -110,33 +117,35 @@ class HomePageMobile extends StatelessWidget {
     );
   }
 
-  Widget buildTourCards() {
+  Widget buildTourCards( String? filterProperty) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: Get.height * 0.015,
-      ),
+
       color: Colors.white,
-      height: Get.height * .3,
+      height: Get.height * .29,
 
       // Adjust the height according to your needs
-      child: Stack(
-        children: [
-          Obx(() {
-            if (tourListController.tours.isEmpty) {
-              return const CircularProgressIndicator(
-                color: colorPrimary,
-              );
-            } else {
-              return TourCards(
-                scrollController: scrollController2,
+      child: Obx(() {
+        if (tourListController.tours.isEmpty) {
+          return Center(
+            child: const CircularProgressIndicator(
+              color: colorPrimary,
+            ),
+          );
+        } else {
+          return Container(
+            width: Get.width,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: TourCards(
+                cardWidth: Get.width * 0.10,
                 tours: tourListController.tours,
-                cardWidth: Get.width * .4,
-                filterProperty: '',
-              );
-            }
-          }),
-        ],
-      ),
+
+                filterProperty: filterProperty,
+              ),
+            ),
+          );
+        }
+      }),
     );
   }
 
@@ -152,8 +161,8 @@ class HomePageMobile extends StatelessWidget {
             children: [
               buildHeading(heading),
               SizedBox(
-                  height: Get.height * .3, width: Get.width, child: CityList()),
-              const SizedBox(height: 40),
+                  height: Get.height * .3, width: Get.width *0.95, child: CityList()),
+             // const SizedBox(height: 40),
             ],
           ),
         ],

@@ -5,6 +5,7 @@ import 'package:travelerdubai/experiences/Presentation/experiences_controller.da
 
 class TourTypes extends StatelessWidget {
   const TourTypes({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ScrollController listController = ScrollController();
@@ -47,12 +48,12 @@ class TourTypes extends StatelessWidget {
                                 colors: [
                                   colorHighlights,
                                   colorPrimary
-                                ], // Define your gradient colors
+                                ],
                               ).createShader(Rect.fromLTWH(
                                   Get.width * 0.05,
                                   20.0,
                                   80.0,
-                                  20.0)), // Adjust the size as needed
+                                  20.0)),
                           ),
                         ),
                       ],
@@ -68,62 +69,86 @@ class TourTypes extends StatelessWidget {
                           controller: listController,
                           children: List.generate(
                             experienceController.tourTypes.length,
-                            (index) {
+                                (index) {
                               String cityTourType = experienceController
                                   .tourTypes[index]['cityTourType'];
-                              return InkWell(
+                              return HoverCard(
+                                cityTourType: cityTourType,
                                 onTap: () {
                                   experienceController
                                       .filterCityToursByType(cityTourType);
                                 },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: Get.height * 0.01),
-                                  child: Card(
-                                    surfaceTintColor: colorwhite,
-                                    elevation: 4,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        border: Border.all(
-                                          color:
-                                              colorlightgrey.withOpacity(0.2),
-                                          // Set the color of the border
-                                          width:
-                                              2.0, // Set the width of the border
-                                        ),
-                                      ),
-                                      height: Get.height * 0.05,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      Get.width * 0.009),
-                                              child: Text(
-                                                cityTourType,
-                                                textAlign: TextAlign.center,
-                                                style: bodyBlack(Get.context!),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               );
                             },
                           ),
                         );
                       }
                     }),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HoverCard extends StatefulWidget {
+  final String cityTourType;
+  final VoidCallback onTap;
+
+  HoverCard({required this.cityTourType, required this.onTap});
+
+  @override
+  _HoverCardState createState() => _HoverCardState();
+}
+
+class _HoverCardState extends State<HoverCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: Get.height * 0.01),
+      child: Card(
+        surfaceTintColor: colorwhite,
+        elevation: 4,
+        child: InkWell(
+          onTap: widget.onTap,
+          child: MouseRegion(
+            onEnter: (_) => setState(() {
+              _isHovered = true;
+            }),
+            onExit: (_) => setState(() {
+              _isHovered = false;
+            }),
+            child: Container(
+              decoration: BoxDecoration(
+                color: _isHovered ? Colors.blueAccent : Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: colorlightgrey.withOpacity(0.2),
+                  width: 2.0,
+                ),
+              ),
+              height: Get.height * 0.05,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Get.width * 0.009),
+                      child: Text(
+                        widget.cityTourType,
+                        textAlign: TextAlign.center,
+                        style: bodyBlack(context).copyWith(
+                          color: _isHovered ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

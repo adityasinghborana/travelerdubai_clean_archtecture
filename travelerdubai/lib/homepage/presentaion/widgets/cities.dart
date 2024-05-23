@@ -56,51 +56,50 @@ class CityList extends StatelessWidget {
               itemCount: controller.cities.length,
               itemBuilder: (context, index) {
                 final city = controller.cities[index];
-                return InkWell(
-                  onTap: () {
-                    String cityName = city.CityName;
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      String cityName = city.CityName;
 
-                    Get.toNamed(
-                      '/experiences',
-                      parameters: {'cityName': cityName.toString()},
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                      Get.toNamed(
+                        '/experiences',
+                        parameters: {'cityName': cityName.toString()},
+                      );
+                    },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Stack(
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 10 / 9,
-                            child: Image.network(
-                              "https://source.unsplash.com/random/?${city.CityName}",
-                              fit: BoxFit.cover,
-
-                              // width: Get.width * 0.18
+                      child: Container(
+                        child: Stack(
+                          children: [
+                            AspectRatio(
+                              aspectRatio: 10 / 9,
+                              child: Image.network(
+                                "https://source.unsplash.com/random/?${city.CityName}",
+                                fit: BoxFit.cover,
+                                // width: Get.width * 0.18
+                              ),
                             ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(gradient: imageGradient),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            Container(
+                              decoration: BoxDecoration(gradient: imageGradient),
+                            ),
+                            Positioned(
+                              bottom: 8.0,
+                              left: 8.0,
+                              right: 8.0,
                               child: SizedBox(
                                 width: widthFactor,
                                 child: Text(
                                   city.CityName,
-                                  style: getH2TextStyle(context)
-                                      .copyWith(color: colorwhite),
+                                  style: getH2TextStyle(context).copyWith(color: Colors.white),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   softWrap: true,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

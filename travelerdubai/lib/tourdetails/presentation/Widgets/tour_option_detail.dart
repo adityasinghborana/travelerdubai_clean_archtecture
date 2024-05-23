@@ -83,14 +83,7 @@ Widget options(String tourName) {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          "Price",
-                                          style: bodyBlack(context).copyWith(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: Get.width * 0.03,
-                                        ),
+
                                         Container(
                                           width: Get.width * 0.09,
                                           alignment: Alignment.center,

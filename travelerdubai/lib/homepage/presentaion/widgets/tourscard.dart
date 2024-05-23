@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,49 +29,76 @@ class TourCards extends StatelessWidget {
         case 'isPopular':
           return tour.isvisiblePopularTours == true;
         default:
-          true;
+          return true;
       }
-      return true;
     }).toList();
-    return SizedBox(
-      width: Get.width,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        controller: scrollController,
-        itemCount: filteredTours.length,
-        itemBuilder: (context, index) {
-          final tour = filteredTours[index];
-          return AspectRatio(
-            aspectRatio: 9/16,
-            child: InkWell(
-              onTap: () => _onTourCardTap(tour),
-              child: SizedBox(
-                width: cardWidth,
-                child: Card(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: _buildTourImage(tour),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      controller: scrollController,
+      itemCount: filteredTours.length,
+      itemBuilder: (context, index) {
+        final tour = filteredTours[index];
+        return AspectRatio(
+          aspectRatio: 9 / 16,
+          child: HoverScaleCard(
+            tour: tour,
+            cardWidth: cardWidth,
+            onTap: () => _onTourCardTap(tour),
+          ),
+        );
+      },
     );
   }
 
   void _onTourCardTap(Experiences tour) {
-
-
     String tourDetailId = "${tour.tourdetails?[0].id}";
-
     Get.toNamed(
       '/tour_details',
       parameters: {'tourId': tourDetailId.toString()},
-
     );
+  }
+}
+
+class HoverScaleCard extends StatefulWidget {
+  final Experiences tour;
+  final double cardWidth;
+  final VoidCallback onTap;
+
+  HoverScaleCard(
+      {required this.tour, required this.cardWidth, required this.onTap});
+
+  @override
+  _HoverScaleCardState createState() => _HoverScaleCardState();
+}
+
+class _HoverScaleCardState extends State<HoverScaleCard> {
+  bool _isHovered = false;
+  bool _isTapped = false;
+
+  void _onHover(bool isHovering) {
+    setState(() {
+      _isHovered = isHovering;
+    });
+  }
+
+  void _onTapDown(TapDownDetails details) {
+    setState(() {
+      _isTapped = true;
+    });
+  }
+
+  void _onTapUp(TapUpDetails details) {
+    setState(() {
+      _isTapped = false;
+    });
+    widget.onTap();
+  }
+
+  void _onTapCancel() {
+    setState(() {
+      _isTapped = false;
+    });
   }
 
   Widget _buildTourImage(Experiences tour) {
@@ -79,27 +107,37 @@ class TourCards extends StatelessWidget {
         topLeft: Radius.circular(16),
         topRight: Radius.circular(16),
       ),
-      child: Stack(children: [
-        AspectRatio(
-          aspectRatio: 9/16,
-          child: Image.network(
-            "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-            fit: BoxFit.cover,
-
-            // width: Get.width * 0.119,
+      child: Stack(
+        children: [
+          AspectRatio(
+            aspectRatio: 9 / 16,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              transform: Matrix4.identity()
+                ..scale(_isHovered || _isTapped ? 1.1 : 1.0),
+              child: Image.network(
+                "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-        Container(
-          decoration: BoxDecoration(gradient: imageGradient),
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: _buildRatingAndCity(tour),
+          Container(
+            decoration: BoxDecoration(gradient: imageGradient),
           ),
-        )
-      ]),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                transform: Matrix4.identity()
+                  ..scale(_isHovered || _isTapped ? 1.1 : 1.0),
+                child: _buildRatingAndCity(tour),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -110,6 +148,29 @@ class TourCards extends StatelessWidget {
         fontSize: 16,
         fontWeight: FontWeight.w500,
         color: Colors.white,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => _onHover(true),
+      onExit: (_) => _onHover(false),
+      child: GestureDetector(
+        onTapDown: _onTapDown,
+        onTapUp: _onTapUp,
+        onTapCancel: _onTapCancel,
+        child: SizedBox(
+          width: widget.cardWidth,
+          child: Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: _buildTourImage(widget.tour),
+          ),
+        ),
       ),
     );
   }

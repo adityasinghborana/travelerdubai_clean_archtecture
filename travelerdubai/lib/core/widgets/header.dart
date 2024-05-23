@@ -74,7 +74,7 @@ class Header extends StatelessWidget {
             hoverColor: Colors.transparent,
             onTap: () {
               headerController.navItemColor.value = colorblack;
-              Get.toNamed(route);
+              Get.offAndToNamed(route);
             },
             child: icon == null
                 ? Padding(
@@ -125,7 +125,7 @@ class Header extends StatelessWidget {
       // ),
       _navItem(
         "Login",
-        '/Login',
+        '/login',
         null,
       ),
       _navItem(

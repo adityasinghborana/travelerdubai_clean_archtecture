@@ -35,7 +35,6 @@ import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
   TourPageDesktop({super.key});
-
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
@@ -64,6 +63,7 @@ class TourPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     static.dateTextController.value.text = DateTime.now()
         .add(
           // Add a duration representing the specified number of hours.
@@ -108,7 +108,7 @@ class TourPageDesktop extends StatelessWidget {
             List<String> imageUrls =
                 tourImages.map((imageModel) => imageModel.imagePath!).toList();
 
-            // var optionsOutput = static.options.value.state;
+            var optionsOutput = static.options.value.state;
             return SingleChildScrollView(
               child: Container(
                 decoration: BoxDecoration(gradient: backgroundgradient),
@@ -245,7 +245,7 @@ class TourPageDesktop extends StatelessWidget {
     }
     return Obx(() {
       return Card(
-        elevation: 10.0,
+        elevation: 25.0,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
