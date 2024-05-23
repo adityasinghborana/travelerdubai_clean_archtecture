@@ -1,18 +1,16 @@
+import 'package:auraa_ui/aura_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:auraa_ui/aura_ui.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 class HeroImageWidget extends StatelessWidget {
-  final double titlefontsize ;
+  final double titleFontSize;
 
-
-   HeroImageWidget({super.key, required  this.titlefontsize});
+  const HeroImageWidget({super.key, required this.titleFontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +28,16 @@ class HeroImageWidget extends StatelessWidget {
 
         return Stack(
           children: [
-
-            AuraUICarousel(images: controller.imageList, pageController:controller.pageController,
-          curve: Curves.easeIn,
-          showButtons: false,
-
-          indicatorType: CarouselIndicatorType.dot,
-          duration: const Duration(seconds: 2),
-          height: double.infinity,
-          maxWidth: double.infinity,),
+            AuraUICarousel(
+              images: controller.imageList,
+              pageController: controller.pageController,
+              curve: Curves.easeIn,
+              showButtons: false,
+              indicatorType: CarouselIndicatorType.dot,
+              duration: const Duration(seconds: 2),
+              height: double.infinity,
+              maxWidth: double.infinity,
+            ),
 
             // AuraUICarousel(
             //   pagecontroller:
@@ -54,9 +53,9 @@ class HeroImageWidget extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.10),
-                child: Container(
-                  height: Get.height*.80,
+                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.10),
+                child: SizedBox(
+                  height: Get.height * .80,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +64,7 @@ class HeroImageWidget extends StatelessWidget {
                         controller.formData.value?.title ?? 'Traveller Dubai',
                         style: GoogleFonts.outfit(
                           color: colorwhite,
-                          fontSize: titlefontsize,
+                          fontSize: titleFontSize,
                           fontWeight: FontWeight.bold,
                         ),
                         maxLines:
@@ -87,9 +86,9 @@ class HeroImageWidget extends StatelessWidget {
                         ),
                       ),
                       InlineFlexButton(
-                        bgcolor: colorblue,
-                          fontsize: Get.width>600 ? 20:14,
-                          vpadding: Get.width>600 ? 20:14,
+                          bgcolor: colorblue,
+                          fontsize: Get.width > 600 ? 20 : 14,
+                          vpadding: Get.width > 600 ? 20 : 14,
                           label: "Explore More",
                           onPressed: (() => Get.toNamed('/experiences')))
                     ],
@@ -97,13 +96,9 @@ class HeroImageWidget extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         );
       }),
     );
   }
-
-
-
 }

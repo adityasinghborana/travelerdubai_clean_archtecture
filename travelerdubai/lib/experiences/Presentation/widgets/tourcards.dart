@@ -5,20 +5,20 @@ import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
-
-
-Widget tourCards(List<Experiences> displayedTours, String? cityName) {
+Widget tourCards(List<Experiences> displayedTours, String? cityName,
+    ScrollController? scrollController) {
   final ExperienceController experienceController = Get.find();
   final ScrollController controller = ScrollController();
+  controller.addListener(() {
+    scrollController?.jumpTo(scrollController.position.maxScrollExtent);
+  });
 
   return Obx(() {
     if (experienceController.cityTours.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     } else {
       List<Experiences> filteredTours = cityName != null
-          ? displayedTours
-          .where((tour) => tour.cityName == cityName)
-          .toList()
+          ? displayedTours.where((tour) => tour.cityName == cityName).toList()
           : displayedTours;
 
       return Padding(
@@ -47,7 +47,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName) {
                   children: [
                     Image.network(
                       "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
-                      height: Get.height*0.6,
+                      height: Get.height * 0.6,
                       fit: BoxFit.cover,
                     ),
                     Container(
@@ -79,7 +79,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName) {
 }
 
 Widget tourCardsMobile(List<Experiences> displayedTours, String? cityName) {
-  final crossAxisCount =Get.width < 600 ? 2 : 3;
+  final crossAxisCount = Get.width < 600 ? 2 : 3;
   final ExperienceController experienceController = Get.find();
 
   return Obx(() {
@@ -87,17 +87,15 @@ Widget tourCardsMobile(List<Experiences> displayedTours, String? cityName) {
       return const Center(child: CircularProgressIndicator());
     } else {
       List<Experiences> filteredTours = cityName != null
-          ? displayedTours
-          .where((tour) => tour.cityName == cityName)
-          .toList()
+          ? displayedTours.where((tour) => tour.cityName == cityName).toList()
           : displayedTours;
 
       return Container(
-        height: Get.width *1.1,
+        height: Get.width * 1.1,
         child: Padding(
-          padding: EdgeInsets.all(Get.width*0.02),
+          padding: EdgeInsets.all(Get.width * 0.02),
           child: GridView.builder(
-            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: 1 / 1.1,
               crossAxisCount: crossAxisCount,
               crossAxisSpacing: 16,

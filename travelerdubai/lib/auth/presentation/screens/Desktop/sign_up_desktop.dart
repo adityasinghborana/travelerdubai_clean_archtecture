@@ -67,122 +67,182 @@ class SignUpDesktop extends StatelessWidget {
                   width: Get.width * .084215,
                 ),
                 Flexible(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: Get.height * .10,
-                      ),
-                      SizedBox(
-                          height: Get.height * 0.060916,
-                          child: Image.asset("../assets/images/logo.png")),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Sign up',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 34,
-                            color: Colors.black,
-                            height: 1.01),
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Let’s get you all st up so you can access your personal account.',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Colors.black,
-                            height: 1.01),
-                        maxLines: 4,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: Get.width * .338,
-                        child: _firstNameTextField(
-                            signupController.emailController, 'Email'),
-                      ),
-                      const SizedBox(height: 10),
-                      Obx(
-                        () => SizedBox(
-                            width: Get.width * .338,
-                            child: _passwordTextField(
-                                signupController.passwordController,
-                                'Password',
-                                signupController.obscureText.value, (p0) {
-                              signupController.obscureText.value =
-                                  !signupController.obscureText.value;
-                            })),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Checkbox(value: false, onChanged: (value) => !value!),
-                          Flexible(
-                            flex: 1,
-                            child: const Text(
-                                'I agree to all the Terms and Privacy Policies'),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: Get.width * .338,
-                        child: ButtonView(
-                          onButtonTap: () => signupController.signUp(),
-                          borderColor: colorblue,
-                          btnName: 'Create Account',
-                          bgColor: colorblue,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: Get.height * .10,
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: Get.width * .338,
-                        child: Center(
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(text: 'Already have an account?'),
-                                TextSpan(
-                                  text: 'Login',
-                                  style: TextStyle(
-                                    color: colorblue,
+                        SizedBox(
+                            height: Get.height * 0.060916,
+                            child: Image.asset("../assets/images/logo.png")),
+                        const SizedBox(height: 20),
+                        Text(
+                          'Sign up',
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 34,
+                              color: Colors.black,
+                              height: 1.01),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Let’s get you all st up so you can access your personal account.',
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                              color: Colors.black,
+                              height: 1.01),
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: Get.width * .338,
+                          child: _firstNameTextField(
+                              signupController.emailController, 'Email'),
+                        ),
+                        const SizedBox(height: 10),
+                        Obx(
+                          () => SizedBox(
+                              width: Get.width * .338,
+                              child: _passwordTextField(
+                                  signupController.passwordController,
+                                  'Password',
+                                  signupController.obscureText.value, (p0) {
+                                signupController.obscureText.value =
+                                    !signupController.obscureText.value;
+                              }, null)),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                            width: Get.width * .338,
+                            child: Obx(
+                              () => _passwordTextField(
+                                  signupController.confirmPasswordController,
+                                  'confirm Password',
+                                  signupController.obscureText.value, (p0) {
+                                signupController.obscureText.value =
+                                    !signupController.obscureText.value;
+                              }, (value) {
+                                signupController.passwordState.value =
+                                    PasswordState.entered;
+                                if (signupController.passwordController.text !=
+                                    signupController
+                                        .confirmPasswordController.text) {
+                                  signupController.passwordMatched.value =
+                                      false;
+                                } else {
+                                  signupController.passwordMatched.value = true;
+                                }
+                              }),
+                            )),
+                        const SizedBox(height: 5),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Obx(
+                            () => signupController.passwordState.value ==
+                                    PasswordState.notEntered
+                                ? const SelectableText("")
+                                : signupController.passwordMatched.value
+                                    ? const SelectableText(
+                                        "Password Matched",
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          // Use green color for positive feedback
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          // Add any additional styling as needed
+                                        ),
+                                      )
+                                    : const SelectableText(
+                                        "Password not Matched",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          // Use green color for positive feedback
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          // Add any additional styling as needed
+                                        ),
+                                      ),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Obx(
+                              () => Checkbox(
+                                  value: signupController.checkBoxValue.value,
+                                  onChanged: (value) => signupController
+                                      .checkBoxValue.value = value!),
+                            ),
+                            const Flexible(
+                              flex: 1,
+                              child: Text(
+                                  'I agree to all the Terms and Privacy Policies'),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: Get.width * .338,
+                          child: ButtonView(
+                            onButtonTap: () => signupController.signUp(),
+                            borderColor: colorblue,
+                            btnName: 'Create Account',
+                            bgColor: colorblue,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: Get.width * .338,
+                          child: Center(
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                      text: 'Already have an account?'),
+                                  TextSpan(
+                                    text: 'Login',
+                                    style: const TextStyle(
+                                      color: colorblue,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Get.toNamed('Login');
+                                      },
                                   ),
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () {
-                                      Get.toNamed('Login');
-                                    },
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: Get.width * .338,
-                        child: Opacity(
-                            opacity: 0.5,
-                            child: textOnLine(
-                                'Or sign up With', colorgreenishblack)),
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: Get.width * .338,
-                        child: ButtonView(
-                          iconColor: colorgreenishblack,
-                          iconData: FontAwesomeIcons.google,
-                          btnName: 'Google',
-                          borderColor: colorblue,
-                          bgColor: colorwhite,
-                          txtColor: colorgreenishblack.withOpacity(0.5),
-                          onButtonTap: () {
-                            signupController.googleSignUp(context);
-                          },
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: Get.width * .338,
+                          child: Opacity(
+                              opacity: 0.5,
+                              child: textOnLine(
+                                  'Or sign up With', colorgreenishblack)),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: Get.width * .338,
+                          child: ButtonView(
+                            iconColor: colorgreenishblack,
+                            iconData: FontAwesomeIcons.google,
+                            btnName: 'Google',
+                            borderColor: colorblue,
+                            bgColor: colorwhite,
+                            txtColor: colorgreenishblack.withOpacity(0.5),
+                            onButtonTap: () {
+                              signupController.googleSignUp(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -235,8 +295,12 @@ class SignUpDesktop extends StatelessWidget {
     );
   }
 
-  Widget _passwordTextField(TextEditingController controller, String label,
-      bool obscureText, Function(bool) onVisibilityChanged) {
+  Widget _passwordTextField(
+      TextEditingController controller,
+      String label,
+      bool obscureText,
+      Function(bool) onVisibilityChanged,
+      Function(String?)? onChanged) {
     return Stack(
       children: [
         SizedBox(
@@ -263,6 +327,7 @@ class SignUpDesktop extends StatelessWidget {
                   },
                 ),
               ),
+              onChanged: onChanged,
             ),
           ),
         ),

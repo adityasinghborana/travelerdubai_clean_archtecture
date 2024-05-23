@@ -12,7 +12,6 @@ class HeaderController extends GetxController {
   final RxBool loggedIn = false.obs;
   final RxMap<String, bool> isHoveredMap = <String, bool>{}.obs;
   final RxBool isHeaderTransparent = true.obs;
-
   @override
   void onInit() {
     ever(loggedIn, (_) {

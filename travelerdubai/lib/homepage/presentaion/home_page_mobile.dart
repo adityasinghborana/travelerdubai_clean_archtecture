@@ -29,6 +29,7 @@ class HomePageMobile extends StatelessWidget {
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
   final ScrollController? scrollController2 = ScrollController();
+
   HomePageMobile({super.key});
 
   @override
@@ -55,8 +56,8 @@ class HomePageMobile extends StatelessWidget {
           children: [
             SizedBox(
               height: Get.height * 0.4,
-              child: HeroImageWidget(
-                titlefontsize: 32,
+              child: const HeroImageWidget(
+                titleFontSize: 32,
               ),
             ),
             Obx(
@@ -101,7 +102,7 @@ class HomePageMobile extends StatelessWidget {
             children: [
               buildHeading(heading),
               buildTourCards(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
             ],
           ),
         ],
@@ -142,7 +143,6 @@ class HomePageMobile extends StatelessWidget {
   Widget buildCitySection(
       String heading, ScrollController? controller, double? width) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height * .076),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

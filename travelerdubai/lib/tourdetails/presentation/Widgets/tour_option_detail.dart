@@ -5,7 +5,6 @@ import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/transfer_time_dropdown.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
-import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
 import '../../../Cart/data_layer/model/request/update_cart.dart';
 import '../../../core/controller/headercontroller.dart';
@@ -37,7 +36,7 @@ Widget options(String tourName) {
             key: UniqueKey(),
             itemCount: optionsStatic.options.value.data?.length,
             itemBuilder: (BuildContext context, int index) {
-              optionsStatic.timeslots.value.clear();
+              optionsStatic.timeslots.clear();
               optionsStatic.getTimeSlots(
                   optionsStatic.options.value.data?[index].tourOptionId ?? 0);
 
@@ -140,16 +139,14 @@ Widget options(String tourName) {
                               }), // SizedBox(
                               Obx(() {
                                 var optionsSize =
-                                    optionsStatic.timeslots.value.length;
-                                if (tourController.tour.value.isSlot==true && index >= optionsSize) {
-                                  return Text("Loading ");
-
-                                }
-
-                                else if (tourController.tour.value.isSlot==false){
-                                  return Text("No time Slot required ");
-                                }
-                                else {
+                                    optionsStatic.timeslots.length;
+                                if (tourController.tour.value.isSlot == true &&
+                                    index >= optionsSize) {
+                                  return const Text("Loading ");
+                                } else if (tourController.tour.value.isSlot ==
+                                    false) {
+                                  return const Text("No time Slot required ");
+                                } else {
                                   return TimeDropdownWidget(
                                     tourOptionId: optionsStatic.options.value
                                             .data?[index].tourOptionId ??

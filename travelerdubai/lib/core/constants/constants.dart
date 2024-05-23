@@ -56,7 +56,7 @@ TextStyle getH2TextStyle(BuildContext context) {
   if (screenWidth < 600) {
     fontSize = screenWidth * 0.056; // For smaller screens like mobile
   } else {
-    fontSize = 35.0; // For larger screens
+    fontSize = screenWidth * 0.036; // For larger screens
   }
 
   return GoogleFonts.outfit(

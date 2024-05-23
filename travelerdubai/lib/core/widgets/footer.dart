@@ -39,7 +39,7 @@ Widget buildFooter() {
     }
 
     if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
-      return  buildFooterMobile();
+      return buildFooterMobile();
     } else {
       return const Text("others");
     }
@@ -145,6 +145,7 @@ Widget _buildNavigationSections() {
         TextButton(
           onPressed: () {
             // Handle Home button press
+            Get.toNamed('/home');
           },
           child: const Text(
             "Home",
@@ -158,6 +159,7 @@ Widget _buildNavigationSections() {
         TextButton(
           onPressed: () {
             // Handle Experiences button press
+            Get.toNamed('/experiences');
           },
           child: const Text(
             "Experiences",
@@ -171,6 +173,7 @@ Widget _buildNavigationSections() {
         TextButton(
           onPressed: () {
             // Handle About Us button press
+            Get.toNamed('/Aboutus');
           },
           child: const Text(
             "About Us",

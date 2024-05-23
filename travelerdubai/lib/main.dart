@@ -43,12 +43,14 @@ void main() async {
   Get.put(prefs);
   Get.put(HeaderController());
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
-  Widget build(BuildContext Context) {
+  Widget build(BuildContext context) {
     // final  HeaderController headerController = Get.put(HeaderController());
 
     return ResponsiveApp(
@@ -78,13 +80,13 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/Signup',
-            page: () => SignupPage(),
+            page: () => const SignupPage(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/home',
-            page: () => HomeScreen(),
+            page: () => const HomeScreen(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
