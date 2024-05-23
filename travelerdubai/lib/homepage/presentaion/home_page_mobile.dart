@@ -102,7 +102,7 @@ class HomePageMobile extends StatelessWidget {
             children: [
               buildHeading(heading),
               buildTourCards(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
             ],
           ),
         ],

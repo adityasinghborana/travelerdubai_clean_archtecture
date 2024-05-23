@@ -245,7 +245,7 @@ class TourPageDesktop extends StatelessWidget {
     }
     return Obx(() {
       return Card(
-        elevation: 25.0,
+        elevation: 10.0,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
