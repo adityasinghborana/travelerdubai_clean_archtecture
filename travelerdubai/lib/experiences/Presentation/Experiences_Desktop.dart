@@ -1,7 +1,7 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/core/widgets/drawer.dart';
@@ -11,7 +11,6 @@ import 'package:travelerdubai/experiences/Presentation/widgets/tourtypes.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-
 import '../../core/widgets/header.dart';
 import '../model/experience_response_model.dart';
 
@@ -33,8 +32,7 @@ class ExperiencesDesktop extends StatelessWidget {
       ),
     );
 
-    String? city =
-        Get.parameters['cityName']; // Retrieve city inside build method
+    String? city = Get.parameters['cityName']; // Retrieve city inside build method
     if (kDebugMode) {
       print('city is $city');
     }
@@ -42,19 +40,16 @@ class ExperiencesDesktop extends StatelessWidget {
     List<Experiences> allTours = experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
         : experienceController.cityTours
-            .where((tour) =>
-                tour.cityTourType ==
-                experienceController.selectedTourType.value)
-            .toList();
+        .where((tour) => tour.cityTourType == experienceController.selectedTourType.value)
+        .toList();
 
     List<Experiences> filterCityTour = city != null
-        ? experienceController.cityTours
-            .where((tour) => tour.cityName == city)
-            .toList()
+        ? experienceController.cityTours.where((tour) => tour.cityName == city).toList()
         : []; // Handle null city
 
     var displayedTours = city != null ? filterCityTour : allTours;
     Get.lazyPut(() => HeaderController());
+
     return Scaffold(
       drawer: drawer(),
       body: SingleChildScrollView(
@@ -77,23 +72,16 @@ class ExperiencesDesktop extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: Get.width * 0.04),
+                        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: Get.height * 0.05,
-                            ),
-                            Text("Discover All Experiences",
-                                style: H1(context)),
-                            SizedBox(
-                              height: Get.height * 0.02,
-                            ),
+                            SizedBox(height: Get.height * 0.05),
+                            Text("Discover All Experiences", style: H1(context)),
+                            SizedBox(height: Get.height * 0.02),
                             Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -106,8 +94,7 @@ class ExperiencesDesktop extends StatelessWidget {
                                     child: TextField(
                                       controller: searchController,
                                       onChanged: (value) {
-                                        experienceController
-                                            .searchCityTours(value);
+                                        experienceController.searchCityTours(value);
                                       },
                                       decoration: const InputDecoration(
                                         hintText: 'Search',
@@ -132,9 +119,16 @@ class ExperiencesDesktop extends StatelessWidget {
               height: Get.height * .95,
               child: Row(
                 children: [
-                  const Flexible(
+                  Flexible(
                     flex: 1,
-                    child: TourTypes(),
+                    child: TourTypes(
+                      onTap: (String cityTourType) {
+                        experienceController.filterCityToursByType(cityTourType);
+                      },
+                      onDoubleTap: () {
+                        experienceController.resetSelectedTourType();
+                      },
+                    ),
                   ),
                   Flexible(
                     flex: 4,

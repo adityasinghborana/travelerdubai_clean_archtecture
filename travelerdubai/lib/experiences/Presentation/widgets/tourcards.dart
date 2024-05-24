@@ -26,7 +26,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName,
         child: GridView.builder(
           controller: controller,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 1 / 1.5,
+            childAspectRatio: 1 / 1.2,
             crossAxisCount: 4,
             crossAxisSpacing: 16,
             mainAxisSpacing: 20,

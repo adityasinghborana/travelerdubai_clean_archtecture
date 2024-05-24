@@ -4,12 +4,16 @@ import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 
 class TourTypes extends StatelessWidget {
-  const TourTypes({super.key});
+  final Function(String) onTap;
+  final VoidCallback onDoubleTap;
+
+  const TourTypes({super.key, required this.onTap, required this.onDoubleTap});
 
   @override
   Widget build(BuildContext context) {
     final ScrollController listController = ScrollController();
     ExperienceController experienceController = Get.find();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
       child: ClipRRect(
@@ -27,8 +31,7 @@ class TourTypes extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Get.width * 0.011, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.011, vertical: 30),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,22 +68,17 @@ class TourTypes extends StatelessWidget {
                       if (experienceController.tourTypes.isEmpty) {
                         return const Center(child: Text('Empty'));
                       } else {
-                        return ListView(
+                        return ListView.builder(
                           controller: listController,
-                          children: List.generate(
-                            experienceController.tourTypes.length,
-                                (index) {
-                              String cityTourType = experienceController
-                                  .tourTypes[index]['cityTourType'];
-                              return HoverCard(
-                                cityTourType: cityTourType,
-                                onTap: () {
-                                  experienceController
-                                      .filterCityToursByType(cityTourType);
-                                },
-                              );
-                            },
-                          ),
+                          itemCount: experienceController.tourTypes.length,
+                          itemBuilder: (context, index) {
+                            String cityTourType = experienceController.tourTypes[index]['cityTourType'];
+                            return HoverCard(
+                              cityTourType: cityTourType,
+                              onTap: () => onTap(cityTourType),
+                              onDoubleTap: onDoubleTap,
+                            );
+                          },
                         );
                       }
                     }),
@@ -95,11 +93,17 @@ class TourTypes extends StatelessWidget {
   }
 }
 
+
 class HoverCard extends StatefulWidget {
   final String cityTourType;
   final VoidCallback onTap;
+  final VoidCallback onDoubleTap;
 
-  HoverCard({required this.cityTourType, required this.onTap});
+  HoverCard({
+    required this.cityTourType,
+    required this.onTap,
+    required this.onDoubleTap,
+  });
 
   @override
   _HoverCardState createState() => _HoverCardState();
@@ -107,16 +111,28 @@ class HoverCard extends StatefulWidget {
 
 class _HoverCardState extends State<HoverCard> {
   bool _isHovered = false;
+  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Get.height * 0.01),
+      padding: EdgeInsets.symmetric(vertical: Get.height * 0.005),
       child: Card(
         surfaceTintColor: colorwhite,
         elevation: 4,
         child: InkWell(
-          onTap: widget.onTap,
+          onTap: () {
+            setState(() {
+              _isSelected = !_isSelected;
+            });
+            widget.onTap();
+          },
+          onDoubleTap: () {
+            setState(() {
+              _isSelected = false;
+            });
+            widget.onDoubleTap();
+          },
           child: MouseRegion(
             onEnter: (_) => setState(() {
               _isHovered = true;
@@ -126,7 +142,7 @@ class _HoverCardState extends State<HoverCard> {
             }),
             child: Container(
               decoration: BoxDecoration(
-                color: _isHovered ? Colors.blueAccent : Colors.white,
+                color: _isSelected ? Colors.blueAccent : (_isHovered ? Colors.blueAccent.withOpacity(0.9) : Colors.white),
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
                   color: colorlightgrey.withOpacity(0.2),
@@ -144,8 +160,8 @@ class _HoverCardState extends State<HoverCard> {
                       child: Text(
                         widget.cityTourType,
                         textAlign: TextAlign.center,
-                        style: bodyBlack(context).copyWith(
-                          color: _isHovered ? Colors.white : Colors.black,
+                        style: bodyBlack(context).copyWith(fontSize: 12,
+                          color: _isSelected || _isHovered ? Colors.white : Colors.black,
                         ),
                       ),
                     ),

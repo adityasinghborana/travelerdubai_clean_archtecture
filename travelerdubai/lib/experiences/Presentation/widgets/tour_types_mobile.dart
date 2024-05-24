@@ -4,11 +4,12 @@ import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 
 class TourTypesMobile extends StatelessWidget {
+  const TourTypesMobile({super.key});
 
-  const TourTypesMobile( {super.key});
   @override
   Widget build(BuildContext context) {
     ExperienceController experienceController = Get.find();
+
     return Container(
       decoration: BoxDecoration(
         gradient: backgroundgradient,
@@ -25,40 +26,32 @@ class TourTypesMobile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Container()),
-
-
           Padding(
-    padding: EdgeInsets.symmetric(
-    horizontal: Get.width * 0.03,),
+            padding: EdgeInsets.symmetric(
+              horizontal: Get.width * 0.03,
+            ),
             child: RichText(
               text: TextSpan(
-                style:  TextStyle(
-                  fontSize: Get.width*0.05,
+                style: TextStyle(
+                  fontSize: Get.width * 0.05,
                   fontWeight: FontWeight.bold,
                 ),
                 children: [
-
                   TextSpan(
                     text: 'Browse By Themes  ',
                     style: TextStyle(
                       foreground: Paint()
-                        ..shader =  const LinearGradient(
-                          colors: [
-                            colorHighlights,
-                            colorPrimary
-                          ], // Define your gradient colors
-                        ).createShader(const Rect.fromLTWH(50.0, 20.0, 90.0,
-                            20.0)), // Adjust the size as needed
+                        ..shader = const LinearGradient(
+                          colors: [colorHighlights, colorPrimary],
+                        ).createShader(const Rect.fromLTWH(
+                            50.0, 20.0, 90.0, 20.0)),
                     ),
                   ),
-
-
                 ],
               ),
             ),
           ),
           Expanded(child: Container()),
-
           Container(
             height: 50,
             child: Obx(() {
@@ -67,37 +60,37 @@ class TourTypesMobile extends StatelessWidget {
               } else {
                 return ListView(
                   scrollDirection: Axis.horizontal,
-
                   children: List.generate(
                     experienceController.tourTypes.length,
                         (index) {
                       String cityTourType =
                       experienceController.tourTypes[index]['cityTourType'];
+                      bool isSelected = experienceController.selectedTourType.value == cityTourType;
+
                       return InkWell(
                         onTap: () {
-                          experienceController
-                              .filterCityToursByType(cityTourType);
+                          if (isSelected) {
+                            experienceController.resetSelectedTourType();
+                          } else {
+                            experienceController.filterCityToursByType(cityTourType);
+                          }
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.02,
-                             ),
+                            horizontal: Get.width * 0.02,
+                          ),
                           child: Container(
-
-                            width: Get.width*0.4,
+                            width: Get.width * 0.4,
                             decoration: BoxDecoration(
-                              color: colorwhite,
+                              color: isSelected ? colorPrimary : colorwhite,
                               borderRadius: BorderRadius.circular(10.0),
                               border: Border.all(
                                 color: colorlightgrey.withOpacity(0.2),
-                                // Set the color of the border
-                                width: 2.0, // Set the width of the border
+                                width: 2.0,
                               ),
                             ),
-
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment
-                                  .center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Flexible(
@@ -107,7 +100,9 @@ class TourTypesMobile extends StatelessWidget {
                                     child: Text(
                                       cityTourType,
                                       textAlign: TextAlign.center,
-                                      style: bodygrey(Get.context!),
+                                      style: bodygrey(Get.context!).copyWith(
+                                        color: isSelected ? colorwhite : Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -123,13 +118,8 @@ class TourTypesMobile extends StatelessWidget {
             }),
           ),
           Expanded(child: Container()),
-
         ],
       ),
     );
   }
-
-
 }
-
-
