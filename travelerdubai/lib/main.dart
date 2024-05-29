@@ -18,7 +18,6 @@ import 'package:travelerdubai/tourdetails/presentation/Widgets/controllers_bindi
 import 'package:travelerdubai/tourdetails/presentation/screen/mobile/forms_mobile.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
-
 import 'NotFound/404Screen.dart';
 import 'checkout/presentation/checkoutscreen.dart';
 import 'core/controller/headercontroller.dart';
@@ -150,8 +149,11 @@ class MyApp extends StatelessWidget {
             transition: Transition.circularReveal,
             transitionDuration: const Duration(milliseconds: 500),
           ),
+
         ],
       ),
     );
   }
 }
+
+
