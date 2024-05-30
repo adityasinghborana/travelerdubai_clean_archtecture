@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
-import '../Cart/data_layer/model/request/update_cart.dart';
 import '../core/controller/headercontroller.dart';
 import 'custom_button.dart';
 import 'format_date.dart';
@@ -18,11 +17,11 @@ class PopupCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('static controller in pop up is$static');
-    final List<dynamic> args = Get.arguments;
     final List<Result> lst = static.timeslots.value
-        .firstWhere((ts) => ts[0].tourOptionId == args[1], orElse: () => [])
+        .firstWhere((ts) => ts[0].tourOptionId == static.currOptionId,
+            orElse: () => [])
         .toList();
-    print('Curr option id is ${args[1]}');
+    print('Curr option id is ${static.currOptionId}');
     //final int index = args[1] as int;
     //print('index is $index');
     var selectedValue = lst.isNotEmpty
@@ -90,8 +89,7 @@ class PopupCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            formatDate(static.dateTextController.value.text ??
-                                '2024-03-16'),
+                            formatDate(static.dateTextController.value.text),
                             style: TextStyle(
                               color: const Color(0xFF1C1C1C),
                               fontSize:
@@ -142,7 +140,7 @@ class PopupCard extends StatelessWidget {
                                             Text(
                                               lst[i].timeSlot,
                                               style: TextStyle(
-                                                color: Color(0xFF828282),
+                                                color: const Color(0xFF828282),
                                                 fontSize: MediaQuery.of(context)
                                                         .size
                                                         .width *
@@ -197,9 +195,15 @@ class PopupCard extends StatelessWidget {
                           child: ButtonView(
                             btnName: 'Add to Cart',
                             bgColor: Colors.blue,
-                            onButtonTap: (){
-                              Get.snackbar("Error", "Internal Server Error");
-                            }
+                            onButtonTap: () {
+                              print(
+                                  'selected timeslot id is ${selectedValue.value.timeSlot}');
+                              static.value.timeSlotId =
+                                  int.parse(selectedValue.value.timeSlotId);
+
+                              static.Addtocart(static.value);
+                              print(static.value.toJson());
+                            },
                           ),
                         ),
                       ),

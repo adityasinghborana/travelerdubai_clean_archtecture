@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
@@ -139,7 +140,9 @@ class CheckoutController extends GetxController {
         User: headerController.userid.value,
         cartid: cartId.value,
         passengers: passengerdata);
-    print(passengerdata);
+    if (kDebugMode) {
+      print(passengerdata);
+    }
     doBookingUseCase.execute(data).then((value) {
       if (value.result?.referenceNo != null) {
         print(value.result!.referenceNo);
