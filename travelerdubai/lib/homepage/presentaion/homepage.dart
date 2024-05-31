@@ -160,7 +160,7 @@ class Homepage extends StatelessWidget {
             children: [
               _buildHeading(heading),
               SizedBox(
-                  height: Get.height * .5,
+                  height: Get.height * .6,
                   width: Get.width * .9,
                   child: Stack(children: [
                     CityList(),
@@ -195,7 +195,7 @@ class Homepage extends StatelessWidget {
                       ),
                     ),
                   ])),
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
             ],
           ),
         ],

@@ -49,7 +49,7 @@ class CityList extends StatelessWidget {
         } else {
           return SizedBox(
             width: Get.width * .9,
-            height: Get.height * .5,
+            height: Get.height * .6,
             child: ListView.builder(
               controller: listController,
               scrollDirection: Axis.horizontal,
@@ -65,23 +65,27 @@ class CityList extends StatelessWidget {
                       parameters: {'cityName': cityName.toString()},
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
+                  child: SizedBox(
+                    width: Get.width * .18,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
                       child: Stack(
                         children: [
-                          AspectRatio(
-                            aspectRatio: 10 / 9,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
                             child: Image.network(
                               "https://source.unsplash.com/random/?${city.CityName}",
                               fit: BoxFit.cover,
+                              height: Get.height * 0.6,
+                              width: Get.width * .18,
 
                               // width: Get.width * 0.18
                             ),
                           ),
                           Container(
-                            decoration: BoxDecoration(gradient: imageGradient),
+                            decoration: BoxDecoration(
+                              gradient: imageGradient,
+                            ),
                           ),
                           Align(
                             alignment: Alignment.bottomLeft,
