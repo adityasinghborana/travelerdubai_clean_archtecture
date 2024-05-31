@@ -141,7 +141,7 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/checkout',
-            page: () => Checkout(),
+            page: () => const Checkout(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),

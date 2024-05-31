@@ -16,9 +16,20 @@ import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
+import '../../Cart/data_layer/repository/cart_repository.dart';
+import '../../Cart/data_layer/service/cart_remote.dart';
+import '../../Cart/data_layer/usecase/update_cart.dart';
 import '../../core/widgets/header.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
+import '../../tourdetails/presentation/tour_options_controller.dart';
+import '../../tourdetails/timeslot_data_layer/repositories/timeslot_repository.dart';
+import '../../tourdetails/timeslot_data_layer/service/timslot_remote.dart';
+import '../../tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
+import '../../tourdetails/touroption_data_layer/remote/service/touroption_remote.dart';
+import '../../tourdetails/touroption_data_layer/repository/tour_option_repository.dart';
+import '../../tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
+import '../../tourdetails/touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 
 class Homepage extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
@@ -26,6 +37,27 @@ class Homepage extends StatelessWidget {
   final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
+  final TourOptionStaticDataController static = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
+        ),
+        GetTimeSlotUseCase(
+          TimeSlotRepositoryImpl(
+            TimeSlotRemoteService(Dio()),
+          ),
+        ),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
+  );
+
   Homepage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -212,6 +244,7 @@ class Homepage extends StatelessWidget {
                 tours: tourListController.tours,
                 scrollController: controller,
                 filterProperty: filterProperty,
+                static: static,
               );
             }
           }),

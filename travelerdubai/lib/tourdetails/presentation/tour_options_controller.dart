@@ -24,18 +24,15 @@ class TourOptionStaticDataController extends GetxController {
   late UpdateCartTourDetail value;
   String? selectedTimeSlot = '';
   var output1;
-
+  var dynamicOptionsMap = <int, TourOptionDynamicResult>{};
   TourOptionStaticDataController(
       this.getOptionsStaticDataUseCase,
       this.getOptionsDynamicDataUseCase,
       this.getTimeSlotUseCase,
       this.updateCartUseCase);
-
   RxString selectedTimeSlotId = RxString("0");
-
   RxString mobileTourId = "".obs;
   RxString mobilecontractId = "".obs;
-
   final Rx<TextEditingController> dateTextController =
       TextEditingController().obs;
   final RxInt timeSlotId = 0.obs; // need to check
@@ -149,6 +146,7 @@ class TourOptionStaticDataController extends GetxController {
         }
         pricing.value = value.extractedData!;
         getTransfersOptions();
+        print(value);
       });
       if (kDebugMode) {
         print(response);

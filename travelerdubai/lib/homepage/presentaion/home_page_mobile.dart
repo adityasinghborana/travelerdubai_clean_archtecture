@@ -15,12 +15,27 @@ import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
+import '../../Cart/data_layer/repository/cart_repository.dart';
+import '../../Cart/data_layer/service/cart_remote.dart';
+import '../../Cart/data_layer/usecase/update_cart.dart';
 import '../../Components/Advertisement.dart';
 import '../../Components/buid_heading.dart';
 import '../../Components/footer_mobile.dart';
 import '../../core/constants/constants.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
+import '../../tourdetails/presentation/tour_options_controller.dart';
+import '../../tourdetails/presentation/tours_controller.dart';
+import '../../tourdetails/timeslot_data_layer/repositories/timeslot_repository.dart';
+import '../../tourdetails/timeslot_data_layer/service/timslot_remote.dart';
+import '../../tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
+import '../../tourdetails/tourdetail_data_layer/Usecase/usecase.dart';
+import '../../tourdetails/tourdetail_data_layer/remote/tour_remote.dart';
+import '../../tourdetails/tourdetail_data_layer/repository/tour_repository.dart';
+import '../../tourdetails/touroption_data_layer/remote/service/touroption_remote.dart';
+import '../../tourdetails/touroption_data_layer/repository/tour_option_repository.dart';
+import '../../tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
+import '../../tourdetails/touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
 
 class HomePageMobile extends StatelessWidget {
   final HomeController homeController = Get.put(HomeController(
@@ -29,6 +44,29 @@ class HomePageMobile extends StatelessWidget {
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
   final ScrollController? scrollController2 = ScrollController();
+  final TourController tourController = Get.put(TourController(
+    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
+  ));
+  final TourOptionStaticDataController static = Get.put(
+    TourOptionStaticDataController(
+        GetTourOptionsStaticDataUseCase(
+            TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+        GetTourOptionsDynamicDataUseCase(
+          TourOptionsRepositoryImpl(
+            TourOptionRemoteService(Dio()),
+          ),
+        ),
+        GetTimeSlotUseCase(
+          TimeSlotRepositoryImpl(
+            TimeSlotRemoteService(Dio()),
+          ),
+        ),
+        UpdateCartUseCase(
+          CartRepositoryImpl(
+            CartRemoteService(Dio()),
+          ),
+        )),
+  );
 
   HomePageMobile({super.key});
 
@@ -43,6 +81,14 @@ class HomePageMobile extends StatelessWidget {
         ),
       ),
     );
+    ever(tourController.isLoading, (isLoading) {
+      if (!isLoading) {
+        static.id.value = tourController.tour.value.TourId.toString();
+        static.contractid.value =
+            tourController.tour.value.contractId.toString();
+        static.getOptionsStaticData();
+      }
+    });
 
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -132,6 +178,7 @@ class HomePageMobile extends StatelessWidget {
                 tours: tourListController.tours,
                 cardWidth: Get.width * .4,
                 filterProperty: '',
+                static: static,
               );
             }
           }),
