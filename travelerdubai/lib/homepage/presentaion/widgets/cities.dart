@@ -49,57 +49,62 @@ class CityList extends StatelessWidget {
         } else {
           return SizedBox(
             width: Get.width * .9,
-            height: Get.height * .5,
+            height: Get.height * .6,
             child: ListView.builder(
               controller: listController,
               scrollDirection: Axis.horizontal,
               itemCount: controller.cities.length,
               itemBuilder: (context, index) {
                 final city = controller.cities[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: InkWell(
-                    onTap: () {
-                      String cityName = city.CityName;
+                return InkWell(
+                  onTap: () {
+                    String cityName = city.CityName;
 
-                      Get.toNamed(
-                        '/experiences',
-                        parameters: {'cityName': cityName.toString()},
-                      );
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        child: Stack(
-                          children: [
-                            AspectRatio(
-                              aspectRatio: 10 / 9,
-                              child: Image.network(
-                                "https://source.unsplash.com/random/?${city.CityName}",
-                                fit: BoxFit.cover,
-                                // width: Get.width * 0.18
-                              ),
+                    Get.toNamed(
+                      '/experiences',
+                      parameters: {'cityName': cityName.toString()},
+                    );
+                  },
+                  child: SizedBox(
+                    width: Get.width * .18,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(
+                              "https://source.unsplash.com/random/?${city.CityName}",
+                              fit: BoxFit.cover,
+                              height: Get.height * 0.6,
+                              width: Get.width * .18,
+
+                              // width: Get.width * 0.18
                             ),
-                            Container(
-                              decoration: BoxDecoration(gradient: imageGradient),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: imageGradient,
                             ),
-                            Positioned(
-                              bottom: 8.0,
-                              left: 8.0,
-                              right: 8.0,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
                               child: SizedBox(
                                 width: widthFactor,
                                 child: Text(
                                   city.CityName,
-                                  style: getH2TextStyle(context).copyWith(color: Colors.white),
+                                  style: getH2TextStyle(context)
+                                      .copyWith(color: colorwhite),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                   softWrap: true,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

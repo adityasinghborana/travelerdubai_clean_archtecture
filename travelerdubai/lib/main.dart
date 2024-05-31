@@ -114,6 +114,7 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/tour_details',
             page: () => const TourPage(),
+            binding: ControllerBindings(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
@@ -139,7 +140,7 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/checkout',
-            page: () => Checkout(),
+            page: () => const Checkout(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),

@@ -1,20 +1,17 @@
 import 'dart:collection';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 
+import '../../../../Cart/data_layer/model/request/update_cart.dart';
 import '../../../../Components/custom_button.dart';
 import '../../../../Components/date_picker.dart';
 import '../../../../Components/dropdown_widget_mobile.dart';
 import '../../../../Components/ui_state.dart';
+import '../../../../core/controller/headercontroller.dart';
 import '../../../../core/widgets/Mobileheader.dart';
-import '../../../tourdetail_data_layer/Usecase/usecase.dart';
-import '../../../tourdetail_data_layer/remote/tour_remote.dart';
-import '../../../tourdetail_data_layer/repository/tour_repository.dart';
 import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
@@ -26,20 +23,11 @@ class FormsMobile extends StatelessWidget {
   final ScrollController scrollController = ScrollController();
   final ScrollController listController = ScrollController();
   final TourOptionStaticDataController static = Get.find();
+  final HeaderController controller = Get.put(HeaderController());
 
   @override
   Widget build(BuildContext context) {
-    TourController tourController = Get.put(
-      TourController(
-        GetCityTourUseCase(
-          TourRepositoryImpl(
-            TourRemoteService(
-              Dio(),
-            ),
-          ),
-        ),
-      ),
-    );
+    TourController tourController = Get.find();
     static.dateTextController.value.text = DateTime.now()
         .add(
           // Add a duration representing the specified number of hours.
@@ -214,6 +202,7 @@ class FormsMobile extends StatelessWidget {
               Obx(() {
                 var outputState = static.options.value;
                 var tourOptionsDynamicList = static.dynamicoptions.toList();
+                static.output1 = tourOptionsDynamicList;
 
                 if (kDebugMode) {
                   print(
@@ -306,7 +295,8 @@ class FormsMobile extends StatelessWidget {
                                           context,
                                           static.options.value.data?[index]
                                                   .tourOptionId ??
-                                              0),
+                                              0,
+                                          index),
                                     ],
                                   ),
                                 )
@@ -380,7 +370,8 @@ class FormsMobile extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoAndButtonRow(BuildContext context, int tourOptionId) {
+  Widget _buildInfoAndButtonRow(
+      BuildContext context, int tourOptionId, int index) {
     final TourController tourController = Get.find();
     return Obx(
       () {
@@ -409,7 +400,41 @@ class FormsMobile extends StatelessWidget {
                   btnName: 'Time Slots',
                   bgColor: Colors.blue,
                   onButtonTap: () {
+                    final data = static.output1[index];
+                    static.value = UpdateCartTourDetail(
+                        tourname: tourController.tour.value.tourName ?? '',
+                        tourOption: data.transferName!,
+                        tourId: data.tourId!,
+                        optionId: data.tourOptionId!,
+                        adult: static.adultsSelectedValue.value,
+                        child: static.childrenSelectedValue.value,
+                        infant: static.infantsSelectedValue.value,
+                        tourDate: static.selectedDate.value
+                            .toString()
+                            .substring(0, 10),
+                        timeSlotId: static.timeSlotId.value,
+                        startTime: data.startTime!,
+                        transferId: data.transferId!,
+                        adultRate: data.adultPrice!.toDouble(),
+                        childRate: data.childPrice?.toDouble() ?? 0.0,
+                        serviceTotal: ((static.output1[index].finalAmount ??
+                                0) +
+                            (static.pricing.value.addPriceAdult ?? 0) +
+                            (static.pricing.value.addPriceChildren ?? 0) +
+                            (static.pricing.value.additionalPriceInfant ?? 0)),
+                        cartId: controller.cartId.value);
+                    print(("${controller.cartId.value} Hello"));
                     if (static.timeslots.isNotEmpty) {
+                      static.currOptionId = tourOptionId;
+                      print('curr OptionId is ${static.currOptionId}');
+
+                      Get.toNamed('/popup_card');
+                      // for (int i = 0; i < static.timeslots.length; i++) {
+                      //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
+                      //     print(static.timeslots.value[i][j].timeSlot);
+                      //   }
+                      // }
+                    } else if (tourController.tour.value.isSlot == true) {
                       Get.toNamed('/popup_card',
                           arguments: [filteredTimeSlots, tourOptionId]);
                       // for (int i = 0; i < static.timeslots.length; i++) {
@@ -417,18 +442,7 @@ class FormsMobile extends StatelessWidget {
                       //     print(static.timeslots.value[i][j].timeSlot);
                       //   }
                       // }
-                    }
-                    else if(tourController.tour.value.isSlot == true){
-                        Get.toNamed('/popup_card',
-                          arguments: [filteredTimeSlots, tourOptionId]);
-                      // for (int i = 0; i < static.timeslots.length; i++) {
-                      //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
-                      //     print(static.timeslots.value[i][j].timeSlot);
-                      //   }
-                      // }
-                    }
-
-                    else {
+                    } else {
                       if (kDebugMode) {
                         Get.toNamed('/home',
                             preventDuplicates: true,
@@ -442,103 +456,6 @@ class FormsMobile extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _buildTimeRow(var lst) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'More info',
-              style: TextStyle(
-                color: Color(0xFF2659C3),
-                fontSize: 16,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w600,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-            Row(
-              children: [
-                const Text(
-                  'Time: ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Container(
-                  width: 148,
-                  height: 40,
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                      side:
-                          const BorderSide(width: 1, color: Color(0xFFD9D9D9)),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: DropdownButtonFormField<String>(
-                      decoration: const InputDecoration.collapsed(hintText: ''),
-                      // Initial value, you can change it according to your requirement
-                      onChanged: (String? newValue) {
-                        // Handle dropdown value change
-                      },
-                      items: lst // Your dropdown options
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBackArrowContainer(
-      BuildContext context, TourController tourController) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xffd1d5ff),
-            Color(0xfff3c5f1),
-          ],
-          stops: [0.0, 1.0],
-        ),
-      ),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              // Handle back arrow functionality
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "${tourController.tour.value.tourName}",
-              style: formHeaderTextStyleMobile,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
