@@ -132,6 +132,12 @@ final iconText = GoogleFonts.roboto(
   fontWeight: FontWeight.w500,
   fontStyle: FontStyle.normal,
 );
+final iconText2 = GoogleFonts.roboto(
+  fontSize: 12,
+  color: Colors.grey,
+  fontWeight: FontWeight.w500,
+  fontStyle: FontStyle.normal,
+);
 
 final ratingStyle = GoogleFonts.outfit(
   textStyle: TextStyle(

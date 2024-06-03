@@ -4,6 +4,7 @@ import 'package:auraa_ui/aura_ui.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
@@ -19,7 +20,6 @@ import 'package:travelerdubai/tourdetails/timeslot_data_layer/repositories/times
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_remote.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 
-import '../../../../Components/icon_text_background.dart';
 import '../../../../core/controller/headercontroller.dart';
 import '../../../../core/widgets/footer.dart';
 import '../../../tourdetail_data_layer/Usecase/usecase.dart';
@@ -63,7 +63,6 @@ class TourPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     static.dateTextController.value.text = DateTime.now()
         .add(
           // Add a duration representing the specified number of hours.
@@ -147,46 +146,103 @@ class TourPageDesktop extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.05),
-                                child: Row(
+                                    horizontal: Get.width * 0.06),
+                                child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconTextBackground(
-                                        iconData: Icons.remove_red_eye,
-                                        text: 'Open Today',
-                                        backgroundColor: const Color.fromRGBO(
-                                            8, 137, 67, 0.12),
-                                        iconColor: color_088943,
-                                        textStyle: iconText),
+                                    const Icon(
+                                      Icons.security_rounded,
+                                      // color: const Color.fromRGBO(
+                                      //     8, 137, 67, 0.12),
+                                      color: color_088943,
+                                    ),
                                     Text(
-                                      'Visit Timing',
+                                      'Secure Checkout',
                                       style: iconText,
+                                    ),
+                                    Text(
+                                      'Fast and Secure Payment',
+                                      style: iconText2,
                                     )
                                   ],
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.05),
-                                child: IconTextBackground(
-                                    iconData: Icons.access_time_filled,
-                                    text: 'Explore at your pace',
-                                    backgroundColor: const Color.fromRGBO(
-                                        204, 126, 99, 0.20),
-                                    iconColor: color_cc7e63,
-                                    textStyle: iconText),
+                                    horizontal: Get.width * 0.06),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.fact_check_outlined,
+                                      // color: const Color.fromRGBO(
+                                      //     8, 137, 67, 0.12),
+                                      color: color_088943,
+                                    ),
+                                    Text(
+                                      'Instant confirmation',
+                                      style: iconText,
+                                    ),
+                                    Text(
+                                      'Refund Guarantee Option',
+                                      style: iconText2,
+                                    )
+                                  ],
+                                ),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * 0.05),
-                                child: IconTextBackground(
-                                    iconData: Icons.audiotrack,
-                                    text: 'Audio Guide',
-                                    backgroundColor:
-                                        const Color.fromRGBO(0, 154, 184, 0.20),
-                                    iconColor: color_088943,
-                                    textStyle: iconText.copyWith(fontSize: 16)),
+                                    horizontal: Get.width * 0.06),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      FontAwesomeIcons.ticket,
+                                      // color: const Color.fromRGBO(
+                                      //     8, 137, 67, 0.12),
+                                      color: color_088943,
+                                    ),
+                                    Text(
+                                      'Official Ticket Seller',
+                                      style: iconText,
+                                    ),
+                                    Text(
+                                      'Used by 3m+ people',
+                                      style: iconText2,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.06),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(
+                                      Icons.co_present,
+                                      // color: const Color.fromRGBO(
+                                      //     8, 137, 67, 0.12),
+                                      color: color_088943,
+                                    ),
+                                    Text(
+                                      '24/7 customer service',
+                                      style: iconText,
+                                    ),
+                                    Text(
+                                      'Reliable after sales support',
+                                      style: iconText2,
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),

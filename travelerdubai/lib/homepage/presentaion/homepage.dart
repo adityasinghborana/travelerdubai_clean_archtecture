@@ -244,7 +244,6 @@ class Homepage extends StatelessWidget {
                 tours: tourListController.tours,
                 scrollController: controller,
                 filterProperty: filterProperty,
-                static: static,
               );
             }
           }),
