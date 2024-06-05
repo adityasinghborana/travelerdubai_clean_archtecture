@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 class DetailBox extends StatelessWidget {
   final String title;
@@ -21,11 +22,11 @@ class DetailBox extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0,
       child: Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-          color: Colors.black,
-          width: 1.0,
-        )),
+        decoration: const BoxDecoration(
+            border: Border(
+        top: BorderSide(color: Color(0xFFCEDADF)),
+            bottom:  BorderSide(color: Color(0xFFCEDADF)),),),
+
         child: ExpansionTile(
           shape: const RoundedRectangleBorder(
             side: BorderSide.none, // Remove the border

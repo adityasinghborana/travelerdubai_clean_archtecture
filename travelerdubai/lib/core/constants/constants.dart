@@ -140,6 +140,12 @@ final ratingStyle = GoogleFonts.outfit(
       height: 1.26,
       color: colorgreydark.withOpacity(0.4)),
 );
+final GradientStyle = GoogleFonts.roboto(
+  textStyle: const TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 28,
+
+  ));
 
 // colors
 

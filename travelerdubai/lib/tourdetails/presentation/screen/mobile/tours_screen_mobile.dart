@@ -192,6 +192,7 @@ class TourPageMobile extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: Get.width * 0.01),
                       child: MainDetails(
+                        imageUrl:tourController.tourImages[0].imagePath ??'',
                         textStyle: detailBoxTextStyleMobile,
                       ),
                     ),
