@@ -253,17 +253,15 @@ class TourPageDesktop extends StatelessWidget {
                       ],
                     ),
                    SizedBox(height: 50,),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
-                      child: Flexible(
-                        flex: 3,
-                        child: MainDetails(
-                          imageUrl:tourController.tourImages[0].imagePath ??'' ,
-                          textStyle: detailBoxTextStyle,
-                        ),
-                      ),
-                    ),
+
+
+                       Padding(
+                        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                         child: MainDetails(
+                           imageUrl:tourController.tourImages[0].imagePath ??'' ,
+                           textStyle: detailBoxTextStyle,
+                         ),
+                       ),
                     SizedBox(height: 50,),
                     CityList(),
                     buildFooter()
