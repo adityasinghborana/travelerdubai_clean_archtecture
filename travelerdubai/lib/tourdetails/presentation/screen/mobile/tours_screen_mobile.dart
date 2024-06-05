@@ -6,14 +6,12 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/Components/footer_mobile.dart';
 import 'package:travelerdubai/Components/icon_text_background.dart';
-import 'package:travelerdubai/core/widgets/Mobileheader.dart';
 
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../../../Components/build_city.dart';
 import '../../../../core/constants/constants.dart';
-import '../../../../core/widgets/drawer.dart';
 import '../../../../homepage/presentaion/Homepagecontroller.dart';
 import '../../../../homepage/remote/homepage_remote_service.dart';
 import '../../../../homepage/repository/homepage_repository.dart';
@@ -61,11 +59,6 @@ class TourPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: MobileHeader(
-        context: Get.context!,
-        isBackButton: false,
-      ),
-      drawer: drawer(),
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {

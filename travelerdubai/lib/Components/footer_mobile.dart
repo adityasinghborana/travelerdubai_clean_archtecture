@@ -309,11 +309,17 @@ Widget _buildCopyrightAndPaymentMethods() {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("© 2024 Travelerdubai All Rights Reserved.",
+          Expanded(
+            child: Text(
+              "© 2024 Travelerdubai All Rights Reserved.",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-                  color: colorTextgrey)),
+                  color: colorTextgrey,
+                  overflow: TextOverflow.ellipsis),
+              maxLines: 2,
+            ),
+          ),
         ],
       ),
     ),
