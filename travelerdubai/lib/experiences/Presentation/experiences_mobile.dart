@@ -110,8 +110,7 @@ class ExperiencesMobile extends StatelessWidget {
                                 child: TextField(
                                   controller: searchController,
                                   onChanged: (value) {
-                                    experienceController
-                                        .searchCityTours(value);
+                                    experienceController.searchCityTours(value);
                                   },
                                   decoration: const InputDecoration(
                                     hintText: 'Search',
@@ -129,13 +128,15 @@ class ExperiencesMobile extends StatelessWidget {
               ),
             ),
             Container(
-              height: Get.height * .15,
+              height: Get.height * .183,
               child: TourTypesMobile(),
             ),
-            Expanded(child: Padding(
-              padding: const EdgeInsets.all(1.0),
-              child: tourCardsMobile(displayedTours, city),
-            ),)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: tourCardsMobile(displayedTours, city),
+              ),
+            )
           ],
         ));
   }
