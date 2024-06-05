@@ -62,6 +62,7 @@ class TourPageMobile extends StatelessWidget {
     return Scaffold(
       appBar: MobileHeader(
         context: context,
+        isBackButton: true,
       ),
       body: Obx(
         () {
@@ -179,7 +180,7 @@ class TourPageMobile extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: Get.width * 0.01),
                       child: MainDetails(
-                        imageUrl:tourController.tourImages[0].imagePath ??'',
+                        imageUrl: tourController.tourImages[0].imagePath ?? '',
                         textStyle: detailBoxTextStyleMobile,
                       ),
                     ),

@@ -37,10 +37,15 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(flex: 2, child: Container()),
-                Image.asset(
-                  "../assets/images/logo.png",
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  height: height * .05,
+                InkWell(
+                  onTap: () {
+                    Get.toNamed('/home');
+                  },
+                  child: Image.asset(
+                    "../assets/images/logo.png",
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: height * .05,
+                  ),
                 ),
                 Flexible(flex: 3, child: Container()),
               ],
