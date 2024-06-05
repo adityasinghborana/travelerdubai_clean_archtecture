@@ -161,7 +161,7 @@ class HomePageMobile extends StatelessWidget {
             children: [
               buildHeading(heading),
               SizedBox(
-                  height: Get.height * .3, width: Get.width *0.95, child: CityList(listController: controller!,)),
+                  height: Get.height * .3, width: Get.width *0.95, child: CityList()),
              // const SizedBox(height: 40),
             ],
           ),

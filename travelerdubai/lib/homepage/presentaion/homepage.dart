@@ -146,39 +146,39 @@ class Homepage extends StatelessWidget {
                 width: Get.width * .9,
                 child: Stack(
                   children: [
-                    CityList(listController: controller!),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                        ),
-                        child: IconButton(
-                          onPressed: () {
-                            _scrollToPrevious(controller!);
-                          },
-                          color: Colors.white,
-                          icon: const Icon(Icons.arrow_back),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black,
-                        ),
-                        child: IconButton(
-                          onPressed: () {
-                            _scrollToNext(controller!);
-                          },
-                          color: Colors.white,
-                          icon: const Icon(Icons.arrow_forward),
-                        ),
-                      ),
-                    ),
+                    CityList(),
+                    // Align(
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Container(
+                    //     decoration: const BoxDecoration(
+                    //       shape: BoxShape.circle,
+                    //       color: Colors.black,
+                    //     ),
+                    //     child: IconButton(
+                    //       onPressed: () {
+                    //         _scrollToPrevious(controller!);
+                    //       },
+                    //       color: Colors.white,
+                    //       icon: const Icon(Icons.arrow_back),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Align(
+                    //   alignment: Alignment.centerRight,
+                    //   child: Container(
+                    //     decoration: const BoxDecoration(
+                    //       shape: BoxShape.circle,
+                    //       color: Colors.black,
+                    //     ),
+                    //     child: IconButton(
+                    //       onPressed: () {
+                    //         _scrollToNext(controller!);
+                    //       },
+                    //       color: Colors.white,
+                    //       icon: const Icon(Icons.arrow_forward),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

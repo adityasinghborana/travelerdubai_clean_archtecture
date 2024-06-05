@@ -17,7 +17,7 @@ Widget buildCitySection(String heading, double? width) {
           children: [
             buildHeading(heading),
             SizedBox(
-                height: Get.height * .3, width: Get.width, child: CityList(listController:ss ,)),
+                height: Get.height * .3, width: Get.width, child: CityList()),
             const SizedBox(height: 40),
           ],
         ),

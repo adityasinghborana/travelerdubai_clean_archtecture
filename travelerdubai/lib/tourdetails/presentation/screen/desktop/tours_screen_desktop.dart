@@ -209,7 +209,7 @@ class TourPageDesktop extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 50,),
-                    CityList(listController: ss,),
+                    CityList(),
                     buildFooter()
                   ],
                 ),

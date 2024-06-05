@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:travelerdubai/homepage/cities_controller.dart';
 
 import '../../../core/constants/constants.dart';
@@ -9,7 +10,14 @@ import '../../remote/homepage_remote_service.dart';
 import '../../repository/homepage_repository.dart';
 import '../../usecase/cities_usecase.dart';
 
-class CityList extends StatelessWidget {
+class CityList extends StatefulWidget {
+  CityList({Key? key}) : super(key: key);
+
+  @override
+  _CityListState createState() => _CityListState();
+}
+
+class _CityListState extends State<CityList> {
   final CityController controller = Get.put(
     CityController(
       GetCitiesUseCase(
@@ -22,12 +30,8 @@ class CityList extends StatelessWidget {
     ),
   );
 
-  final ScrollController listController;
-
-  CityList({
-    Key? key,
-    required this.listController,
-  }) : super(key: key);
+  final ItemScrollController itemScrollController = ItemScrollController();
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +50,70 @@ class CityList extends StatelessWidget {
           if (controller.cities.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           } else {
-            return SizedBox(
-              width: Get.width * .9,
-              height: Get.height * .5,
-              child: ListView.builder(
-                controller: listController,
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.cities.length,
-                itemBuilder: (context, index) {
-                  final city = controller.cities[index];
-                  return CityCard(city: city, widthFactor: widthFactor);
-                },
-              ),
+            return Stack(
+              children: [
+                SizedBox(
+                  width: Get.width * .9,
+                  height: Get.height * .5,
+                  child: ScrollablePositionedList.builder(
+                    itemScrollController: itemScrollController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.cities.length,
+                    itemBuilder: (context, index) {
+                      final city = controller.cities[index];
+                      return CityCard(city: city, widthFactor: widthFactor);
+                    },
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.black),
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_back, color: Colors.white),
+                      onPressed: () => _scrollToPrevious(),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.black),
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_forward, color: colorwhite),
+                      onPressed: () => _scrollToNext(),
+                    ),
+                  ),
+                ),
+              ],
             );
           }
         });
       },
     );
+  }
+
+  void _scrollToNext() {
+    if (currentIndex < controller.cities.length - 1) {
+      currentIndex++;
+      itemScrollController.scrollTo(
+        index: currentIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void _scrollToPrevious() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      itemScrollController.scrollTo(
+        index: currentIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }
 
