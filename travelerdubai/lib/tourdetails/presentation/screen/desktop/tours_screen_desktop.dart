@@ -263,7 +263,9 @@ class TourPageDesktop extends StatelessWidget {
                          ),
                        ),
                     SizedBox(height: 50,),
-                    CityList(),
+                    Container(
+                      padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                        height:300,child: CityList()),
                     buildFooter()
                   ],
                 ),
