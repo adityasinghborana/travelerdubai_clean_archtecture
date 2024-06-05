@@ -50,7 +50,7 @@ class ControllerBindings extends Bindings {
           ),
         ),
       ),
-      permanent: true,
+
     );
   }
 }

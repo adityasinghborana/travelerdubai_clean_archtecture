@@ -17,7 +17,7 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
       leading: isBackButton
           ? IconButton(
               onPressed: () {
-
+Get.back();
               },
               icon: const Icon(Icons.arrow_back),
             )
