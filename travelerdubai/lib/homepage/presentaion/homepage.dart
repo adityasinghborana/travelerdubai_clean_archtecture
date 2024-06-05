@@ -27,12 +27,15 @@ class Homepage extends StatelessWidget {
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
   Homepage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController1 = ScrollController();
     final ScrollController scrollController2 = ScrollController();
     final ScrollController scrollController3 = ScrollController();
     final ScrollController scrollController4 = ScrollController();
+    final ScrollController scrollController5 = ScrollController();
+    final ScrollController scrollController6 = ScrollController();
 
     Get.put(
       ExperienceController(
@@ -43,6 +46,7 @@ class Homepage extends StatelessWidget {
         ),
       ),
     );
+
     double? width = MediaQuery.of(context).size.width;
 
     return Stack(children: [
@@ -50,32 +54,42 @@ class Homepage extends StatelessWidget {
         controller: scrollController4,
         child: Column(
           children: [
-            //This is the first section
             _buildHeroImageSection(context),
-            //This contains form as well as the text Feature
-            // _buildFormSection(context),
 
-            // This contain heading as well as list
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading1}",
+                  () => _buildSection("${homeController.formData.value?.heading1}",
                   scrollController1, width, 'isRecommended'),
             ),
-            // This contain heading as well as list
+
             Obx(
-              () => buildCitySection(
+                  () => buildCitySection(
                   "${homeController.formData.value?.heading2}",
                   width,
-                  scrollController2),
+                  scrollController4),
             ),
 
             Obx(
-              () => _buildSection("${homeController.formData.value?.heading3}",
+                  () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController3, width, 'isPopular'),
             ),
+            Obx(
+                  () => _buildSection("${homeController.formData.value?.heading3}",
+                  scrollController5, width, 'isPopular'),
+            ),
+            Obx(
+                  () => _buildSection("${homeController.formData.value?.heading3}",
+                  scrollController6, width, 'isPopular'),
+            ),
+            Obx(
+                  () => _buildSection("${homeController.formData.value?.heading3}",
+                  scrollController2, width, 'isPopular'),
+            ),
+
             advertisement(
-                subHeadingfontsize: 26.14,
-                Headingfontsize: 54,
-                decoration: BoxDecoration(gradient: backgroundgradient)),
+              subHeadingfontsize: 26.14,
+              Headingfontsize: 54,
+              decoration: BoxDecoration(gradient: backgroundgradient),
+            ),
 
             buildFooter(),
           ],
@@ -98,7 +112,7 @@ class Homepage extends StatelessWidget {
   Widget _buildSection(String heading, ScrollController? controller,
       double? width, String? filterProperty) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: Get.height * .056),
+      padding: EdgeInsets.symmetric(vertical: Get.height * .001),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -128,15 +142,18 @@ class Homepage extends StatelessWidget {
             children: [
               _buildHeading(heading),
               SizedBox(
-                  height: Get.height * .5,
-                  width: Get.width * .9,
-                  child: Stack(children: [
-                    CityList(),
+                height: Get.height * .5,
+                width: Get.width * .9,
+                child: Stack(
+                  children: [
+                    CityList(listController: controller!),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
                         decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.black),
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
                         child: IconButton(
                           onPressed: () {
                             _scrollToPrevious(controller!);
@@ -150,19 +167,21 @@ class Homepage extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Container(
                         decoration: const BoxDecoration(
-                            shape: BoxShape.circle, color: Colors.black),
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
                         child: IconButton(
                           onPressed: () {
                             _scrollToNext(controller!);
                           },
                           color: Colors.white,
-                          icon: const Icon(
-                            Icons.arrow_forward,
-                          ),
+                          icon: const Icon(Icons.arrow_forward),
                         ),
                       ),
                     ),
-                  ])),
+                  ],
+                ),
+              ),
               const SizedBox(height: 40),
             ],
           ),
@@ -173,19 +192,17 @@ class Homepage extends StatelessWidget {
 
   Widget _buildHeading(String heading) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 16.0,
-        right: 20,
-      ),
+      padding: const EdgeInsets.only(left: 16.0, right: 20),
       child: Center(
         child: SelectableText(
           heading,
           style: GoogleFonts.playfairDisplay(
             textStyle: const TextStyle(
-                color: Colors.black,
-                letterSpacing: .5,
-                fontSize: 35,
-                fontWeight: FontWeight.bold),
+              color: Colors.black,
+              letterSpacing: .5,
+              fontSize: 35,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
@@ -195,10 +212,8 @@ class Homepage extends StatelessWidget {
   Widget _buildTourCards(ScrollController? controller, String? filterProperty) {
     return Container(
       color: Colors.white,
-      height: Get.height * .5,
+      height: Get.height * .3,
       width: Get.width * 0.9,
-
-      // Adjust the height according to your needs
       child: Stack(
         children: [
           Obx(() {
@@ -239,9 +254,7 @@ class Homepage extends StatelessWidget {
                   _scrollToNext(controller);
                 },
                 color: Colors.white,
-                icon: const Icon(
-                  Icons.arrow_forward,
-                ),
+                icon: const Icon(Icons.arrow_forward),
               ),
             ),
           ),
@@ -251,14 +264,11 @@ class Homepage extends StatelessWidget {
   }
 
   void _scrollToNext(ScrollController? scrollController) {
-    if (scrollController!.hasClients) {
-      double? offset = scrollController.offset;
-      double? newOffset = offset + Get.width * 0.30; // Adjust width of cards
-      if (newOffset > scrollController.position.maxScrollExtent) {
-        newOffset = scrollController.position.maxScrollExtent;
-      }
+    if (scrollController != null && scrollController.hasClients) {
+      double offset = scrollController.offset + Get.width * 0.30;
+      double maxOffset = scrollController.position.maxScrollExtent;
       scrollController.animateTo(
-        newOffset,
+        offset > maxOffset ? maxOffset : offset,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
@@ -266,14 +276,11 @@ class Homepage extends StatelessWidget {
   }
 
   void _scrollToPrevious(ScrollController? scrollController) {
-    if (scrollController!.hasClients) {
-      double? offset = scrollController?.offset;
-      double newOffset = offset! - Get.width * 0.30; // Adjust width of cards
-      if (newOffset < scrollController!.position.minScrollExtent) {
-        newOffset = scrollController.position.minScrollExtent;
-      }
+    if (scrollController != null && scrollController.hasClients) {
+      double offset = scrollController.offset - Get.width * 0.30;
+      double minOffset = scrollController.position.minScrollExtent;
       scrollController.animateTo(
-        newOffset,
+        offset < minOffset ? minOffset : offset,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
