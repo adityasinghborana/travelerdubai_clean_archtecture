@@ -26,77 +26,15 @@ class HeroImageWidget extends StatelessWidget {
           print(imageUrl);
         }
 
-        return Stack(
-          children: [
-            AuraUICarousel(
-              images: controller.imageList,
-              pageController: controller.pageController,
-              curve: Curves.easeIn,
-              showButtons: false,
-              indicatorType: CarouselIndicatorType.dot,
-              duration: const Duration(seconds: 2),
-              height: double.infinity,
-              maxWidth: double.infinity,
-            ),
-
-            // AuraUICarousel(
-            //   pagecontroller:
-            //   curve: Curves.easeIn,
-            //   showButtons: false,
-            //   images: controller.imageList,
-            //   indicatorType: CarouselIndicatorType.dot,
-            //   duration: const Duration(seconds: 2),
-            //   height: double.infinity,
-            //   maxWidth: double.infinity, pageController: null,
-            // ),
-
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.10),
-                child: SizedBox(
-                  height: Get.height * .80,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SelectableText(
-                        controller.formData.value?.title ?? 'Traveller Dubai',
-                        style: GoogleFonts.outfit(
-                          color: colorwhite,
-                          fontSize: titleFontSize,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines:
-                            1, // Specify the maximum number of lines to prevent scrolling
-                      ),
-                      SizedBox(
-                        height: 60,
-                        width: Get.width * .75,
-                        child: SelectableText(
-                          controller.formData.value?.title ??
-                              'Search for help - Enter a question or keywords in the search box on the taskbar to find apps, files, settings, and get help from the web',
-                          style: GoogleFonts.roboto(
-                            color: colorwhite,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w200,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          maxLines: 4,
-                        ),
-                      ),
-                      InlineFlexButton(
-                          bgcolor: colorblue,
-                          fontsize: Get.width > 600 ? 20 : 14,
-                          vpadding: Get.width > 600 ? 20 : 14,
-                          label: "Explore More",
-                          onPressed: (() => Get.toNamed('/experiences')))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+        return AuraUICarousel(
+          images: controller.imageList,
+          pageController: controller.pageController,
+          curve: Curves.easeIn,
+          showButtons: false,
+          indicatorType: CarouselIndicatorType.dot,
+          duration: const Duration(seconds: 2),
+          height: double.infinity,
+          maxWidth: double.infinity,
         );
       }),
     );

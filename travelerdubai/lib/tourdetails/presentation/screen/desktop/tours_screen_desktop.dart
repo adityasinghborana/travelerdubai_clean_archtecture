@@ -34,10 +34,12 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
+
   TourPageDesktop({super.key});
   final TourController tourController = Get.put(TourController(
     GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   ));
+  final ScrollController ss = ScrollController();
   final HeaderController controller = Get.find();
   final PageController pageController = PageController();
   final TourOptionStaticDataController static = Get.put(
@@ -250,21 +252,19 @@ class TourPageDesktop extends StatelessWidget {
                         formSection(),
                       ],
                     ),
+                   SizedBox(height: 50,),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: Get.width * 0.05),
-                      child: Row(
-                        children: [
-                          Flexible(
-                            flex: 3,
-                            child: MainDetails(
-                              textStyle: detailBoxTextStyle,
-                            ),
-                          ),
-                          Flexible(flex: 1, child: Container())
-                        ],
+                      child: Flexible(
+                        flex: 3,
+                        child: MainDetails(
+                          imageUrl:tourController.tourImages[0].imagePath ??'' ,
+                          textStyle: detailBoxTextStyle,
+                        ),
                       ),
                     ),
+                    SizedBox(height: 50,),
                     CityList(),
                     buildFooter()
                   ],

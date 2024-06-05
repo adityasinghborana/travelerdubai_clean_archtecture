@@ -26,23 +26,28 @@ class DropdownWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: DropdownButton<int>(
-            underline: Container(),
-            borderRadius: BorderRadius.circular(10),
-            value: selectedValue,
-            onChanged: onChanged,
-            items: [0, 1, 2, 3, 4, 5, 6] // Replace with your actual items
-                .map<DropdownMenuItem<int>>(
-                  (int value) => DropdownMenuItem<int>(
-                    alignment: Alignment.center,
-                    value: value,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("$value", style: bodyBlack(context)),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(border: Border.all(width: 2,color: color_EEEEEE),borderRadius: BorderRadius.circular(12)),
+            child: DropdownButton<int>(
+
+              underline: Container(),
+              borderRadius: BorderRadius.circular(10),
+              value: selectedValue,
+              onChanged: onChanged,
+              items: [0, 1, 2, 3, 4, 5, 6] // Replace with your actual items
+                  .map<DropdownMenuItem<int>>(
+                    (int value) => DropdownMenuItem<int>(
+                      alignment: Alignment.centerLeft,
+                      value: value,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 80.0),
+                        child: Text("$value", style: bodyBlack(context)),
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       ],

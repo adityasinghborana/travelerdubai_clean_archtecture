@@ -39,13 +39,10 @@ class TourCards extends StatelessWidget {
       itemCount: filteredTours.length,
       itemBuilder: (context, index) {
         final tour = filteredTours[index];
-        return AspectRatio(
-          aspectRatio: 9 / 16,
-          child: HoverScaleCard(
-            tour: tour,
-            cardWidth: cardWidth,
-            onTap: () => _onTourCardTap(tour),
-          ),
+        return HoverScaleCard(
+          tour: tour,
+          cardWidth: cardWidth,
+          onTap: () => _onTourCardTap(tour),
         );
       },
     );
@@ -103,23 +100,19 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
 
   Widget _buildTourImage(Experiences tour) {
     return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(16),
-        topRight: Radius.circular(16),
-      ),
+      borderRadius: BorderRadius.circular(16),
       child: Stack(
         children: [
-          AspectRatio(
-            aspectRatio: 9 / 16,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              transform: Matrix4.identity()
-                ..scale(_isHovered || _isTapped ? 1.1 : 1.0),
-              child: Image.network(
-                "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+          AnimatedContainer(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(
+                  "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                ),
                 fit: BoxFit.cover,
               ),
             ),
+            duration: const Duration(milliseconds: 2000),
           ),
           Container(
             decoration: BoxDecoration(gradient: imageGradient),
@@ -128,12 +121,7 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
             alignment: Alignment.bottomLeft,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                transform: Matrix4.identity()
-                  ..scale(_isHovered || _isTapped ? 1.1 : 1.0),
-                child: _buildRatingAndCity(tour),
-              ),
+              child: _buildRatingAndCity(tour),
             ),
           ),
         ],
@@ -161,14 +149,18 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
         onTapDown: _onTapDown,
         onTapUp: _onTapUp,
         onTapCancel: _onTapCancel,
-        child: SizedBox(
-          width: widget.cardWidth,
-          child: Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 200),
+          transform: Matrix4.identity()..scale(_isHovered || _isTapped ? 1.015 : 1.0),
+          child: SizedBox(
+            width: widget.cardWidth,
+            child: Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: _buildTourImage(widget.tour),
             ),
-            child: _buildTourImage(widget.tour),
           ),
         ),
       ),

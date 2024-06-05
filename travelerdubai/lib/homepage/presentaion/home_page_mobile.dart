@@ -63,7 +63,7 @@ class HomePageMobile extends StatelessWidget {
             Obx(
               () => buildSection(
                 "${homeController.formData.value?.heading1}",
-                width,"isRecommended"
+                width ,"isRecommended"
               ),
             ),
             Obx(
@@ -121,7 +121,7 @@ class HomePageMobile extends StatelessWidget {
     return Container(
 
       color: Colors.white,
-      height: Get.height * .29,
+      height: Get.height * .2,
 
       // Adjust the height according to your needs
       child: Obx(() {
@@ -133,13 +133,13 @@ class HomePageMobile extends StatelessWidget {
           );
         } else {
           return Container(
+            height: 30,
             width: Get.width,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: TourCards(
-                cardWidth: Get.width * 0.10,
+                cardWidth: Get.width * 0.3,
                 tours: tourListController.tours,
-
                 filterProperty: filterProperty,
               ),
             ),
