@@ -30,10 +30,13 @@ class TourTypesMobile extends StatelessWidget {
               horizontal: Get.width * 0.03,
             ),
             child: ExpansionTile(
+              shape: const RoundedRectangleBorder(
+                side: BorderSide.none, // Remove the border
+              ),
               title: RichText(
                 text: TextSpan(
                   style: TextStyle(
-                    fontSize: Get.width * 0.05,
+                    fontSize: Get.width * 0.04,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [

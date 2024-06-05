@@ -15,7 +15,6 @@ class HtmlDisplayWidget extends StatelessWidget {
     final document = htmlParser.parse(htmlContent);
 
     return SizedBox(
-
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +31,7 @@ class HtmlDisplayWidget extends StatelessWidget {
       if (node is htmlDom.Element) {
         widgets.addAll(_parseNodes(node.nodes));
       } else if (node is htmlDom.Text) {
-        final textNodes = node.text.split(RegExp(r'\r?\\n'));
+        final textNodes = node.text.split(RegExp(r'\r?\n'));
         for (var i = 0; i < textNodes.length; i++) {
           final trimmedText = textNodes[i].trim();
           if (trimmedText.isNotEmpty) {
@@ -50,16 +49,16 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
   final String text;
 
   const HtmlTextWithLineBreaks(
-    this.text,
-  );
+      this.text,
+      );
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         double fontSize = sizingInformation.deviceScreenType ==
-                    DeviceScreenType.mobile ||
-                sizingInformation.deviceScreenType == DeviceScreenType.tablet
+            DeviceScreenType.mobile ||
+            sizingInformation.deviceScreenType == DeviceScreenType.tablet
             ? MediaQuery.of(context).size.width * 0.035
             : MediaQuery.of(context).size.width * 0.009;
 
@@ -68,13 +67,13 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
           children: text
               .split('<br>')
               .map((line) => Text(
-                    line.trim(),
-                    style: TextStyle(
-                      letterSpacing: .5,
-                      fontSize: fontSize,
-                      color: colorblack,
-                    ),
-                  ))
+            line.trim(),
+            style: TextStyle(
+              letterSpacing: .5,
+              fontSize: fontSize,
+              color: colorblack,
+            ),
+          ))
               .toList(),
         );
       },

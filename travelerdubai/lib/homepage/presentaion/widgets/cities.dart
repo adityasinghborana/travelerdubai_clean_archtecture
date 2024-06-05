@@ -53,7 +53,7 @@ class _CityListState extends State<CityList> {
             return Stack(
               children: [
                 SizedBox(
-                  width: Get.width * .9,
+                  width: Get.width>600 ?  Get.width * .9 :  Get.width,
                   height: Get.height * .5,
                   child: ScrollablePositionedList.builder(
                     itemScrollController: itemScrollController,
