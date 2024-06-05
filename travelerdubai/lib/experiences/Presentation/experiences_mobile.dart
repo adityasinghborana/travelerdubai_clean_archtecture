@@ -60,6 +60,7 @@ class ExperiencesMobile extends StatelessWidget {
     return Scaffold(
         appBar: MobileHeader(
           context: context,
+          isBackButton: false,
         ),
         drawer: drawer(),
         body: Column(
