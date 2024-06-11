@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
-import 'package:travelerdubai/Components/PopupCard.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
@@ -18,9 +17,11 @@ import 'package:travelerdubai/tourdetails/presentation/Widgets/controllers_bindi
 import 'package:travelerdubai/tourdetails/presentation/screen/mobile/forms_mobile.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
+import 'Components/PopupCard.dart';
 import 'NotFound/404Screen.dart';
 import 'checkout/presentation/checkoutscreen.dart';
 import 'core/controller/headercontroller.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

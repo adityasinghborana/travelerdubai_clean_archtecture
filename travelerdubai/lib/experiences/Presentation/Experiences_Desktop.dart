@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
-import 'package:travelerdubai/core/widgets/drawer.dart';
+import 'package:travelerdubai/Components/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourtypes.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
-import '../../core/widgets/header.dart';
+import '../../Components/header.dart';
 import '../model/experience_response_model.dart';
 
 class ExperiencesDesktop extends StatelessWidget {

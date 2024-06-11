@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/core/widgets/Mobileheader.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
 
 class FailureScreen extends StatelessWidget {
   const FailureScreen({super.key});

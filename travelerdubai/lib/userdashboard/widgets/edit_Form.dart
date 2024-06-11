@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/widgets/Textformfield.dart';
+import '../../Components/Textformfield.dart';
 
 class EditForm extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();

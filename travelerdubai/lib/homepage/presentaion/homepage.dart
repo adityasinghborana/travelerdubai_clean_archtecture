@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/core/widgets/footer.dart';
+import 'package:travelerdubai/Components/footer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
@@ -16,7 +16,7 @@ import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
-import '../../core/widgets/header.dart';
+import '../../Components/header.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
 

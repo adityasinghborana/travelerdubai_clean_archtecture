@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
-import '../controller/headercontroller.dart';
+import '../core/controller/headercontroller.dart';
 
 class Header extends StatelessWidget {
   final HeaderController headerController = Get.put(HeaderController());

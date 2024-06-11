@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
 
-import '../homescreen.dart';
+import '../core/homescreen.dart';
 
 Widget drawer() {
   return Drawer(

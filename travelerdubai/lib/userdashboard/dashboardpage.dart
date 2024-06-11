@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Advertisement.dart';
 import 'package:travelerdubai/Components/footer_mobile.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/core/widgets/Mobileheader.dart';
-import 'package:travelerdubai/core/widgets/footer.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
+import 'package:travelerdubai/Components/footer.dart';
 import 'package:travelerdubai/userdashboard/widgets/Profile_info.dart';
 import 'package:travelerdubai/userdashboard/widgets/booking_list.dart';
 
-import '../core/widgets/header.dart';
+import '../Components/header.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

@@ -5,9 +5,9 @@ import 'package:travelerdubai/AboutPage/datalayer/repository/aboutus_repositiory
 import 'package:travelerdubai/AboutPage/datalayer/service/Aboutus_remote.dart';
 import 'package:travelerdubai/AboutPage/datalayer/usecase/Aboutus_usecase.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/about_us_controller.dart';
-import 'package:travelerdubai/core/widgets/Mobileheader.dart';
-import 'package:travelerdubai/core/widgets/footer.dart';
-import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
+import 'package:travelerdubai/Components/footer.dart';
+import 'package:travelerdubai/Components/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../core/constants/constants.dart';

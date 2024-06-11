@@ -13,8 +13,8 @@ import 'package:travelerdubai/checkout/presentation/widgets/paxtype_dropdown.dar
 import 'package:travelerdubai/checkout/presentation/widgets/prefix_dropdown.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/core/widgets/Textformfield.dart';
-import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/Components/Textformfield.dart';
+import 'package:travelerdubai/Components/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../../data_layer/repository/Intent_repository.dart';

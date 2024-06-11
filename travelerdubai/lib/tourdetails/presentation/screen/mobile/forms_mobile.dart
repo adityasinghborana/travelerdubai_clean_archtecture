@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/widgets/drawer.dart';
+import 'package:travelerdubai/Components/drawer.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 
 import '../../../../Cart/data_layer/model/request/update_cart.dart';
@@ -12,7 +12,7 @@ import '../../../../Components/date_picker.dart';
 import '../../../../Components/dropdown_widget_mobile.dart';
 import '../../../../Components/ui_state.dart';
 import '../../../../core/controller/headercontroller.dart';
-import '../../../../core/widgets/Mobileheader.dart';
+import '../../../../Components/Mobileheader.dart';
 import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {

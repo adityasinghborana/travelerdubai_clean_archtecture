@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travelerdubai/Components/bottom_nav.dart';
-import 'package:travelerdubai/core/widgets/Mobileheader.dart';
-import 'package:travelerdubai/core/widgets/drawer.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
+import 'package:travelerdubai/Components/drawer.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
@@ -14,7 +13,6 @@ import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
-
 import '../../Components/Advertisement.dart';
 import '../../Components/buid_heading.dart';
 import '../../Components/footer_mobile.dart';

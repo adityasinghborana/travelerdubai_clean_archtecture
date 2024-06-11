@@ -11,7 +11,7 @@ import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
 import 'package:travelerdubai/Components/date_picker.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/Components/header.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/tour_option_detail.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
@@ -21,7 +21,7 @@ import 'package:travelerdubai/tourdetails/timeslot_data_layer/service/timslot_re
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 
 import '../../../../core/controller/headercontroller.dart';
-import '../../../../core/widgets/footer.dart';
+import '../../../../Components/footer.dart';
 import '../../../tourdetail_data_layer/Usecase/usecase.dart';
 import '../../../tourdetail_data_layer/remote/tour_remote.dart';
 import '../../../tourdetail_data_layer/repository/tour_repository.dart';

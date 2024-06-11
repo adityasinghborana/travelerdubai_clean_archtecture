@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/ordersummary.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
-import 'package:travelerdubai/core/widgets/Mobileheader.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
@@ -13,7 +13,7 @@ import '../../../../bookings/data_layer/repository/bookings_repository.dart';
 import '../../../../bookings/data_layer/service/booking_remote.dart';
 import '../../../../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../../../../core/constants/constants.dart';
-import '../../../../core/widgets/Textformfield.dart';
+import '../../../../Components/Textformfield.dart';
 import '../../../data_layer/repository/Intent_repository.dart';
 import '../../../data_layer/service/remote.dart';
 import '../../../data_layer/usecase/intent_usecase.dart';
