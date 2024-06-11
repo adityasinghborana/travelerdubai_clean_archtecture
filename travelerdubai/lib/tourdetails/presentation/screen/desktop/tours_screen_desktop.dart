@@ -120,22 +120,26 @@ class TourPageDesktop extends StatelessWidget {
                       children: [
                         //fixed the header issue
                         Header(),
-                        AuraUICarousel(
-                          images: imageUrls,
-                          maxWidth: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          showButtons: false,
-                          pageController: pageController,
+                        Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.035),
+                          child: AuraUICarousel(
+                            duration: Duration(seconds: 3),
+                            images: imageUrls,
+                            maxWidth: 1340,
+                            height: MediaQuery.of(context).size.height * 0.6,
+                            showButtons: true,
+                            pageController: pageController,
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05),
+                              horizontal: Get.width * 0.055),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "${tourController.tour.value.tourName}",
-                                style: getH2TextStyle(context),
+                                style: getH2TextStyle(context).copyWith(color: Colors.black,),
                               ),
                             ],
                           ),
@@ -145,6 +149,7 @@ class TourPageDesktop extends StatelessWidget {
                           padding:
                               EdgeInsets.symmetric(vertical: Get.height * 0.01),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -225,9 +230,10 @@ class TourPageDesktop extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: Get.width * 0.06),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+
                                   children: [
                                     const Icon(
                                       Icons.co_present,
@@ -256,7 +262,7 @@ class TourPageDesktop extends StatelessWidget {
 
 
                        Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                        padding: EdgeInsets.only(left: Get.width * 0.035,right: Get.width * 0.05),
                          child: MainDetails(
                            imageUrl:tourController.tourImages[0].imagePath ??'' ,
                            textStyle: detailBoxTextStyle,
@@ -305,7 +311,7 @@ class TourPageDesktop extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Container(
-            padding: const EdgeInsets.all(50.0),
+            padding: const EdgeInsets.symmetric(vertical: 30.0,horizontal: 50),
             color: colorwhite,
             width: Get.width * 0.9,
             height: Get.height * .5,
@@ -360,6 +366,7 @@ class TourPageDesktop extends StatelessWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 30,),
                 const Divider(
                   height: 1,
                 ),

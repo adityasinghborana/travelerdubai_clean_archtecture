@@ -101,30 +101,34 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
   Widget _buildTourImage(Experiences tour) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
-      child: Stack(
-        children: [
-          AnimatedContainer(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+      child: Container(
+
+        child: Stack(
+          children: [
+            AnimatedContainer(
+              decoration: BoxDecoration(
+
+                image: DecorationImage(
+                  image: NetworkImage(
+                    "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
+              ),
+              duration: const Duration(milliseconds: 2000),
+            ),
+            Container(
+              decoration: BoxDecoration(gradient: imageGradient),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: _buildRatingAndCity(tour),
               ),
             ),
-            duration: const Duration(milliseconds: 2000),
-          ),
-          Container(
-            decoration: BoxDecoration(gradient: imageGradient),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _buildRatingAndCity(tour),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -154,12 +158,15 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
           transform: Matrix4.identity()..scale(_isHovered || _isTapped ? 1.015 : 1.0),
           child: SizedBox(
             width: widget.cardWidth,
-            child: Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+            child: Padding(
+              padding: Get.width>600? const EdgeInsets.symmetric(horizontal: 8.0):const EdgeInsets.symmetric(horizontal: 1.0,vertical: 2),
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: _buildTourImage(widget.tour),
               ),
-              child: _buildTourImage(widget.tour),
             ),
           ),
         ),

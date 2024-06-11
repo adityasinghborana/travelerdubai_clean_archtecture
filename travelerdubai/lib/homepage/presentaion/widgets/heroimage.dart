@@ -16,8 +16,8 @@ class HeroImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController controller = Get.find();
 
-    return Scaffold(
-      body: Obx(() {
+    return
+       Obx(() {
         final imageUrl = controller.imageList.isNotEmpty
             ? controller.imageList[
                 controller.currentIndex.value % controller.imageList.length]
@@ -27,16 +27,17 @@ class HeroImageWidget extends StatelessWidget {
         }
 
         return AuraUICarousel(
+padding: EdgeInsets.zero,
+          borderRadius: 16,
           images: controller.imageList,
           pageController: controller.pageController,
-          curve: Curves.easeIn,
+          curve: Curves.easeInOutCubicEmphasized,
           showButtons: false,
           indicatorType: CarouselIndicatorType.dot,
-          duration: const Duration(seconds: 2),
-          height: double.infinity,
+          duration: const Duration(seconds: 4),
+          height: Get.height*0.72,
           maxWidth: double.infinity,
         );
-      }),
-    );
+      });
   }
 }

@@ -28,22 +28,22 @@ class MainDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Flexible(
-          flex: 3,
+          flex: 5,
           child: Column(
             children: [
+Get.width<600 ? Padding(
+  padding: const EdgeInsets.only(left: 20.0,right: 20,bottom: 10),
+  child: DetailBox(
+    title: "Tour Summary",
+    description: HtmlDisplayWidget(
+        htmlContent: tourController.tour.value.tourDescription),
+    textStyle: textStyle,
+  ),
+):Container(),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 8):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
                   isExpanded: true,
-                  title: "Tour Description",
-                  description: HtmlDisplayWidget(
-                      htmlContent: tourController.tour.value.tourDescription),
-                  textStyle: textStyle,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: DetailBox(
                   title: "Tour Inclusion",
                   description: HtmlDisplayWidget(
                       htmlContent: tourController.tour.value.tourInclusion),
@@ -51,7 +51,7 @@ class MainDetails extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
                   title: "Important Information",
                   description: HtmlDisplayWidget(
@@ -61,7 +61,7 @@ class MainDetails extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
                   title: "Itinerary Description",
                   description: HtmlDisplayWidget(
@@ -71,7 +71,7 @@ class MainDetails extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
                   title: "Useful Information",
                   description: HtmlDisplayWidget(
@@ -84,29 +84,35 @@ class MainDetails extends StatelessWidget {
         ),
         Get.width > 1024
             ? Flexible(
-                flex: 1,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    color: colorwhite,
-                    padding: const EdgeInsets.all(30),
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(imageUrl)),
-                        GradientText(
-                          'Tour Summary ',
-                          style: GradientStyle,
-                          colors: const [colorHighlights, colorPrimary],
-                        ),
-                        Container(
-                          child: HtmlDisplayWidget(
-                              htmlContent:
-                                  tourController.tour.value.usefulInformation),
-                        ),
-                      ],
+                flex: 2,
+                child: Material(
+                  borderRadius:BorderRadius.circular(16) ,
+                  elevation: 8,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Container(
+                      color: colorwhite,
+                      padding: const EdgeInsets.all(30),
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          // ClipRRect(
+                          //     borderRadius: BorderRadius.circular(20),
+                          //     child: Image.network(imageUrl)),
+                          // SizedBox(height: 10,),
+                          GradientText(
+                            'Tour Summary ',
+                            style: GradientStyle,
+                            colors: const [colorHighlights, colorPrimary],
+                          ),
+                          SizedBox(height: 10,),
+                          Container(
+                            child: HtmlDisplayWidget(
+                                htmlContent:
+                                    tourController.tour.value.tourDescription),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ))

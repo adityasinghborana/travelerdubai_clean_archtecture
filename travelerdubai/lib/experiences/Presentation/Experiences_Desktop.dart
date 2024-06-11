@@ -66,7 +66,7 @@ class ExperiencesDesktop extends StatelessWidget {
                       SizedBox(
                         height: Get.height * 0.25,
                         child: Image.network(
-                          "https://source.unsplash.com/random",
+                          "https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-4710/emirates-zoo-img.jpg",
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),

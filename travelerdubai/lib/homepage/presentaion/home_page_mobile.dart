@@ -44,6 +44,7 @@ class HomePageMobile extends StatelessWidget {
 
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       drawer: drawer(),
       appBar: MobileHeader(
         isBackButton: false,
@@ -53,7 +54,7 @@ class HomePageMobile extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: Get.height * 0.4,
+              height: 186,
               child: const HeroImageWidget(
                 titleFontSize: 32,
               ),
@@ -100,7 +101,7 @@ class HomePageMobile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -119,7 +120,7 @@ class HomePageMobile extends StatelessWidget {
     return Container(
 
       color: Colors.white,
-      height: Get.height * .2,
+      height: Get.height * .23,  // changing height of the Tour cards
 
       // Adjust the height according to your needs
       child: Obx(() {
@@ -131,12 +132,13 @@ class HomePageMobile extends StatelessWidget {
           );
         } else {
           return Container(
-            height: 30,
+            color: Colors.white,
+
             width: Get.width,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: TourCards(
-                cardWidth: Get.width * 0.3,
+                cardWidth: Get.width * 0.5,// changing Width of the Tour cards
                 tours: tourListController.tours,
                 filterProperty: filterProperty,
               ),
@@ -155,11 +157,11 @@ class HomePageMobile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               buildHeading(heading),
               SizedBox(
-                  height: Get.height * .3, width: Get.width *0.95, child: CityList()),
+                  height: Get.height * .2, width: Get.width *0.95, child: CityList()),
              // const SizedBox(height: 40),
             ],
           ),

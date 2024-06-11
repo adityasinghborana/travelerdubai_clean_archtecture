@@ -89,9 +89,9 @@ Widget options(String tourName) {
                                           alignment: Alignment.center,
                                           height: 50,
                                           decoration: BoxDecoration(
-                                              border: Border.all(width: 1),
+                                              border: Border.all(width: 2,color: color_EEEEEE),
                                               borderRadius:
-                                                  BorderRadius.circular(1)),
+                                                  BorderRadius.circular(12)),
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: Get.width * 0.008),
@@ -130,6 +130,7 @@ Widget options(String tourName) {
                                       " fetching"); // Return an empty Text widget if dateTextController is empty
                                 }
                               }), // SizedBox(
+                              TextButton(onPressed: (){}, child: Text("More Info")),
                               Obx(() {
                                 var optionsSize =
                                     optionsStatic.timeslots.length;
@@ -138,7 +139,11 @@ Widget options(String tourName) {
                                   return const Text("Loading ");
                                 } else if (tourController.tour.value.isSlot ==
                                     false) {
-                                  return const Text("No time Slot required ");
+                                  return Container(
+                                    
+                                    padding: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(border: Border.all(width: 2,color: color_EEEEEE),borderRadius: BorderRadius.circular(12)),
+                                      child: const Text("No time Slot required "));
                                 } else {
                                   return TimeDropdownWidget(
                                     tourOptionId: optionsStatic.options.value

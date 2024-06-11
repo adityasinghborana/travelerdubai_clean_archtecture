@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/Components/footer_mobile.dart';
 import 'package:travelerdubai/Components/icon_text_background.dart';
@@ -59,6 +60,7 @@ class TourPageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: MobileHeader(context: context,),
       body: Obx(
         () {
           if (tourController.isLoading.isTrue) {
@@ -97,7 +99,7 @@ class TourPageMobile extends StatelessWidget {
                         AuraUICarousel(
                           images: imageUrls,
                           maxWidth: double.infinity,
-                          height: MediaQuery.of(context).size.height * 0.5,
+                          height: MediaQuery.of(context).size.height * 0.3,
                           pageController: pageController,
                         ),
                         Padding(
@@ -115,8 +117,9 @@ class TourPageMobile extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05),
+                              horizontal: Get.width * 0.05,vertical: 20),
                           child: ButtonView(
+                            borderColor: Colors.transparent,
                             btnName: 'Buy Tickets',
                             bgColor: colorblue,
                             onButtonTap: () {

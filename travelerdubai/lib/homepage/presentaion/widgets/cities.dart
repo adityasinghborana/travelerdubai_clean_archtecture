@@ -65,7 +65,7 @@ class _CityListState extends State<CityList> {
                     },
                   ),
                 ),
-                Align(
+                Get.width>1024  ? Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
                     decoration: const BoxDecoration(
@@ -75,7 +75,9 @@ class _CityListState extends State<CityList> {
                       onPressed: () => _scrollToPrevious(),
                     ),
                   ),
-                ),
+                ):Container(),
+
+                Get.width>1024  ?
                 Align(
                   alignment: Alignment.centerRight,
                   child: Container(decoration: const BoxDecoration(
@@ -85,7 +87,7 @@ class _CityListState extends State<CityList> {
                       onPressed: () => _scrollToNext(),
                     ),
                   ),
-                ),
+                ):Container(),
               ],
             );
           }
@@ -135,7 +137,7 @@ class _CityCardState extends State<CityCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:Get.width<600? const EdgeInsets.all(5.0): const EdgeInsets.all(12.0),
       child: InkWell(
         onTap: () {
           String cityName = widget.city.CityName;
@@ -161,9 +163,9 @@ class _CityCardState extends State<CityCard> {
                   child: Stack(
                     children: [
                       AspectRatio(
-                        aspectRatio: 10 / 9,
+                        aspectRatio: 16 / 9,
                         child: Image.network(
-                          "https://source.unsplash.com/random/?${widget.city.CityName}",
+                          "https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg",
                           fit: BoxFit.cover,
                         ),
                       ),

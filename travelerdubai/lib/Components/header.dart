@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../core/controller/headercontroller.dart';
+import 'custom_button.dart';
 
 class Header extends StatelessWidget {
   final HeaderController headerController = Get.put(HeaderController());
@@ -24,34 +25,37 @@ class Header extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: width * .005, vertical: height * .001),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.toNamed('/home');
-                  },
-                  child: Image.asset(
-                    "../assets/images/logo.png",
-                    height: 80,
-                    width: width * .1,
-                    fit: BoxFit.contain,
+            child: Padding(
+              padding:  EdgeInsets.only(right: Get.width*0.03,left:Get.width*0.04),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed('/home');
+                    },
+                    child: Image.asset(
+                      "../assets/images/logo.png",
+                      height: 80,
+                      width: width * .1,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: width * 0.10,
-                ),
-                GetBuilder<HeaderController>(
-                  builder: (headerController) {
-                    var status = headerController.loggedIn.value;
-                    if (status != false) {
-                      return menuLoggedIn();
-                    } else {
-                      return menu();
-                    }
-                  },
-                )
-              ],
+                  SizedBox(
+                    width: width * 0.10,
+                  ),
+                  GetBuilder<HeaderController>(
+                    builder: (headerController) {
+                      var status = headerController.loggedIn.value;
+                      if (status != false) {
+                        return menuLoggedIn();
+                      } else {
+                        return menu();
+                      }
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -119,20 +123,23 @@ class Header extends StatelessWidget {
         '/experiences',
         null,
       ),
+      _navItem(
+        "Contact Us",
+        '/contactus',
+        null,
+      ),
       // _navItem(
       //   "Contact Us",
       //   '/contactus',
       // ),
-      _navItem(
-        "Login",
-        '/login',
-        null,
-      ),
-      _navItem(
-        "SignUp",
-        '/Signup',
-        null,
-      ),
+SizedBox(width: 50,),
+      Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: ButtonView(btnName: 'Sign In',bgColor: colorblue,borderColor: Colors.transparent,onButtonTap: (){
+          Get.toNamed("/login");
+        },),
+      )
+
     ]);
   }
 

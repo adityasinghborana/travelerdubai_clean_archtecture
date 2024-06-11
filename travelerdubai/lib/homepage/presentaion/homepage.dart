@@ -84,6 +84,10 @@ class Homepage extends StatelessWidget {
                   () => _buildSection("${homeController.formData.value?.heading3}",
                   scrollController2, width, 'isPopular'),
             ),
+            Obx(
+                  () => _buildSection("${homeController.formData.value?.heading3}",
+                  scrollController2, width, 'isPopular'),
+            ),
 
             advertisement(
               subHeadingfontsize: 26.14,
@@ -101,8 +105,10 @@ class Homepage extends StatelessWidget {
 
   Widget _buildHeroImageSection(BuildContext context) {
     return Container(
-      height: Get.height * .85,
-      color: Theme.of(context).colorScheme.secondary,
+padding: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(top: 50, ),
+      height: Get.height * .70,
+      color: Colors.white,
       child: const HeroImageWidget(
         titleFontSize: 80,
       ),
@@ -212,7 +218,7 @@ class Homepage extends StatelessWidget {
   Widget _buildTourCards(ScrollController? controller, String? filterProperty) {
     return Container(
       color: Colors.white,
-      height: Get.height * .3,
+      height: Get.height * .40,
       width: Get.width * 0.9,
       child: Stack(
         children: [
@@ -222,11 +228,14 @@ class Homepage extends StatelessWidget {
                 color: colorPrimary,
               );
             } else {
-              return TourCards(
-                cardWidth: Get.width * 0.18,
-                tours: tourListController.tours,
-                scrollController: controller,
-                filterProperty: filterProperty,
+              return Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: TourCards(
+                  cardWidth: Get.width * 0.235,
+                  tours: tourListController.tours,
+                  scrollController: controller,
+                  filterProperty: filterProperty,
+                ),
               );
             }
           }),

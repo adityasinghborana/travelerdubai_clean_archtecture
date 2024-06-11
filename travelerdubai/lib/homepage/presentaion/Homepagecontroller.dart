@@ -18,9 +18,9 @@ class HomeController extends GetxController {
 
   RxList<String> imageList = RxList<String>(
     [
-      'https://source.unsplash.com/random/?city,night',
-      'https://source.unsplash.com/random/?dubai,night',
-      'https://source.unsplash.com/random/?lasvegas,night'
+      'https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg',
+      'https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg',
+      'https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg'
     ],
   );
   var currentIndex = 0.obs;

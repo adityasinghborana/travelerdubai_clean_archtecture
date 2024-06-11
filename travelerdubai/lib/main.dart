@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
         unknownRoute: GetPage(
           name: '/notfound',
           page: () => PageNotFound(),
-          transition: Transition.leftToRightWithFade,
+          transition: Transition.zoom,
           transitionDuration: const Duration(milliseconds: 500),
         ),
         initialRoute: '/home',
@@ -75,36 +75,38 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/login',
             page: () => SigninPage(),
-            transition: Transition.leftToRightWithFade,
+            transition: Transition.zoom,
             transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/Signup',
             page: () => const SignupPage(),
-            transition: Transition.leftToRightWithFade,
+            transition: Transition.zoom,
             transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/home',
             page: () => const HomeScreen(),
-            transition: Transition.leftToRightWithFade,
+            transition: Transition.zoom,
             transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/Aboutus',
             page: () => AboutUsPage(),
-            transition: Transition.leftToRightWithFade,
+            transition: Transition.zoom,
             transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/contactus',
             page: () => const Contactus(),
-            transition: Transition.leftToRightWithFade,
+            transition: Transition.zoom,
             transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/experiences',
+            transition: Transition.zoom,
             page: () => Experiences(),
+            transitionDuration: const Duration(milliseconds: 500),
           ),
           GetPage(
             name: '/dashboardpage',
