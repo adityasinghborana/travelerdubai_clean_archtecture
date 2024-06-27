@@ -63,7 +63,7 @@ class SigninDesktop extends StatelessWidget {
                         ),
                         SizedBox(
                             height: Get.height * 0.060916,
-                            child: Image.asset("../assets/images/logo.png")),
+                            child: Image.asset(images.logo)),
                         const SizedBox(height: 20),
                         Text(
                           'Log in',
@@ -187,7 +187,7 @@ class SigninDesktop extends StatelessWidget {
                           height: Get.height * .10,
                         ),
                         Image.asset(
-                          '../assets/images/signup_side_image.png',
+                          images.signup,
                           height: Get.height * .83,
                           width: Get.width * .3227,
                         ),

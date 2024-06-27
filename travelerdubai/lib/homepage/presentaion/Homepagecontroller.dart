@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auraa_ui/aura_ui.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +17,15 @@ class HomeController extends GetxController {
   final GetHomePageDatUseCase homePageDataUseCase;
   Rx<HomepageData?> formData = Rx<HomepageData?>(null);
 
-  RxList<String> imageList = RxList<String>(
-    [
-      'https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg',
-      'https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg',
-      'https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg'
-    ],
+  RxList<CarouselItem> imageList = RxList<CarouselItem>(
+   [
+     CarouselItem(imageUrl:'http://69.48.163.45:3000/public/uploads/image-1718372071097.png' , onTap: (){}),
+     CarouselItem(imageUrl:'http://69.48.163.45:3000/public/uploads/image-1718372071097.png' , onTap: (){}),
+     CarouselItem(imageUrl:'http://69.48.163.45:3000/public/uploads/image-1718372071097.png' , onTap: (){Get.toNamed("/experiences");}),
+
+   ]
   );
+
   var currentIndex = 0.obs;
   late Timer rotationTimer;
   late final PageController pageController=PageController();
@@ -66,17 +69,4 @@ class HomeController extends GetxController {
     }
   }
 
-  void startImageRotation() {
-    rotationTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      currentIndex.value = ((currentIndex.value + 1) % imageList.length).ceil();
-    });
-  }
-
-  void nextImage() {
-    currentIndex.value = (currentIndex.value + 1).ceil() % imageList.length;
-  }
-
-  void previousImage() {
-    currentIndex.value = (currentIndex.value - 1).ceil() % imageList.length;
-  }
 }

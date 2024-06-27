@@ -8,11 +8,11 @@ part of 'user_bookings.dart';
 
 UserBookingsRequest _$UserBookingsRequestFromJson(Map<String, dynamic> json) =>
     UserBookingsRequest(
-      userId: json['userId'] as String,
+      id: json['id'] as String,
     );
 
 Map<String, dynamic> _$UserBookingsRequestToJson(
         UserBookingsRequest instance) =>
     <String, dynamic>{
-      'userId': instance.userId,
+      'id': instance.id,
     };

@@ -7,13 +7,13 @@ part of 'user_detail_response.dart';
 // **************************************************************************
 
 UserDetail _$UserDetailFromJson(Map<String, dynamic> json) => UserDetail(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       uid: json['uid'] as String,
       username: json['username'] as String?,
       isUser: json['isUser'] as bool?,
       email: json['email'] as String,
       address: json['address'] as String?,
-      age: json['age'] as int?,
+      age: (json['age'] as num?)?.toInt(),
       dob: json['dob'] as String?,
     );
 

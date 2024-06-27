@@ -7,6 +7,7 @@ import 'package:travelerdubai/checkout/data_layer/usecase/intent_usecase.dart';
 
 import '../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../Cart/data_layer/service/cart_remote.dart';
+import '../../../Cart/data_layer/usecase/deletecart_usecase.dart';
 import '../../../Cart/data_layer/usecase/get_cart_usecase.dart';
 import '../../../bookings/data_layer/repository/bookings_repository.dart';
 import '../../../bookings/data_layer/service/booking_remote.dart';
@@ -18,6 +19,7 @@ Widget DropdownPaxType( {double width = 150}) {
 
   final CheckoutController controller = Get.put(
     CheckoutController(
+        deleteCartItemUseCase:DeleteCartItemUseCase(CartRepositoryImpl(CartRemoteService(Dio()),)),
       getCartUseCase: GetCartUseCase(
         CartRepositoryImpl(
           CartRemoteService(Dio()),

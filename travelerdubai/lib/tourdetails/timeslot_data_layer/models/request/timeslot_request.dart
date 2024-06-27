@@ -9,6 +9,7 @@ class TimeSlotRequest {
   String travelDate;
   int tourOptionId;
   int transferId;
+  bool isVendor;
 
   TimeSlotRequest({
     required this.tourId,
@@ -16,6 +17,7 @@ class TimeSlotRequest {
     required this.travelDate,
     required this.tourOptionId,
     required this.transferId,
+    required this.isVendor
   });
 
   factory TimeSlotRequest.fromJson(Map<String, dynamic> json) => _$TimeSlotRequestFromJson(json);

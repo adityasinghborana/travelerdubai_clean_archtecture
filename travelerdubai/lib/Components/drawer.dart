@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
 
+import '../contactus/presentation/contactusScreen.dart';
 import '../core/homescreen.dart';
 
 Widget drawer() {
+  final HeaderController headerController = Get.find();
   return Drawer(
     backgroundColor: Colors.white,
     child: ListView(
       padding: const EdgeInsets.all(8),
       children: [
-        Image.asset("/assets/images/logo.png"),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Image.asset(images.logo),
+        ),
         ListTile(
           title: const Text('Home'),
           onTap: () {
@@ -22,27 +29,38 @@ Widget drawer() {
           title: const Text('Experiences'),
           onTap: () {
             // Navigate to another page when item is clicked
-            Get.to(Experiences());
-          },
-        ),
-        // ListTile(
-        //   title: Text('Contact Us'),
-        //   onTap: () {
-        //     Get.to(Contactus());
-        //   },
-        // ),
-        ListTile(
-          title: const Text('Cart'),
-          onTap: () {
-            Get.toNamed("/checkout");
+          Get.toNamed("/experiences");
           },
         ),
         ListTile(
-          title: const Text('Dashboard'),
+          title: Text('Contact Us'),
           onTap: () {
-            Get.toNamed("/dashboardpage");
+            Get.to(Contactus());
           },
         ),
+       headerController.loggedIn.isTrue ?  ListTile(
+         title: const Text('Cart'),
+         onTap: () {
+           Get.toNamed("/checkout");
+         },
+       ):  ListTile(
+         title: const Text('Login'),
+         onTap: () {
+           Get.toNamed("/login");
+         },
+       ),
+        headerController.loggedIn.isTrue ?  ListTile(
+  title: const Text('Dashboard'),
+  onTap: () {
+  Get.toNamed("/dashboardpage");
+  },
+  ):  ListTile(
+         title: const Text('SignUp'),
+         onTap: () {
+           Get.toNamed("/SignupPage");
+         },
+       ),
+
       ],
     ),
   );

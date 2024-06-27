@@ -11,6 +11,7 @@ class TourOptionDynamicRequest {
   int noOfAdult;
   int noOfChild;
   int noOfInfant;
+  bool isVendor;
 
   TourOptionDynamicRequest({
     required this.tourId,
@@ -19,6 +20,7 @@ class TourOptionDynamicRequest {
     required this.noOfAdult,
     required this.noOfChild,
     required this.noOfInfant,
+    required this.isVendor,
   });
 
   factory TourOptionDynamicRequest.fromJson(Map<String, dynamic> json) =>

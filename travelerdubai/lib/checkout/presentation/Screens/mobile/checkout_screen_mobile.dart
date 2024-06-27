@@ -8,6 +8,7 @@ import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
+import '../../../../Cart/data_layer/usecase/deletecart_usecase.dart';
 import '../../../../Cart/data_layer/usecase/get_cart_usecase.dart';
 import '../../../../bookings/data_layer/repository/bookings_repository.dart';
 import '../../../../bookings/data_layer/service/booking_remote.dart';
@@ -25,6 +26,8 @@ import '../../widgets/prefix_dropdown.dart';
 class CheckoutScreenMobile extends StatelessWidget {
   final CheckoutController checkoutController = Get.put(
     CheckoutController(
+        deleteCartItemUseCase: DeleteCartItemUseCase(
+            CartRepositoryImpl(CartRemoteService(Dio()),)),
         getCartUseCase: GetCartUseCase(
           CartRepositoryImpl(
             CartRemoteService(Dio()),
@@ -53,7 +56,7 @@ class CheckoutScreenMobile extends StatelessWidget {
         decoration: BoxDecoration(gradient: backgroundgradient),
         child:
 //
-            SingleChildScrollView(
+        SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
                 bottom: Get.width > 600 ? Get.width * 0.01 : Get.width * 0.05),
@@ -70,7 +73,7 @@ class CheckoutScreenMobile extends StatelessWidget {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+                      EdgeInsets.symmetric(horizontal: Get.width * 0.05),
                       child: InputDetials(),
                     ),
                   ],
@@ -78,7 +81,7 @@ class CheckoutScreenMobile extends StatelessWidget {
                 CustomExpansionTile(
                   initiallyExpanded: true,
                   title: Text(
-                    "Primary Guest Information",
+                    "Order Summary",
                     style: Get.width > 600
                         ? bodyBlack(context).copyWith(fontSize: 32)
                         : bodyBlack(context),
@@ -103,15 +106,32 @@ class CheckoutScreenMobile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Obx(
-                      () => Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Get.width > 600
-                                ? Get.width * 0.05
-                                : Get.width * 0.05),
-                        child: OrderSumary(checkoutController.Totalprice.value),
-                      ),
-                    ),
+
+                          Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width > 600
+                                      ? Get.width * 0.05
+                                      : Get.width * 0.05),
+                              child: Container(
+                                padding: EdgeInsets.all(Get.height * 0.03),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: <Widget>[
+                                      Text("Total",
+                                        style: bodyBlack(Get.context!).copyWith(
+                                            fontWeight: FontWeight.bold),),
+                                      Obx(() {
+                                        return Text(
+                                          "AED ${checkoutController.Totalprice
+                                              .value}",
+                                          style: bodyBlack(Get.context!)
+                                              .copyWith(
+                                              fontWeight: FontWeight.bold),);
+                                      }),
+                                    ]),
+                              ),
+                          ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: Get.width > 600

@@ -34,7 +34,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName,
           itemCount: filteredTours.length,
           itemBuilder: (context, index) {
             final tour = filteredTours[index];
-            final tourDetailId = tour.tourdetails?[0].id;
+            final tourDetailId = tour.tourdetails?.id;
 
             return InkWell(
               onTap: () => Get.toNamed(
@@ -58,7 +58,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName,
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          tour.tourName,
+                          tour.tourName ??"Undefined",
                           style: GoogleFonts.playfairDisplay(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -102,7 +102,7 @@ Widget tourCardsMobile(List<Experiences> displayedTours, String? cityName) {
           itemCount: filteredTours.length,
           itemBuilder: (context, index) {
             final tour = filteredTours[index];
-            final tourDetailId = tour.tourdetails?[0].id;
+            final tourDetailId = tour.tourdetails?.id;
 
             return InkWell(
               onTap: () => Get.toNamed(
@@ -127,7 +127,7 @@ Widget tourCardsMobile(List<Experiences> displayedTours, String? cityName) {
                       child: Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
-                          tour.tourName,
+                          tour.tourName ??"Undefined",
                           style: GoogleFonts.outfit(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

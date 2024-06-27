@@ -13,7 +13,7 @@ class _TourOptionRemoteService implements TourOptionRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://localhost:3000';
   }
 
   final Dio _dio;
@@ -23,7 +23,7 @@ class _TourOptionRemoteService implements TourOptionRemoteService {
   @override
   Future<TourOptionsStaticDataResponse> getOptionsstaticdata(
       TourOptionStaticData requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -52,7 +52,7 @@ class _TourOptionRemoteService implements TourOptionRemoteService {
   @override
   Future<TourOptionDynamicDataResponse> getOptionsdynamicdata(
       TourOptionDynamicRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

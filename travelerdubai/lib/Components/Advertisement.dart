@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 Widget advertisement({required double subHeadingfontsize, required double Headingfontsize , required BoxDecoration decoration }) {
 
@@ -47,7 +48,7 @@ Widget advertisement({required double subHeadingfontsize, required double Headin
             width: Get.width * .10,
           ),
           Image.asset(
-            "../assets/images/Iphone.png",
+            images.iphone,
             width: Get.width>600 ? Get.width * .155 : Get.width * 1,
             height: Get.width>600 ? Get.height * .60 : Get.height*.4,
           ),

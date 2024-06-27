@@ -66,19 +66,10 @@ class TourOptionDynamicResult {
   int? transferId;
   String? transferName;
   double? adultPrice;
+  String? startTime;
   double? childPrice;
   int? infantPrice;
-  double? withoutDiscountAmount;
   double? finalAmount;
-  String? startTime;
-  String? departureTime;
-  bool? disableChild;
-  bool? disableInfant;
-  bool? allowTodaysBooking;
-  int? cutOff;
-  bool? isSlot;
-  int? isDefaultTransfer;
-  // Add other properties...
 
   TourOptionDynamicResult({
     this.tourId,
@@ -88,16 +79,9 @@ class TourOptionDynamicResult {
     this.adultPrice,
     this.childPrice,
     this.infantPrice,
-    this.withoutDiscountAmount,
     this.finalAmount,
     this.startTime,
-    this.departureTime,
-    this.disableChild,
-    this.disableInfant,
-    this.allowTodaysBooking,
-    this.cutOff,
-    this.isSlot,
-    this.isDefaultTransfer,
+
   });
 
   factory TourOptionDynamicResult.fromJson(Map<String, dynamic> json) => _$TourOptionDynamicResultFromJson(json);

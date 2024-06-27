@@ -45,10 +45,10 @@ packages:
     dependency: "direct main"
     description:
       name: auraa_ui
-      sha256: "9818688af4a1ae1533b0f3558074c73a22da6133295e2d263ccce4b699613c5d"
+      sha256: f30af0cae275769eba1b870bc7d56190f1e9a3e65d3eead36c48123f4894a5b2
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
   boolean_selector:
     dependency: transitive
     description:
@@ -98,7 +98,7 @@ packages:
     source: hosted
     version: "2.4.2"
   build_runner:
-    dependency: "direct overridden"
+    dependency: "direct dev"
     description:
       name: build_runner
       sha256: "644dc98a0f179b872f612d3eb627924b578897c629788e858157fa5e704ca0c7"
@@ -261,10 +261,10 @@ packages:
     dependency: transitive
     description:
       name: devtools_shared
-      sha256: "34da80fd16ab27ffd166f8ccba8543c5c533672cd635f25b80c61c5c4c07783a"
+      sha256: a6e66165629ec004cabd84e6971f502aeac07f1a5f6ffd9b3244cd05b1a06fb0
       url: "https://pub.dev"
     source: hosted
-    version: "10.0.0-dev.2"
+    version: "10.0.1"
   dio:
     dependency: "direct main"
     description:
@@ -357,18 +357,18 @@ packages:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
-      sha256: c437ae5d17e6b5cc7981cf6fd458a5db4d12979905f9aafd1fea930428a9fe63
+      sha256: "1003a5a03a61fc9a22ef49f37cbcb9e46c86313a7b2e7029b9390cf8c6fc32cb"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0"
+    version: "5.1.0"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
-      sha256: "22fcb352744908224fc7be3caae254836099786acfe5df6e9fe901e9c2575a41"
+      sha256: "6643fe3dbd021e6ccfb751f7882b39df355708afbdeb4130fc50f9305a9d1a3d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.17.1"
+    version: "2.17.2"
   fixnum:
     dependency: transitive
     description:
@@ -407,7 +407,7 @@ packages:
     source: hosted
     version: "1.0.6"
   flutter_lints:
-    dependency: "direct overridden"
+    dependency: "direct dev"
     description:
       name: flutter_lints
       sha256: a25a15ebbdfc33ab1cd26c63a6ee519df92338a9c10f122adda92938253bef04
@@ -617,7 +617,7 @@ packages:
     source: hosted
     version: "3.0.2"
   json_serializable:
-    dependency: "direct overridden"
+    dependency: "direct dev"
     description:
       name: json_serializable
       sha256: ea1432d167339ea9b5bb153f0571d0039607a873d6e04e0117af043f14a1fd4b
@@ -800,6 +800,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "68645b24e0716782e58948f8467fd42a880f255096a821f9e7d0ec625b00c84d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   provider:
     dependency: transitive
     description:
@@ -849,13 +857,13 @@ packages:
     source: hosted
     version: "4.1.0"
   retrofit_generator:
-    dependency: "direct overridden"
+    dependency: "direct dev"
     description:
       name: retrofit_generator
-      sha256: "9499eb46b3657a62192ddbc208ff7e6c6b768b19e83c1ee6f6b119c864b99690"
+      sha256: a962be21403c2ecdd82d06c863340cff759642ae6ecac5a2c74a9a60377592c3
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.8"
+    version: "8.1.0"
   rxdart:
     dependency: transitive
     description:
@@ -1262,5 +1270,5 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=3.4.0 <4.0.0"
+  dart: ">=3.4.3 <4.0.0"
   flutter: ">=3.22.0"

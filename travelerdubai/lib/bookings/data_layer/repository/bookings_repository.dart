@@ -7,7 +7,7 @@ import '../model/request/user_bookings.dart';
 import '../service/booking_remote.dart';
 
 abstract class BookingsRepository {
-  Future<BookingResponse> getBookingDetails(BookingRequest data);
+  Future<DataModel> getBookingDetails(BookingRequest data);
   Future<List<BookingList>> getUserBookings( UserBookingsRequest data);
 }
 
@@ -18,7 +18,7 @@ class BookingsRepositoryImpl implements BookingsRepository {
   BookingsRepositoryImpl(this.remote);
 
   @override
-  Future<BookingResponse> getBookingDetails( BookingRequest data) {
+  Future<DataModel> getBookingDetails( BookingRequest data) {
     return remote.doBookings( data);
   }
   @override

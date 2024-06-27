@@ -11,8 +11,15 @@ import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/contactus/presentation/Contactus.dart';
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
-import 'package:travelerdubai/events/presentation/events.dart';
+import 'package:travelerdubai/events/presentation/eventsDesktop.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/success.dart';
+import 'package:travelerdubai/policy_Pages/cancelationpolicy.dart';
+import 'package:travelerdubai/policy_Pages/privacyPolicy.dart';
+import 'package:travelerdubai/policy_Pages/refundPolicy.dart';
+import 'package:travelerdubai/policy_Pages/termsandcondition.dart';
+
 import 'package:travelerdubai/tourdetails/presentation/Widgets/controllers_bindings.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/mobile/forms_mobile.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
@@ -20,7 +27,9 @@ import 'package:travelerdubai/userdashboard/dashboardpage.dart';
 import 'Components/PopupCard.dart';
 import 'NotFound/404Screen.dart';
 import 'checkout/presentation/checkoutscreen.dart';
+import 'contactus/presentation/contactusScreen.dart';
 import 'core/controller/headercontroller.dart';
+import 'events/presentation/event.dart';
 
 
 void main() async {
@@ -98,7 +107,7 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/contactus',
-            page: () => const Contactus(),
+            page: () =>  Contactus(),
             transition: Transition.zoom,
             transitionDuration: const Duration(milliseconds: 500),
           ),
@@ -137,7 +146,7 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/events',
-            page: () => Eventspage(),
+            page: () => Event(),
             transition: Transition.leftToRightWithFade,
             transitionDuration: const Duration(milliseconds: 500),
           ),
@@ -151,6 +160,41 @@ class MyApp extends StatelessWidget {
             name: '/payment',
             page: () => CardPaymentScreen(),
             transition: Transition.circularReveal,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),GetPage(
+            name: '/payments',
+            page: () =>PaymentSuccess(),
+            transition: Transition.zoom,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
+          GetPage(
+            name: '/fail',
+            page: () =>FailureScreen(),
+            transition: Transition.zoom,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
+          GetPage(
+            name: '/privacypolicy',
+            page: () =>PolicyPage(),
+            transition: Transition.zoom,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
+          GetPage(
+            name: '/termsandcondition',
+            page: () =>TermsandCondition(),
+            transition: Transition.zoom,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
+          GetPage(
+            name: '/refundpolicy',
+            page: () =>RefundPolicy(),
+            transition:Transition.native,
+            transitionDuration: const Duration(milliseconds: 500),
+          ),
+          GetPage(
+            name: '/cancelationpolicy',
+            page: () =>CancelationPolicy(),
+            transition: Transition.native,
             transitionDuration: const Duration(milliseconds: 500),
           ),
 

@@ -4,75 +4,79 @@ part 'UserBookings.g.dart';
 
 
 @JsonSerializable()
+class BookingList {
+  final int? id;
+  final String? referenceNo;
+  final String? userId;
+  final String? roleId;
+  final String? status;
+  final User? user;
+  final List<BookingDetails>? bookingDetails;
+
+  BookingList({
+    this.id,
+    this.referenceNo,
+    this.userId,
+    this.roleId,
+    this.status,
+    this.user,
+    this.bookingDetails,
+  });
+
+  factory BookingList.fromJson(Map<String, dynamic> json) => _$BookingListFromJson(json);
+  Map<String, dynamic> toJson() => _$BookingListToJson(this);
+}
+
+@JsonSerializable()
 class User {
-  final int id;
-  final String uid;
-  final String? username;
-  final bool isUser;
-  final String email;
+  final int? id;
+  final String? email;
   final String? address;
   final int? age;
   final String? dob;
+  final bool? isUser;
+  final String? uid;
+  final String? username;
 
   User({
-    required this.id,
-    required this.uid,
-    this.username,
-    required this.isUser,
-    required this.email,
+    this.id,
+    this.email,
     this.address,
     this.age,
     this.dob,
+    this.isUser,
+    this.uid,
+    this.username,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-
   Map<String, dynamic> toJson() => _$UserToJson(this);
 }
 
 @JsonSerializable()
-class BookingDetail {
-  final int id;
-  final String status;
-  final DateTime createdAt;
-
-  final int bookingId;
-  final bool downloadRequired;
-  final String serviceUniqueId;
-  final String serviceType;
+class BookingDetails {
+  final int? id;
+  final String? status;
+  final int? bookingId;
+  final bool? downloadRequired;
+  final String? serviceUniqueId;
+  final String? servicetype;
   final String? confirmationNo;
-  final String bookingResultId;
+  final int? bookingResultId;
+  final String? createdAt;
 
-  BookingDetail({
-    required this.id,
-    required this.status,
-    required this.createdAt,
-    required this.bookingId,
-    required this.downloadRequired,
-    required this.serviceUniqueId,
-    required this.serviceType,
+  BookingDetails({
+    this.id,
+    this.status,
+    this.bookingId,
+    this.downloadRequired,
+    this.serviceUniqueId,
+    this.servicetype,
     this.confirmationNo,
-    required this.bookingResultId,
+    this.bookingResultId,
+    this.createdAt,
   });
 
-  factory BookingDetail.fromJson(Map<String, dynamic> json) => _$BookingDetailFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BookingDetailToJson(this);
-}
-
-@JsonSerializable()
-class BookingList {
-  final String referenceNo;
-  final String? userId;
-  final List<BookingDetail> bookingDetails;
-
-  BookingList({
-    required this.referenceNo,
-    this.userId,
-    required this.bookingDetails,
-  });
-
-  factory BookingList.fromJson(Map<String, dynamic> json) => _$BookingListFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BookingListToJson(this);
+  factory BookingDetails.fromJson(Map<String, dynamic> json) => _$BookingDetailsFromJson(json);
+  Map<String, dynamic> toJson() => _$BookingDetailsToJson(this);
 }

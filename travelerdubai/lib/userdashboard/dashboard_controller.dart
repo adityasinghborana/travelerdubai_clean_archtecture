@@ -31,7 +31,7 @@ class DashBoardController extends GetxController {
 
 
   RxList<BookingList> userBookingList = <BookingList>[].obs;
-  RxList<BookingDetail> userbookings=<BookingDetail>[].obs;
+  RxList<BookingDetails> userbookings = <BookingDetails>[].obs;
   RxInt selectedIndex = 0.obs;
   RxBool isLoading = true.obs;
 
@@ -42,21 +42,25 @@ class DashBoardController extends GetxController {
 
   void getBookings() {
     print("${headerController.userid.value}");
-    getUserBookingsUseCase.execute(
-        UserBookingsRequest(userId: headerController.userid.value)).then((
-        value) {
-      if (value != null) {
-        userBookingList.value.addAll(value);
-        for (var item in value) {
-          userbookings.value.addAll(item.bookingDetails);
+    try {
+      print("${headerController.userid.value} hello");
+      getUserBookingsUseCase.execute(
+          UserBookingsRequest(id: headerController.userid.value)).then((value) {
+        print("${headerController.userid.value} hii");
+        if (value != null) {
+          print(value[0].referenceNo);
+          userBookingList.addAll(value);
+          for (var item in value) {
+            userbookings.addAll(item.bookingDetails ?? []);
+          }
+        } else {
+          print("no bookings found");
         }
-      } else {
-        print("no bookings found");
-      }
-    });
+      });
+    } catch (e) {
+      print("what on the earth is going on");
+    }
   }
-
-
 
   Future<void> signOut() async {
     await authClass.signOut(context: Get.context!).then((value) =>

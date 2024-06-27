@@ -7,7 +7,7 @@ part of 'homepage.dart';
 // **************************************************************************
 
 HomepageData _$HomepageDataFromJson(Map<String, dynamic> json) => HomepageData(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       detail: json['detail'] as String,
       gridSectionHeading: json['gridSectionHeading'] as String,
       gridSectionSubheading: json['gridSectionSubheading'] as String,

@@ -6,7 +6,7 @@ import 'package:travelerdubai/core/controller/headercontroller.dart';
 import 'package:travelerdubai/Components/Mobileheader.dart';
 import 'package:travelerdubai/Components/drawer.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
-import 'package:travelerdubai/experiences/Presentation/widgets/tour_types_mobile.dart';
+import 'package:travelerdubai/Components/tour_types_mobile.dart';
 import 'package:travelerdubai/experiences/Presentation/widgets/tourcards.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
@@ -34,21 +34,21 @@ class ExperiencesMobile extends StatelessWidget {
     Get.lazyPut(() => HeaderController());
 
     String? city =
-        Get.parameters['cityName']; // Retrieve city inside build method
+    Get.parameters['cityName']; // Retrieve city inside build method
     print(city);
 
     List<Experiences> allTours = experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
         : experienceController.cityTours
-            .where((tour) =>
-                tour.cityTourType ==
-                experienceController.selectedTourType.value)
-            .toList();
+        .where((tour) =>
+    tour.cityTourType ==
+        experienceController.selectedTourType.value)
+        .toList();
 
     List<Experiences> filterCityTour = city != null
         ? experienceController.cityTours
-            .where((tour) => tour.cityName == city)
-            .toList()
+        .where((tour) => tour.cityName == city)
+        .toList()
         : []; // Handle null city
 
     var displayedTours = city != null ? filterCityTour : allTours;
@@ -127,7 +127,21 @@ class ExperiencesMobile extends StatelessWidget {
                 ],
               ),
             ),
-            TourTypesMobile(),
+            Obx(() {
+              return TourTypesMobile(
+                title: 'Browse By Themes',
+                items: experienceController.tourTypes.map((e) =>
+                    e['cityTourType'].toString()).toList(),
+                selectedItem: experienceController.selectedTourType.value,
+                onTap: (item) {
+                  if (experienceController.selectedTourType.value == item) {
+                    experienceController.resetSelectedTourType();
+                  } else {
+                    experienceController.filterCityToursByType(item);
+                  }
+                },
+              );
+            }),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(1.0),

@@ -16,23 +16,21 @@ class FailureScreen extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(gradient: backgroundgradient),
-        child: Expanded(
-          child: ResponsiveBuilder(
-            builder: (context, sizingInformation) {
-              if (sizingInformation.deviceScreenType ==
-                  DeviceScreenType.desktop) {
-                return Desktop(Height, Width);
-              }
-              if (sizingInformation.deviceScreenType ==
-                      DeviceScreenType.mobile ||
-                  sizingInformation.deviceScreenType ==
-                      DeviceScreenType.tablet) {
-                return Mobile(Height, Width);
-              } else {
-                return Mobile(Height, Width);
-              }
-            },
-          ),
+        child: ResponsiveBuilder(
+          builder: (context, sizingInformation) {
+            if (sizingInformation.deviceScreenType ==
+                DeviceScreenType.desktop) {
+              return Desktop(Height, Width);
+            }
+            if (sizingInformation.deviceScreenType ==
+                    DeviceScreenType.mobile ||
+                sizingInformation.deviceScreenType ==
+                    DeviceScreenType.tablet) {
+              return Mobile(Height, Width);
+            } else {
+              return Mobile(Height, Width);
+            }
+          },
         ),
       ),
     );
@@ -40,7 +38,7 @@ class FailureScreen extends StatelessWidget {
 
   Widget Mobile(double height, double width) {
     return Image.asset(
-      '../assets/images/failedmobile.png',
+      images.paymentfailuremobile,
       height: height,
       width: width,
     );
@@ -48,7 +46,7 @@ class FailureScreen extends StatelessWidget {
 
   Widget Desktop(double height, double width) {
     return Image.asset(
-      '../assets/images/failureimg.png',
+      images.paymentfailure,
       height: height,
       width: width,
     );

@@ -13,7 +13,7 @@ class _createUserRemoteService implements createUserRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://localhost:3000';
   }
 
   final Dio _dio;
@@ -22,7 +22,7 @@ class _createUserRemoteService implements createUserRemoteService {
 
   @override
   Future<UserModelResponse> createuser(User requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -50,10 +50,10 @@ class _createUserRemoteService implements createUserRemoteService {
 
   @override
   Future<List<UserDetail>> getUserDetail(String uid) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'uid': uid};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<UserDetail>>(Options(
       method: 'GET',

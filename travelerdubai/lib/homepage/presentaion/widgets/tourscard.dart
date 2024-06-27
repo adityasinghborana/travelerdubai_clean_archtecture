@@ -49,7 +49,7 @@ class TourCards extends StatelessWidget {
   }
 
   void _onTourCardTap(Experiences tour) {
-    String tourDetailId = "${tour.tourdetails?[0].id}";
+    String tourDetailId = "${tour.tourdetails?.id}";
     Get.toNamed(
       '/tour_details',
       parameters: {'tourId': tourDetailId.toString()},
@@ -135,7 +135,7 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
 
   Widget _buildRatingAndCity(Experiences tour) {
     return SelectableText(
-      tour.tourName,
+      tour.tourName ?? "undefined",
       style: GoogleFonts.playfairDisplay(
         fontSize: 16,
         fontWeight: FontWeight.w500,

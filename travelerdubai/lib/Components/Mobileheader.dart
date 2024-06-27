@@ -42,7 +42,7 @@ Get.back();
                     Get.toNamed('/home');
                   },
                   child: Image.asset(
-                    "../assets/images/logo.png",
+                    images.logo,
                     width: MediaQuery.of(context).size.width * 0.5,
                     height: height * .05,
                   ),

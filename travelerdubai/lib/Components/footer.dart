@@ -52,7 +52,7 @@ Widget _buildLogoAndDescription() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.asset(
-          "../assets/images/logo.png",
+         images.logo,
           width: Get.width * .15,
           height: Get.width * .025,
         ),
@@ -69,66 +69,7 @@ Widget _buildLogoAndDescription() {
         ),
         Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/discover.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/formkit_visa.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/formkit_gpay.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/amex.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/mastercard.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/paypal.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                "../assets/images/visa.png",
-                width: Get.width * .025,
-                height: Get.width * .025,
-              ),
-            ),
+           Image.asset(images.paymentsimage)
           ],
         ),
       ],
@@ -185,23 +126,11 @@ Widget _buildNavigationSections() {
                 color: colorTextgrey),
           ),
         ),
+
         const SizedBox(height: 4),
         TextButton(
           onPressed: () {
-            // Handle Tour List button press
-          },
-          child: const Text(
-            "Tour List",
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                color: colorTextgrey),
-          ),
-        ),
-        const SizedBox(height: 4),
-        TextButton(
-          onPressed: () {
-            // Handle Event List button press
+            Get.toNamed('/events');
           },
           child: const Text(
             "Event List",
@@ -214,7 +143,7 @@ Widget _buildNavigationSections() {
         const SizedBox(height: 4),
         TextButton(
           onPressed: () {
-            // Handle Contact Us button press
+           Get.toNamed('/contactus');
           },
           child: const Text(
             "Contact Us",
@@ -237,7 +166,7 @@ Widget _buildPolicySections() {
       children: [
         TextButton(
           onPressed: () {
-            // Handle Home button press
+            Get.toNamed('/privacypolicy');
           },
           child: const Text(
             "Privacy Policy",
@@ -250,7 +179,7 @@ Widget _buildPolicySections() {
         const SizedBox(height: 4),
         TextButton(
           onPressed: () {
-            // Handle About Us button press
+            Get.toNamed('/termsandcondition');
           },
           child: const Text(
             "Terms & Condition",
@@ -263,7 +192,7 @@ Widget _buildPolicySections() {
         const SizedBox(height: 8),
         TextButton(
           onPressed: () {
-            // Handle Experiences button press
+       Get.toNamed('/refundpolicy');
           },
           child: const Text(
             "Refund Policy ",
@@ -276,7 +205,7 @@ Widget _buildPolicySections() {
         const SizedBox(height: 4),
         TextButton(
           onPressed: () {
-            // Handle Tour List button press
+            Get.toNamed('/cancelationpolicy');
           },
           child: const Text(
             "Cancelation Policy",

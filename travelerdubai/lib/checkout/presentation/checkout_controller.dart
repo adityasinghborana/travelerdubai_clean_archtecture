@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
+import 'package:travelerdubai/Cart/data_layer/model/request/delete_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
 import 'package:travelerdubai/Components/show_toast.dart';
 import 'package:travelerdubai/Components/validation_logic.dart';
@@ -11,6 +12,7 @@ import 'package:travelerdubai/checkout/data_layer/usecase/intent_usecase.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
 
 import '../../Cart/data_layer/model/response/get_cart_response.dart';
+import '../../Cart/data_layer/usecase/deletecart_usecase.dart';
 import '../../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../../paymentconfirmation/presentationlayer/failure.dart';
 import '../../paymentconfirmation/presentationlayer/success.dart';
@@ -21,11 +23,14 @@ class CheckoutController extends GetxController {
   final IntentUseCase intentUseCase;
   final GetCartUseCase getCartUseCase;
   final DoBookingUseCase doBookingUseCase;
+  final DeleteCartItemUseCase deleteCartItemUseCase;
 
   CheckoutController(
       {required this.getCartUseCase,
       required this.intentUseCase,
-      required this.doBookingUseCase});
+      required this.doBookingUseCase,
+      required this.deleteCartItemUseCase
+      });
 
   var selectedValue = 'Adult'.obs;
   var selectedPrefixValue = 'Mr'.obs;
@@ -44,7 +49,7 @@ class CheckoutController extends GetxController {
   TextEditingController nationalityController = TextEditingController();
   TextEditingController pickupController = TextEditingController();
   RxString stripeclientkey = "".obs;
-  RxString Totalprice = "".obs;
+  var Totalprice = "".obs;
   RxList<Guest> guests = <Guest>[].obs;
   RxString refno = "".obs;
 
@@ -77,6 +82,7 @@ class CheckoutController extends GetxController {
         } else {
           // Handle error
           print('Error: Empty TourDetails');
+          Totalprice.value="0";
         }
       } catch (error) {
         // Handle generic error
@@ -144,12 +150,25 @@ class CheckoutController extends GetxController {
       print(passengerdata);
     }
     doBookingUseCase.execute(data).then((value) {
-      if (value.result?.referenceNo != null) {
-        print(value.result!.referenceNo);
-        refno.value = value.result!.referenceNo!;
+      if (value.data?.result?.referenceNo != null ||value.vendorbookings?.status == 200 ) {
+        print(value.data?.result!.referenceNo);
+        refno.value = value.data?.result?.referenceNo ?? "check Dashboard " ;
         Get.to(PaymentSuccess());
       } else {
         Get.to(FailureScreen());
+      }
+    });
+  }
+
+  void deleteCartItem(int id) async {
+    deleteCartItemUseCase.execute(DeleteCart(id: id)).then((value) {
+      if (value.status == 200) {
+        cartTours.removeWhere((e) => e.id == id);
+        getCart();
+        //Totalprice.value = '800';
+      }
+      else{
+        showToast(toastMessage: "nothing happend");
       }
     });
   }

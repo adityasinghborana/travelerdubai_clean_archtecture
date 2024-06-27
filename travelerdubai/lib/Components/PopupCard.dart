@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/tour_options_controller.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/response/timeslot_response.dart';
 
@@ -10,6 +11,7 @@ import 'format_date.dart';
 class PopupCard extends StatelessWidget {
   final TourOptionStaticDataController static = Get.find();
   final HeaderController controller = Get.find();
+
   PopupCard({
     super.key,
   });
@@ -27,15 +29,13 @@ class PopupCard extends StatelessWidget {
     var selectedValue = lst.isNotEmpty
         ? lst[0].obs
         : Result(
-                tourOptionId: 0,
-                timeSlotId: '',
-                timeSlot: '',
-                available: 0,
-                adultPrice: 0,
-                childPrice: 0,
-                isDynamicPrice: false,
-                companyBuyingPriceDynamic: 0)
-            .obs;
+            tourOptionId: 0,
+            timeSlotId: '',
+            timeSlot: '',
+            available: 0,
+            adultPrice: 0,
+            childPrice: 0,
+          ).obs;
 
     return Obx(
       () => Stack(
@@ -56,7 +56,7 @@ class PopupCard extends StatelessWidget {
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,38 +113,70 @@ class PopupCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(
-                        //width: MediaQuery.of(context).size.width * .50,
-                        height: MediaQuery.of(context).size.width * .40,
-                        child: ListView.builder(
-                            itemCount: lst.length,
-                            itemBuilder: (context, i) {
-                              return Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Obx(
-                                        () => Row(
+                      if (lst.isNotEmpty)
+                        SizedBox(
+                          //width: MediaQuery.of(context).size.width * .50,
+                          height: MediaQuery.of(context).size.width * .40,
+                          child: ListView.builder(
+                              itemCount: lst.length,
+                              itemBuilder: (context, i) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Obx(
+                                          () => Row(
+                                            children: [
+                                              Radio<String>(
+                                                value: lst[i]
+                                                    .timeSlotId
+                                                    .toString(),
+                                                groupValue: selectedValue
+                                                    .value.timeSlotId
+                                                    .toString(),
+                                                onChanged: (value) =>
+                                                    selectedValue.value =
+                                                        lst[i],
+                                              ),
+                                              Text(
+                                                lst[i].timeSlot,
+                                                style: TextStyle(
+                                                  color:
+                                                      const Color(0xFF828282),
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width *
+                                                          .04,
+                                                  fontFamily: 'Roboto',
+                                                  fontWeight: FontWeight.w400,
+                                                  height: 0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
                                           children: [
-                                            Radio<String>(
-                                              value:
-                                                  lst[i].timeSlotId.toString(),
-                                              groupValue: selectedValue
-                                                  .value.timeSlotId
-                                                  .toString(),
-                                              onChanged: (value) =>
-                                                  selectedValue.value = lst[i],
+                                            const Text(
+                                              'Availability :',
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(
+                                                color: Color(0xFF828282),
+                                                fontSize: 14,
+                                                fontFamily: 'Roboto',
+                                                fontWeight: FontWeight.w400,
+                                                height: 0,
+                                              ),
                                             ),
                                             Text(
-                                              lst[i].timeSlot,
-                                              style: TextStyle(
-                                                color: const Color(0xFF828282),
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    .04,
+                                              lst[i].available.toString(),
+                                              textAlign: TextAlign.right,
+                                              style: const TextStyle(
+                                                color: Color(0xFF828282),
+                                                fontSize: 14,
                                                 fontFamily: 'Roboto',
                                                 fontWeight: FontWeight.w400,
                                                 height: 0,
@@ -152,61 +184,41 @@ class PopupCard extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Text(
-                                            'Availability :',
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              color: Color(0xFF828282),
-                                              fontSize: 14,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w400,
-                                              height: 0,
-                                            ),
-                                          ),
-                                          Text(
-                                            lst[i].available.toString(),
-                                            textAlign: TextAlign.right,
-                                            style: const TextStyle(
-                                              color: Color(0xFF828282),
-                                              fontSize: 14,
-                                              fontFamily: 'Roboto',
-                                              fontWeight: FontWeight.w400,
-                                              height: 0,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.width * .05,
-                                  ),
-                                ],
-                              );
-                            }),
-                      ),
-                      Center(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * .55,
-                          child: ButtonView(
-                            btnName: 'Add to Cart',
-                            bgColor: Colors.blue,
-                            onButtonTap: () {
-                              print(
-                                  'selected timeslot id is ${selectedValue.value.timeSlot}');
-                              static.value.timeSlotId =
-                                  int.parse(selectedValue.value.timeSlotId);
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              .05,
+                                    ),
+                                  ],
+                                );
+                              }),
+                        )
+                      else
+                        Center(child: Text("Loading")),
+                      if (lst.isNotEmpty && controller.loggedIn.isTrue)
+                        Center(
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * .55,
+                            child: ButtonView(
+                              borderColor: Colors.transparent,
+                              btnName: 'Add to Cart',
+                              bgColor: colorMediumBlue,
+                              onButtonTap: () {
+                                print(
+                                    'selected timeslot id is ${selectedValue.value.timeSlot}');
+                                static.value.timeSlotId =
+                                    int.parse(selectedValue.value.timeSlotId);
 
-                              static.Addtocart(static.value);
-                              print(static.value.toJson());
-                            },
+                                static.Addtocart(static.value);
+                                print(static.value.toJson());
+                              },
+                            ),
                           ),
-                        ),
-                      ),
+                        )
+                      else
+                        Container(),
                     ],
                   ),
                 ),

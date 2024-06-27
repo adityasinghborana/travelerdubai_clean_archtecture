@@ -4,17 +4,10 @@ part 'tour_options_staticdata_response.g.dart';
 
 @JsonSerializable()
 class TourOptionsStaticDataResponse {
-  int statuscode;
-  dynamic error;
-  String? url;
-  int? count;
+
   TourOptionsResult? result;
 
   TourOptionsStaticDataResponse({
-    required this.statuscode,
-    this.error,
-    this.url,
-    this.count,
     this.result,
   });
 
@@ -52,9 +45,9 @@ class TourOption {
   String? childAge;
   String? infantAge;
   String? optionDescription;
-  String? cancellationPolicy;
-  String? cancellationPolicyDescription;
-  String? childPolicyDescription;
+  String? duration;
+  int? minPax;
+  int? maxPax;
   // Add other properties as needed
 
   TourOption({
@@ -64,9 +57,9 @@ class TourOption {
     this.childAge,
     this.infantAge,
     this.optionDescription,
-    this.cancellationPolicy,
-    this.cancellationPolicyDescription,
-    this.childPolicyDescription,
+    this.duration,
+    this.minPax,
+    this.maxPax,
     // Add other properties as needed
   });
 

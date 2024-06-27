@@ -40,7 +40,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Image.asset(
-        "../assets/images/logo.png",
+        images.logo,
         width: MediaQuery.of(context).size.width * 0.20,
         height: MediaQuery.of(context).size.width * 0.20,
       ),
@@ -59,67 +59,13 @@ Widget _buildLogoAndDescription(BuildContext context) {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "../assets/images/discover.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
+             images.paymentsimage,
+              width: Get.width *0.8,
+              height: Get.width * .30,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "../assets/images/formkit_visa.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "../assets/images/formkit_gpay.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "../assets/images/amex.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
-            ),
-          ),
-        ],
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "../assets/images/mastercard.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "../assets/images/paypal.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "../assets/images/visa.png",
-              width: Get.width * .10,
-              height: Get.width * .10,
-            ),
-          ),
-        ],
-      ),
-    ],
+       ],
+            )],
   );
 }
 
@@ -253,17 +199,21 @@ Widget _buildNewsletterSection() {
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            FontAwesomeIcons.facebookF,
-            color: colorTextgrey,
-          ),
-          Icon(FontAwesomeIcons.instagram, color: colorTextgrey),
-          Icon(FontAwesomeIcons.x, color: colorTextgrey),
-          Icon(FontAwesomeIcons.youtube, color: colorTextgrey),
-        ],
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        width: Get.width*.6,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Icon(
+              FontAwesomeIcons.facebookF,
+              color: colorTextgrey,
+            ),
+            Icon(FontAwesomeIcons.instagram, color: colorTextgrey),
+            Icon(FontAwesomeIcons.x, color: colorTextgrey),
+            Icon(FontAwesomeIcons.youtube, color: colorTextgrey),
+          ],
+        ),
       ),
       const SizedBox(height: 8),
       const Align(

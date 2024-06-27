@@ -43,6 +43,9 @@ class TourOptionStaticDataController extends GetxController {
   var dummyId = "65".obs;
   var dummy = 0;
   var contractid = "".obs;
+  var isvendor=false.obs;
+  var vendoruid="".obs;
+  var starttime= "".obs;
   // final RxList<Result> timeslots = <Result>[].obs;
   final RxList<List<Result>> timeslots = RxList<List<Result>>();
 
@@ -78,7 +81,7 @@ class TourOptionStaticDataController extends GetxController {
       print('ContractId is :${contractid.value}');
     }
     final TourOptionStaticData data =
-        TourOptionStaticData(tourId: id.value, contractId: contractid.value);
+        TourOptionStaticData(tourId: id.value, contractId: contractid.value ,isVendor: isvendor.value);
     options.value = UiData(state: UiState.LOADING);
 
     await getOptionsStaticDataUseCase.execute(data).then((response) {
@@ -129,6 +132,7 @@ class TourOptionStaticDataController extends GetxController {
         noOfAdult: adultsSelectedValue.value,
         noOfChild: childrenSelectedValue.value,
         noOfInfant: infantsSelectedValue.value,
+        isVendor: isvendor.value
       );
       if (kDebugMode) {
         print(data.toJson());
@@ -179,19 +183,22 @@ class TourOptionStaticDataController extends GetxController {
       travelDate: selectedDate.value.toString().substring(0, 10),
       tourOptionId: singleOptionId,
       transferId: transferId.value,
+      isVendor: isvendor.value
     );
 
     try {
       final response = await getTimeSlotUseCase.execute(getTimeslotData);
-
+print(response.result[0].timeSlotId);
       //timeslots.value.data!.assignAll(response.result);
       if (response.result.isNotEmpty) {
+
         timeslots.add(response.result);
       } else {
         // timeslots.value = UiData(
         //   state: UiState.EMPTY,
         //   data: response.result,
         // );
+        print("no time slots available");
       }
 
       // if (timeslots.value.data!.isNotEmpty) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import '../core/constants/constants.dart';
+
 class PageNotFound extends StatelessWidget {
 
 
@@ -31,12 +33,12 @@ class PageNotFound extends StatelessWidget {
   }
 Widget Mobile(){
     return Center(
-        child: Container(child: Image.asset('../assets/images/404mobile.png',fit: BoxFit.cover,),));
+        child: Container(child: Image.asset(images.notfoundmobile,fit: BoxFit.cover,),));
 }
 
   Widget Desktop() {
     return Center(
-        child: Container(child: Image.asset('../assets/images/404.png'),));
+        child: Container(child: Image.asset(images.notfound),));
   }
 }
 

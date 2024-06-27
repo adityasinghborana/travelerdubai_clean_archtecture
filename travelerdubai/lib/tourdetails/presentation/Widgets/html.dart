@@ -66,7 +66,7 @@ class HtmlTextWithLineBreaks extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: text
               .split('<br>')
-              .map((line) => Text(
+              .map((line) => SelectableText(
             line.trim(),
             style: TextStyle(
               letterSpacing: .5,

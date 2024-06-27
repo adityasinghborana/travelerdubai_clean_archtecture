@@ -50,14 +50,16 @@ class TourPageMobile extends StatelessWidget {
               CartRemoteService(Dio()),
             ),
           )));
-  final TourController tourController = Get.find();
 
-  final HomeController homeController = Get.put(HomeController(
-      GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
-  final tourId = Get.parameters['tourId'] ?? '';
+
+
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController(
+        GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
+    final tourId = Get.parameters['tourId'] ?? '';
+    final TourController tourController = Get.find();
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: MobileHeader(context: context,),
@@ -72,6 +74,9 @@ class TourPageMobile extends StatelessWidget {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
+            static.vendoruid.value=tourController.tour.value.vendorUid ?? '';
+            static.starttime.value=tourController.tour.value.startTime ?? '';
+            static.isvendor.value =tourController.tour.value.isVendorTour ?? false;
             if (kDebugMode) {
               print("${static.id.value} hello tour Detail");
             }
@@ -98,7 +103,7 @@ class TourPageMobile extends StatelessWidget {
 
                         AuraUICarousel(
                           images: imageUrls,
-                          maxWidth: double.infinity,
+                     showIndicator: false,
                           height: MediaQuery.of(context).size.height * 0.3,
                           pageController: pageController,
                         ),

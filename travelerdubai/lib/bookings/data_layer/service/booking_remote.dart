@@ -10,14 +10,14 @@ part 'booking_remote.g.dart';
 
 
 
-@RestApi(baseUrl:"http://localhost:3000")
+@RestApi(baseUrl:baseurl)
 abstract class BookingsRemoteService {
   factory BookingsRemoteService(Dio dio, {String? baseUrl}) =
   _BookingsRemoteService;
 
 
    @POST('/bookings')
-  Future<BookingResponse> doBookings(
+  Future<DataModel> doBookings(
       @Body()  BookingRequest requestBody,
       );
   @POST('/userbookings')

@@ -43,12 +43,12 @@ Map<String, dynamic> _$ExtractedDataToJson(ExtractedData instance) =>
 
 ApiResponseData _$ApiResponseDataFromJson(Map<String, dynamic> json) =>
     ApiResponseData(
-      statusCode: json['statusCode'] as int?,
+      statusCode: (json['statusCode'] as num?)?.toInt(),
       error: json['error'],
       currency: json['currency'] as String?,
       currencySymbol: json['currencySymbol'] as String?,
       errorMessage: json['errorMessage'] as String?,
-      count: json['count'] as int?,
+      count: (json['count'] as num?)?.toInt(),
       result: (json['result'] as List<dynamic>?)
           ?.map((e) =>
               TourOptionDynamicResult.fromJson(e as Map<String, dynamic>))
@@ -69,24 +69,15 @@ Map<String, dynamic> _$ApiResponseDataToJson(ApiResponseData instance) =>
 TourOptionDynamicResult _$TourOptionDynamicResultFromJson(
         Map<String, dynamic> json) =>
     TourOptionDynamicResult(
-      tourId: json['tourId'] as int?,
-      tourOptionId: json['tourOptionId'] as int?,
-      transferId: json['transferId'] as int?,
+      tourId: (json['tourId'] as num?)?.toInt(),
+      tourOptionId: (json['tourOptionId'] as num?)?.toInt(),
+      transferId: (json['transferId'] as num?)?.toInt(),
       transferName: json['transferName'] as String?,
       adultPrice: (json['adultPrice'] as num?)?.toDouble(),
       childPrice: (json['childPrice'] as num?)?.toDouble(),
-      infantPrice: json['infantPrice'] as int?,
-      withoutDiscountAmount:
-          (json['withoutDiscountAmount'] as num?)?.toDouble(),
+      infantPrice: (json['infantPrice'] as num?)?.toInt(),
       finalAmount: (json['finalAmount'] as num?)?.toDouble(),
       startTime: json['startTime'] as String?,
-      departureTime: json['departureTime'] as String?,
-      disableChild: json['disableChild'] as bool?,
-      disableInfant: json['disableInfant'] as bool?,
-      allowTodaysBooking: json['allowTodaysBooking'] as bool?,
-      cutOff: json['cutOff'] as int?,
-      isSlot: json['isSlot'] as bool?,
-      isDefaultTransfer: json['isDefaultTransfer'] as int?,
     );
 
 Map<String, dynamic> _$TourOptionDynamicResultToJson(
@@ -97,16 +88,8 @@ Map<String, dynamic> _$TourOptionDynamicResultToJson(
       'transferId': instance.transferId,
       'transferName': instance.transferName,
       'adultPrice': instance.adultPrice,
+      'startTime': instance.startTime,
       'childPrice': instance.childPrice,
       'infantPrice': instance.infantPrice,
-      'withoutDiscountAmount': instance.withoutDiscountAmount,
       'finalAmount': instance.finalAmount,
-      'startTime': instance.startTime,
-      'departureTime': instance.departureTime,
-      'disableChild': instance.disableChild,
-      'disableInfant': instance.disableInfant,
-      'allowTodaysBooking': instance.allowTodaysBooking,
-      'cutOff': instance.cutOff,
-      'isSlot': instance.isSlot,
-      'isDefaultTransfer': instance.isDefaultTransfer,
     };

@@ -1,11 +1,10 @@
 import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/drawer.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
-
 import '../../../../Cart/data_layer/model/request/update_cart.dart';
 import '../../../../Components/custom_button.dart';
 import '../../../../Components/date_picker.dart';
@@ -23,11 +22,12 @@ class FormsMobile extends StatelessWidget {
   // ));
   final ScrollController scrollController = ScrollController();
   final ScrollController listController = ScrollController();
-  final TourOptionStaticDataController static = Get.find();
-  final HeaderController controller = Get.put(HeaderController());
+
 
   @override
   Widget build(BuildContext context) {
+    final TourOptionStaticDataController static = Get.find();
+    final HeaderController controller = Get.put(HeaderController());
     TourController tourController = Get.find();
     static.dateTextController.value.text = DateTime.now()
         .add(
@@ -83,7 +83,8 @@ class FormsMobile extends StatelessWidget {
                   context: context,
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 20.0),
                   child: Text(
                     'Select Booking Date',
                     style: TextStyle(
@@ -109,7 +110,7 @@ class FormsMobile extends StatelessWidget {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Transfer Type',
                     style: TextStyle(
@@ -128,7 +129,7 @@ class FormsMobile extends StatelessWidget {
                   },
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(20.0),
                   child: Text(
                     'Select Travellers',
                     style: TextStyle(
@@ -145,50 +146,76 @@ class FormsMobile extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Obx(() => Material(
-                            elevation: 4.0,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * .28,
-                              child: DropdownWidgetMobile(
-                                label: 'Adults',
-                                selectedValue: static.adultsSelectedValue.value,
-                                onChanged: (value) {
-                                  static.adultsSelectedValue.value = value ?? 1;
-                                  static.getOptionsDynamicData();
-                                },
-                              ),
+                      Obx(() => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x1C112211),
+                                  blurRadius: 16,
+                                  offset: Offset(0, 3),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            width: MediaQuery.of(context).size.width * .28,
+                            child: DropdownWidgetMobile(
+                              label: 'Adults',
+                              selectedValue: static.adultsSelectedValue.value,
+                              onChanged: (value) {
+                                static.adultsSelectedValue.value = value ?? 1;
+                                static.getOptionsDynamicData();
+                              },
                             ),
                           )),
-                      Obx(() => Material(
-                            elevation: 4.0,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * .28,
-                              child: DropdownWidgetMobile(
-                                label: 'Children',
-                                selectedValue:
-                                    static.childrenSelectedValue.value,
-                                onChanged: (value) {
-                                  static.childrenSelectedValue.value =
-                                      value ?? 0;
-                                  static.getOptionsDynamicData();
-                                },
-                              ),
+                      Obx(() => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x1C112211),
+                                  blurRadius: 16,
+                                  offset: Offset(0, 3),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 4),
+                            width: MediaQuery.of(context).size.width * .28,
+                            child: DropdownWidgetMobile(
+                              label: 'Children',
+                              selectedValue: static.childrenSelectedValue.value,
+                              onChanged: (value) {
+                                static.childrenSelectedValue.value = value ?? 0;
+                                static.getOptionsDynamicData();
+                              },
                             ),
                           )),
-                      Obx(() => Material(
-                            elevation: 4.0,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width * .28,
-                              child: DropdownWidgetMobile(
-                                label: 'Infants',
-                                selectedValue:
-                                    static.infantsSelectedValue.value,
-                                onChanged: (value) {
-                                  static.infantsSelectedValue.value =
-                                      value ?? 0;
-                                  static.getOptionsDynamicData();
-                                },
-                              ),
+                      Obx(() => Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x1C112211),
+                                  blurRadius: 16,
+                                  offset: Offset(0, 3),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            width: MediaQuery.of(context).size.width * .28,
+                            child: DropdownWidgetMobile(
+                              label: 'Infants',
+                              selectedValue: static.infantsSelectedValue.value,
+                              onChanged: (value) {
+                                static.infantsSelectedValue.value = value ?? 0;
+                                static.getOptionsDynamicData();
+                              },
                             ),
                           )),
                     ],
@@ -249,17 +276,6 @@ class FormsMobile extends StatelessWidget {
                             }
                             static.currOptionId = static.optionId.value;
 
-                            // var output2 = static.timeslots.value;
-                            // if (kDebugMode) {
-                            //   print('output2 is${output2.toString()}');
-                            // }
-
-                            // Fetch the current option
-                            //  var output1 = static.dataList.toList();
-                            //  var output2 = static.timeslots.toList();
-                            //  int? id = option.tourId;
-                            // int tourIdIndex =output1.indexWhere((element) => element.tourId == id);
-                            // int tourIdTimeSlotIndex = output2.indexWhere((element) => element.tourOptionId == id);
                             return tourOptionsDynamicList.isNotEmpty
                                 ? Card(
                                     elevation: 3,
@@ -382,6 +398,8 @@ class FormsMobile extends StatelessWidget {
 
   Widget _buildInfoAndButtonRow(
       BuildContext context, int tourOptionId, int index) {
+    final TourOptionStaticDataController static = Get.find();
+    final HeaderController controller = Get.put(HeaderController());
     final TourController tourController = Get.find();
     return Obx(
       () {
@@ -404,64 +422,103 @@ class FormsMobile extends StatelessWidget {
                   height: 0,
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * .55,
-                child: ButtonView(
-                  btnName: 'Time Slots',
-                  bgColor: Colors.blue,
-                  onButtonTap: () {
-                    final data = static.output1[index];
-                    static.value = UpdateCartTourDetail(
-                        tourname: tourController.tour.value.tourName ?? '',
-                        tourOption: data.transferName!,
-                        tourId: data.tourId!,
-                        optionId: data.tourOptionId!,
-                        adult: static.adultsSelectedValue.value,
-                        child: static.childrenSelectedValue.value,
-                        infant: static.infantsSelectedValue.value,
-                        tourDate: static.selectedDate.value
-                            .toString()
-                            .substring(0, 10),
-                        timeSlotId: static.timeSlotId.value,
-                        startTime: data.startTime!,
-                        transferId: data.transferId!,
-                        adultRate: data.adultPrice!.toDouble(),
-                        childRate: data.childPrice?.toDouble() ?? 0.0,
-                        serviceTotal: ((static.output1[index].finalAmount ??
-                                0) +
-                            (static.pricing.value.addPriceAdult ?? 0) +
-                            (static.pricing.value.addPriceChildren ?? 0) +
-                            (static.pricing.value.additionalPriceInfant ?? 0)),
-                        cartId: controller.cartId.value);
-                    print(("${controller.cartId.value} Hello"));
-                    if (static.timeslots.isNotEmpty) {
+              if (tourController.tour.value.isSlot == true && controller.loggedIn.isTrue)
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .55,
+                  child: ButtonView(
+                    borderColor: Colors.transparent,
+                    btnName: 'Time Slots',
+                    bgColor: colorMediumBlue,
+                    onButtonTap: () {
+                      final data = static.output1[index];
+                      static.value = UpdateCartTourDetail(
+                          tourname: tourController.tour.value.tourName ?? '',
+                          tourOption: data.transferName!,
+                          tourId: data.tourId!,
+                          optionId: data.tourOptionId!,
+                          adult: static.adultsSelectedValue.value,
+                          child: static.childrenSelectedValue.value,
+                          infant: static.infantsSelectedValue.value,
+                          tourDate: static.selectedDate.value
+                              .toString()
+                              .substring(0, 10),
+                          timeSlotId: static.timeSlotId.value,
+                          startTime: static.starttime.value,
+                          transferId: data.transferId!,
+                          vendoruid: static.vendoruid.value ?? "",
+                          adultRate: data.adultPrice!.toDouble(),
+                          childRate: data.childPrice?.toDouble() ?? 0.0,
+                          serviceTotal:
+                              ((static.output1[index].finalAmount ?? 0) +
+                                  (static.pricing.value.addPriceAdult ?? 0) +
+                                  (static.pricing.value.addPriceChildren ?? 0) +
+                                  (static.pricing.value.additionalPriceInfant ??
+                                      0)),
+                          cartId: controller.cartId.value);
+                      print(("${controller.cartId.value} Hello"));
+                      if (static.timeslots.isNotEmpty) {
+                        static.currOptionId = tourOptionId;
+                        print('curr OptionId is ${static.currOptionId}');
+
+                        Get.toNamed('/popup_card');
+                      } else if (tourController.tour.value.isSlot == true) {
+                        Get.toNamed('/popup_card',
+                            arguments: [filteredTimeSlots, tourOptionId]);
+                      } else {
+                        if (kDebugMode) {
+                          Get.toNamed('/home',
+                              preventDuplicates: true,
+                              arguments: [filteredTimeSlots, tourOptionId]);
+                        }
+                      }
+                    },
+                  ),
+                )
+              else if (controller.loggedIn.isTrue && tourController.tour.value.isSlot !=true)
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .55,
+                  child: ButtonView(
+                    borderColor: Colors.transparent,
+                    btnName: 'Add To Cart',
+                    bgColor: colorMediumBlue,
+                    onButtonTap: () {
+                      final data = static.output1[index];
+                      static.value = UpdateCartTourDetail(
+                          tourname: tourController.tour.value.tourName ?? '',
+                          tourOption: data.transferName!,
+                          tourId: data.tourId!,
+                          optionId: data.tourOptionId!,
+                          adult: static.adultsSelectedValue.value,
+                          child: static.childrenSelectedValue.value,
+                          infant: static.infantsSelectedValue.value,
+                          tourDate: static.selectedDate.value
+                              .toString()
+                              .substring(0, 10),
+                          timeSlotId: static.timeSlotId.value,
+                          startTime: static.starttime.value,
+                          transferId: data.transferId!,
+                          vendoruid: static.vendoruid.value ?? "",
+                          adultRate: data.adultPrice!.toDouble(),
+                          childRate: data.childPrice?.toDouble() ?? 0.0,
+                          serviceTotal:
+                              ((static.output1[index].finalAmount ?? 0) +
+                                  (static.pricing.value.addPriceAdult ?? 0) +
+                                  (static.pricing.value.addPriceChildren ?? 0) +
+                                  (static.pricing.value.additionalPriceInfant ??
+                                      0)),
+                          cartId: controller.cartId.value);
+                      print(("${controller.cartId.value} Hello"));
+
                       static.currOptionId = tourOptionId;
                       print('curr OptionId is ${static.currOptionId}');
 
-                      Get.toNamed('/popup_card');
-                      // for (int i = 0; i < static.timeslots.length; i++) {
-                      //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
-                      //     print(static.timeslots.value[i][j].timeSlot);
-                      //   }
-                      // }
-                    } else if (tourController.tour.value.isSlot == true) {
-                      Get.toNamed('/popup_card',
-                          arguments: [filteredTimeSlots, tourOptionId]);
-                      // for (int i = 0; i < static.timeslots.length; i++) {
-                      //   for (int j = 0; j < static.timeslots.value[i].length; j++) {
-                      //     print(static.timeslots.value[i][j].timeSlot);
-                      //   }
-                      // }
-                    } else {
-                      if (kDebugMode) {
-                        Get.toNamed('/home',
-                            preventDuplicates: true,
-                            arguments: [filteredTimeSlots, tourOptionId]);
-                      }
-                    }
-                  },
-                ),
-              ),
+                      static.Addtocart(static.value);
+                    },
+                  ),
+                )
+             else ButtonView(btnName: 'Login',onButtonTap: ()=>Get.toNamed('/login'),borderColor: Colors.transparent,
+
+                  bgColor: colorMediumBlue,)
             ],
           ),
         );
@@ -509,7 +566,7 @@ class _TransferOptionsState extends State<TransferOptions> {
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         shadows: const [
           BoxShadow(

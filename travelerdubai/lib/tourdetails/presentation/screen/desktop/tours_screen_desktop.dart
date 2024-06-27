@@ -83,16 +83,16 @@ class TourPageDesktop extends StatelessWidget {
         static.id.value = tourController.tour.value.TourId.toString();
         static.contractid.value =
             tourController.tour.value.contractId.toString();
+        static.vendoruid.value=tourController.tour.value.vendorUid ?? '';
+        static.starttime.value=tourController.tour.value.startTime ?? '';
+        static.isvendor.value =tourController.tour.value.isVendorTour ?? false;
         static.getOptionsStaticData();
       }
     });
 
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
-      floatingActionButton: ElevatedButton(
-        child: const Text("Add to Cart"),
-        onPressed: () => Get.toNamed("/checkout"),
-      ),
+
       body: Obx(
         () {
           if (kDebugMode) {

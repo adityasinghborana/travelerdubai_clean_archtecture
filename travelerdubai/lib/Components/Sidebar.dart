@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import 'package:travelerdubai/experiences/Presentation/experiences_controller.dart';
 
 class TourTypes extends StatelessWidget {
+  final String title;
+  final List<String> items;
   final Function(String) onTap;
   final VoidCallback onDoubleTap;
 
-  const TourTypes({super.key, required this.onTap, required this.onDoubleTap});
+  const TourTypes({
+    super.key,
+    required this.title,
+    required this.items,
+    required this.onTap,
+    required this.onDoubleTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final ScrollController listController = ScrollController();
-    ExperienceController experienceController = Get.find();
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.01),
@@ -44,7 +50,7 @@ class TourTypes extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: 'Browse By Themes ',
+                          text: '$title ',
                           style: TextStyle(
                             foreground: Paint()
                               ..shader = const LinearGradient(
@@ -64,24 +70,18 @@ class TourTypes extends StatelessWidget {
                   ),
                   SizedBox(
                     height: Get.height * 0.8,
-                    child: Obx(() {
-                      if (experienceController.tourTypes.isEmpty) {
-                        return const Center(child: Text('Empty'));
-                      } else {
-                        return ListView.builder(
-                          controller: listController,
-                          itemCount: experienceController.tourTypes.length,
-                          itemBuilder: (context, index) {
-                            String cityTourType = experienceController.tourTypes[index]['cityTourType'];
-                            return HoverCard(
-                              cityTourType: cityTourType,
-                              onTap: () => onTap(cityTourType),
-                              onDoubleTap: onDoubleTap,
-                            );
-                          },
+                    child: ListView.builder(
+                      controller: listController,
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        String item = items[index];
+                        return HoverCard(
+                          item: item,
+                          onTap: () => onTap(item),
+                          onDoubleTap: onDoubleTap,
                         );
-                      }
-                    }),
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -93,14 +93,13 @@ class TourTypes extends StatelessWidget {
   }
 }
 
-
 class HoverCard extends StatefulWidget {
-  final String cityTourType;
+  final String item;
   final VoidCallback onTap;
   final VoidCallback onDoubleTap;
 
   HoverCard({
-    required this.cityTourType,
+    required this.item,
     required this.onTap,
     required this.onDoubleTap,
   });
@@ -158,7 +157,7 @@ class _HoverCardState extends State<HoverCard> {
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: Get.width * 0.009),
                       child: Text(
-                        widget.cityTourType,
+                        widget.item,
                         textAlign: TextAlign.center,
                         style: bodyBlack(context).copyWith(fontSize: 12,
                           color: _isSelected || _isHovered ? Colors.white : Colors.black,

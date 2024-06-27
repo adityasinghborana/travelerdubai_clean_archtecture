@@ -52,7 +52,7 @@ class SignUpMobile extends StatelessWidget {
               alignment: Alignment.center,
               child: SizedBox(
                   height: Get.height * 0.04,
-                  child: Image.asset("../assets/images/logo.png",)),
+                  child: Image.asset(images.logo,)),
             ),
              SizedBox(height: MediaQuery.of(context).size.height*0.09),
             Align(
@@ -96,7 +96,9 @@ class SignUpMobile extends StatelessWidget {
             SizedBox(height: Get.height * 0.018),
             Row(
               children: [
-                Checkbox(value: false, onChanged: (value) => !value!),
+                Checkbox( value: signupController.checkBoxValue.value,
+                onChanged: (value) => signupController
+                    .checkBoxValue.value = value!),
                 const Text('I agree to all the Terms and Privacy Policies'),
 
               ],
@@ -128,7 +130,7 @@ class SignUpMobile extends StatelessWidget {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Get.toNamed('Login');
+                            Get.toNamed('/login');
                           },
                       ),
                     ],

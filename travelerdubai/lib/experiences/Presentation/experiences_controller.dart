@@ -31,8 +31,8 @@ class ExperienceController extends GetxController {
         cityTours.assignAll(visibleCityTours);
         allCityTours = List.from(visibleCityTours);
 
-        if (visibleCityTours.isNotEmpty && visibleCityTours[0].tourdetails!.isNotEmpty) {
-          print('First TourDetails id: ${visibleCityTours[0].tourdetails?[0].id}');
+        if (visibleCityTours.isNotEmpty && visibleCityTours[0].tourdetails!= null) {
+          print('First TourDetails id: ${visibleCityTours[0].tourdetails?.id}');
         }
       } else {
         print('Request failed with status');
@@ -78,4 +78,5 @@ class ExperienceController extends GetxController {
       cityTours.assignAll(allCityTours.where((tour) => tour.tourName.toString().toLowerCase().contains(query.toLowerCase())).toList());
     }
   }
+
 }

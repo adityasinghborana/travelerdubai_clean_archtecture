@@ -88,7 +88,7 @@ class BookingsList extends StatelessWidget {
                                   height: 10,
                                 ),
                                 Text(
-                                  "${list.serviceType.capitalizeFirst}",
+                                  "${list.servicetype?.capitalizeFirst}",
                                   style: bodyBlack(context).copyWith(
                                       fontWeight: FontWeight.bold,
                                       fontSize: Get.width * 0.012),
@@ -114,7 +114,7 @@ class BookingsList extends StatelessWidget {
                               height: 10,
                             ),
                             Text(
-                              "${list.status.capitalizeFirst}",
+                              "${list.status?.capitalizeFirst}",
                               style: bodyBlack(context).copyWith(
                                   fontWeight: FontWeight.bold,
                                   fontSize: Get.width * 0.012),

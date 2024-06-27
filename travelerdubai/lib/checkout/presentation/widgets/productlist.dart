@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/Cart/data_layer/usecase/deletecart_usecase.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
 import '../../../Cart/data_layer/repository/cart_repository.dart';
@@ -17,27 +18,31 @@ import '../checkout_controller.dart';
 class ProductList extends StatelessWidget {
   final double height;
   final double width;
+
   ProductList({this.height = 500, this.width = 500});
+
   @override
   Widget build(BuildContext context) {
     final CheckoutController cc = Get.put(
       CheckoutController(
-        getCartUseCase: GetCartUseCase(
-          CartRepositoryImpl(
+          getCartUseCase: GetCartUseCase(
+            CartRepositoryImpl(
+              CartRemoteService(Dio()),
+            ),
+          ),
+          intentUseCase: IntentUseCase(
+            StripeIntentRepositoryImpl(
+              StripeRemoteService(Dio()),
+            ),
+          ),
+          doBookingUseCase: DoBookingUseCase(
+            BookingsRepositoryImpl(
+              BookingsRemoteService(Dio()),
+            ),
+          ),
+          deleteCartItemUseCase: DeleteCartItemUseCase(CartRepositoryImpl(
             CartRemoteService(Dio()),
-          ),
-        ),
-        intentUseCase: IntentUseCase(
-          StripeIntentRepositoryImpl(
-            StripeRemoteService(Dio()),
-          ),
-        ),
-        doBookingUseCase: DoBookingUseCase(
-          BookingsRepositoryImpl(
-            BookingsRemoteService(Dio()),
-          ),
-        ),
-      ),
+          ))),
     );
     final ScrollController controller = ScrollController();
 
@@ -55,12 +60,12 @@ class ProductList extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 1.0, vertical: 8),
                 child: Container(
+                    height: Get.width > 1000 ? Get.height * 0.5 : 460,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: colorwhite,
                     ),
                     padding: const EdgeInsets.all(18.0),
-                    height: height,
                     child: Column(
                       children: [
                         Container(
@@ -79,9 +84,12 @@ class ProductList extends StatelessWidget {
                               ),
                               Flexible(
                                 flex: 1,
-                                child: Icon(
-                                  Icons.delete_rounded,
+                                child: IconButton(
+                                  icon: Icon(Icons.delete_rounded),
                                   color: Colors.red.shade900,
+                                  onPressed: () {
+                                    cc.deleteCartItem(cc.cartTours[index].id);
+                                  }, //todo add function to remove item
                                 ),
                               ),
                             ],
@@ -247,19 +255,17 @@ class ProductList extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset("../assets/images/exclamation.png"),
-                              Text(
-                                "Non Refundable",
-                                style: bodyBlack(context)
-                                    .copyWith(color: Colors.red.shade900),
-                              ),
-                            ],
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(images.exclamination),
+                            Text(
+                              "Non Refundable",
+                              style: bodyBlack(context).copyWith(
+                                  color: Colors.red.shade900, fontSize: 14),
+                            ),
+                          ],
                         ),
                       ],
                     )),

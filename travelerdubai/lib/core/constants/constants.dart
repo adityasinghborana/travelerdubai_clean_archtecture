@@ -28,6 +28,24 @@ TextStyle H1(BuildContext context) {
     color: colorwhite,
   ));
 }
+TextStyle H1open(BuildContext context) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double fontSize;
+
+  // Define font sizes based on screen width
+  if (screenWidth < 600) {
+    fontSize = screenWidth * 0.056; // For smaller screens like mobile
+  } else {
+    fontSize = 48.0; // For larger screens
+  }
+
+  return GoogleFonts.openSans (
+      textStyle: TextStyle(
+        letterSpacing: .5,
+        fontSize: fontSize,
+        color: colorwhite,
+      ));
+}
 
 TextStyle bodygrey(BuildContext context) {
   double screenWidth = MediaQuery.of(context).size.width;
@@ -199,9 +217,31 @@ const color_1C1C1C = Color(0xff1c1c1c);
 const colorMediumBlue = Color(0xff2659C3);
 
 // others
-const String baseurl = "http://69.48.163.45:3000";
+//const String baseurl = "http://69.48.163.45/api";
+const String baseurl = "http://localhost:3000";
+//const String baseurl = "http://localhost:3000";
 const String Apikey =
     "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkNWU4YWZhMC1mNGJhLTQ2NWUtYTAzOS1mZGJiYzMxZWZlZGUiLCJVc2VySWQiOiIzNzU0NSIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoidHJhdmVsZ2F0ZXhAcmF5bmF0b3Vycy5jb20iLCJpc3MiOiJodHRwOi8vcmF5bmFhcGkucmF5bmF0b3Vycy5jb20iLCJhdWQiOiJodHRwOi8vcmF5bmFhcGkucmF5bmF0b3Vycy5jb20ifQ.i6GaRt-RVSlJXKPz7ZVx-axAPLW_hkl7usI_Dw8vP5w";
 
 // bgColor: Color(0xffffffff),
 // txtColor: Color(0xff112211)
+
+class images{
+
+  static const String paymentsucess = ".././assets/asset/images/successmobile.png";
+  static const String paymentsucessdesktop = ".././assets/asset/images/success.png";
+  static const String logo = ".././assets/asset/images/logo.png";
+  static const String logowhite = ".././assets/asset/images/whitelogo.png";
+  static const String paymentsimage = ".././assets/asset/images/footerimage.png";
+  static const String bannerimage = ".././assets/asset/images/Bannerimage.jpg";
+  static const String iphone = ".././assets/asset/images/Iphone.png";
+  static const String signinmobile = ".././assets/asset/images/signupmobile.png";
+  static const String signin = ".././assets/asset/images/Iphone.png";
+  static const String signupmobile = ".././assets/asset/images/Iphone.png";
+  static const String signup = ".././assets/asset/images/signup_side_image.png";
+  static const String exclamination = ".././assets/asset/images/exclamation.png";
+  static const String paymentfailure = ".././assets/asset/images/failureimg.png";
+  static const String paymentfailuremobile = ".././assets/asset/images/failedmobile.png";
+  static const String notfound = ".././assets/asset/images/404.png";
+  static const String notfoundmobile = ".././assets/asset/images/404mobile.png";
+}

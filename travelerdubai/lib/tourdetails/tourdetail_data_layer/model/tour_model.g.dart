@@ -7,11 +7,11 @@ part of 'tour_model.dart';
 // **************************************************************************
 
 TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
-      id: json['id'] as int?,
-      TourId: json['TourId'] as int?,
-      countryId: json['countryId'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      TourId: (json['TourId'] as num?)?.toInt(),
+      countryId: (json['countryId'] as num?)?.toInt(),
       countryName: json['countryName'] as String?,
-      cityId: json['cityId'] as int?,
+      cityId: (json['cityId'] as num?)?.toInt(),
       cityName: json['cityName'] as String?,
       tourName: json['tourName'] as String?,
       duration: json['duration'] as String?,
@@ -24,12 +24,13 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
       importantInformation: json['importantInformation'] as String?,
       itenararyDescription: json['itenararyDescription'] as String?,
       usefulInformation: json['usefulInformation'] as String?,
+      vendorUid: json['vendorUid'] as String?,
       childAge: json['childAge'] as String?,
       infantAge: json['infantAge'] as String?,
-      infantCount: json['infantCount'] as int?,
+      infantCount: (json['infantCount'] as num?)?.toInt(),
       isSlot: json['isSlot'] as bool?,
       onlyChild: json['onlyChild'] as bool?,
-      contractId: json['contractId'] as int?,
+      contractId: (json['contractId'] as num?)?.toInt(),
       startTime: json['startTime'] as String?,
       meal: json['meal'] as String?,
       googleMapUrl: json['googleMapUrl'] as String?,
@@ -37,7 +38,8 @@ TourModel _$TourModelFromJson(Map<String, dynamic> json) => TourModel(
       tourImages: (json['tourImages'] as List<dynamic>?)
           ?.map((e) => TourImageModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      cutOffhrs: json['cutOffhrs'] as int?,
+      cutOffhrs: (json['cutOffhrs'] as num?)?.toInt(),
+      isVendorTour: json['isVendorTour'] as bool?,
     );
 
 Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
@@ -70,17 +72,19 @@ Map<String, dynamic> _$TourModelToJson(TourModel instance) => <String, dynamic>{
       'tourExclusion': instance.tourExclusion,
       'tourImages': instance.tourImages,
       'cutOffhrs': instance.cutOffhrs,
+      'isVendorTour': instance.isVendorTour,
+      'vendorUid': instance.vendorUid,
     };
 
 TourImageModel _$TourImageModelFromJson(Map<String, dynamic> json) =>
     TourImageModel(
-      id: json['id'] as int?,
-      tourId: json['tourId'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      tourId: (json['tourId'] as num?)?.toInt(),
       imagePath: json['imagePath'] as String?,
       imageCaptionName: json['imageCaptionName'] as String?,
-      isFrontImage: json['isFrontImage'] as int?,
-      isBannerImage: json['isBannerImage'] as int?,
-      isBannerRotateImage: json['isBannerRotateImage'] as int?,
+      isFrontImage: (json['isFrontImage'] as num?)?.toInt(),
+      isBannerImage: (json['isBannerImage'] as num?)?.toInt(),
+      isBannerRotateImage: (json['isBannerRotateImage'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TourImageModelToJson(TourImageModel instance) =>

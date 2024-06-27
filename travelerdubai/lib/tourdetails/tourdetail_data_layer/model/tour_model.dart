@@ -34,6 +34,8 @@ class TourModel {
   final String? tourExclusion;
   final List<TourImageModel>? tourImages;
   final int? cutOffhrs;
+  final bool? isVendorTour;
+  final String? vendorUid;
 
   TourModel({
     this.id,
@@ -54,7 +56,7 @@ class TourModel {
     this.importantInformation,
     this.itenararyDescription,
     this.usefulInformation,
-
+this.vendorUid,
     this.childAge,
     this.infantAge,
     this.infantCount,
@@ -67,6 +69,7 @@ class TourModel {
     this.tourExclusion,
     this.tourImages,
     this.cutOffhrs,
+    this.isVendorTour,
   });
 
   factory TourModel.fromJson(Map<String, dynamic> json) =>

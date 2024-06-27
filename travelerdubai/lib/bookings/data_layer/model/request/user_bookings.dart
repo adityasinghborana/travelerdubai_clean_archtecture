@@ -3,9 +3,9 @@ part 'user_bookings.g.dart';
 
 @JsonSerializable()
 class UserBookingsRequest {
-  final String userId;
+  final String id;
 
-  UserBookingsRequest ({required this.userId});
+  UserBookingsRequest ({required this.id});
   factory UserBookingsRequest.fromJson(Map<String, dynamic> json) =>
       _$UserBookingsRequestFromJson(json);
 

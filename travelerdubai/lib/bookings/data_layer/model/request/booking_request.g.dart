@@ -10,7 +10,7 @@ BookingRequest _$BookingRequestFromJson(Map<String, dynamic> json) =>
     BookingRequest(
       pickup: json['pickup'] as String,
       User: json['User'] as String,
-      cartid: json['cartid'] as int,
+      cartid: (json['cartid'] as num).toInt(),
       passengers: (json['passengers'] as List<dynamic>)
           .map((e) => Passenger.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -33,7 +33,7 @@ Passenger _$PassengerFromJson(Map<String, dynamic> json) => Passenger(
       mobile: json['mobile'] as String,
       nationality: json['nationality'] as String,
       message: json['message'] as String,
-      leadPassenger: json['leadPassenger'] as int,
+      leadPassenger: (json['leadPassenger'] as num).toInt(),
       paxType: json['paxType'] as String,
     );
 

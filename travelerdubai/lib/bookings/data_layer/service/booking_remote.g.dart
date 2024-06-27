@@ -21,14 +21,14 @@ class _BookingsRemoteService implements BookingsRemoteService {
   String? baseUrl;
 
   @override
-  Future<BookingResponse> doBookings(BookingRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+  Future<DataModel> doBookings(BookingRequest requestBody) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(requestBody.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<DataModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -44,13 +44,13 @@ class _BookingsRemoteService implements BookingsRemoteService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = DataModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<List<BookingList>> getBookings(UserBookingsRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

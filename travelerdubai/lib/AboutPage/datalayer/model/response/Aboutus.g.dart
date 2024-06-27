@@ -8,7 +8,7 @@ part of 'Aboutus.dart';
 
 Aboutpagedata _$AboutpagedataFromJson(Map<String, dynamic> json) =>
     Aboutpagedata(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       title: json['title'] as String,
       subtitle: json['subtitle'] as String,
       imagepath: json['imagepath'] as String,

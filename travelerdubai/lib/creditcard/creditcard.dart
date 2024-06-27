@@ -8,6 +8,7 @@ import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart
 
 import '../Cart/data_layer/repository/cart_repository.dart';
 import '../Cart/data_layer/service/cart_remote.dart';
+import '../Cart/data_layer/usecase/deletecart_usecase.dart';
 import '../Cart/data_layer/usecase/get_cart_usecase.dart';
 import '../bookings/data_layer/repository/bookings_repository.dart';
 import '../bookings/data_layer/service/booking_remote.dart';
@@ -38,10 +39,11 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
         children: [
           Center(
             child: Container(
-              width: MediaQuery.of(context).size.width * .25,
+              width: Get.width>600? MediaQuery.of(context).size.width * .25:MediaQuery.of(context).size.width *.8,
 
               child: WebCardField(
-                style: CardStyle(),
+                width: 30,
+                style: CardStyle(borderWidth: 4,backgroundColor: Colors.red),
 
                 onCardChanged: (card) {
                   setState(() {
@@ -76,6 +78,7 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
   Future<void> createPaymentMethod() async {
     CheckoutController checkoutController = Get.put(
       CheckoutController(
+          deleteCartItemUseCase:DeleteCartItemUseCase(CartRepositoryImpl(CartRemoteService(Dio()),)),
           getCartUseCase: GetCartUseCase(
             CartRepositoryImpl(
               CartRemoteService(Dio()),
@@ -115,7 +118,9 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
 
   Future<void> confirmPayment() async {
     CheckoutController checkoutController = Get.put(
+
       CheckoutController(
+          deleteCartItemUseCase:DeleteCartItemUseCase(CartRepositoryImpl(CartRemoteService(Dio()),)),
         getCartUseCase: GetCartUseCase(
           CartRepositoryImpl(
             CartRemoteService(Dio()),

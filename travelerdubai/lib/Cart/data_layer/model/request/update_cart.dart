@@ -20,6 +20,7 @@ class UpdateCartTourDetail {
   final double? childRate;
   final double serviceTotal;
   final int cartId;
+  final String? vendoruid;
 
   UpdateCartTourDetail({
     required this.tourname,
@@ -38,6 +39,7 @@ class UpdateCartTourDetail {
     required this.childRate,
     required this.serviceTotal,
     required this.cartId,
+    required  this.vendoruid
   });
   factory UpdateCartTourDetail.fromJson(Map<String, dynamic> json) =>
       _$UpdateCartTourDetailFromJson(json);
