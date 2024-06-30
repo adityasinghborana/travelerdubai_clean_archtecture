@@ -20,18 +20,15 @@ class FormsMobile extends StatelessWidget {
   // final TourController tourController = Get.put(TourController(
   //   GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
   // ));
-  final ScrollController scrollController = ScrollController();
-  final ScrollController listController = ScrollController();
-
 
   @override
   Widget build(BuildContext context) {
-    final TourOptionStaticDataController static = Get.find();
-    final HeaderController controller = Get.put(HeaderController());
     TourController tourController = Get.find();
+    final ScrollController listController = ScrollController();
+    final TourOptionStaticDataController static = Get.find();
+    HashMap<String, int> transferOptionsMap = HashMap<String, int>();
     static.dateTextController.value.text = DateTime.now()
         .add(
-          // Add a duration representing the specified number of hours.
           Duration(hours: tourController.tour.value.cutOffhrs ?? 0),
         )
         .toString()
@@ -40,7 +37,7 @@ class FormsMobile extends StatelessWidget {
         // Add a duration representing the specified number of hours.
         Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
     tourController.tourId = Get.parameters['tourId'] ?? '';
-    tourController.fetchCityTour();
+    //tourController.fetchCityTour();
     static.id.value = tourController.tour.value.TourId.toString();
     static.contractid.value = tourController.tour.value.contractId.toString();
     static.getOptionsStaticData();
@@ -48,12 +45,6 @@ class FormsMobile extends StatelessWidget {
     return Scaffold(
       drawer: drawer(),
       body: Obx(() {
-        HashMap<String, int> transferOptionsMap = HashMap<String, int>();
-        if (kDebugMode) {
-          print('static.dynamic length is ${static.dynamicoptions.length}');
-          print(
-              'in the form section options state is ${static.options.value.state}');
-        }
 
         if (static.dynamicoptions.isNotEmpty) {
           static.dynamicoptions.forEach((tourOptionsDynamicResult) {
@@ -67,12 +58,10 @@ class FormsMobile extends StatelessWidget {
           static.selectedTransfer.value =
               static.dynamicoptions[0].transferName!;
         }
-        if (kDebugMode) {
-          print('transferOptionMap is$transferOptionsMap');
-        }
         if (tourController.isLoading.isTrue) {
           return const Center(child: CircularProgressIndicator());
         } else {
+          final ScrollController scrollController = ScrollController();
           return SingleChildScrollView(
             controller: scrollController,
             child: Column(
@@ -399,8 +388,8 @@ class FormsMobile extends StatelessWidget {
   Widget _buildInfoAndButtonRow(
       BuildContext context, int tourOptionId, int index) {
     final TourOptionStaticDataController static = Get.find();
-    final HeaderController controller = Get.put(HeaderController());
     final TourController tourController = Get.find();
+    final HeaderController controller = Get.put(HeaderController());
     return Obx(
       () {
         var filteredTimeSlots = static.timeslots.value
@@ -422,7 +411,8 @@ class FormsMobile extends StatelessWidget {
                   height: 0,
                 ),
               ),
-              if (tourController.tour.value.isSlot == true && controller.loggedIn.isTrue)
+              if (tourController.tour.value.isSlot == true &&
+                  controller.loggedIn.isTrue)
                 SizedBox(
                   width: MediaQuery.of(context).size.width * .55,
                   child: ButtonView(
@@ -474,7 +464,8 @@ class FormsMobile extends StatelessWidget {
                     },
                   ),
                 )
-              else if (controller.loggedIn.isTrue && tourController.tour.value.isSlot !=true)
+              else if (controller.loggedIn.isTrue &&
+                  tourController.tour.value.isSlot != true)
                 SizedBox(
                   width: MediaQuery.of(context).size.width * .55,
                   child: ButtonView(
@@ -516,9 +507,13 @@ class FormsMobile extends StatelessWidget {
                     },
                   ),
                 )
-             else ButtonView(btnName: 'Login',onButtonTap: ()=>Get.toNamed('/login'),borderColor: Colors.transparent,
-
-                  bgColor: colorMediumBlue,)
+              else
+                ButtonView(
+                  btnName: 'Login',
+                  onButtonTap: () => Get.toNamed('/login'),
+                  borderColor: Colors.transparent,
+                  bgColor: colorMediumBlue,
+                )
             ],
           ),
         );

@@ -153,9 +153,9 @@ class CheckoutController extends GetxController {
       if (value.data?.result?.referenceNo != null ||value.vendorbookings?.status == 200 ) {
         print(value.data?.result!.referenceNo);
         refno.value = value.data?.result?.referenceNo ?? "check Dashboard " ;
-        Get.to(PaymentSuccess());
+        Get.to(()=>PaymentSuccess());
       } else {
-        Get.to(FailureScreen());
+        Get.to(()=>FailureScreen());
       }
     });
   }
