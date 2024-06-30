@@ -13,7 +13,7 @@ class _HomeRemoteService implements HomeRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
