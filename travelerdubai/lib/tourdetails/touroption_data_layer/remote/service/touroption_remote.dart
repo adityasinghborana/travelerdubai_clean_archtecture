@@ -4,7 +4,7 @@ import 'package:travelerdubai/tourdetails/touroption_data_layer/model/request/to
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/response/tour_option_dynamic_response.dart';
 
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/response/tour_options_staticdata_response.dart';
-import '../../../../core/constants/contants.dart';
+import '../../../../core/constants/constants.dart';
 import '../../model/request/tour_option_static_data.dart';
 
 part 'touroption_remote.g.dart';

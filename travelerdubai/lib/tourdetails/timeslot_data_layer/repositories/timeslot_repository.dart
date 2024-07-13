@@ -27,7 +27,7 @@ class TimeSlotRepositoryImpl implements TimeSlotRepository {
       }
     } catch (error) {
       // Handle any errors that might occur during the process
-      print("Error creating user: $error");
+      print("Error Fetching Time Slot: $error");
       rethrow; // Rethrow the error to let the caller handle it
     }
   }

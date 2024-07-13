@@ -17,7 +17,7 @@ class AboutUsController extends GetxController {
   @override
   void onInit() {
    getAboutusData();
-    startImageRotation();
+
     super.onInit();
   }
 
@@ -32,18 +32,14 @@ class AboutUsController extends GetxController {
 
   Future<void> getAboutusData() async{
     aboutUsUseCase.execute().then((value) {
-aboutData.value = Aboutpagedata(id: value.id, title: value.title, imagepath: value.imagepath, imagepath2: value.imagepath2, imagepath3: value.imagepath3, heading1: value.heading1, subheading1: value.subheading1, detail1: value.detail1, heading2: value.heading2, subheading2: value.subheading2, detail2: value.detail2);
+aboutData.value = Aboutpagedata(id: value.id, title: value.title,subtitle: value.subtitle, imagepath: value.imagepath, imagepath2: value.imagepath2, imagepath3: value.imagepath3, heading1: value.heading1, text: value.text, detail1: value.detail1, heading2: value.heading2, subheading2: value.subheading2, detail2: value.detail2);
 imageList.value=[value.imagepath,value.imagepath2,value.imagepath3];
 
 
     });
   }
 
-  void startImageRotation() {
-    rotationTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
-      currentIndex.value = (currentIndex.value + 1) % imageList.length;
-    });
-  }
+
 
   void moveToNextImage() {
     currentIndex.value = (currentIndex.value + 1) % imageList.length;

@@ -1,3 +1,6 @@
+
+
+import 'package:flutter/src/material/dropdown.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tour_option_dynamic_response.g.dart';
@@ -18,9 +21,9 @@ class TourOptionDynamicDataResponse {
 
 @JsonSerializable()
 class ExtractedData {
-  int? addPriceAdult;
-  int? addPriceChildren;
-  int? additionalPriceInfant;
+  double? addPriceAdult;
+  double? addPriceChildren;
+  double? additionalPriceInfant;
 
   ExtractedData({this.addPriceAdult, this.addPriceChildren, this.additionalPriceInfant});
 
@@ -63,19 +66,10 @@ class TourOptionDynamicResult {
   int? transferId;
   String? transferName;
   double? adultPrice;
+  String? startTime;
   double? childPrice;
   int? infantPrice;
-  double? withoutDiscountAmount;
   double? finalAmount;
-  String? startTime;
-  String? departureTime;
-  bool? disableChild;
-  bool? disableInfant;
-  bool? allowTodaysBooking;
-  int? cutOff;
-  bool? isSlot;
-  int? isDefaultTransfer;
-  // Add other properties...
 
   TourOptionDynamicResult({
     this.tourId,
@@ -85,19 +79,14 @@ class TourOptionDynamicResult {
     this.adultPrice,
     this.childPrice,
     this.infantPrice,
-    this.withoutDiscountAmount,
     this.finalAmount,
     this.startTime,
-    this.departureTime,
-    this.disableChild,
-    this.disableInfant,
-    this.allowTodaysBooking,
-    this.cutOff,
-    this.isSlot,
-    this.isDefaultTransfer,
+
   });
 
   factory TourOptionDynamicResult.fromJson(Map<String, dynamic> json) => _$TourOptionDynamicResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$TourOptionDynamicResultToJson(this);
+
+
 }

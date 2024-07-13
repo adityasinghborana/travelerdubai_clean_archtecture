@@ -13,7 +13,7 @@ class _createUserRemoteService implements createUserRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -22,7 +22,7 @@ class _createUserRemoteService implements createUserRemoteService {
 
   @override
   Future<UserModelResponse> createuser(User requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -45,6 +45,35 @@ class _createUserRemoteService implements createUserRemoteService {
               baseUrl,
             ))));
     final value = UserModelResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<UserDetail>> getUserDetail(String uid) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'uid': uid};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<UserDetail>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/checkuser',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => UserDetail.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

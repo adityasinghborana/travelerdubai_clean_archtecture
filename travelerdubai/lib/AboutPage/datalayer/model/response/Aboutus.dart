@@ -5,11 +5,13 @@ part 'Aboutus.g.dart';
 class Aboutpagedata {
   final int id;
   final String title;
+  final String subtitle;
+
   final String imagepath;
   final String imagepath2;
   final String imagepath3;
   final String heading1;
-  final String subheading1;
+  final String text;
   final String detail1;
   final String heading2;
   final String subheading2;
@@ -18,11 +20,12 @@ class Aboutpagedata {
   Aboutpagedata(
       {required this.id,
         required this.title,
+        required this.subtitle,
         required this.imagepath,
         required this.imagepath2,
         required this.imagepath3,
         required this.heading1,
-        required this.subheading1,
+        required this.text,
         required this.detail1,
         required this.heading2,
         required this.subheading2,

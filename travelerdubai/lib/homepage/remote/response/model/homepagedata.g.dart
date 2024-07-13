@@ -7,11 +7,11 @@ part of 'homepagedata.dart';
 // **************************************************************************
 
 HomepageData _$HomepageDataFromJson(Map<String, dynamic> json) => HomepageData(
-      id: json['id'] as int?,
-      counter1: json['counter1'] as int?,
-      counter2: json['counter2'] as int?,
-      counter3: json['counter3'] as int?,
-      counter4: json['counter4'] as int?,
+      id: (json['id'] as num?)?.toInt(),
+      counter1: (json['counter1'] as num?)?.toInt(),
+      counter2: (json['counter2'] as num?)?.toInt(),
+      counter3: (json['counter3'] as num?)?.toInt(),
+      counter4: (json['counter4'] as num?)?.toInt(),
       detail: json['detail'] as String?,
       detail1: json['detail1'] as String?,
       detail2: json['detail2'] as String?,

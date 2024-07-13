@@ -13,7 +13,7 @@ class _TimeSlotRemoteService implements TimeSlotRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -22,7 +22,7 @@ class _TimeSlotRemoteService implements TimeSlotRemoteService {
 
   @override
   Future<TimeSlotResponse> getTimeSlot(TimeSlotRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

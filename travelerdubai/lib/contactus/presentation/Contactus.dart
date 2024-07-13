@@ -1,74 +1,233 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:travelerdubai/Components/Mobileheader.dart';
+import 'dart:html' as html;
+import 'package:travelerdubai/Components/custom_button.dart';
+import 'package:travelerdubai/Components/header.dart';
+import 'package:travelerdubai/contactus/datalayer/repository/repositoty.dart';
+import 'package:travelerdubai/contactus/datalayer/services/remoteservice.dart';
+import 'package:travelerdubai/contactus/datalayer/usecase/usecase.dart';
+import 'package:travelerdubai/contactus/presentation/contactus_controller.dart';
 
-class Contactus extends StatelessWidget {
-  const Contactus({super.key});
+import '../../Components/Textformfield.dart';
+import '../../core/constants/constants.dart';
+import '../datalayer/usecase/postform_usecase.dart';
+
+class ContactusDesktop extends StatelessWidget {
+  final ContactUsController controller = Get.put(
+    ContactUsController(
+      getContactUsDataUseCase: GetContactUsDataUseCase(
+        ContactUsRepositoryImpl(
+          ContactusRemote(Dio()),
+        ),
+      ),
+      postFormUsecase: PostFormUseCase(
+        ContactUsRepositoryImpl(
+          ContactusRemote(Dio()),
+        ),
+      ),
+    ),
+  );
+
+  ContactusDesktop({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Contact Us')),
-      body: Padding(
-        padding: const EdgeInsets.all(200.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: const Color.fromARGB(255, 237, 237, 237),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: colorwhite,
+          child: Icon(
+            FontAwesomeIcons.whatsapp,
+            color: Colors.green,
           ),
-          padding: const EdgeInsets.all(50.0),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: _buildImageSection(),
-              ),
-              Flexible(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: _buildReplySection(),
-                  )),
-            ],
-          ),
+          onPressed: () {
+            html.window.open('https://wa.me/${controller.contactusdata.value?.mobilenumber}', 'new tab');
+          },
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: Obx(() {
+            var data = controller.contactusdata.value;
+            return Column(
+              children: [
+                Get.width>1000 ?Header():MobileHeader(context: context),
+                bannerWithOverlayText(context, images.bannerimage,
+                    controller.contactusdata.value?.Heading ?? "", controller.contactusdata.value?.Subheading ?? ""),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 80.0, horizontal: 160),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                          flex: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  controller.contactusdata.value?.Heading2 ?? "",
+                                  style: H1open(context).copyWith(
+                                      color: colorDarkBlue,
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: Get.width>600 ? 48 :24),
+                                ),
+                              ),
+                              Container(
+                                child: Text(controller.contactusdata.value?.Subheading2 ?? ""),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.pin_drop_rounded,
+                                        color: colorMediumBlue,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        child: Text(controller.contactusdata.value?.Address ?? ""),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.mail,
+                                        color: colorMediumBlue,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        child: Text(controller.contactusdata.value?.Email ?? ""),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        FontAwesomeIcons.whatsapp,
+                                        color: colorMediumBlue,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        child: Text(controller.contactusdata.value?.mobilenumber ?? ""),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          )),
+                      SizedBox(
+                        width: 100,
+                      ),
+                      Flexible(
+                        flex: 3,
+                        child: Column(
+                          children: [
+                            _buildReplySection(
+                                controller.nameController,
+                                controller.emailController,
+                                controller.mobileController,
+                                controller.messageController)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            );
+          }),
+        ));
   }
 
-  Widget _buildImageSection() {
-    return Container(
-      width: 200,
-      height: 200,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/logo.png'),
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildReplySection() {
+  Widget _buildReplySection(TextEditingController name,
+      TextEditingController email,
+      TextEditingController mobile,
+      TextEditingController message) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
-          'Leave A Reply',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+        const SizedBox(height: 10),
+        buildTextFormField("Name", name, "fill the hint", () => null),
+        buildTextFormField("Email", email, "fill the hint", () => null),
+        buildTextFormField(
+            "Mobile Number", mobile, "with country code", () => null),
+        buildTextFormField("Message", message, "fill the hint", () => null),
+        SizedBox(
+          height: 30,
         ),
-        const SizedBox(height: 10),
-        const Text(
-          'Your email address will not be published. Required fields are marked *',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-        ),
-        const SizedBox(height: 10),
-        const TextField(decoration: InputDecoration(hintText: "Name")),
-        const SizedBox(height: 10),
-        const TextField(decoration: InputDecoration(hintText: "Email")),
-        const SizedBox(height: 10),
-        const TextField(decoration: InputDecoration(hintText: "Subject")),
-        const SizedBox(height: 20),
-        ElevatedButton(onPressed: () {}, child: const Text('Submit'))
+        SizedBox(
+            width: 400,
+            child: ButtonView(
+              btnName: "Submit",
+              borderColor: Colors.transparent,
+              bgColor: colorMediumBlue,
+              onButtonTap: () {
+                controller.postForm();
+              },
+            ))
       ],
     );
   }
+}
+
+Widget bannerWithOverlayText(BuildContext context, String imageUrl, String text,
+    String subheading) {
+  return Container(
+    height: Get.height * 0.4,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: NetworkImage(imageUrl),
+        fit: BoxFit.cover,
+      ),
+    ),
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                  fontSize: 72, color: colorwhite, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              subheading,
+              style: const TextStyle(
+                  fontSize: 16,
+                  color: colorwhite,
+                  fontWeight: FontWeight.normal),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }

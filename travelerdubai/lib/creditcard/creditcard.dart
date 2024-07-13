@@ -4,9 +4,11 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:flutter_stripe_web/card_field.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
+import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
 
 import '../Cart/data_layer/repository/cart_repository.dart';
 import '../Cart/data_layer/service/cart_remote.dart';
+import '../Cart/data_layer/usecase/deletecart_usecase.dart';
 import '../Cart/data_layer/usecase/get_cart_usecase.dart';
 import '../bookings/data_layer/repository/bookings_repository.dart';
 import '../bookings/data_layer/service/booking_remote.dart';
@@ -14,6 +16,7 @@ import '../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../checkout/data_layer/repository/Intent_repository.dart';
 import '../checkout/data_layer/service/remote.dart';
 import '../checkout/data_layer/usecase/intent_usecase.dart';
+import '../paymentconfirmation/presentationlayer/success.dart';
 
 
 class CardPaymentScreen extends StatefulWidget {
@@ -36,10 +39,11 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
         children: [
           Center(
             child: Container(
-              width: MediaQuery.of(context).size.width * .25,
+              width: Get.width>600? MediaQuery.of(context).size.width * .25:MediaQuery.of(context).size.width *.8,
 
               child: WebCardField(
-                style: CardStyle(),
+                width: 30,
+                style: CardStyle(borderWidth: 4,backgroundColor: Colors.red),
 
                 onCardChanged: (card) {
                   setState(() {
@@ -74,6 +78,7 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
   Future<void> createPaymentMethod() async {
     CheckoutController checkoutController = Get.put(
       CheckoutController(
+          deleteCartItemUseCase:DeleteCartItemUseCase(CartRepositoryImpl(CartRemoteService(Dio()),)),
           getCartUseCase: GetCartUseCase(
             CartRepositoryImpl(
               CartRemoteService(Dio()),
@@ -113,7 +118,9 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
 
   Future<void> confirmPayment() async {
     CheckoutController checkoutController = Get.put(
+
       CheckoutController(
+          deleteCartItemUseCase:DeleteCartItemUseCase(CartRepositoryImpl(CartRemoteService(Dio()),)),
         getCartUseCase: GetCartUseCase(
           CartRepositoryImpl(
             CartRemoteService(Dio()),
@@ -143,11 +150,11 @@ class _CardPaymentScreenState extends State<CardPaymentScreen> {
       if (confirmation.status == PaymentIntentsStatus.Succeeded) {
 
         checkoutController.doBookings();
-        // Payment succeeded
-        print('Payment succeeded!');
+
+       
       } else {
-        // Payment failed
-        print('Payment failed!');
+       print("Paymnet intent failed ");
+        Get.off(const FailureScreen());
       }
     } catch (e) {
       // Handle errors

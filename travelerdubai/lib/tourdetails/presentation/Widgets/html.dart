@@ -1,33 +1,21 @@
-import 'package:html/parser.dart' as htmlParser;
-import 'package:html/dom.dart' as htmlDom;
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:html/dom.dart' as htmlDom;
+import 'package:html/parser.dart' as htmlParser;
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
-import 'package:travelerdubai/core/constants/contants.dart';
-
-// class HtmlDisplayWidget extends StatelessWidget {
-//   final String? htmlContent;
-//
-//   HtmlDisplayWidget({required this.htmlContent});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final sanitizedHtml = htmlContent?.replaceAll('\n', '<br>');
-//     return HtmlWidget(sanitizedHtml!);
-//   }
-// }
 class HtmlDisplayWidget extends StatelessWidget {
   final String? htmlContent;
 
-  HtmlDisplayWidget({required this.htmlContent});
+  const HtmlDisplayWidget({super.key, required this.htmlContent});
 
   @override
   Widget build(BuildContext context) {
     final document = htmlParser.parse(htmlContent);
 
-    return SingleChildScrollView(
-      child: Container(
-
+    return SizedBox(
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: _parseNodes(document.body!.nodes),
@@ -43,7 +31,7 @@ class HtmlDisplayWidget extends StatelessWidget {
       if (node is htmlDom.Element) {
         widgets.addAll(_parseNodes(node.nodes));
       } else if (node is htmlDom.Text) {
-        final textNodes = node.text.split(RegExp(r'\r?\\n'));
+        final textNodes = node.text.split(RegExp(r'\r?\n'));
         for (var i = 0; i < textNodes.length; i++) {
           final trimmedText = textNodes[i].trim();
           if (trimmedText.isNotEmpty) {
@@ -60,16 +48,35 @@ class HtmlDisplayWidget extends StatelessWidget {
 class HtmlTextWithLineBreaks extends StatelessWidget {
   final String text;
 
-  HtmlTextWithLineBreaks(this.text);
+  const HtmlTextWithLineBreaks(
+      this.text,
+      );
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: text
-          .split('<br>')
-          .map((line) => Text(line.trim(),style: bodyblack,))
-          .toList(),
+    return ResponsiveBuilder(
+      builder: (context, sizingInformation) {
+        double fontSize = sizingInformation.deviceScreenType ==
+            DeviceScreenType.mobile ||
+            sizingInformation.deviceScreenType == DeviceScreenType.tablet
+            ? MediaQuery.of(context).size.width * 0.035
+            : MediaQuery.of(context).size.width * 0.009;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: text
+              .split('<br>')
+              .map((line) => SelectableText(
+            line.trim(),
+            style: TextStyle(
+              letterSpacing: .5,
+              fontSize: fontSize,
+              color: colorblack,
+            ),
+          ))
+              .toList(),
+        );
+      },
     );
   }
 }

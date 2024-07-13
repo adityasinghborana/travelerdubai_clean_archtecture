@@ -13,7 +13,7 @@ class _HomeRemoteService implements HomeRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -22,10 +22,10 @@ class _HomeRemoteService implements HomeRemoteService {
 
   @override
   Future<HomepageData> getdata() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<HomepageData>(Options(
       method: 'GET',
@@ -44,6 +44,35 @@ class _HomeRemoteService implements HomeRemoteService {
               baseUrl,
             ))));
     final value = HomepageData.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<City>> getcities() async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<City>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/cities',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => City.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

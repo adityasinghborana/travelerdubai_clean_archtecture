@@ -1,24 +1,21 @@
 import 'package:dio/dio.dart' as dio;
-
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
-
-import '../../tourdetails/tourdetail_data_layer/model/tour_model.dart';
-
-
-
-
 class ExperienceController extends GetxController {
+  String? city = Get.parameters['cityName'];
   final GetExperiencesUseCase experiencesUseCase;
 
   var tourTypes = [].obs;
   var cityTours = <Experiences>[].obs;
   var selectedTourType = ''.obs;
   List<Experiences> allCityTours = [];
-  List<TourModel> alldata = [];
+  RxList<Experiences> alldata = <Experiences>[].obs;
+
   ExperienceController(this.experiencesUseCase);
+
   @override
   void onInit() {
     fetchData();
@@ -26,20 +23,16 @@ class ExperienceController extends GetxController {
     super.onInit();
   }
 
-
   void fetchcitytours() async {
     try {
       final response = await experiencesUseCase.execute();
       if (response.isNotEmpty) {
-        List<Experiences> fetchedCityTours = response;
+        List<Experiences> visibleCityTours = response.where((element) => element.isvisible == true).toList();
+        cityTours.assignAll(visibleCityTours);
+        allCityTours = List.from(visibleCityTours);
 
-        cityTours.assignAll(fetchedCityTours);
-        allCityTours = List.from(fetchedCityTours);
-
-        if (fetchedCityTours.isNotEmpty &&
-            fetchedCityTours[0].tourdetails!.isNotEmpty) {
-          print(
-              'First TourDetails id: ${fetchedCityTours[0].tourdetails?[0].id}');
+        if (visibleCityTours.isNotEmpty && visibleCityTours[0].tourdetails!= null) {
+          print('First TourDetails id: ${visibleCityTours[0].tourdetails?.id}');
         }
       } else {
         print('Request failed with status');
@@ -52,8 +45,7 @@ class ExperienceController extends GetxController {
 
   void fetchData() async {
     try {
-      dio.Response response =
-          await dio.Dio().get('http://localhost:3000/tourtypes');
+      dio.Response response = await dio.Dio().get('$baseurl/tourtypes');
       if (response.statusCode == 200) {
         List<dynamic> fetchedTypes = response.data;
         tourTypes.assignAll(fetchedTypes);
@@ -68,28 +60,23 @@ class ExperienceController extends GetxController {
   void filterCityToursByType(String cityTourType) {
     selectedTourType.value = cityTourType;
     if (cityTourType.isEmpty) {
-      // If no tour type is selected, show all city tours
       cityTours.assignAll(allCityTours);
     } else {
-      // Filter city tours based on the selected tour type
-      cityTours.assignAll(allCityTours
-          .where((tour) => tour.cityTourType == cityTourType)
-          .toList());
+      cityTours.assignAll(allCityTours.where((tour) => tour.cityTourType == cityTourType).toList());
     }
+  }
+
+  void resetSelectedTourType() {
+    selectedTourType.value = '';
+    cityTours.assignAll(allCityTours);
   }
 
   void searchCityTours(String query) {
     if (query.isEmpty) {
-      // If the search query is empty, show all city tours
       cityTours.assignAll(allCityTours);
     } else {
-      // Filter city tours where the title contains the query (case insensitive)
-      cityTours.assignAll(allCityTours
-          .where((tour) => tour.tourName
-              .toString()
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList());
+      cityTours.assignAll(allCityTours.where((tour) => tour.tourName.toString().toLowerCase().contains(query.toLowerCase())).toList());
     }
   }
+
 }

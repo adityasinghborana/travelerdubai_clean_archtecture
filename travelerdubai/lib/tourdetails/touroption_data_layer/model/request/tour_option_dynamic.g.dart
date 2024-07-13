@@ -9,12 +9,13 @@ part of 'tour_option_dynamic.dart';
 TourOptionDynamicRequest _$TourOptionDynamicRequestFromJson(
         Map<String, dynamic> json) =>
     TourOptionDynamicRequest(
-      tourId: json['tourId'] as int,
-      contractId: json['contractId'] as int,
+      tourId: (json['tourId'] as num).toInt(),
+      contractId: (json['contractId'] as num).toInt(),
       travelDate: json['travelDate'] as String,
-      noOfAdult: json['noOfAdult'] as int,
-      noOfChild: json['noOfChild'] as int,
-      noOfInfant: json['noOfInfant'] as int,
+      noOfAdult: (json['noOfAdult'] as num).toInt(),
+      noOfChild: (json['noOfChild'] as num).toInt(),
+      noOfInfant: (json['noOfInfant'] as num).toInt(),
+      isVendor: json['isVendor'] as bool,
     );
 
 Map<String, dynamic> _$TourOptionDynamicRequestToJson(
@@ -26,4 +27,5 @@ Map<String, dynamic> _$TourOptionDynamicRequestToJson(
       'noOfAdult': instance.noOfAdult,
       'noOfChild': instance.noOfChild,
       'noOfInfant': instance.noOfInfant,
+      'isVendor': instance.isVendor,
     };

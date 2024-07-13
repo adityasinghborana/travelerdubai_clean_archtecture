@@ -13,7 +13,7 @@ class _CartRemoteService implements CartRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -22,7 +22,7 @@ class _CartRemoteService implements CartRemoteService {
 
   @override
   Future<CreateCartResponse> createCart(CreateCartRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -50,7 +50,7 @@ class _CartRemoteService implements CartRemoteService {
 
   @override
   Future<GetCartResponse> getCart(CreateCartRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -79,7 +79,7 @@ class _CartRemoteService implements CartRemoteService {
   @override
   Future<UpdateCartResponse> updateCart(
       UpdateCartTourDetail requestBody) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -102,6 +102,34 @@ class _CartRemoteService implements CartRemoteService {
               baseUrl,
             ))));
     final value = UpdateCartResponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<Deletecartresponse> deleteCartItem(DeleteCart requestBody) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestBody.toJson());
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<Deletecartresponse>(Options(
+      method: 'DELETE',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/deletecartitem',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = Deletecartresponse.fromJson(_result.data!);
     return value;
   }
 

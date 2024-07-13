@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/model/experience_response_model.dart';
-import 'package:travelerdubai/homepage/model/city.dart';
-import 'package:travelerdubai/homepage/model/tour.dart';
 
 class TourlistController extends GetxController {
   final GetExperiencesUseCase experiencesUseCase;

@@ -8,11 +8,12 @@ part of 'timeslot_request.dart';
 
 TimeSlotRequest _$TimeSlotRequestFromJson(Map<String, dynamic> json) =>
     TimeSlotRequest(
-      tourId: json['tourId'] as int,
-      contractId: json['contractId'] as int,
+      tourId: (json['tourId'] as num).toInt(),
+      contractId: (json['contractId'] as num).toInt(),
       travelDate: json['travelDate'] as String,
-      tourOptionId: json['tourOptionId'] as int,
-      transferId: json['transferId'] as int,
+      tourOptionId: (json['tourOptionId'] as num).toInt(),
+      transferId: (json['transferId'] as num).toInt(),
+      isVendor: json['isVendor'] as bool,
     );
 
 Map<String, dynamic> _$TimeSlotRequestToJson(TimeSlotRequest instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$TimeSlotRequestToJson(TimeSlotRequest instance) =>
       'travelDate': instance.travelDate,
       'tourOptionId': instance.tourOptionId,
       'transferId': instance.transferId,
+      'isVendor': instance.isVendor,
     };

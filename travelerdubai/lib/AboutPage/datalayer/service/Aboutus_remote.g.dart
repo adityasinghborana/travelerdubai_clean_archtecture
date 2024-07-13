@@ -13,7 +13,7 @@ class _AboutUsRemoteService implements AboutUsRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -22,10 +22,10 @@ class _AboutUsRemoteService implements AboutUsRemoteService {
 
   @override
   Future<Aboutpagedata> getAboutUsData() async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<Aboutpagedata>(Options(
       method: 'GET',

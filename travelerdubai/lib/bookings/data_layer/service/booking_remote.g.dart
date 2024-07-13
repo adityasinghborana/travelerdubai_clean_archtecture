@@ -13,7 +13,7 @@ class _BookingsRemoteService implements BookingsRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -21,14 +21,14 @@ class _BookingsRemoteService implements BookingsRemoteService {
   String? baseUrl;
 
   @override
-  Future<BookingResponse> doBookings(BookingRequest requestBody) async {
-    const _extra = <String, dynamic>{};
+  Future<DataModel> doBookings(BookingRequest requestBody) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(requestBody.toJson());
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BookingResponse>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<DataModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -44,7 +44,37 @@ class _BookingsRemoteService implements BookingsRemoteService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = BookingResponse.fromJson(_result.data!);
+    final value = DataModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<BookingList>> getBookings(UserBookingsRequest requestBody) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestBody.toJson());
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BookingList>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/userbookings',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => BookingList.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 

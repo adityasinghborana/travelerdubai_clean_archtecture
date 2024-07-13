@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/service/auth.dart';
-import 'package:travelerdubai/core/widgets/header.dart';
+import 'package:travelerdubai/homepage/presentaion/home_page_mobile.dart';
 import 'package:travelerdubai/homepage/presentaion/homepage.dart';
 
-class Homescreen extends StatelessWidget {
-  final ScrollController _pagecontroller = ScrollController();
+import 'controller/headercontroller.dart';
 
-  Homescreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext Context) {
+  Widget build(BuildContext context) {
+    Get.lazyPut(() => HeaderController());
     Get.put(AuthClass());
     return Scaffold(
-      body: Column(
-        children: [
-          Header(),
-          Homepage(),
-        ],
+      body: ResponsiveBuilder(
+        builder: (context, sizingInformation) {
+          if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
+            return Homepage();
+          }
+
+          if (sizingInformation.deviceScreenType == DeviceScreenType.mobile ||
+              sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
+            return HomePageMobile();
+          } else {
+            return HomePageMobile();
+          }
+        },
       ),
     );
   }

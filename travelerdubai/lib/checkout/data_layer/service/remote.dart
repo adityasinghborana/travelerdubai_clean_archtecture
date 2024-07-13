@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:travelerdubai/checkout/data_layer/model/response/intent_response.dart';
 
 
-import '../../../core/constants/contants.dart';
+import '../../../core/constants/constants.dart';
 import '../model/request/intent_request.dart';
 
 

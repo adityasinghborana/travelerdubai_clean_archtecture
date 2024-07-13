@@ -7,7 +7,7 @@ class DoBookingUseCase{
 
   DoBookingUseCase(this.repository);
 
-  Future<BookingResponse> execute(
+  Future<DataModel> execute(
         BookingRequest data) {
     return repository.getBookingDetails(data);
   }

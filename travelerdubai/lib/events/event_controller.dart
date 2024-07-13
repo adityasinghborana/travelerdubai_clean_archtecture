@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:travelerdubai/core/constants/contants.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 class EventController extends GetxController {
-  var eventTypes = [].obs;
+  RxList<dynamic>eventTypes = <dynamic>[].obs;
   var cityEvents = [].obs;
   var selectedTourType = ''.obs;
   List<dynamic> allCityTours = [];
+  var selectedEventType = ''.obs;
 
   @override
   void onInit() {
@@ -18,7 +20,7 @@ class EventController extends GetxController {
   void fetchData() async {
     try {
       dio.Response response =
-          await dio.Dio().get('$baseurl/eventtypes');
+      await dio.Dio().get('$baseurl/eventtypes');
       if (response.statusCode == 200) {
         List<dynamic> fetchedTypes = response.data;
         eventTypes.assignAll(fetchedTypes);
@@ -34,7 +36,7 @@ class EventController extends GetxController {
   void fetchCityevents() async {
     try {
       dio.Response response =
-          await dio.Dio().get('http://localhost:3000/events');
+      await dio.Dio().get('http://localhost:3000/events');
       if (response.statusCode == 200) {
         List<dynamic> fetchedCityEvents = response.data;
         cityEvents.assignAll(fetchedCityEvents);
@@ -49,31 +51,34 @@ class EventController extends GetxController {
     }
   }
 
-  void filterCityeventsByType(String cityTourType) {
-    selectedTourType.value = cityTourType;
-    if (cityTourType.isEmpty) {
+  void filterCityeventsByType(String eventType) {
+    selectedEventType.value = eventType;
+    if (eventType.isEmpty) {
       // If no tour type is selected, show all city tours
       cityEvents.assignAll(allCityTours);
     } else {
       // Filter city tours based on the selected tour type
       cityEvents.assignAll(allCityTours
-          .where((tour) => tour['cityeventType'] == cityTourType)
+          .where((event) => event['eventType'] == eventType)
           .toList());
     }
   }
 
-  void searchCityevents(String query) {
-    if (query.isEmpty) {
-      // If the search query is empty, show all city tours
-      cityEvents.assignAll(allCityTours);
-    } else {
-      // Filter city tours where the title contains the query (case insensitive)
-      cityEvents.assignAll(allCityTours
-          .where((tour) => tour['tourName']
-              .toString()
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList());
+
+
+
+  void resetSelectedTourType() {
+    selectedEventType.value = '';
+    cityEvents.assignAll(allCityTours);
+  }
+
+    void searchCityTours(String query) {
+      if (query.isEmpty) {
+        cityEvents.assignAll(allCityTours);
+      } else {
+        cityEvents.assignAll(allCityTours.where((tour) =>
+            tour['eventName'].toString().toLowerCase().contains(
+                query.toLowerCase())).toList());
+      }
     }
   }
-}

@@ -9,10 +9,6 @@ part of 'tour_options_staticdata_response.dart';
 TourOptionsStaticDataResponse _$TourOptionsStaticDataResponseFromJson(
         Map<String, dynamic> json) =>
     TourOptionsStaticDataResponse(
-      statuscode: json['statuscode'] as int,
-      error: json['error'],
-      url: json['url'] as String?,
-      count: json['count'] as int?,
       result: json['result'] == null
           ? null
           : TourOptionsResult.fromJson(json['result'] as Map<String, dynamic>),
@@ -21,10 +17,6 @@ TourOptionsStaticDataResponse _$TourOptionsStaticDataResponseFromJson(
 Map<String, dynamic> _$TourOptionsStaticDataResponseToJson(
         TourOptionsStaticDataResponse instance) =>
     <String, dynamic>{
-      'statuscode': instance.statuscode,
-      'error': instance.error,
-      'url': instance.url,
-      'count': instance.count,
       'result': instance.result,
     };
 
@@ -51,16 +43,15 @@ Map<String, dynamic> _$TourOptionsResultToJson(TourOptionsResult instance) =>
     };
 
 TourOption _$TourOptionFromJson(Map<String, dynamic> json) => TourOption(
-      tourId: json['tourId'] as int?,
-      tourOptionId: json['tourOptionId'] as int?,
+      tourId: (json['tourId'] as num?)?.toInt(),
+      tourOptionId: (json['tourOptionId'] as num?)?.toInt(),
       optionName: json['optionName'] as String?,
       childAge: json['childAge'] as String?,
       infantAge: json['infantAge'] as String?,
       optionDescription: json['optionDescription'] as String?,
-      cancellationPolicy: json['cancellationPolicy'] as String?,
-      cancellationPolicyDescription:
-          json['cancellationPolicyDescription'] as String?,
-      childPolicyDescription: json['childPolicyDescription'] as String?,
+      duration: json['duration'] as String?,
+      minPax: (json['minPax'] as num?)?.toInt(),
+      maxPax: (json['maxPax'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TourOptionToJson(TourOption instance) =>
@@ -71,21 +62,21 @@ Map<String, dynamic> _$TourOptionToJson(TourOption instance) =>
       'childAge': instance.childAge,
       'infantAge': instance.infantAge,
       'optionDescription': instance.optionDescription,
-      'cancellationPolicy': instance.cancellationPolicy,
-      'cancellationPolicyDescription': instance.cancellationPolicyDescription,
-      'childPolicyDescription': instance.childPolicyDescription,
+      'duration': instance.duration,
+      'minPax': instance.minPax,
+      'maxPax': instance.maxPax,
     };
 
 OperationDay _$OperationDayFromJson(Map<String, dynamic> json) => OperationDay(
-      tourId: json['tourId'] as int?,
-      tourOptionId: json['tourOptionId'] as int?,
-      monday: json['monday'] as int?,
-      tuesday: json['tuesday'] as int?,
-      wednesday: json['wednesday'] as int?,
-      thursday: json['thursday'] as int?,
-      friday: json['friday'] as int?,
-      saturday: json['saturday'] as int?,
-      sunday: json['sunday'] as int?,
+      tourId: (json['tourId'] as num?)?.toInt(),
+      tourOptionId: (json['tourOptionId'] as num?)?.toInt(),
+      monday: (json['monday'] as num?)?.toInt(),
+      tuesday: (json['tuesday'] as num?)?.toInt(),
+      wednesday: (json['wednesday'] as num?)?.toInt(),
+      thursday: (json['thursday'] as num?)?.toInt(),
+      friday: (json['friday'] as num?)?.toInt(),
+      saturday: (json['saturday'] as num?)?.toInt(),
+      sunday: (json['sunday'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$OperationDayToJson(OperationDay instance) =>
@@ -102,8 +93,8 @@ Map<String, dynamic> _$OperationDayToJson(OperationDay instance) =>
     };
 
 TransferTime _$TransferTimeFromJson(Map<String, dynamic> json) => TransferTime(
-      tourId: json['tourId'] as int?,
-      tourOptionId: json['tourOptionId'] as int?,
+      tourId: (json['tourId'] as num?)?.toInt(),
+      tourOptionId: (json['tourOptionId'] as num?)?.toInt(),
       transferType: json['transferType'] as String?,
       transferTime: json['transferTime'] as String?,
       duration: json['duration'] as String?,
@@ -122,7 +113,7 @@ TransferTime _$TransferTimeFromJson(Map<String, dynamic> json) => TransferTime(
           json['cancellationPolicyDescription'] as String?,
       childPolicy: json['childPolicy'] as String?,
       childPolicyDescription: json['childPolicyDescription'] as String?,
-      cutOffhrs: json['cutOffhrs'] as int?,
+      cutOffhrs: (json['cutOffhrs'] as num?)?.toInt(),
       onRequestCutoff: json['onRequestCutoff'] as bool?,
     );
 
