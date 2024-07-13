@@ -13,7 +13,7 @@ class _TourRemoteService implements TourRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45/api';
+    baseUrl ??= 'http://localhost:3000';
   }
 
   final Dio _dio;

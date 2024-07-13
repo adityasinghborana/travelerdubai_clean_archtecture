@@ -45,7 +45,12 @@ class SigninController extends GetxController {
 
         getCart(uid);
         await saveUserUID(uid).then((value) {
-          Get.toNamed('/dashboardpage', arguments: {'uid': uid});
+          if (Get.previousRoute == '/signup') {
+            // If the previous page was signup, go back twice to avoid going back to signup
+            Get.until((route) => Get.currentRoute == '/');
+          } else {
+            Get.back();
+          }
         });
       }
     } catch (e) {
@@ -109,7 +114,12 @@ print(name);
       headerController.loggedIn.value = true;
       await getCart(uid);
       await saveUserUID(uid);
-      Get.toNamed("/dashboardpage", arguments: {'uid': uid});
+      if (Get.previousRoute == '/SignupPage') {
+        // If the previous page was signup, go back twice to avoid going back to signup
+        Get.until((route) => Get.currentRoute == '/home');
+      } else {
+        Get.back();
+      }
     } catch (e) {
       print("Sign-in error: $e");
       authClass.showSnackBar(context, e.toString());

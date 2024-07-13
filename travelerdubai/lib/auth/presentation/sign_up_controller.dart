@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/request/create_user_request.dart'
     as UserData;
@@ -67,11 +68,19 @@ class SignupController extends GetxController {
   Future<void> saveUser(String uid, String email) async {
     try {
       final user = UserData.User(uid: uid, email: email);
-      await createUserUseCase.execute(user);
+      await createUserUseCase.execute(user).then((response ){saveUserUID(uid);});
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
+    }
+  }
+
+  Future<void> saveUserUID(String uid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userUID', uid);
+    if (kDebugMode) {
+      print("userid saved");
     }
   }
 

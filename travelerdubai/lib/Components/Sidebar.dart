@@ -71,6 +71,7 @@ class TourTypes extends StatelessWidget {
                   SizedBox(
                     height: Get.height * 0.8,
                     child: ListView.builder(
+                      
                       controller: listController,
                       itemCount: items.length,
                       itemBuilder: (context, index) {

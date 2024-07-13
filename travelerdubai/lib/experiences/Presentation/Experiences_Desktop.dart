@@ -64,9 +64,10 @@ class ExperiencesDesktop extends StatelessWidget {
             HeaderSearchWidget(
               imageUrl: "https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-4710/emirates-zoo-img.jpg",
               title: "Discover All Experiences",
-              searchController: searchController,
+              searchController: experienceController.searchController,
               onSearch: (value) {
-                experienceController.searchCityTours(value);
+                experienceController.searchQuery.value  =value;
+                experienceController.searchCityTours();
               },
             ),
             SizedBox(height: Get.height * .03),

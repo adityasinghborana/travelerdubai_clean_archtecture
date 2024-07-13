@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
@@ -13,7 +14,8 @@ class ExperienceController extends GetxController {
   var selectedTourType = ''.obs;
   List<Experiences> allCityTours = [];
   RxList<Experiences> alldata = <Experiences>[].obs;
-
+  final TextEditingController searchController = TextEditingController();
+  var searchQuery = ''.obs;
   ExperienceController(this.experiencesUseCase);
 
   @override
@@ -71,11 +73,11 @@ class ExperienceController extends GetxController {
     cityTours.assignAll(allCityTours);
   }
 
-  void searchCityTours(String query) {
-    if (query.isEmpty) {
+  void searchCityTours() {
+    if (searchQuery.isEmpty) {
       cityTours.assignAll(allCityTours);
     } else {
-      cityTours.assignAll(allCityTours.where((tour) => tour.tourName.toString().toLowerCase().contains(query.toLowerCase())).toList());
+      cityTours.assignAll(allCityTours.where((tour) => tour.tourName.toString().toLowerCase().contains(searchQuery.toLowerCase())).toList());
     }
   }
 

@@ -22,18 +22,7 @@ class AccountInfo extends StatelessWidget {
   }
 
   Widget Mobile() {
-    final DashBoardController dashBoardController = Get.put(
-      DashBoardController(
-        GetUserBookingsUseCase(
-          BookingsRepositoryImpl(
-            BookingsRemoteService(Dio()),
-          ),
-        ),
-        GetUserDetailsUseCase(
-          UserRepositoryImpl(createUserRemoteService(Dio())),
-        ),
-      ),
-    );
+    final DashBoardController dashBoardController = Get.find();
     final EdgeInsets padding = EdgeInsets.all(1);
     return Obx(() {
       if (dashBoardController.isLoading.isTrue) {
@@ -146,18 +135,7 @@ class AccountInfo extends StatelessWidget {
   }
 
   Widget desktop() {
-    final DashBoardController dashBoardController = Get.put(
-      DashBoardController(
-        GetUserBookingsUseCase(
-          BookingsRepositoryImpl(
-            BookingsRemoteService(Dio()),
-          ),
-        ),
-        GetUserDetailsUseCase(
-          UserRepositoryImpl(createUserRemoteService(Dio())),
-        ),
-      ),
-    );
+    final DashBoardController dashBoardController = Get.find();
     const EdgeInsets padding = EdgeInsets.all(20);
     return Obx(() {
       if (dashBoardController.isLoading.isTrue) {

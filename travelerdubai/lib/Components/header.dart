@@ -150,7 +150,7 @@ class _NavItemWidget extends StatelessWidget {
         hoverColor: Colors.transparent,
         onTap: () {
           headerController.navItemColor.value = colorblack;
-          Get.offAndToNamed(route);
+          Get.toNamed(route);
         },
         child: icon == null
             ? Padding(

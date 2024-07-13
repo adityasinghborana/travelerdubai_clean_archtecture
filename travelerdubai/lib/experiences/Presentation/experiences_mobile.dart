@@ -25,7 +25,7 @@ class ExperiencesMobile extends StatelessWidget {
     ),
   );
 
-  final TextEditingController searchController = TextEditingController();
+
 
   ExperiencesMobile({super.key});
 
@@ -35,7 +35,7 @@ class ExperiencesMobile extends StatelessWidget {
 
     String? city =
     Get.parameters['cityName']; // Retrieve city inside build method
-    print(city);
+
 
     List<Experiences> allTours = experienceController.selectedTourType.isEmpty
         ? experienceController.cityTours
@@ -53,9 +53,6 @@ class ExperiencesMobile extends StatelessWidget {
 
     var displayedTours = city != null ? filterCityTour : allTours;
 
-    Get.lazyPut(() => HeaderController());
-
-    String currentDate = DateTime.now().toString().split(' ')[0];
 
     return Scaffold(
         appBar: MobileHeader(
@@ -108,9 +105,10 @@ class ExperiencesMobile extends StatelessWidget {
                               const SizedBox(width: 10),
                               Flexible(
                                 child: TextField(
-                                  controller: searchController,
+                                  controller: experienceController.searchController,
                                   onChanged: (value) {
-                                    experienceController.searchCityTours(value);
+                                    experienceController.searchQuery.value  =value;
+                                    experienceController.searchCityTours();
                                   },
                                   decoration: const InputDecoration(
                                     hintText: 'Search',
