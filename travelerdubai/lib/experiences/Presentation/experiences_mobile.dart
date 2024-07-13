@@ -143,7 +143,9 @@ class ExperiencesMobile extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(1.0),
-                child: tourCardsMobile(displayedTours, city),
+                child: Obx(()=>  experienceController.cityTours.isEmpty && experienceController.noTourFound.value
+                    ? Center(child: Text('No Tours Found'))
+                    : tourCardsMobile(displayedTours, city))
               ),
             )
           ],

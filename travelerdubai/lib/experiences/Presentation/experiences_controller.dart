@@ -16,6 +16,7 @@ class ExperienceController extends GetxController {
   RxList<Experiences> alldata = <Experiences>[].obs;
   final TextEditingController searchController = TextEditingController();
   var searchQuery = ''.obs;
+  var noTourFound = false.obs;
   ExperienceController(this.experiencesUseCase);
 
   @override
@@ -76,9 +77,12 @@ class ExperienceController extends GetxController {
   void searchCityTours() {
     if (searchQuery.isEmpty) {
       cityTours.assignAll(allCityTours);
+      noTourFound.value = false;
     } else {
-      cityTours.assignAll(allCityTours.where((tour) => tour.tourName.toString().toLowerCase().contains(searchQuery.toLowerCase())).toList());
+      var filteredTours = allCityTours.where((tour) =>
+          tour.tourName.toString().toLowerCase().contains(searchQuery.toLowerCase())).toList();
+      cityTours.assignAll(filteredTours);
+      noTourFound.value = filteredTours.isEmpty; // Set noTourFound flag
     }
   }
-
 }

@@ -97,7 +97,9 @@ class ExperiencesDesktop extends StatelessWidget {
                     flex: 4,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 20.0),
-                      child: tourCards(displayedTours, city, scrollController),
+                      child: Obx(()=>  experienceController.cityTours.isEmpty && experienceController.noTourFound.value
+                          ? Center(child: Text('No Tours Found'))
+                          : tourCardsMobile(displayedTours, city)),
                     ),
                   ),
                 ],
