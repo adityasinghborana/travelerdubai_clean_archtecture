@@ -68,9 +68,7 @@ class Eventspage extends StatelessWidget {
     return TourTypes(
       title: "Browse Events", items: stringList, onTap: (String eventType) {
       experienceController.filterCityeventsByType(eventType);
-    }, onDoubleTap: () {
-      experienceController.resetSelectedTourType();
-    },);
+    },onDoubleTap: ()=>null,);
   }
 
   Widget tourcards() {

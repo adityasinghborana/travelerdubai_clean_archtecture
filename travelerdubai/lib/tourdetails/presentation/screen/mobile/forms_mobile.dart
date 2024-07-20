@@ -9,9 +9,11 @@ import '../../../../Cart/data_layer/model/request/update_cart.dart';
 import '../../../../Components/custom_button.dart';
 import '../../../../Components/date_picker.dart';
 import '../../../../Components/dropdown_widget_mobile.dart';
+import '../../../../Components/format_date.dart';
 import '../../../../Components/ui_state.dart';
 import '../../../../core/controller/headercontroller.dart';
 import '../../../../Components/Mobileheader.dart';
+import '../../../timeslot_data_layer/models/response/timeslot_response.dart';
 import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
@@ -45,7 +47,6 @@ class FormsMobile extends StatelessWidget {
     return Scaffold(
       drawer: drawer(),
       body: Obx(() {
-
         if (static.dynamicoptions.isNotEmpty) {
           static.dynamicoptions.forEach((tourOptionsDynamicResult) {
             // Assuming tourOptionsDynamicResult.transferName and tourOptionsDynamicResult.transferId are not null
@@ -118,7 +119,7 @@ class FormsMobile extends StatelessWidget {
                   },
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
                   child: Text(
                     'Select Travellers',
                     style: TextStyle(
@@ -197,7 +198,7 @@ class FormsMobile extends StatelessWidget {
                               ],
                             ),
                             padding: EdgeInsets.symmetric(horizontal: 8),
-                            width: MediaQuery.of(context).size.width * .28,
+                            width: Get.width * .28,
                             child: DropdownWidgetMobile(
                               label: 'Infants',
                               selectedValue: static.infantsSelectedValue.value,
@@ -236,7 +237,7 @@ class FormsMobile extends StatelessWidget {
                   switch (outputState.state) {
                     case UiState.SUCCESS:
                       return SizedBox(
-                        height: MediaQuery.of(context).size.width * .98,
+                        height: Get.width * .98,
                         child: ListView.builder(
                           controller: listController,
                           itemCount: outputState.data?.length ?? 0,
@@ -306,6 +307,17 @@ class FormsMobile extends StatelessWidget {
                                         //   }
                                         // }),
                                         _buildInfoAndButtonRow(
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                      "Option Name:${static.options.value.data?[index].optionName}",style: H1black.copyWith(fontSize: 18)),
+                                                  Text(
+                                                      "Option Description: ${static.options.value.data?[index].optionDescription ?? 'No description available.'}",style: H1black.copyWith(fontSize: 18),),
+                                                ],
+                                              ),
+                                            ),
                                             context,
                                             static.options.value.data?[index]
                                                     .tourOptionId ??
@@ -386,7 +398,7 @@ class FormsMobile extends StatelessWidget {
   }
 
   Widget _buildInfoAndButtonRow(
-      BuildContext context, int tourOptionId, int index) {
+      Widget widgets, BuildContext context, int tourOptionId, int index) {
     final TourOptionStaticDataController static = Get.find();
     final TourController tourController = Get.find();
     final HeaderController controller = Get.put(HeaderController());
@@ -401,20 +413,45 @@ class FormsMobile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'More Info  ',
-                style: TextStyle(
-                  color: Color(0xFF828282),
-                  fontSize: 16,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
+              InkWell(
+                onTap: () {
+                  Get.bottomSheet(
+                    BottomSheet(
+                      onClosing: () {
+                        // This callback is called when the bottom sheet is closed
+                        print("BottomSheet is closing");
+                      },
+                      builder: (BuildContext context) {
+                        // Return the content of your bottom sheet here
+                        return Container(
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20))),
+                            height: Get.height * .70, // Adjust height as needed
+
+                            child: widgets);
+                      },
+                    ),
+                  );
+                },
+                child: const Text(
+                  'More Info  ',
+                  style: TextStyle(
+                    color: Color(0xFF828282),
+                    fontSize: 16,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
                 ),
               ),
               if (tourController.tour.value.isSlot == true &&
                   controller.loggedIn.isTrue)
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * .55,
+                  width: Get.width * .55,
                   child: ButtonView(
                     borderColor: Colors.transparent,
                     btnName: 'Time Slots',
@@ -448,12 +485,22 @@ class FormsMobile extends StatelessWidget {
                       print(("${controller.cartId.value} Hello"));
                       if (static.timeslots.isNotEmpty) {
                         static.currOptionId = tourOptionId;
+                        Get.dialog(
+                          Dialog(
+                            child: Container(
+                                height: Get.height/2,
+                                child: timeslots()),
+                          ),
+                        );
                         print('curr OptionId is ${static.currOptionId}');
 
-                        Get.toNamed('/popup_card');
+
                       } else if (tourController.tour.value.isSlot == true) {
-                        Get.toNamed('/popup_card',
-                            arguments: [filteredTimeSlots, tourOptionId]);
+                        Get.dialog(
+                          Dialog(
+                            child: timeslots(),
+                          ),
+                        );
                       } else {
                         if (kDebugMode) {
                           Get.toNamed('/home',
@@ -467,7 +514,7 @@ class FormsMobile extends StatelessWidget {
               else if (controller.loggedIn.isTrue &&
                   tourController.tour.value.isSlot != true)
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * .55,
+                  width: Get.width * .55,
                   child: ButtonView(
                     borderColor: Colors.transparent,
                     btnName: 'Add To Cart',
@@ -487,7 +534,7 @@ class FormsMobile extends StatelessWidget {
                               .substring(0, 10),
                           timeSlotId: static.timeSlotId.value,
                           startTime: static.starttime.value,
-                          transferId: data.transferId!,
+                          transferId: static.transferId.value??0,
                           vendoruid: static.vendoruid.value ?? "",
                           adultRate: data.adultPrice!.toDouble(),
                           childRate: data.childPrice?.toDouble() ?? 0.0,
@@ -538,7 +585,25 @@ class TransferOptions extends StatefulWidget {
 }
 
 class _TransferOptionsState extends State<TransferOptions> {
-  String? _selectedOption; // Variable to hold the selected option
+  String? _selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the default selected option to the first item if available
+    if (widget.options.isNotEmpty) {
+      _selectedOption = widget.options.first;
+    }
+  }
+
+  @override
+  void didUpdateWidget(TransferOptions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Update the selected option if options change
+    if (widget.options != oldWidget.options && widget.options.isNotEmpty) {
+      _selectedOption = widget.options.first;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -547,12 +612,13 @@ class _TransferOptionsState extends State<TransferOptions> {
       child: Row(
         children: widget.options
             .map((option) => _buildOption(option))
-            .toList(), // Generate options dynamically
+            .toList(),
       ),
     );
   }
 
   Widget _buildOption(String option) {
+    final TourOptionStaticDataController static = Get.find();
     return Container(
       width: 140,
       height: 62,
@@ -578,8 +644,12 @@ class _TransferOptionsState extends State<TransferOptions> {
             value: option,
             groupValue: _selectedOption,
             onChanged: (value) {
+              static.changeSelectedTransfer(value);
+              print("hello$value");
               setState(() {
+                print(value);
                 _selectedOption = value;
+
               });
               if (widget.onOptionSelected != null) {
                 widget.onOptionSelected!(value!);
@@ -608,3 +678,197 @@ class _TransferOptionsState extends State<TransferOptions> {
     );
   }
 }
+Widget timeslots(){
+  final TourOptionStaticDataController static = Get.find();
+  final HeaderController controller = Get.find();
+  final List<Result> lst = static.timeslots.value
+      .firstWhere((ts) => ts[0].tourOptionId == static.currOptionId,
+      orElse: () => [])
+      .toList();
+  print('Curr option id is ${static.currOptionId}');
+  //final int index = args[1] as int;
+  //print('index is $index');
+  var selectedValue = lst.isNotEmpty
+      ? lst[0].obs
+      : Result(
+    tourOptionId: 0,
+    timeSlotId: '',
+    timeSlot: '',
+    available: 0,
+    adultPrice: 0,
+    childPrice: 0,
+  ).obs;
+  return Center(
+    child: Card(
+      margin: const EdgeInsets.all(30.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Select Time Slot',
+                style: TextStyle(
+                  color: Color(0xFF828282),
+                  fontSize: 16,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w600,
+                  height: 0,
+                ),
+              ),
+
+            ],
+          ),
+          const SizedBox(height: 10.0),
+          const Divider(
+            height: 1.0,
+          ),
+          const SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                formatDate(static.dateTextController.value.text),
+                style: TextStyle(
+                  color: const Color(0xFF1C1C1C),
+                  fontSize:
+                  Get.width * .035,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+              Text(
+                'Availability',
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: const Color(0xFF1C1C1C),
+                  fontSize:
+                  Get.width * .035,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              )
+            ],
+          ),
+          if (lst.isNotEmpty)
+            SizedBox(
+              //width: Get.width * .50,
+              height: Get.width * .40,
+              child: ListView.builder(
+                  itemCount: lst.length,
+                  itemBuilder: (context, i) {
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(
+                                  () => Row(
+                                children: [
+                                  Radio<String>(
+                                    value: lst[i]
+                                        .timeSlotId
+                                        .toString(),
+                                    groupValue: selectedValue
+                                        .value.timeSlotId
+                                        .toString(),
+                                    onChanged: (value) =>
+                                    selectedValue.value =
+                                    lst[i],
+                                  ),
+                                  Text(
+                                    lst[i].timeSlot,
+                                    style: TextStyle(
+                                      color:
+                                      const Color(0xFF828282),
+                                      fontSize:
+                                      MediaQuery.of(context)
+                                          .size
+                                          .width *
+                                          .04,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w400,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const Text(
+                                  'Availability :',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Color(0xFF828282),
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                                Text(
+                                  lst[i].available.toString(),
+                                  textAlign: TextAlign.right,
+                                  style: const TextStyle(
+                                    color: Color(0xFF828282),
+                                    fontSize: 14,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height:
+                          Get.width *
+                              .05,
+                        ),
+                      ],
+                    );
+                  }),
+            )
+          else
+            Center(child: Text("Loading")),
+          if (lst.isNotEmpty && controller.loggedIn.isTrue)
+            Center(
+              child: SizedBox(
+                width: Get.width * .55,
+                child: ButtonView(
+                  borderColor: Colors.transparent,
+                  btnName: 'Add to Cart',
+                  bgColor: colorMediumBlue,
+                  onButtonTap: () {
+                    print("therethere ${static.transferId}");
+                    print(
+                        'selected timeslot id is ${selectedValue.value.timeSlot}');
+                    static.value.timeSlotId =
+                        int.parse(selectedValue.value.timeSlotId);
+
+
+
+                    static.Addtocart(static.value);
+
+                  },
+                ),
+              ),
+            )
+          else
+            Container(),
+        ],
+      ),
+    ),
+  );
+}
+
+
+
+

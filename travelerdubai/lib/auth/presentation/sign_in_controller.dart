@@ -27,7 +27,17 @@ class SigninController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final AuthClass authClass = AuthClass();
   final RxInt cartId = 0.obs;
+
   final HeaderController headerController = Get.find();
+
+
+  @override
+  void onInit() {
+    Get.put(HeaderController());// TODO: implement onInit
+    super.onInit();
+  }
+
+
 
   Future<void> signIn() async {
 
@@ -76,13 +86,21 @@ class SigninController extends GetxController {
     await prefs.setString('CartID', cartid);
     print("cartid saved");
   }
-
+  Future<void> saveCartLength(int cartlength) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('Cartlength', cartlength);
+    print("cartlength saved");
+  }
   Future<void> getCart(String uid) async {
     CreateCartRequest data = CreateCartRequest(userId: uid);
 
     getCartUseCase.execute(data).then((value) {
       if (value.data.isNotEmpty) {
         cartId.value = value.data[0].id;
+        headerController.cartItemsLength.value = value.data[0].TourDetails.length;
+
+        saveCartLength(value.data[0].TourDetails.length);
+        print(value.data[0].TourDetails.length);
         headerController.cartId.value = cartId.value;
         saveCartID(cartId.value.toString());
         print(cartId.value);

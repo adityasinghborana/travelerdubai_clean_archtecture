@@ -39,7 +39,7 @@ Widget DropdownPrefix({double width = 150}) {
             controller.updateSelectedPrefixValue(newValue);
           }
         },
-        items: <String>['Mr', 'Mrs', 'Miss','Master']
+        items: <String>['Mr']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
 

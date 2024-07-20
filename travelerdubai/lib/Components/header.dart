@@ -6,11 +6,11 @@ import '../auth/presentation/logout.dart';
 import '../auth/presentation/sign_in_controller.dart';
 import '../core/controller/headercontroller.dart';
 import 'custom_button.dart';
+import 'marquee.dart';
 
 class Header extends StatelessWidget {
   final HeaderController headerController = Get.find();
-final Logout logout = Logout();
-
+  final Logout logout = Logout();
 
   Header({Key? key}) : super(key: key);
 
@@ -18,19 +18,23 @@ final Logout logout = Logout();
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 60,
+      height: 70,
       color: Colors.white,
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1440),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * .005, vertical: MediaQuery.of(context).size.height * .001),
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * .005,
+                vertical: MediaQuery.of(context).size.height * .001),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildLogo(context),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.10),
-                Obx(() => headerController.loggedIn.isTrue ? _buildMenuLoggedIn() : _buildMenu()),
+                Obx(() => headerController.loggedIn.isTrue
+                    ? _buildMenuLoggedIn()
+                    : _buildMenu()),
               ],
             ),
           ),
@@ -114,7 +118,7 @@ final Logout logout = Logout();
         borderColor: Colors.transparent,
         onButtonTap: () {
           headerController.loggedIn.value = false;
-logout.logout();
+          logout.logout();
           Get.toNamed("/home");
         },
       ),
@@ -150,26 +154,41 @@ class _NavItemWidget extends StatelessWidget {
         hoverColor: Colors.transparent,
         onTap: () {
           headerController.navItemColor.value = colorblack;
-          Get.toNamed(route);
+
+          if (Get.currentRoute.contains("/tour_details")) {
+            print("offnamed ");
+            Get.offNamed(route); // Replace the current route
+          } else {
+            print("pushnamed ");
+            Navigator.pushNamed(context, route); // Push a new route
+          }
         },
         child: icon == null
             ? Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Text(
-            title,
-            style: GoogleFonts.outfit(
-              fontSize: 16,
-              color: isActive ? colorblue : (isHovered ? colorblue : headerController.navItemColor.value),
-            ),
-          ),
-        )
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  title,
+                  style: GoogleFonts.outfit(
+                    fontSize: 16,
+                    color: isActive
+                        ? colorblue
+                        : (isHovered
+                            ? colorblue
+                            : headerController.navItemColor.value),
+                  ),
+                ),
+              )
             : Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Icon(
-            icon,
-            color: isActive ? colorblue : (isHovered ? colorblue : headerController.navItemColor.value),
-          ),
-        ),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Icon(
+                  icon,
+                  color: isActive
+                      ? colorblue
+                      : (isHovered
+                          ? colorblue
+                          : headerController.navItemColor.value),
+                ),
+              ),
       ),
     );
   }

@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/Cart/data_layer/model/request/coupon.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/delete_cart.dart';
+import 'package:travelerdubai/Cart/data_layer/usecase/checkcoupon.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
 import 'package:travelerdubai/Components/show_toast.dart';
 import 'package:travelerdubai/Components/validation_logic.dart';
@@ -23,13 +25,15 @@ class CheckoutController extends GetxController {
   final IntentUseCase intentUseCase;
   final GetCartUseCase getCartUseCase;
   final DoBookingUseCase doBookingUseCase;
+  final CheckCouponUseCase? checkCouponUseCase;
   final DeleteCartItemUseCase deleteCartItemUseCase;
 
   CheckoutController(
       {required this.getCartUseCase,
       required this.intentUseCase,
       required this.doBookingUseCase,
-      required this.deleteCartItemUseCase
+      required this.deleteCartItemUseCase,
+         this.checkCouponUseCase
       });
 
   var selectedValue = 'Adult'.obs;
@@ -48,6 +52,8 @@ class CheckoutController extends GetxController {
   TextEditingController messageController = TextEditingController();
   TextEditingController nationalityController = TextEditingController();
   TextEditingController pickupController = TextEditingController();
+  TextEditingController couponController = TextEditingController();
+
   RxString stripeclientkey = "".obs;
   var Totalprice = "".obs;
   RxList<Guest> guests = <Guest>[].obs;
@@ -171,5 +177,21 @@ class CheckoutController extends GetxController {
         showToast(toastMessage: "nothing happend");
       }
     });
+  }
+
+  void checkcoupon(  ) async {
+    print(cartId.value);
+    checkCouponUseCase?.execute(CouponRequest(name: couponController.text.toString(), cartId: cartId.value)).then((value){
+      if (value.error != null) {
+        print(value.error);
+        showToast(toastMessage: "${value.error}");
+      }
+      if (value.discountprice !=null && value.error == null){
+        String Price = value.discountprice.toString();
+        Totalprice.value=Price;
+      }
+
+    });
+
   }
 }

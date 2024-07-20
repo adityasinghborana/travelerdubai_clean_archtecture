@@ -12,6 +12,7 @@ class HeaderController extends GetxController {
   final RxBool loggedIn = false.obs;
   final RxMap<String, bool> isHoveredMap = <String, bool>{}.obs;
   final RxBool isHeaderTransparent = true.obs;
+  final RxInt cartItemsLength=0.obs;
   @override
   void onInit() {
     ever(loggedIn, (_) {

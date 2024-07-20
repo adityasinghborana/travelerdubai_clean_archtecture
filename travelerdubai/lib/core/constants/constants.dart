@@ -28,6 +28,7 @@ TextStyle H1(BuildContext context) {
     color: colorwhite,
   ));
 }
+
 TextStyle H1open(BuildContext context) {
   double screenWidth = MediaQuery.of(context).size.width;
   double fontSize;
@@ -39,12 +40,12 @@ TextStyle H1open(BuildContext context) {
     fontSize = 48.0; // For larger screens
   }
 
-  return GoogleFonts.openSans (
+  return GoogleFonts.openSans(
       textStyle: TextStyle(
-        letterSpacing: .5,
-        fontSize: fontSize,
-        color: colorwhite,
-      ));
+    letterSpacing: .5,
+    fontSize: fontSize,
+    color: colorwhite,
+  ));
 }
 
 TextStyle bodygrey(BuildContext context) {
@@ -97,21 +98,22 @@ final detailBoxTextStyle = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 24,
-    color: color_1C2B38,
+    color: colorDarkSlateBlue,
   ),
 );
 final detailBoxTextStyleMobile = GoogleFonts.outfit(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 18,
-    color: color_1C2B38,
+    color: colorDarkSlateBlue,
   ),
 );
 final formHeaderTextStyleMobile = GoogleFonts.roboto(
   textStyle: const TextStyle(
     letterSpacing: 0.5,
     fontSize: 20,
-    color: color_1C1C1C, // Use color value in hexadecimal format
+    color: colorDarkBackground,
+    // Use color value in hexadecimal format
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w400,
     height: 1.5, // You can adjust the line height as needed
@@ -146,7 +148,7 @@ TextStyle bodyBlack(BuildContext context) {
 
 final iconText = GoogleFonts.roboto(
   fontSize: 14,
-  color: color_333333,
+  color: colorgreydark,
   fontWeight: FontWeight.w500,
   fontStyle: FontStyle.normal,
 );
@@ -165,13 +167,10 @@ final ratingStyle = GoogleFonts.outfit(
       color: colorgreydark.withOpacity(0.4)),
 );
 final GradientStyle = GoogleFonts.roboto(
-  textStyle: const TextStyle(
-      fontWeight: FontWeight.w400,
-      fontSize: 28,
-
-  ));
-
-// colors
+    textStyle: const TextStyle(
+  fontWeight: FontWeight.w400,
+  fontSize: 28,
+));
 
 final LinearGradient backgroundgradient = LinearGradient(
   begin: Alignment.centerLeft,
@@ -198,8 +197,8 @@ final LinearGradient imageGradient = LinearGradient(
 const colorPrimary = Color(0xFFDF46DC);
 const colorHighlights = Color(0xFF0EACD7);
 const colorlightgrey = Color.fromARGB(255, 121, 121, 121);
-const color_EEEEEE = Color(0xFFEEEEEE);
-
+//const colorwhite = Color(0xFFEEEEEE);
+const colorgreen = Color(0xff088943);
 const colorTextgrey = Color(0xff808080);
 const colorwhite = Color(0xFFffffff);
 const colorblack = Color(0xFF111B19);
@@ -208,40 +207,38 @@ const colorgreydark = Color(0XFF444444);
 const colorblue = Color(0XFF2659C3);
 const colorgreenishblack = Color(0xff112211);
 const colorDarkBlue = Color(0xff141A2F);
-const color_333333 = Color(0xff333333);
-const color_088943 = Color(0xff088943);
-const color_cc7e63 = Color(0xffcc7e63);
-const color_009ab8 = Color(0xff009ab8);
-const color_1C2B38 = Color(0xff1c2b38);
-const color_1C1C1C = Color(0xff1c1c1c);
+const colorLightBrown = Color(0xFFCC7E63);
+const colorDarkSlateBlue = Color(0xFF1C2B38);
+const colorDarkBackground = Color(0xFF1C1C1C);
 const colorMediumBlue = Color(0xff2659C3);
 
 // others
-//const String baseurl = "http://69.48.163.45/api";
-const String baseurl = "http://localhost:3000";
+const String baseurl = "http://69.48.163.45/api";
 //const String baseurl = "http://localhost:3000";
-const String Apikey =
-    "Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkNWU4YWZhMC1mNGJhLTQ2NWUtYTAzOS1mZGJiYzMxZWZlZGUiLCJVc2VySWQiOiIzNzU0NSIsIlVzZXJUeXBlIjoiQWdlbnQiLCJQYXJlbnRJRCI6IjAiLCJFbWFpbElEIjoidHJhdmVsZ2F0ZXhAcmF5bmF0b3Vycy5jb20iLCJpc3MiOiJodHRwOi8vcmF5bmFhcGkucmF5bmF0b3Vycy5jb20iLCJhdWQiOiJodHRwOi8vcmF5bmFhcGkucmF5bmF0b3Vycy5jb20ifQ.i6GaRt-RVSlJXKPz7ZVx-axAPLW_hkl7usI_Dw8vP5w";
+//const String baseurl = "http://localhost:3000";
 
-// bgColor: Color(0xffffffff),
-// txtColor: Color(0xff112211)
-
-class images{
-
-  static const String paymentsucess = ".././assets/asset/images/successmobile.png";
-  static const String paymentsucessdesktop = ".././assets/asset/images/success.png";
+class images {
+  static const String paymentsucess =
+      ".././assets/asset/images/successmobile.png";
+  static const String paymentsucessdesktop =
+      ".././assets/asset/images/success.png";
   static const String logo = ".././assets/asset/images/logo.png";
   static const String logowhite = ".././assets/asset/images/whitelogo.png";
-  static const String paymentsimage = ".././assets/asset/images/footerimage.png";
+  static const String paymentsimage =
+      ".././assets/asset/images/footerimage.png";
   static const String bannerimage = ".././assets/asset/images/Bannerimage.jpg";
   static const String iphone = ".././assets/asset/images/Iphone.png";
-  static const String signinmobile = ".././assets/asset/images/signupmobile.png";
+  static const String signinmobile =
+      ".././assets/asset/images/signupmobile.png";
   static const String signin = ".././assets/asset/images/Iphone.png";
   static const String signupmobile = ".././assets/asset/images/Iphone.png";
   static const String signup = ".././assets/asset/images/signup_side_image.png";
-  static const String exclamination = ".././assets/asset/images/exclamation.png";
-  static const String paymentfailure = ".././assets/asset/images/failureimg.png";
-  static const String paymentfailuremobile = ".././assets/asset/images/failedmobile.png";
+  static const String exclamination =
+      ".././assets/asset/images/exclamation.png";
+  static const String paymentfailure =
+      ".././assets/asset/images/failureimg.png";
+  static const String paymentfailuremobile =
+      ".././assets/asset/images/failedmobile.png";
   static const String notfound = ".././assets/asset/images/404.png";
   static const String notfoundmobile = ".././assets/asset/images/404mobile.png";
 }

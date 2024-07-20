@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:travelerdubai/Cart/data_layer/model/request/coupon.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/delete_cart.dart';
+import 'package:travelerdubai/Cart/data_layer/model/response/checkcouponresponse.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/create_cart_response.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/deletecart.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/get_cart_response.dart';
@@ -37,6 +39,11 @@ abstract class CartRemoteService {
   @DELETE('/deletecartitem')
   Future<Deletecartresponse> deleteCartItem(
       @Body()  DeleteCart requestBody,
+      );
+
+  @POST('/checkcoupon')
+  Future<CheckCouponResponse> checkCoupon(
+      @Body() CouponRequest requestBody,
       );
 }
 

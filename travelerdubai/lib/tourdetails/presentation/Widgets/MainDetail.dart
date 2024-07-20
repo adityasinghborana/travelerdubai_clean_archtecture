@@ -1,11 +1,9 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
-import '../../tourdetail_data_layer/Usecase/usecase.dart';
-import '../../tourdetail_data_layer/remote/tour_remote.dart';
-import '../../tourdetail_data_layer/repository/tour_repository.dart';
+
 import '../tours_controller.dart';
 import 'detailbox.dart';
 import 'html.dart';
@@ -13,9 +11,7 @@ import 'html.dart';
 class MainDetails extends StatelessWidget {
   final String imageUrl;
 
-  final TourController tourController = Get.put(TourController(
-    GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  ));
+  final TourController tourController = Get.find();
 
   TextStyle? textStyle = bodyBlack(Get.context!)
       .copyWith(fontSize: 20, fontWeight: FontWeight.bold);

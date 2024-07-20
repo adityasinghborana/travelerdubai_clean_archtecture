@@ -10,12 +10,15 @@ import 'package:travelerdubai/contactus/datalayer/repository/repositoty.dart';
 import 'package:travelerdubai/contactus/datalayer/services/remoteservice.dart';
 import 'package:travelerdubai/contactus/datalayer/usecase/usecase.dart';
 import 'package:travelerdubai/contactus/presentation/contactus_controller.dart';
+import 'package:travelerdubai/core/controller/headercontroller.dart';
 
 import '../../Components/Textformfield.dart';
+import '../../Components/floatingaction_button.dart';
 import '../../core/constants/constants.dart';
 import '../datalayer/usecase/postform_usecase.dart';
 
 class ContactusDesktop extends StatelessWidget {
+  final HeaderController headerController = Get.find();
   final ContactUsController controller = Get.put(
     ContactUsController(
       getContactUsDataUseCase: GetContactUsDataUseCase(
@@ -37,15 +40,30 @@ class ContactusDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: colorwhite,
-          child: Icon(
-            FontAwesomeIcons.whatsapp,
-            color: Colors.green,
+        floatingActionButton: Container(
+          width: Get.width ,
+          child: Row(
+mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: FloatingActionButton(
+                  isExtended: true,
+                  backgroundColor: colorwhite,
+                  child: Icon(
+                    FontAwesomeIcons.whatsapp,
+                    color: Colors.green,
+                  ),
+                  onPressed: () {
+                    html.window.open('https://wa.me/${controller.contactusdata.value?.mobilenumber}', 'new tab');
+                  },
+                ),
+              ),
+              FloatingCartButton(),
+
+            ],
           ),
-          onPressed: () {
-            html.window.open('https://wa.me/${controller.contactusdata.value?.mobilenumber}', 'new tab');
-          },
         ),
         body: SingleChildScrollView(
           child: Obx(() {
@@ -54,7 +72,7 @@ class ContactusDesktop extends StatelessWidget {
               children: [
                 Get.width>1000 ?Header():MobileHeader(context: context),
                 bannerWithOverlayText(context, images.bannerimage,
-                    controller.contactusdata.value?.Heading ?? "", controller.contactusdata.value?.Subheading ?? ""),
+                    controller.contactusdata.value?.Heading ?? "no data", controller.contactusdata.value?.Subheading ?? "no data"),
                 Padding(
                   padding:
                   const EdgeInsets.symmetric(vertical: 80.0, horizontal: 160),
@@ -69,7 +87,7 @@ class ContactusDesktop extends StatelessWidget {
                             children: [
                               Container(
                                 child: Text(
-                                  controller.contactusdata.value?.Heading2 ?? "",
+                                  controller.contactusdata.value?.Heading2 ?? "no data",
                                   style: H1open(context).copyWith(
                                       color: colorDarkBlue,
                                       fontWeight: FontWeight.w900,
@@ -77,7 +95,7 @@ class ContactusDesktop extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                child: Text(controller.contactusdata.value?.Subheading2 ?? ""),
+                                child: Text(controller.contactusdata.value?.Subheading2 ?? "no data"),
                               ),
                               SizedBox(
                                 height: 20,
@@ -96,7 +114,7 @@ class ContactusDesktop extends StatelessWidget {
                                         width: 20,
                                       ),
                                       Container(
-                                        child: Text(controller.contactusdata.value?.Address ?? ""),
+                                        child: Text(controller.contactusdata.value?.Address ?? "no data"),
                                       ),
                                     ],
                                   ),
@@ -114,7 +132,7 @@ class ContactusDesktop extends StatelessWidget {
                                         width: 20,
                                       ),
                                       Container(
-                                        child: Text(controller.contactusdata.value?.Email ?? ""),
+                                        child: Text(controller.contactusdata.value?.Email ?? "no data"),
                                       ),
                                     ],
                                   ),
@@ -132,7 +150,7 @@ class ContactusDesktop extends StatelessWidget {
                                         width: 20,
                                       ),
                                       Container(
-                                        child: Text(controller.contactusdata.value?.mobilenumber ?? ""),
+                                        child: Text(controller.contactusdata.value?.mobilenumber ?? "no data"),
                                       ),
                                     ],
                                   )

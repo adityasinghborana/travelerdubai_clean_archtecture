@@ -43,7 +43,7 @@ Widget DropdownPaxType( {double width = 150}) {
             controller.updateSelectedValue(newValue);
           }
         },
-        items: <String>['Adult', 'Child', 'Infant']
+        items: <String>['Adult']
             .map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

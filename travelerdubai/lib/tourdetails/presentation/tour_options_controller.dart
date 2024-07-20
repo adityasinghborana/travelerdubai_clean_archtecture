@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/update_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/update_cart.dart';
+import 'package:travelerdubai/auth/presentation/sign_in_controller.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/models/request/timeslot_request.dart';
 import 'package:travelerdubai/tourdetails/timeslot_data_layer/use_cases/timeslot_usecase.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/request/tour_option_dynamic.dart';
@@ -10,7 +13,13 @@ import 'package:travelerdubai/tourdetails/touroption_data_layer/model/request/to
 import 'package:travelerdubai/tourdetails/touroption_data_layer/model/response/tour_options_staticdata_response.dart';
 import 'package:travelerdubai/tourdetails/touroption_data_layer/usecase/touroption_dynamic_data.dart';
 
+import '../../Cart/data_layer/repository/cart_repository.dart';
+import '../../Cart/data_layer/service/cart_remote.dart';
+import '../../Cart/data_layer/usecase/get_cart_usecase.dart';
 import '../../Components/ui_state.dart';
+import '../../auth/usersdatalayer/repository/user_repository.dart';
+import '../../auth/usersdatalayer/service/create_user_remote.dart';
+import '../../auth/usersdatalayer/usecase/create_user_usecase.dart';
 import '../timeslot_data_layer/models/response/timeslot_response.dart';
 import '../touroption_data_layer/model/response/tour_option_dynamic_response.dart';
 import '../touroption_data_layer/usecase/usecase_touroptions_staticdata.dart';
@@ -20,6 +29,22 @@ class TourOptionStaticDataController extends GetxController {
   final GetTourOptionsStaticDataUseCase getOptionsStaticDataUseCase;
   final GetTourOptionsDynamicDataUseCase getOptionsDynamicDataUseCase;
   final UpdateCartUseCase updateCartUseCase;
+  final SigninController signinController =Get.put(
+    SigninController(
+      createuser: CreateUserUseCase(
+        UserRepositoryImpl(
+          createUserRemoteService(
+            Dio(),
+          ),
+        ),
+      ),
+      getCartUseCase: GetCartUseCase(
+        CartRepositoryImpl(
+          CartRemoteService(Dio()),
+        ),
+      ),
+    ),
+  );
   int currOptionId = 0;
   late UpdateCartTourDetail value;
   String? selectedTimeSlot = '';
@@ -219,8 +244,13 @@ print(response.result[0].timeSlotId);
 
   void Addtocart(UpdateCartTourDetail data) async {
     try {
-      final value = await updateCartUseCase.execute(data);
+      final value = await updateCartUseCase.execute(data).then((_)async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        final  String? id = prefs.getString('userUID');
+        signinController.getCart(id??"");
+      });
       Get.snackbar("Added To Cart", "Your Tour has been added To Cart");
+      
     } catch (e) {
       if (kDebugMode) {
         print(data);

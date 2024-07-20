@@ -13,7 +13,7 @@ class _CartRemoteService implements CartRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://localhost:3000';
+    baseUrl ??= 'http://69.48.163.45/api';
   }
 
   final Dio _dio;
@@ -130,6 +130,34 @@ class _CartRemoteService implements CartRemoteService {
               baseUrl,
             ))));
     final value = Deletecartresponse.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<CheckCouponResponse> checkCoupon(CouponRequest requestBody) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CheckCouponResponse>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/checkcoupon',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = CheckCouponResponse.fromJson(_result.data!);
     return value;
   }
 

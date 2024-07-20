@@ -12,6 +12,7 @@ class Logout{
       headerController.loggedIn.value = false;
       await _clearUserUID();
       await _clearCartID();
+      await _clearCartLength();
       Get.offAllNamed('/home'); // Navigate to home and remove all previous routes
     } catch (e) {
       print("Logout error: $e");
@@ -27,5 +28,10 @@ class Logout{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('CartID');
     print("CartID cleared");
+  }
+  Future<void> _clearCartLength() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('Cartlength');
+    print("Cartlength cleared");
   }
 }

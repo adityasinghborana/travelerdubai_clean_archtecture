@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Cart/data_layer/repository/cart_repository.dart';
 import 'package:travelerdubai/Cart/data_layer/service/cart_remote.dart';
+import 'package:travelerdubai/Cart/data_layer/usecase/checkcoupon.dart';
 import 'package:travelerdubai/Cart/data_layer/usecase/get_cart_usecase.dart';
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/bookings/data_layer/repository/bookings_repository.dart';
@@ -26,8 +27,12 @@ import '../../../data_layer/usecase/intent_usecase.dart';
 class CheckoutScreenDesktop extends StatelessWidget {
   final CheckoutController checkoutController = Get.put(
     CheckoutController(
-        deleteCartItemUseCase: DeleteCartItemUseCase(
-            CartRepositoryImpl(CartRemoteService(Dio()),)),
+      checkCouponUseCase: CheckCouponUseCase(CartRepositoryImpl(
+        CartRemoteService(Dio()),
+      )),
+        deleteCartItemUseCase: DeleteCartItemUseCase(CartRepositoryImpl(
+          CartRemoteService(Dio()),
+        )),
         getCartUseCase: GetCartUseCase(
           CartRepositoryImpl(
             CartRemoteService(Dio()),
@@ -55,268 +60,285 @@ class CheckoutScreenDesktop extends StatelessWidget {
         child: SingleChildScrollView(
           controller: scrollController,
           child: Column(
-              children: [
+            children: [
               Header(),
-          Padding(
-            padding: EdgeInsets.only(
-                left: Get.width * 0.018, right: 48, bottom: 16, top: 16),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: Get.width / 20, right: (Get.width * 0.01) / 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 3,
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 400,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding:
-                              EdgeInsets.only(left: Get.width * 0.025),
-                              alignment: Alignment.centerLeft,
-                              height:
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * .06,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: colorwhite,
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: const Text(
-                                'Primary Guest Infomation',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            // Add widgets for displaying order items and total amount
-
-                            SizedBox(
-                                height: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width *
-                                    .02),
-
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.all(Get.width * 0.005),
-                                    child: DropdownPrefix(
-                                        width: Get.width * 0.04),
-                                  ),
-                                ),
-                                SizedBox(width: Get.width * 0.015),
-                                Flexible(
-                                  flex: 3,
-                                  child: buildTextFormField(
-                                      'First Name *',
-                                      checkoutController
-                                          .firstNameController,
-                                      "this field is required",
-                                      null),
-                                ),
-                                SizedBox(width: Get.width * 0.015),
-                                // Adjust the spacing between the text fields
-                                Flexible(
-                                  flex: 3,
-                                  child: buildTextFormField(
-                                      'Last Name*',
-                                      checkoutController.lastNameController,
-                                      "this field is required",
-                                      null),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.all(Get.width * 0.005),
-                                    child: DropdownPaxType(
-                                        width: Get.width * 0.04),
-                                  ),
-                                ),
-                                SizedBox(width: Get.width * 0.015),
-                                Flexible(
-                                  flex: 3,
-                                  child: buildTextFormField(
-                                      'Email*',
-                                      checkoutController.emailController,
-                                      "this field is required",
-                                      null),
-                                ),
-                                SizedBox(width: Get.width * 0.015),
-                                // Adjust the spacing between the text fields
-                                Flexible(
-                                  flex: 3,
-                                  child: buildTextFormField(
-                                      'Mobile Number*',
-                                      checkoutController.mobileNoController,
-                                      "this field is required",
-                                      null),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(width: Get.width * 0.086),
-
-                                // Adjust the spacing between the text fields
-                                Flexible(
-                                  flex: 3,
-                                  child: buildTextFormField(
-                                      'Nationality*',
-                                      checkoutController
-                                          .nationalityController,
-                                      "this field is required",
-                                      null),
-                                ),
-                                SizedBox(width: Get.width * 0.02),
-                                Flexible(
-                                  flex: 3,
-                                  child: buildTextFormField(
-                                      'Pickup*',
-                                      checkoutController.pickupController,
-                                      "this field is required",
-                                      null),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Flexible(flex: 1, child: Container()),
-                                Flexible(
-                                  flex: 6,
-                                  child: buildTextFormField(
-                                      'Message*',
-                                      checkoutController.messageController,
-                                      "this field is required",
-                                      null),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: Get.width * 0.1,
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height,
+              Padding(
+                padding: EdgeInsets.only(
+                    left: Get.width * 0.018, right: 48, bottom: 0, top: 16),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: Get.width / 20, right: (Get.width * 0.01) / 4),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        flex: 3,
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 400,
                           child: SingleChildScrollView(
                             child: Column(
-                                children: [
-                            Padding(
-                            padding: const EdgeInsets.only(
-                                left: 20.0, right: 4),
-                            child: Container(
-                              padding: EdgeInsets.only(left: 30),
-                              alignment: Alignment.centerLeft,
-                              height: 60,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: colorwhite,
-                                  borderRadius:
-                                  BorderRadius.circular(10)),
-                              child: const Text(
-                                'Order Summary',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 20.0, right: 4),
-                            child: ProductList(
-                              height: Get.width * 0.5,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(Get.height * 0.03),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                children: <Widget>[
-                                  Text("Total",
-                                    style: bodyBlack(Get.context!).copyWith(
-                                        fontWeight: FontWeight.bold),),
-                                  Obx(() {
-                                    return Text(
-                                      "AED ${checkoutController.Totalprice
-                                          .value}",
-                                      style: bodyBlack(Get.context!).copyWith(
-                                          fontWeight: FontWeight.bold),);
-                                  }),
-                                ]),
-                          ),
-                          SizedBox(
-                          height: MediaQuery.of(context).size.width *
-                          .005),
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding:
+                                      EdgeInsets.only(left: Get.width * 0.025),
+                                  alignment: Alignment.centerLeft,
+                                  height:
+                                      MediaQuery.of(context).size.width * .06,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: colorwhite,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Text(
+                                    'Primary Guest Infomation',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                // Add widgets for displaying order items and total amount
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: ButtonView(btnName: "placeoreder", onButtonTap: () {
-                      checkoutController.initiateCheckout();
-                    },
-                      bgColor: colorMediumBlue,
-                      borderColor: Colors.transparent,
-                    ),
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.width *
+                                        .02),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.all(Get.width * 0.005),
+                                        child: DropdownPrefix(
+                                            width: Get.width * 0.04),
+                                      ),
+                                    ),
+                                    SizedBox(width: Get.width * 0.015),
+                                    Flexible(
+                                      flex: 3,
+                                      child: buildTextFormField(
+                                          'First Name *',
+                                          checkoutController
+                                              .firstNameController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                    SizedBox(width: Get.width * 0.015),
+                                    // Adjust the spacing between the text fields
+                                    Flexible(
+                                      flex: 3,
+                                      child: buildTextFormField(
+                                          'Last Name*',
+                                          checkoutController.lastNameController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.all(Get.width * 0.005),
+                                        child: DropdownPaxType(
+                                            width: Get.width * 0.04),
+                                      ),
+                                    ),
+                                    SizedBox(width: Get.width * 0.015),
+                                    Flexible(
+                                      flex: 3,
+                                      child: buildTextFormField(
+                                          'Email*',
+                                          checkoutController.emailController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                    SizedBox(width: Get.width * 0.015),
+                                    // Adjust the spacing between the text fields
+                                    Flexible(
+                                      flex: 3,
+                                      child: buildTextFormField(
+                                          'Mobile Number*',
+                                          checkoutController.mobileNoController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(width: Get.width * 0.086),
+
+                                    // Adjust the spacing between the text fields
+                                    Flexible(
+                                      flex: 3,
+                                      child: buildTextFormField(
+                                          'Nationality*',
+                                          checkoutController
+                                              .nationalityController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                    SizedBox(width: Get.width * 0.02),
+                                    Flexible(
+                                      flex: 3,
+                                      child: buildTextFormField(
+                                          'Pickup(if transfer selected)',
+                                          checkoutController.pickupController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(flex: 1, child: Container()),
+                                    Flexible(
+                                      flex: 6,
+                                      child: buildTextFormField(
+                                          'Message*',
+                                          checkoutController.messageController,
+                                          "this field is required",
+                                          null),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: Get.width * 0.1,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.90,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20.0, right: 4),
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 30),
+                                  alignment: Alignment.centerLeft,
+                                  height: 60,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: colorwhite,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Text(
+                                    'Order Summary',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20.0, right: 4),
+                                child: Container(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: buildTextFormField(
+                                              'Enter Your Coupon code',
+                                              checkoutController
+                                                  .couponController,
+                                              "this field is required",
+                                              null),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20),
+                                          child: ButtonView(
+                                            txtColor: colorMediumBlue,
+                                            btnName: "Apply",
+                                            bgColor: Colors.transparent,
+                                            borderColor: colorMediumBlue,
+                                            onButtonTap: (){
+                                              checkoutController.checkcoupon();
+                                            },
+                                          ),
+                                        )
+                                      ]),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 20.0, right: 4),
+                                child: ProductList(
+                                  height: Get.width * 0.5,
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(Get.height * 0.03),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        "Total",
+                                        style: bodyBlack(Get.context!).copyWith(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Flexible(
+                                        child: Obx(() {
+                                          var price =double.tryParse(checkoutController.Totalprice.value) ?? 0.0;
+                                          String formattedPrice = price.toStringAsFixed(2);
+                                          return Text(
+                                            "AED ${formattedPrice}",
+                                            style: bodyBlack(Get.context!)
+                                                .copyWith(
+                                                    fontWeight: FontWeight.bold),
+                                          );
+                                        }),
+                                      ),
+                                    ]),
+                              ),
+                              // SizedBox(
+                              //     height:
+                              //         MediaQuery.of(context).size.width * .005),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: ButtonView(
+                                  btnName: "place order",
+                                  onButtonTap: () {
+                                    checkoutController.initiateCheckout();
+                                  },
+                                  bgColor: colorMediumBlue,
+                                  borderColor: Colors.transparent,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  // InlineFlexButton(
-                  //   onPressed: () {
-                  //     checkoutController.initiateCheckout();
-                  //   },
-                  //   label: 'Place Order',
-                  //   bgcolor: colorMediumBlue,
-                  //   borderwidth: 0,
-                  //   vpadding: 10,
-                  //   hpadding: 50,
-                  //   fontsize: 16,
-                  // ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
-        ],
       ),
-    ),
-    ),
-    ],
-    ),
-    ),
-    ),
     );
   }
 }

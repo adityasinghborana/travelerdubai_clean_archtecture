@@ -17,6 +17,7 @@ import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
 import '../../Components/header.dart';
+import '../../Components/marquee.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
 
@@ -26,6 +27,7 @@ class Homepage extends StatelessWidget {
   final TourlistController tourListController = Get.put(TourlistController(
       GetExperiencesUseCase(
           ExperiencesRepositoryImpl(ExperienceRemoteService(Dio())))));
+
   Homepage({super.key});
 
   @override
@@ -47,7 +49,10 @@ class Homepage extends StatelessWidget {
       ),
     );
 
-    double? width = MediaQuery.of(context).size.width;
+    double? width = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     return Stack(children: [
       SingleChildScrollView(
@@ -57,36 +62,43 @@ class Homepage extends StatelessWidget {
             _buildHeroImageSection(context),
 
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading1}",
-                  scrollController1, width, 'isRecommended'),
+                  () =>
+                  _buildSection("${homeController.formData.value?.heading1}",
+                      scrollController1, width, 'isRecommended'),
             ),
 
             Obx(
-                  () => buildCitySection(
-                  "${homeController.formData.value?.heading2}",
-                  width,
-                  scrollController4),
+                  () =>
+                  buildCitySection(
+                      "${homeController.formData.value?.heading2}",
+                      width,
+                      scrollController4),
             ),
 
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
-                  scrollController3, width, 'isPopular'),
+                  () =>
+                  _buildSection("${homeController.formData.value?.heading3}",
+                      scrollController3, width, 'isPopular'),
             ),
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
-                  scrollController5, width, 'isPopular'),
+                  () =>
+                  _buildSection("${homeController.formData.value?.heading3}",
+                      scrollController5, width, 'isPopular'),
             ),
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
-                  scrollController6, width, 'isPopular'),
+                  () =>
+                  _buildSection("${homeController.formData.value?.heading3}",
+                      scrollController6, width, 'isPopular'),
             ),
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
-                  scrollController2, width, 'isPopular'),
+                  () =>
+                  _buildSection("${homeController.formData.value?.heading3}",
+                      scrollController2, width, 'isPopular'),
             ),
             Obx(
-                  () => _buildSection("${homeController.formData.value?.heading3}",
-                  scrollController2, width, 'isPopular'),
+                  () =>
+                  _buildSection("${homeController.formData.value?.heading3}",
+                      scrollController2, width, 'isPopular'),
             ),
 
             advertisement(
@@ -95,18 +107,22 @@ class Homepage extends StatelessWidget {
               decoration: BoxDecoration(gradient: backgroundgradient),
             ),
 
+
+
+
             buildFooter(),
           ],
         ),
       ),
-      Positioned(top: 0, left: 0, child: Header()),
+      Positioned(top: 0, left: 0, child: impInformation()),
+      Positioned(top: 50, left: 0, child: Header()),
     ]);
   }
 
   Widget _buildHeroImageSection(BuildContext context) {
     return Container(
-padding: EdgeInsets.only(bottom: 20),
-      margin: EdgeInsets.only(top: 50, ),
+      padding: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(top: 50,),
       height: Get.height * .70,
       color: Colors.white,
       child: const HeroImageWidget(
@@ -136,8 +152,8 @@ padding: EdgeInsets.only(bottom: 20),
     );
   }
 
-  Widget buildCitySection(
-      String heading, double? width, ScrollController? controller) {
+  Widget buildCitySection(String heading, double? width,
+      ScrollController? controller) {
     return Container(
       color: Colors.white,
       child: Row(
@@ -295,4 +311,37 @@ padding: EdgeInsets.only(bottom: 20),
       );
     }
   }
+}
+Widget impInformation(){
+  return   Container(
+    width: Get.width, // Match the width of the screen
+    height: 50, // Fixed height for the container
+
+    child: Marquee(
+      children: [
+        // Wrap each child in a Container with fixed width to ensure scrolling works correctly
+        Container(
+          color: colorMediumBlue,
+          height:50,
+          width: Get.width, // Full width of the screen
+          child: Center(
+            child: Text(
+              "Your important information goes here",
+              style: H1(Get.context!).copyWith(fontSize: 14),
+            ),
+          ),
+        ),
+        // Add more children as needed
+      ],
+
+      reverse: true,
+      // Set reverse scrolling
+
+      vertical: false,
+      repeat: 3,
+      duration: Duration(seconds: 30),
+      gap: 0.0,
+      pauseOnHover: true, // Acceleration duration
+    ),
+  );
 }

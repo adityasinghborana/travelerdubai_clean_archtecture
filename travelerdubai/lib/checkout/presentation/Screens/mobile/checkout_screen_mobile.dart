@@ -8,8 +8,10 @@ import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
+import '../../../../Cart/data_layer/usecase/checkcoupon.dart';
 import '../../../../Cart/data_layer/usecase/deletecart_usecase.dart';
 import '../../../../Cart/data_layer/usecase/get_cart_usecase.dart';
+import '../../../../Components/custom_button.dart';
 import '../../../../bookings/data_layer/repository/bookings_repository.dart';
 import '../../../../bookings/data_layer/service/booking_remote.dart';
 import '../../../../bookings/data_layer/usecase/bookings_usecase.dart';
@@ -26,6 +28,9 @@ import '../../widgets/prefix_dropdown.dart';
 class CheckoutScreenMobile extends StatelessWidget {
   final CheckoutController checkoutController = Get.put(
     CheckoutController(
+        checkCouponUseCase: CheckCouponUseCase(CartRepositoryImpl(
+          CartRemoteService(Dio()),
+        )),
         deleteCartItemUseCase: DeleteCartItemUseCase(
             CartRepositoryImpl(CartRemoteService(Dio()),)),
         getCartUseCase: GetCartUseCase(
@@ -106,7 +111,38 @@ class CheckoutScreenMobile extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Padding(
+                      padding:
+                      const EdgeInsets.only(left: 20.0, right: 20),
+                      child: Container(
+                        child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Flexible(
+                                child: buildTextFormField(
+                                    'Enter Your Coupon code',
+                                    checkoutController
+                                        .couponController,
+                                    "this field is required",
+                                    null),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 20),
+                                child: ButtonView(
+                                  txtColor: colorMediumBlue,
+                                  btnName: "Apply",
+                                  bgColor: Colors.transparent,
+                                  borderColor: colorMediumBlue,
+                                  onButtonTap: (){
+                                    checkoutController.checkcoupon();
 
+                                  },
+                                ),
+                              )
+                            ]),
+                      ),
+                    ),
                           Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: Get.width > 600

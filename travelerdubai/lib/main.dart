@@ -1,5 +1,6 @@
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -9,10 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
-import 'package:travelerdubai/contactus/presentation/Contactus.dart';
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
-import 'package:travelerdubai/events/presentation/eventsDesktop.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
 import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
 import 'package:travelerdubai/paymentconfirmation/presentationlayer/success.dart';
@@ -20,13 +19,13 @@ import 'package:travelerdubai/policy_Pages/cancelationpolicy.dart';
 import 'package:travelerdubai/policy_Pages/privacyPolicy.dart';
 import 'package:travelerdubai/policy_Pages/refundPolicy.dart';
 import 'package:travelerdubai/policy_Pages/termsandcondition.dart';
-
 import 'package:travelerdubai/tourdetails/presentation/Widgets/controllers_bindings.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/mobile/forms_mobile.dart';
 import 'package:travelerdubai/tourdetails/presentation/screen/tours_screen.dart';
 import 'package:travelerdubai/userdashboard/dashboardpage.dart';
-import 'Components/PopupCard.dart';
+
 import 'NotFound/404Screen.dart';
+
 import 'checkout/presentation/checkoutscreen.dart';
 import 'contactus/presentation/contactusScreen.dart';
 import 'core/controller/headercontroller.dart';
@@ -34,6 +33,8 @@ import 'events/presentation/event.dart';
 
 
 void main() async {
+
+
   WidgetsFlutterBinding.ensureInitialized();
   var stripePublishableKey =
       "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
@@ -51,6 +52,7 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   Get.put(prefs);
+
   Get.put(HeaderController());
 
   runApp(const MyApp());
@@ -61,10 +63,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final  HeaderController headerController = Get.put(HeaderController());
 
     return ResponsiveApp(
       builder: (context) => GetMaterialApp(
+
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           dragDevices: {
             PointerDeviceKind.mouse,
@@ -138,13 +140,13 @@ class MyApp extends StatelessWidget {
                 transition: Transition.leftToRightWithFade,
                 transitionDuration: const Duration(milliseconds: 500),
               ),
-              GetPage(
-                name: '/popup_card',
-                page: () => PopupCard(),
-                binding: ControllerBindings(),
-                transition: Transition.leftToRightWithFade,
-                transitionDuration: const Duration(milliseconds: 500),
-              ),
+              // GetPage(
+              //   name: '/popup_card',
+              //   page: () => PopupCard(),
+              //   binding: ControllerBindings(),
+              //   transition: Transition.leftToRightWithFade,
+              //   transitionDuration: const Duration(milliseconds: 500),
+              // ),
               GetPage(
                 name: '/events',
                 page: () => Event(),

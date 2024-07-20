@@ -29,7 +29,24 @@ class TourController extends GetxController {
     //tourId = Get.arguments as String;
     fetchCityTour();
   }
+  @override
+  void onClose() {
+    // Reset observables and variables here
+    tourIdMobile.value = "";
+    tourContractIdMobile.value = "";
+    tour.value = TourModel(); // Reset tour model to default
+    tourImages.clear(); // Clear tour images list
+    isLoading.value = true; // Reset isLoading state
 
+    super.onClose();
+  }
+
+
+  @override
+  void dispose() {
+    // Clean up resources here
+    super.dispose();
+  }
   void fetchCityTour() async {
     try {
       isLoading.value = true;

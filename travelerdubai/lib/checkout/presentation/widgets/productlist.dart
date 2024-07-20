@@ -47,7 +47,7 @@ class ProductList extends StatelessWidget {
     final ScrollController controller = ScrollController();
 
     return Container(
-      height: Get.height * 0.7,
+      height: Get.height * 0.6,
       width: width,
       child: Obx(
         () => ListView.builder(

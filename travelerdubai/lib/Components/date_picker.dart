@@ -42,7 +42,7 @@ Widget dateInputField(TextEditingController controller, BuildContext context,
         ),
         Container(
           decoration: const BoxDecoration(
-              color: color_EEEEEE,
+              color: colorwhite,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10))),

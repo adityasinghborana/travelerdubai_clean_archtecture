@@ -146,7 +146,7 @@ class TourPageMobile extends StatelessWidget {
                                   text: 'Open Today',
                                   backgroundColor:
                                       Color.fromRGBO(8, 137, 67, 0.12),
-                                  iconColor: color_088943,
+                                  iconColor: colorgreen,
                                   textStyle: iconText),
                               Text(
                                 'Visit Timing',
@@ -163,7 +163,7 @@ class TourPageMobile extends StatelessWidget {
                               text: 'Explore at your pace',
                               backgroundColor:
                                   const Color.fromRGBO(204, 126, 99, 0.20),
-                              iconColor: color_cc7e63,
+                              iconColor: colorLightBrown,
                               textStyle: iconText),
                         ),
                         Padding(
@@ -174,7 +174,7 @@ class TourPageMobile extends StatelessWidget {
                               text: 'Audio Guide',
                               backgroundColor:
                                   const Color.fromRGBO(0, 154, 184, 0.20),
-                              iconColor: color_088943,
+                              iconColor: colorgreen,
                               textStyle: iconText),
                         ),
                       ],

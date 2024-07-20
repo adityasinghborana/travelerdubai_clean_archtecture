@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
+import 'package:travelerdubai/auth/presentation/sign_in_controller.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/request/create_user_request.dart'
     as UserData;
 import 'package:travelerdubai/core/controller/headercontroller.dart';
@@ -19,6 +20,7 @@ enum PasswordState { entered, notEntered }
 
 class SignupController extends GetxController {
   final HeaderController headerController = Get.find();
+  final SigninController signinController = Get.find();
   final CreateUserUseCase createUserUseCase;
   final CreateCartUseCase createCartUseCase;
   final RxBool obscureText = true.obs;
@@ -87,7 +89,10 @@ class SignupController extends GetxController {
   void createCart(String uid) async {
     try {
       final request = CreateCartRequest(userId: uid);
-      await createCartUseCase.execute(request);
+      await createCartUseCase.execute(request).then((_)=>{
+
+        signinController.getCart(uid),
+      });
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -118,6 +123,7 @@ class SignupController extends GetxController {
         await saveUser(user.uid, user.email!);
         headerController.loggedIn.value = true;
         createCart(user.uid);
+        
         Get.toNamed('/home');
       }
     } catch (e) {

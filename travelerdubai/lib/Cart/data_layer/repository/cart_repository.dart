@@ -1,6 +1,8 @@
+import 'package:travelerdubai/Cart/data_layer/model/request/coupon.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/create_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/delete_cart.dart';
 import 'package:travelerdubai/Cart/data_layer/model/request/update_cart.dart';
+import 'package:travelerdubai/Cart/data_layer/model/response/checkcouponresponse.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/create_cart_response.dart';
 import 'package:travelerdubai/Cart/data_layer/model/response/update_cart.dart';
 
@@ -13,6 +15,7 @@ abstract  class CartRepository {
   Future<GetCartResponse>getCart(CreateCartRequest requestBody);
   Future<UpdateCartResponse> updateCart(UpdateCartTourDetail requestBody);
   Future<Deletecartresponse> deleteCartItem(DeleteCart requestBody);
+  Future<CheckCouponResponse> CheckCoupon(CouponRequest requestBody);
 }
 
 
@@ -90,6 +93,24 @@ class CartRepositoryImpl implements CartRepository {
         return response;
       } else {
         throw Exception("Failed to update Cart");
+      }
+    } catch (error) {
+      // Handle any errors that might occur during the process
+      print("Error updating cart: $error");
+      rethrow; // Rethrow the error to let the caller handle it
+    }
+  }
+  @override
+  Future<CheckCouponResponse> CheckCoupon(CouponRequest requestBody) async {
+    try {
+      CheckCouponResponse response = await remoteService.checkCoupon(
+          requestBody);
+
+
+      if (response != null) {
+        return response;
+      } else {
+        throw Exception("Failed to fetch coupon");
       }
     } catch (error) {
       // Handle any errors that might occur during the process

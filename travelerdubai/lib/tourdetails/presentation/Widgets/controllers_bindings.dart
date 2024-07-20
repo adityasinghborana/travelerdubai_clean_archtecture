@@ -40,17 +40,16 @@ class ControllerBindings extends Bindings {
             ),
           )),
     );
-    Get.put(
-      TourController(
-        GetCityTourUseCase(
-          TourRepositoryImpl(
-            TourRemoteService(
-              Dio(),
-            ),
+
+
+    Get.lazyPut<TourController>(() => TourController(
+      GetCityTourUseCase(
+        TourRepositoryImpl(
+          TourRemoteService(
+            Dio(),
           ),
         ),
       ),
-
-    );
+    ));
   }
 }

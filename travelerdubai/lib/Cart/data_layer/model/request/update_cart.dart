@@ -14,7 +14,7 @@ class UpdateCartTourDetail {
   final String tourDate;
   int? timeSlotId;
   final String startTime;
-  final int transferId;
+  late final int transferId;
   final String? pickup;
   final double? adultRate;
   final double? childRate;

@@ -31,7 +31,17 @@ class AboutUsPage extends StatelessWidget {
       body: Obx(() {
         final aboutData = controller.aboutData.value;
         if (aboutData == null) {
-          return const Center(child: CircularProgressIndicator());
+          return Column(
+            children: [
+              Get.width > 1024
+                  ? Header()
+                  : MobileHeader(
+                context: context,
+                isBackButton: true,
+              ),
+              Expanded(child: const Center(child: Text("No Data Present In Backend"))),
+            ],
+          );
         }
 
         return SingleChildScrollView(
