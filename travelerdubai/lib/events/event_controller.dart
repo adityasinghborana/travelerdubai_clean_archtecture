@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
+
 import 'package:travelerdubai/core/constants/constants.dart';
 
 class EventController extends GetxController {
   RxList<dynamic>eventTypes = <dynamic>[].obs;
   var cityEvents = [].obs;
+  RxBool isLoading = true.obs;
   var selectedTourType = ''.obs;
   List<dynamic> allCityTours = [];
   var selectedEventType = ''.obs;
@@ -36,13 +37,14 @@ class EventController extends GetxController {
   void fetchCityevents() async {
     try {
       dio.Response response =
-      await dio.Dio().get('http://localhost:3000/events');
+      await dio.Dio().get('$baseurl/events');
       if (response.statusCode == 200) {
+
         List<dynamic> fetchedCityEvents = response.data;
         cityEvents.assignAll(fetchedCityEvents);
         allCityTours =
             List.from(fetchedCityEvents); // Store the full list for filtering
-        print(response.data);
+         isLoading.value=false;
       } else {
         print('Request failed with status: ${response.statusCode}');
       }

@@ -83,10 +83,13 @@ class CheckoutScreenDesktop extends StatelessWidget {
                               children: [
                                 Container(
                                   padding:
-                                      EdgeInsets.only(left: Get.width * 0.025),
+                                  EdgeInsets.only(left: Get.width * 0.025),
                                   alignment: Alignment.centerLeft,
                                   height:
-                                      MediaQuery.of(context).size.width * .06,
+                                  MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * .06,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                       color: colorwhite,
@@ -101,12 +104,15 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                 // Add widgets for displaying order items and total amount
 
                                 SizedBox(
-                                    height: MediaQuery.of(context).size.width *
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width *
                                         .02),
 
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
                                       flex: 3,
@@ -131,7 +137,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
                                         flex: 3,
@@ -141,7 +147,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                           width: double.infinity,
                                           decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                               border: Border.all(
                                                   color: colorlightgrey,
                                                   width: 1),
@@ -149,8 +155,11 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 13),
-                                            child: Text(
-                                                "${checkoutController.email}"),
+                                            child: Obx(() {
+                                              return Text(
+                                                  "${checkoutController
+                                                      .email}");
+                                            }),
                                           ),
                                         )),
                                     SizedBox(width: Get.width * 0.015),
@@ -167,7 +176,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(width: Get.width * 0.086),
 
@@ -197,12 +206,15 @@ class CheckoutScreenDesktop extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.90,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.90,
                           child: Column(
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 20.0, right: 4),
+                                const EdgeInsets.only(left: 20.0, right: 4),
                                 child: Container(
                                   padding: EdgeInsets.only(left: 30),
                                   alignment: Alignment.centerLeft,
@@ -221,11 +233,11 @@ class CheckoutScreenDesktop extends StatelessWidget {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 20.0, right: 4),
+                                const EdgeInsets.only(left: 20.0, right: 4),
                                 child: Container(
                                   child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Flexible(
                                           child: buildTextFormField(
@@ -252,7 +264,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 20.0, right: 4),
+                                const EdgeInsets.only(left: 20.0, right: 4),
                                 child: ProductList(
                                   height: Get.width * 0.5,
                                 ),
@@ -261,7 +273,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                 padding: EdgeInsets.all(Get.height * 0.03),
                                 child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text(
                                         "Total",
@@ -271,17 +283,17 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                       Flexible(
                                         child: Obx(() {
                                           var price = double.tryParse(
-                                                  checkoutController
-                                                      .Totalprice.value) ??
+                                              checkoutController
+                                                  .Totalprice.value) ??
                                               0.0;
                                           String formattedPrice =
-                                              price.toStringAsFixed(2);
+                                          price.toStringAsFixed(2);
                                           return Text(
                                             "AED ${formattedPrice}",
                                             style: bodyBlack(Get.context!)
                                                 .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                fontWeight:
+                                                FontWeight.bold),
                                           );
                                         }),
                                       ),

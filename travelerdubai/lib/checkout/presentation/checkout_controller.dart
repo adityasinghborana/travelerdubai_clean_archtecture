@@ -22,7 +22,7 @@ import '../../paymentconfirmation/presentationlayer/success.dart';
 import 'model/guest.dart';
 
 class CheckoutController extends GetxController {
-  late  String  email ='';
+  RxString  email =''.obs;
   final HeaderController headerController = Get.find();
   final IntentUseCase intentUseCase;
   final GetCartUseCase getCartUseCase;
@@ -39,7 +39,7 @@ class CheckoutController extends GetxController {
       });
   @override
   void onReady() async{
-  await getEmailID().then((value)=>email=value??'no email found ');
+  await getEmailID().then((value)=>email.value=value??'no email found ');
   print("$email hello email");
     super.onReady();
   }
@@ -122,9 +122,8 @@ class CheckoutController extends GetxController {
       showToast(toastMessage: 'First Name is not valid');
     } else if (!Validation.isValidFirstName(lastNameController.text)) {
       showToast(toastMessage: 'Last Name  is not valid');
-    } else if (!Validation.isValidEmail(emailController.text)) {
-      showToast(toastMessage: 'email is not valid');
-    } else if (!Validation.isValidPhoneNumber(mobileNoController.text)) {
+    }
+    else if (!Validation.isValidPhoneNumber(mobileNoController.text)) {
       showToast(toastMessage: 'Mobile number is  not valid');
     } else {
       await intentUseCase

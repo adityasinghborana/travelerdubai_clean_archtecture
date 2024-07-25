@@ -7,6 +7,7 @@ import 'package:travelerdubai/experiences/model/experience_response_model.dart';
 
 class ExperienceController extends GetxController {
   String? city = Get.parameters['cityName'];
+
   final GetExperiencesUseCase experiencesUseCase;
 
   var tourTypes = [].obs;
@@ -27,6 +28,7 @@ class ExperienceController extends GetxController {
   }
 
   void fetchcitytours() async {
+
     try {
       final response = await experiencesUseCase.execute();
       if (response.isNotEmpty) {

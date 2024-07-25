@@ -12,6 +12,7 @@ import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
+import 'package:travelerdubai/eventcheckout/eventcheckout.dart';
 import 'package:travelerdubai/experiences/Presentation/experiences.dart';
 import 'package:travelerdubai/paymentconfirmation/presentationlayer/failure.dart';
 import 'package:travelerdubai/paymentconfirmation/presentationlayer/success.dart';
@@ -29,6 +30,7 @@ import 'NotFound/404Screen.dart';
 import 'checkout/presentation/checkoutscreen.dart';
 import 'contactus/presentation/contactusScreen.dart';
 import 'core/controller/headercontroller.dart';
+import 'eventDetails/eventdetails.dart';
 import 'events/presentation/event.dart';
 
 
@@ -89,118 +91,105 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/login',
             page: () => SigninPage(),
-            transition: Transition.zoom,
-            transitionDuration: const Duration(milliseconds: 500),
+
           ),
           GetPage(
             name: '/Signup',
             page: () => const SignupPage(),
-            transition: Transition.zoom,
-            transitionDuration: const Duration(milliseconds: 500),
+
           ),
           GetPage(
             name: '/home',
             page: () => const HomeScreen(),
-            transition: Transition.zoom,
-            transitionDuration: const Duration(milliseconds: 500),
+
           ),
           GetPage(
             name: '/Aboutus',
             page: () => AboutUsPage(),
-            transition: Transition.zoom,
-            transitionDuration: const Duration(milliseconds: 500),
+
           ),
               GetPage(
                 name: '/contactus',
                 page: () =>  Contactus(),
-                transition: Transition.zoom,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/experiences',
-                transition: Transition.zoom,
+
                 page: () => Experiences(),
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/dashboardpage',
                 page: () => DashboardPage(),
-                transition: Transition.leftToRightWithFade,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/tour_details',
                 page: () => const TourPage(),
                 binding: ControllerBindings(),
-                transition: Transition.leftToRightWithFade,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/forms_mobile',
                 page: () => FormsMobile(),
                 binding: ControllerBindings(),
-                transition: Transition.leftToRightWithFade,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
-              // GetPage(
-              //   name: '/popup_card',
-              //   page: () => PopupCard(),
-              //   binding: ControllerBindings(),
-              //   transition: Transition.leftToRightWithFade,
-              //   transitionDuration: const Duration(milliseconds: 500),
-              // ),
+
               GetPage(
                 name: '/events',
                 page: () => Event(),
-                transition: Transition.leftToRightWithFade,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
+          GetPage(
+            name: '/eventcheckout',
+            page: () => EventCheckOut(),
+
+
+          ),
+          GetPage(
+            name: '/eventdetails',
+            page: () => EventDetails(),
+
+          ),
               GetPage(
                 name: '/checkout',
                 page: () => const Checkout(),
-                transition: Transition.leftToRightWithFade,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/payment',
                 page: () => CardPaymentScreen(),
-                transition: Transition.circularReveal,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),GetPage(
                 name: '/payments',
                 page: () =>PaymentSuccess(),
-                transition: Transition.zoom,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/fail',
                 page: () =>FailureScreen(),
-                transition: Transition.zoom,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/privacypolicy',
                 page: () =>PolicyPage(),
-                transition: Transition.zoom,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/termsandcondition',
                 page: () =>TermsandCondition(),
-                transition: Transition.zoom,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/refundpolicy',
                 page: () =>RefundPolicy(),
-                transition:Transition.native,
-                transitionDuration: const Duration(milliseconds: 500),
+
               ),
               GetPage(
                 name: '/cancelationpolicy',
                 page: () =>CancelationPolicy(),
-                transition: Transition.native,
-                transitionDuration: const Duration(milliseconds: 500),
               ),
       
             ],

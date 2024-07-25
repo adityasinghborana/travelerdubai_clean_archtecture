@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travelerdubai/core/State/Data_Not_Found.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/events/event_controller.dart';
 
@@ -43,14 +44,14 @@ class Eventspage extends StatelessWidget {
                   Flexible(
                     flex: 1,
                     child: Obx(() {
-                      return Tourtypes();
+                      return Eventtypes();
                     }),
                   ),
                   Flexible(
                     flex: 4,
                     child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: tourcards()
+                        child: EventCards()
                     ),
                   ),
                 ],
@@ -62,20 +63,30 @@ class Eventspage extends StatelessWidget {
     );
   }
 
-  Widget Tourtypes() {
+  Widget Eventtypes() {
     List<String> stringList = experienceController.eventTypes.map((e) =>
         e.toString()).toList();
-    return TourTypes(
-      title: "Browse Events", items: stringList, onTap: (String eventType) {
-      experienceController.filterCityeventsByType(eventType);
-    },onDoubleTap: ()=>null,);
+   if(stringList.isNotEmpty){
+     return TourTypes(
+       title: "Browse Events", items: stringList, onTap: (String eventType) {
+       experienceController.filterCityeventsByType(eventType);
+     },onDoubleTap: ()=>null,);
+   }
+   else{
+     return dataNotFound(width: double.infinity, height: double.infinity);
+   }
   }
 
-  Widget tourcards() {
+  Widget EventCards() {
     return Obx(() {
-      if (experienceController.cityEvents.isEmpty) {
-        return const Center(child: CircularProgressIndicator());
-      } else {
+      if (experienceController.cityEvents.isEmpty && experienceController.isLoading.isFalse) {
+        return  Center(child: dataNotFound(width: double.infinity, height: double.infinity));
+      }
+      else if (experienceController.isLoading.isTrue){
+        return Center(child: const CircularProgressIndicator());
+      }
+
+      else  {
         List<dynamic> displayedTours = experienceController
             .selectedEventType.isEmpty
             ? experienceController.cityEvents
@@ -100,13 +111,15 @@ class Eventspage extends StatelessWidget {
             itemBuilder: (context, index) {
               String tourName = displayedTours[index]['eventName'];
               String image = displayedTours[index]['imagePath'];
+              String eventDetailId = displayedTours[index]['eventdetail'][0]['id'].toString();
+
 
 
               return InkWell(
                 onTap: () =>
                     Get.toNamed(
-                      '/tour_details',
-                      //parameters: {'tourId': tourDetailId.toString()},
+                      '/eventdetails',
+                     parameters: {'eventId': eventDetailId},
                     ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
