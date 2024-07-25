@@ -6,6 +6,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:travelerdubai/homepage/cities_controller.dart';
 
 import '../../../core/constants/constants.dart';
+import '../../model/city.dart';
 import '../../remote/homepage_remote_service.dart';
 import '../../repository/homepage_repository.dart';
 import '../../usecase/cities_usecase.dart';
@@ -53,7 +54,7 @@ class _CityListState extends State<CityList> {
             return Stack(
               children: [
                 SizedBox(
-                  width: Get.width>600 ?  Get.width * .9 :  Get.width,
+                  width: Get.width > 600 ? Get.width * .9 : Get.width,
                   height: Get.height * .5,
                   child: ScrollablePositionedList.builder(
                     itemScrollController: itemScrollController,
@@ -65,29 +66,32 @@ class _CityListState extends State<CityList> {
                     },
                   ),
                 ),
-                Get.width>1024  ? Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.black),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
-                      onPressed: () => _scrollToPrevious(),
-                    ),
-                  ),
-                ):Container(),
-
-                Get.width>1024  ?
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.black),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward, color: colorwhite),
-                      onPressed: () => _scrollToNext(),
-                    ),
-                  ),
-                ):Container(),
+                Get.width > 1024
+                    ? Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.black),
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_back, color: Colors.white),
+                            onPressed: () => _scrollToPrevious(),
+                          ),
+                        ),
+                      )
+                    : Container(),
+                Get.width > 1024
+                    ? Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.black),
+                          child: IconButton(
+                            icon: Icon(Icons.arrow_forward, color: colorwhite),
+                            onPressed: () => _scrollToNext(),
+                          ),
+                        ),
+                      )
+                    : Container(),
               ],
             );
           }
@@ -120,7 +124,7 @@ class _CityListState extends State<CityList> {
 }
 
 class CityCard extends StatefulWidget {
-  final dynamic city; // Replace with your city model type
+  final City city;
   final double widthFactor;
 
   const CityCard({Key? key, required this.city, required this.widthFactor})
@@ -137,58 +141,59 @@ class _CityCardState extends State<CityCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:Get.width<600? const EdgeInsets.all(5.0): const EdgeInsets.all(12.0),
-      child: InkWell(
-        onTap: () {
-          String cityName = widget.city.CityName;
-
-          Get.toNamed(
-            '/experiences',
-            parameters: {'cityName': cityName.toString()},
-          );
-        },
-        child: GestureDetector(
+      padding: Get.width < 600
+          ? const EdgeInsets.all(5.0)
+          : const EdgeInsets.all(12.0),
+      child: MouseRegion(
+        onEnter: (_) => _onHover(true),
+        onExit: (_) => _onHover(false),
+        child: InkWell(
+          onTap: () {
+            String cityName = widget.city.CityName;
+            Get.toNamed(
+              '/experiences',
+              parameters: {'cityName': cityName},
+            );
+          },
           onTapDown: (_) => _onTap(true),
           onTapUp: (_) => _onTap(false),
           onTapCancel: () => _onTap(false),
-          child: MouseRegion(
-            onEnter: (_) => _onHover(true),
-            onExit: (_) => _onHover(false),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              transform: Matrix4.identity()..scale(isHovered || _isTapped ? 1.015 : 1.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Container(
-                  child: Stack(
-                    children: [
-                      AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: Image.network(
-                          "https://d1i3enf1i5tb1f.cloudfront.net/Tour-Images/false-111/jebel-drop-yas.jpg",
-                          fit: BoxFit.cover,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            transform: Matrix4.identity()
+              ..scale(isHovered || _isTapped ? 1.015 : 1.0),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                child: Stack(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Image.network(
+                        "$baseurl${widget.city.imagePath}",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(gradient: imageGradient),
+                    ),
+                    Positioned(
+                      bottom: 8.0,
+                      left: 8.0,
+                      right: 8.0,
+                      child: SizedBox(
+                        width: widget.widthFactor,
+                        child: Text(
+                          widget.city.CityName,
+                          style: getH2TextStyle(context)
+                              .copyWith(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          softWrap: true,
                         ),
                       ),
-                      Container(
-                        decoration: BoxDecoration(gradient: imageGradient),
-                      ),
-                      Positioned(
-                        bottom: 8.0,
-                        left: 8.0,
-                        right: 8.0,
-                        child: SizedBox(
-                          width: widget.widthFactor,
-                          child: Text(
-                            widget.city.CityName,
-                            style: getH2TextStyle(context).copyWith(color: Colors.white),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            softWrap: true,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -210,3 +215,4 @@ class _CityCardState extends State<CityCard> {
     });
   }
 }
+

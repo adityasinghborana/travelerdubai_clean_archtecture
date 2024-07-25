@@ -31,7 +31,7 @@ class FloatingCartButton extends StatelessWidget {
               color: colorMediumBlue,
             ),
             onPressed: () {
-              // Add your onPressed logic here
+              Get.toNamed("/checkout");
             },
           ),
         );

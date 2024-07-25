@@ -64,8 +64,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
     return ResponsiveApp(
       builder: (context) => GetMaterialApp(
+          theme: ThemeData(   useMaterial3: true, ),
 
         scrollBehavior: const MaterialScrollBehavior().copyWith(
           dragDevices: {

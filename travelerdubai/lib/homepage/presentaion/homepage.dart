@@ -15,7 +15,6 @@ import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
-
 import '../../Components/header.dart';
 import '../../Components/marquee.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
@@ -78,28 +77,24 @@ class Homepage extends StatelessWidget {
             Obx(
                   () =>
                   _buildSection("${homeController.formData.value?.heading3}",
-                      scrollController3, width, 'isPopular'),
+                      scrollController3, width, 'isvisibleDesertsfari'),
             ),
             Obx(
                   () =>
-                  _buildSection("${homeController.formData.value?.heading3}",
-                      scrollController5, width, 'isPopular'),
+                  _buildSection("${homeController.formData.value?.heading4}",
+                      scrollController5, width, 'isvisibleCulturesandattractions'),
             ),
             Obx(
                   () =>
-                  _buildSection("${homeController.formData.value?.heading3}",
-                      scrollController6, width, 'isPopular'),
+                  _buildSection("${homeController.formData.value?.heading5}",
+                      scrollController6, width, 'isvisibleDhowcruise'),
             ),
             Obx(
                   () =>
-                  _buildSection("${homeController.formData.value?.heading3}",
-                      scrollController2, width, 'isPopular'),
+                  _buildSection("${homeController.formData.value?.heading6}",
+                      scrollController2, width, 'isvisibleWaterActivities'),
             ),
-            Obx(
-                  () =>
-                  _buildSection("${homeController.formData.value?.heading3}",
-                      scrollController2, width, 'isPopular'),
-            ),
+
 
             advertisement(
               subHeadingfontsize: 26.14,
@@ -108,21 +103,19 @@ class Homepage extends StatelessWidget {
             ),
 
 
-
-
             buildFooter(),
           ],
         ),
       ),
       Positioned(top: 0, left: 0, child: impInformation()),
-      Positioned(top: 50, left: 0, child: Header()),
+      Positioned(top: 30, left: 0, child: Header()),
     ]);
   }
 
   Widget _buildHeroImageSection(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(bottom: 20),
-      margin: EdgeInsets.only(top: 50,),
+      margin: EdgeInsets.only(top: 100,),
       height: Get.height * .70,
       color: Colors.white,
       child: const HeroImageWidget(
@@ -169,38 +162,7 @@ class Homepage extends StatelessWidget {
                 child: Stack(
                   children: [
                     CityList(),
-                    // Align(
-                    //   alignment: Alignment.centerLeft,
-                    //   child: Container(
-                    //     decoration: const BoxDecoration(
-                    //       shape: BoxShape.circle,
-                    //       color: Colors.black,
-                    //     ),
-                    //     child: IconButton(
-                    //       onPressed: () {
-                    //         _scrollToPrevious(controller!);
-                    //       },
-                    //       color: Colors.white,
-                    //       icon: const Icon(Icons.arrow_back),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Align(
-                    //   alignment: Alignment.centerRight,
-                    //   child: Container(
-                    //     decoration: const BoxDecoration(
-                    //       shape: BoxShape.circle,
-                    //       color: Colors.black,
-                    //     ),
-                    //     child: IconButton(
-                    //       onPressed: () {
-                    //         _scrollToNext(controller!);
-                    //       },
-                    //       color: Colors.white,
-                    //       icon: const Icon(Icons.arrow_forward),
-                    //     ),
-                    //   ),
-                    // ),
+
                   ],
                 ),
               ),
@@ -315,14 +277,14 @@ class Homepage extends StatelessWidget {
 Widget impInformation(){
   return   Container(
     width: Get.width, // Match the width of the screen
-    height: 50, // Fixed height for the container
+    height: 30, // Fixed height for the container
 
     child: Marquee(
       children: [
         // Wrap each child in a Container with fixed width to ensure scrolling works correctly
         Container(
           color: colorMediumBlue,
-          height:50,
+          height:30,
           width: Get.width, // Full width of the screen
           child: Center(
             child: Text(

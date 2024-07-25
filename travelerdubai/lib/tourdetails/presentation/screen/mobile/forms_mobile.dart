@@ -4,30 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/drawer.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/tourdetails/presentation/screen/mobile/widgets/formheader.dart';
+import 'package:travelerdubai/tourdetails/presentation/screen/mobile/widgets/price_row.dart';
+import 'package:travelerdubai/tourdetails/presentation/screen/mobile/widgets/row.dart';
+import 'package:travelerdubai/tourdetails/presentation/screen/mobile/widgets/transferoptions.dart';
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
-import '../../../../Cart/data_layer/model/request/update_cart.dart';
-import '../../../../Components/custom_button.dart';
 import '../../../../Components/date_picker.dart';
 import '../../../../Components/dropdown_widget_mobile.dart';
-import '../../../../Components/format_date.dart';
 import '../../../../Components/ui_state.dart';
-import '../../../../core/controller/headercontroller.dart';
 import '../../../../Components/Mobileheader.dart';
-import '../../../timeslot_data_layer/models/response/timeslot_response.dart';
 import '../../tour_options_controller.dart';
 
 class FormsMobile extends StatelessWidget {
+
   FormsMobile({Key? key}) : super(key: key);
-
-  // final TourController tourController = Get.put(TourController(
-  //   GetCityTourUseCase(TourRepositoryImpl(TourRemoteService(Dio()))),
-  // ));
-
+  final TourOptionStaticDataController static = Get.find();
   @override
   Widget build(BuildContext context) {
+
     TourController tourController = Get.find();
     final ScrollController listController = ScrollController();
-    final TourOptionStaticDataController static = Get.find();
     HashMap<String, int> transferOptionsMap = HashMap<String, int>();
     static.dateTextController.value.text = DateTime.now()
         .add(
@@ -36,10 +32,9 @@ class FormsMobile extends StatelessWidget {
         .toString()
         .substring(0, 10);
     static.selectedDate.value = DateTime.now().add(
-        // Add a duration representing the specified number of hours.
         Duration(hours: tourController.tour.value.cutOffhrs ?? 0));
     tourController.tourId = Get.parameters['tourId'] ?? '';
-    //tourController.fetchCityTour();
+
     static.id.value = tourController.tour.value.TourId.toString();
     static.contractid.value = tourController.tour.value.contractId.toString();
     static.getOptionsStaticData();
@@ -69,7 +64,7 @@ class FormsMobile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 MobileHeader(
-                  isBackButton: false,
+                  isBackButton: true,
                   context: context,
                 ),
                 const Padding(
@@ -100,7 +95,7 @@ class FormsMobile extends StatelessWidget {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.symmetric( vertical: 20.0 ,horizontal: 10),
                   child: Text(
                     'Transfer Type',
                     style: TextStyle(
@@ -119,7 +114,7 @@ class FormsMobile extends StatelessWidget {
                   },
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  padding: EdgeInsets.symmetric(vertical: 20.0,horizontal: 10),
                   child: Text(
                     'Select Travellers',
                     style: TextStyle(
@@ -140,6 +135,7 @@ class FormsMobile extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
+                              border: Border.all(width: 1,color: colorlightgrey),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Color(0x1C112211),
@@ -162,6 +158,7 @@ class FormsMobile extends StatelessWidget {
                           )),
                       Obx(() => Container(
                             decoration: BoxDecoration(
+                              border: Border.all(width: 1,color: colorlightgrey),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
@@ -186,6 +183,7 @@ class FormsMobile extends StatelessWidget {
                           )),
                       Obx(() => Container(
                             decoration: BoxDecoration(
+                              border: Border.all(width: 1,color: colorlightgrey),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
@@ -212,7 +210,7 @@ class FormsMobile extends StatelessWidget {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 8),
                   child: Text(
                     'Packages',
                     style: TextStyle(
@@ -225,66 +223,64 @@ class FormsMobile extends StatelessWidget {
                   ),
                 ),
                 Obx(() {
+
                   var outputState = static.options.value;
                   var tourOptionsDynamicList = static.dynamicoptions.toList();
                   static.output1 = tourOptionsDynamicList;
 
-                  if (kDebugMode) {
-                    print(
-                        'tourOptionsDynamicList is${tourOptionsDynamicList.toString()}');
-                  }
+
 
                   switch (outputState.state) {
                     case UiState.SUCCESS:
-                      return SizedBox(
-                        height: Get.width * .98,
-                        child: ListView.builder(
-                          controller: listController,
-                          itemCount: outputState.data?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            //var option = outputState.data![index];
-                            static.timeslots.clear();
-                            static.getTimeSlots(static
-                                    .options.value.data?[index].tourOptionId ??
-                                0);
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: SizedBox(
+                          height: Get.width * .98,
+                          child: ListView.builder(
+                            controller: listController,
+                            itemCount: outputState.data?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              static.getTimeSlots(static
+                                  .options.value.data?[index].tourOptionId ??
+                                  0);
+                              static.timeslots.clear();
 
-                            int? id = static.options.value.data?[index].tourId;
-                            int tourIdIndex = tourOptionsDynamicList
-                                .indexWhere((element) => element.tourId == id);
-                            static.optionId.value =
-                                outputState.data![index].tourOptionId!;
-                            if (kDebugMode) {
-                              print("optionId is ${static.optionId.value}");
-                            }
-                            static.transferId.value =
-                                tourOptionsDynamicList.isNotEmpty
-                                    ? tourOptionsDynamicList[tourIdIndex]
-                                        .transferId!
-                                    : 0;
-                            if (kDebugMode) {
-                              print('transferId is ${static.transferId.value}');
-                            }
-                            static.currOptionId = static.optionId.value;
 
-                            return tourOptionsDynamicList.isNotEmpty
-                                ? Card(
-                                    elevation: 3,
-                                    color: Colors.white,
-                                    shadowColor: const Color(0x1C112211),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    //surfaceTintColor: Colors.grey,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        _buildFormHeader(static.options.value
-                                                .data?[index].optionName ??
-                                            ''),
-                                        _buildPriceAndInfoRow(
-                                            (tourOptionsDynamicList[
-                                                            index]
+                              int? id = static.options.value.data?[index].tourId;
+                              int tourIdIndex = tourOptionsDynamicList
+                                  .indexWhere((element) => element.tourId == id);
+                              static.optionId.value =
+                                  outputState.data![index].tourOptionId!;
+                              if (kDebugMode) {
+                                print("optionId is ${static.optionId.value}");
+                              }
+                              static.transferId.value =
+                                  tourOptionsDynamicList.isNotEmpty
+                                      ? tourOptionsDynamicList[tourIdIndex]
+                                          .transferId!
+                                      : 0;
+
+                              static.currOptionId = static.optionId.value;
+
+                              return tourOptionsDynamicList.isNotEmpty
+                                  ? Card(
+                                      elevation: 3,
+                                      color: Colors.white,
+                                      shadowColor: const Color(0x1C112211),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      //surfaceTintColor: Colors.grey,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FormHeader(
+                                            heading:
+                                                '${static.options.value.data?[index].optionName ?? ''}',
+                                          ),
+                                          PriceAndInfoRow(
+                                            price: (tourOptionsDynamicList[index]
                                                         .finalAmount ??
                                                     0) +
                                                 (static.pricing.value
@@ -295,47 +291,45 @@ class FormsMobile extends StatelessWidget {
                                                     0) +
                                                 (static.pricing.value
                                                         .additionalPriceInfant ??
-                                                    0)),
-                                        // Obx(() {
-                                        //   if (static.timeslots.isNotEmpty) {
-                                        //     var lst = static.timeslots.isNotEmpty
-                                        //         ? static.timeslots
-                                        //         : <String>['1hr', '2hr', '3hr', '4hr'];
-                                        //     return _buildTimeRow(lst);
-                                        //   } else {
-                                        //     return const Text("No timeslot required "); //
-                                        //   }
-                                        // }),
-                                        _buildInfoAndButtonRow(
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+                                                    0),
+                                          ),
+                                          InfoAndButtonRow(
+                                            widgets: Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 20.0, vertical: 10),
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                      "Option Name:${static.options.value.data?[index].optionName}",style: H1black.copyWith(fontSize: 18)),
+                                                      "Option Name:${static.options.value.data?[index].optionName}",
+                                                      style: H1black.copyWith(
+                                                          fontSize: 18)),
                                                   Text(
-                                                      "Option Description: ${static.options.value.data?[index].optionDescription ?? 'No description available.'}",style: H1black.copyWith(fontSize: 18),),
+                                                    "Option Description: ${static.options.value.data?[index].optionDescription ?? 'No description available.'}",
+                                                    style: H1black.copyWith(
+                                                        fontSize: 18),
+                                                  ),
                                                 ],
                                               ),
                                             ),
-                                            context,
-                                            static.options.value.data?[index]
-                                                    .tourOptionId ??
+                                            tourOptionId: static.options.value
+                                                    .data?[index].tourOptionId ??
                                                 0,
-                                            index),
-                                      ],
-                                    ),
-                                  )
-                                : const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                          },
+                                            index: index,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                            },
+                          ),
                         ),
                       );
                     case UiState.EMPTY:
                       return const Text('Empty');
                     case UiState.LOADING:
-                      return const CircularProgressIndicator();
+                      return Center(child: const CircularProgressIndicator());
                     case UiState.ERROR:
                       return const Text('Error');
                     default:
@@ -349,526 +343,4 @@ class FormsMobile extends StatelessWidget {
       }),
     );
   }
-
-  Widget _buildFormHeader(String heading) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        heading, // Dynamic heading based on index
-        style: const TextStyle(
-          color: Color(0xFF828282),
-          fontSize: 16,
-          fontFamily: 'Roboto',
-          fontWeight: FontWeight.w600,
-          height: 0,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPriceAndInfoRow(double price) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Price: ',
-            style: TextStyle(
-              color: Color(0xFF828282),
-              fontSize: 16,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w400,
-              height: 0,
-            ),
-          ),
-          Text(
-            'AED ${price.toString()}', // Replace with dynamic price value
-            style: const TextStyle(
-              color: Color(0xFF828282),
-              fontSize: 16,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600,
-              height: 0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInfoAndButtonRow(
-      Widget widgets, BuildContext context, int tourOptionId, int index) {
-    final TourOptionStaticDataController static = Get.find();
-    final TourController tourController = Get.find();
-    final HeaderController controller = Get.put(HeaderController());
-    return Obx(
-      () {
-        var filteredTimeSlots = static.timeslots.value
-            .firstWhere((ts) => ts[0].tourOptionId == tourOptionId,
-                orElse: () => [])
-            .toList();
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.bottomSheet(
-                    BottomSheet(
-                      onClosing: () {
-                        // This callback is called when the bottom sheet is closed
-                        print("BottomSheet is closing");
-                      },
-                      builder: (BuildContext context) {
-                        // Return the content of your bottom sheet here
-                        return Container(
-                            width: Get.width,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20))),
-                            height: Get.height * .70, // Adjust height as needed
-
-                            child: widgets);
-                      },
-                    ),
-                  );
-                },
-                child: const Text(
-                  'More Info  ',
-                  style: TextStyle(
-                    color: Color(0xFF828282),
-                    fontSize: 16,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-              ),
-              if (tourController.tour.value.isSlot == true &&
-                  controller.loggedIn.isTrue)
-                SizedBox(
-                  width: Get.width * .55,
-                  child: ButtonView(
-                    borderColor: Colors.transparent,
-                    btnName: 'Time Slots',
-                    bgColor: colorMediumBlue,
-                    onButtonTap: () {
-                      final data = static.output1[index];
-                      static.value = UpdateCartTourDetail(
-                          tourname: tourController.tour.value.tourName ?? '',
-                          tourOption: data.transferName!,
-                          tourId: data.tourId!,
-                          optionId: data.tourOptionId!,
-                          adult: static.adultsSelectedValue.value,
-                          child: static.childrenSelectedValue.value,
-                          infant: static.infantsSelectedValue.value,
-                          tourDate: static.selectedDate.value
-                              .toString()
-                              .substring(0, 10),
-                          timeSlotId: static.timeSlotId.value,
-                          startTime: static.starttime.value,
-                          transferId: data.transferId!,
-                          vendoruid: static.vendoruid.value ?? "",
-                          adultRate: data.adultPrice!.toDouble(),
-                          childRate: data.childPrice?.toDouble() ?? 0.0,
-                          serviceTotal:
-                              ((static.output1[index].finalAmount ?? 0) +
-                                  (static.pricing.value.addPriceAdult ?? 0) +
-                                  (static.pricing.value.addPriceChildren ?? 0) +
-                                  (static.pricing.value.additionalPriceInfant ??
-                                      0)),
-                          cartId: controller.cartId.value);
-                      print(("${controller.cartId.value} Hello"));
-                      if (static.timeslots.isNotEmpty) {
-                        static.currOptionId = tourOptionId;
-                        Get.dialog(
-                          Dialog(
-                            child: Container(
-                                height: Get.height/2,
-                                child: timeslots()),
-                          ),
-                        );
-                        print('curr OptionId is ${static.currOptionId}');
-
-
-                      } else if (tourController.tour.value.isSlot == true) {
-                        Get.dialog(
-                          Dialog(
-                            child: timeslots(),
-                          ),
-                        );
-                      } else {
-                        if (kDebugMode) {
-                          Get.toNamed('/home',
-                              preventDuplicates: true,
-                              arguments: [filteredTimeSlots, tourOptionId]);
-                        }
-                      }
-                    },
-                  ),
-                )
-              else if (controller.loggedIn.isTrue &&
-                  tourController.tour.value.isSlot != true)
-                SizedBox(
-                  width: Get.width * .55,
-                  child: ButtonView(
-                    borderColor: Colors.transparent,
-                    btnName: 'Add To Cart',
-                    bgColor: colorMediumBlue,
-                    onButtonTap: () {
-                      final data = static.output1[index];
-                      static.value = UpdateCartTourDetail(
-                          tourname: tourController.tour.value.tourName ?? '',
-                          tourOption: data.transferName!,
-                          tourId: data.tourId!,
-                          optionId: data.tourOptionId!,
-                          adult: static.adultsSelectedValue.value,
-                          child: static.childrenSelectedValue.value,
-                          infant: static.infantsSelectedValue.value,
-                          tourDate: static.selectedDate.value
-                              .toString()
-                              .substring(0, 10),
-                          timeSlotId: static.timeSlotId.value,
-                          startTime: static.starttime.value,
-                          transferId: static.transferId.value??0,
-                          vendoruid: static.vendoruid.value ?? "",
-                          adultRate: data.adultPrice!.toDouble(),
-                          childRate: data.childPrice?.toDouble() ?? 0.0,
-                          serviceTotal:
-                              ((static.output1[index].finalAmount ?? 0) +
-                                  (static.pricing.value.addPriceAdult ?? 0) +
-                                  (static.pricing.value.addPriceChildren ?? 0) +
-                                  (static.pricing.value.additionalPriceInfant ??
-                                      0)),
-                          cartId: controller.cartId.value);
-                      print(("${controller.cartId.value} Hello"));
-
-                      static.currOptionId = tourOptionId;
-                      print('curr OptionId is ${static.currOptionId}');
-
-                      static.Addtocart(static.value);
-                    },
-                  ),
-                )
-              else
-                ButtonView(
-                  btnName: 'Login',
-                  onButtonTap: () => Get.toNamed('/login'),
-                  borderColor: Colors.transparent,
-                  bgColor: colorMediumBlue,
-                )
-            ],
-          ),
-        );
-      },
-    );
-  }
 }
-
-class TransferOptions extends StatefulWidget {
-  final List<String> options; // List of transfer options
-  final void Function(String)?
-      onOptionSelected; // Callback function when an option is selected
-
-  const TransferOptions({
-    Key? key,
-    required this.options,
-    this.onOptionSelected,
-  }) : super(key: key);
-
-  @override
-  _TransferOptionsState createState() => _TransferOptionsState();
-}
-
-class _TransferOptionsState extends State<TransferOptions> {
-  String? _selectedOption;
-
-  @override
-  void initState() {
-    super.initState();
-    // Set the default selected option to the first item if available
-    if (widget.options.isNotEmpty) {
-      _selectedOption = widget.options.first;
-    }
-  }
-
-  @override
-  void didUpdateWidget(TransferOptions oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Update the selected option if options change
-    if (widget.options != oldWidget.options && widget.options.isNotEmpty) {
-      _selectedOption = widget.options.first;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: widget.options
-            .map((option) => _buildOption(option))
-            .toList(),
-      ),
-    );
-  }
-
-  Widget _buildOption(String option) {
-    final TourOptionStaticDataController static = Get.find();
-    return Container(
-      width: 140,
-      height: 62,
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      decoration: ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        shadows: const [
-          BoxShadow(
-            color: Color(0x1C112211),
-            blurRadius: 16,
-            offset: Offset(0, 3),
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: Row(
-        children: [
-          Radio<String>(
-            value: option,
-            groupValue: _selectedOption,
-            onChanged: (value) {
-              static.changeSelectedTransfer(value);
-              print("hello$value");
-              setState(() {
-                print(value);
-                _selectedOption = value;
-
-              });
-              if (widget.onOptionSelected != null) {
-                widget.onOptionSelected!(value!);
-              }
-            },
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: Text(
-                option,
-                style: const TextStyle(
-                  color: Color(0xFF1C1C1C),
-                  fontSize: 14,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  height: 1.25,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-Widget timeslots(){
-  final TourOptionStaticDataController static = Get.find();
-  final HeaderController controller = Get.find();
-  final List<Result> lst = static.timeslots.value
-      .firstWhere((ts) => ts[0].tourOptionId == static.currOptionId,
-      orElse: () => [])
-      .toList();
-  print('Curr option id is ${static.currOptionId}');
-  //final int index = args[1] as int;
-  //print('index is $index');
-  var selectedValue = lst.isNotEmpty
-      ? lst[0].obs
-      : Result(
-    tourOptionId: 0,
-    timeSlotId: '',
-    timeSlot: '',
-    available: 0,
-    adultPrice: 0,
-    childPrice: 0,
-  ).obs;
-  return Center(
-    child: Card(
-      margin: const EdgeInsets.all(30.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Select Time Slot',
-                style: TextStyle(
-                  color: Color(0xFF828282),
-                  fontSize: 16,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w600,
-                  height: 0,
-                ),
-              ),
-
-            ],
-          ),
-          const SizedBox(height: 10.0),
-          const Divider(
-            height: 1.0,
-          ),
-          const SizedBox(height: 10.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                formatDate(static.dateTextController.value.text),
-                style: TextStyle(
-                  color: const Color(0xFF1C1C1C),
-                  fontSize:
-                  Get.width * .035,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                ),
-              ),
-              Text(
-                'Availability',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  color: const Color(0xFF1C1C1C),
-                  fontSize:
-                  Get.width * .035,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  height: 0,
-                ),
-              )
-            ],
-          ),
-          if (lst.isNotEmpty)
-            SizedBox(
-              //width: Get.width * .50,
-              height: Get.width * .40,
-              child: ListView.builder(
-                  itemCount: lst.length,
-                  itemBuilder: (context, i) {
-                    return Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Obx(
-                                  () => Row(
-                                children: [
-                                  Radio<String>(
-                                    value: lst[i]
-                                        .timeSlotId
-                                        .toString(),
-                                    groupValue: selectedValue
-                                        .value.timeSlotId
-                                        .toString(),
-                                    onChanged: (value) =>
-                                    selectedValue.value =
-                                    lst[i],
-                                  ),
-                                  Text(
-                                    lst[i].timeSlot,
-                                    style: TextStyle(
-                                      color:
-                                      const Color(0xFF828282),
-                                      fontSize:
-                                      MediaQuery.of(context)
-                                          .size
-                                          .width *
-                                          .04,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w400,
-                                      height: 0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Text(
-                                  'Availability :',
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: Color(0xFF828282),
-                                    fontSize: 14,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
-                                ),
-                                Text(
-                                  lst[i].available.toString(),
-                                  textAlign: TextAlign.right,
-                                  style: const TextStyle(
-                                    color: Color(0xFF828282),
-                                    fontSize: 14,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w400,
-                                    height: 0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height:
-                          Get.width *
-                              .05,
-                        ),
-                      ],
-                    );
-                  }),
-            )
-          else
-            Center(child: Text("Loading")),
-          if (lst.isNotEmpty && controller.loggedIn.isTrue)
-            Center(
-              child: SizedBox(
-                width: Get.width * .55,
-                child: ButtonView(
-                  borderColor: Colors.transparent,
-                  btnName: 'Add to Cart',
-                  bgColor: colorMediumBlue,
-                  onButtonTap: () {
-                    print("therethere ${static.transferId}");
-                    print(
-                        'selected timeslot id is ${selectedValue.value.timeSlot}');
-                    static.value.timeSlotId =
-                        int.parse(selectedValue.value.timeSlotId);
-
-
-
-                    static.Addtocart(static.value);
-
-                  },
-                ),
-              ),
-            )
-          else
-            Container(),
-        ],
-      ),
-    ),
-  );
-}
-
-
-
-

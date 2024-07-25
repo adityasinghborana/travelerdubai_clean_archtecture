@@ -75,11 +75,26 @@ class HomePageMobile extends StatelessWidget {
               ),
             ),
             Obx(
-              () => buildSection(
-                "${homeController.formData.value?.heading3}",
-                width,"isPopular"
-              ),
+                  () =>
+                  buildSection("${homeController.formData.value?.heading3}",
+                      width, 'isvisibleDesertsfari'),
             ),
+            Obx(
+                  () =>
+                  buildSection("${homeController.formData.value?.heading4}",
+                      width, 'isvisibleCulturesandattractions'),
+            ),
+            Obx(
+                  () =>
+                  buildSection("${homeController.formData.value?.heading5}",
+                       width, 'isvisibleDhowcruise'),
+            ),
+            Obx(
+                  () =>
+                  buildSection("${homeController.formData.value?.heading6}",
+                    width, 'isvisibleWaterActivities'),
+            ),
+
             advertisement(
                 subHeadingfontsize: 18,
                 Headingfontsize: 28,

@@ -1,9 +1,7 @@
-import 'package:dio/dio.dart' as dio;
-import 'package:dio/dio.dart';
+
 import 'package:get/get.dart';
 import 'package:travelerdubai/homepage/model/city.dart';
-import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
-import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
+
 import 'package:travelerdubai/homepage/usecase/cities_usecase.dart';
 
 class CityController extends GetxController {

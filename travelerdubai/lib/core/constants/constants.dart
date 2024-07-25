@@ -241,4 +241,11 @@ class images {
       ".././assets/asset/images/failedmobile.png";
   static const String notfound = ".././assets/asset/images/404.png";
   static const String notfoundmobile = ".././assets/asset/images/404mobile.png";
+  static const String slider1 = "/public/uploads/1.jpg";
+  static const String slider2 = "/public/uploads/2.jpg";
+  static const String slider3 = "/public/uploads/3.webp";
+  static const String slider4 = "/public/uploads/4.jpg";
+  static const String slider5 = "/public/uploads/5.WEBP";
+  static const String slider6 = "/public/uploads/6.png";
+  static const String slider7 = "/public/uploads/7.jpg";
 }

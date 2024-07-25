@@ -57,6 +57,7 @@ class SignupController extends GetxController {
       if (user != null) {
         final token = await user.getIdToken() ?? '';
         await saveUser(user.uid, user.email!);
+        await saveEmailId(user.email!);
         headerController.loggedIn.value = true;
         createCart(user.uid);
         Get.toNamed('/home');
@@ -121,6 +122,7 @@ class SignupController extends GetxController {
       if (user != null) {
         final token = await user.getIdToken() ?? '';
         await saveUser(user.uid, user.email!);
+        await saveEmailId(userCredential?.user?.email);
         headerController.loggedIn.value = true;
         createCart(user.uid);
         
@@ -136,4 +138,10 @@ class SignupController extends GetxController {
   void showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
+}
+
+Future<void> saveEmailId(String? emailId) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString('emailID', emailId!);
+  print("emailId saved");
 }

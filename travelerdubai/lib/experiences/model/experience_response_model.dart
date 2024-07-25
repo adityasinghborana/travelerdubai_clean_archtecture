@@ -9,8 +9,11 @@ class Experiences {
   final int? id;
   final int? tourId;
   final bool? isvisible;
-  final bool? isvisiblePopularTours;
   final bool? isvisibleReccomendedTours;
+  final bool? isvisibleDesertsafari;
+  final bool?   isvisibleCulturesandattractions;
+  final bool?   isvisibleDhowcruise;
+  final bool? isvisibleWateractivities ;
   final int? countryId;
   final String? countryName;
   final int? cityId;
@@ -31,8 +34,10 @@ class Experiences {
      this.id,
     this.tourId,
     this.isvisible,
-
-   this.isvisiblePopularTours,
+    this.isvisibleCulturesandattractions,
+    this.isvisibleDesertsafari,
+    this.isvisibleDhowcruise,
+    this.isvisibleWateractivities,
     this.isvisibleReccomendedTours,
      this.countryId,
      this.countryName,

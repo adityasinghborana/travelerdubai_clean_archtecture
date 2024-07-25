@@ -52,7 +52,7 @@ class SigninController extends GetxController {
       final uid = userCredential.user?.uid;
       if (uid != null) {
         headerController.loggedIn.value = true;
-
+        saveEmailId(userCredential?.user?.email);
         getCart(uid);
         await saveUserUID(uid).then((value) {
           if (Get.previousRoute == '/signup') {
@@ -86,6 +86,13 @@ class SigninController extends GetxController {
     await prefs.setString('CartID', cartid);
     print("cartid saved");
   }
+
+  Future<void> saveEmailId(String? emailId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('emailID', emailId!);
+    print("emailId saved");
+  }
+
   Future<void> saveCartLength(int cartlength) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('Cartlength', cartlength);
@@ -127,7 +134,7 @@ class SigninController extends GetxController {
       final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
       final String uid = userCredential.user!.uid;
       final String name = userCredential.user!.displayName!;
-
+      saveEmailId(userCredential?.user?.email);
 print(name);
       headerController.loggedIn.value = true;
       await getCart(uid);

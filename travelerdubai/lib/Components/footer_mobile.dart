@@ -18,8 +18,9 @@ Widget buildFooterMobile() {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _buildLogoAndDescription(context),
-                _buildNavigationSections(),
-                _buildPolicySections(),
+                Row(crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment:MainAxisAlignment.spaceAround,children: [_buildNavigationSections(),
+                  _buildPolicySections(),],),
                 _buildNewsletterSection(),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -40,9 +41,9 @@ Widget _buildLogoAndDescription(BuildContext context) {
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Image.asset(
-        images.logo,
-        width: MediaQuery.of(context).size.width * 0.20,
-        height: MediaQuery.of(context).size.width * 0.20,
+        images.logowhite,
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: MediaQuery.of(context).size.width * 0.30,
       ),
       const SizedBox(height: 8),
       const Padding(
@@ -71,7 +72,7 @@ Widget _buildLogoAndDescription(BuildContext context) {
 
 Widget _buildNavigationSections() {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       TextButton(
         onPressed: () {
@@ -144,7 +145,7 @@ Widget _buildNavigationSections() {
 
 Widget _buildPolicySections() {
   return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       TextButton(
         onPressed: () {
@@ -190,6 +191,27 @@ Widget _buildPolicySections() {
         ),
       ),
       const SizedBox(height: 4),
+      TextButton(
+        onPressed: () {
+          // Handle Contact Us button press
+        },
+        child: const Text(
+          "Partner Login",
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: colorTextgrey),
+        ),
+      ),
+      TextButton(
+        onPressed: () {
+          // Handle Contact Us button press
+        },
+        child: const Text(
+          "Partner SignUp",
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: colorTextgrey),
+        ),
+      )
+
     ],
   );
 }
@@ -226,26 +248,7 @@ Widget _buildNewsletterSection() {
         ),
       ),
       const SizedBox(height: 10),
-      TextButton(
-        onPressed: () {
-          // Handle Contact Us button press
-        },
-        child: const Text(
-          "Partner Login",
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w400, color: colorTextgrey),
-        ),
-      ),
-      TextButton(
-        onPressed: () {
-          // Handle Contact Us button press
-        },
-        child: const Text(
-          "Partner SignUp",
-          style: TextStyle(
-              fontSize: 16, fontWeight: FontWeight.w400, color: colorTextgrey),
-        ),
-      )
+
     ],
   );
 }
@@ -260,15 +263,20 @@ Widget _buildCopyrightAndPaymentMethods() {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Text(
-              "© 2024 Travelerdubai All Rights Reserved.",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: colorTextgrey,
-                  overflow: TextOverflow.ellipsis),
-              maxLines: 2,
-            ),
+            child: Row(
+
+              children: [
+                Text(
+                  "© 2024 Travelerdubai All Rights Reserved.",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: colorTextgrey,
+                      overflow: TextOverflow.ellipsis),
+                  maxLines: 2,
+                ),
+              ],
+            )
           ),
         ],
       ),

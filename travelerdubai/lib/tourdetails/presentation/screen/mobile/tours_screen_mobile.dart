@@ -2,6 +2,7 @@ import 'package:auraa_ui/aura_ui.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Mobileheader.dart';
 import 'package:travelerdubai/Components/custom_button.dart';
@@ -30,32 +31,32 @@ import '../../tours_controller.dart';
 
 class TourPageMobile extends StatelessWidget {
   TourPageMobile({super.key});
-  final PageController pageController = PageController();
-  final TourOptionStaticDataController static = Get.put(
-      TourOptionStaticDataController(
-          GetTourOptionsStaticDataUseCase(
-              TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
-          GetTourOptionsDynamicDataUseCase(
-            TourOptionsRepositoryImpl(
-              TourOptionRemoteService(Dio()),
-            ),
-          ),
-          GetTimeSlotUseCase(
-            TimeSlotRepositoryImpl(
-              TimeSlotRemoteService(Dio()),
-            ),
-          ),
-          UpdateCartUseCase(
-            CartRepositoryImpl(
-              CartRemoteService(Dio()),
-            ),
-          )));
-
 
 
 
   @override
   Widget build(BuildContext context) {
+    final PageController pageController = PageController();
+    final TourOptionStaticDataController static = Get.put(
+        TourOptionStaticDataController(
+            GetTourOptionsStaticDataUseCase(
+                TourOptionsRepositoryImpl(TourOptionRemoteService(Dio()))),
+            GetTourOptionsDynamicDataUseCase(
+              TourOptionsRepositoryImpl(
+                TourOptionRemoteService(Dio()),
+              ),
+            ),
+            GetTimeSlotUseCase(
+              TimeSlotRepositoryImpl(
+                TimeSlotRemoteService(Dio()),
+              ),
+            ),
+            UpdateCartUseCase(
+              CartRepositoryImpl(
+                CartRemoteService(Dio()),
+              ),
+            )));
+
     final HomeController homeController = Get.put(HomeController(
         GetHomePageDatUseCase(HomeRepositoryImpl(HomeRemoteService(Dio())))));
     final tourId = Get.parameters['tourId'] ?? '';
@@ -64,19 +65,20 @@ class TourPageMobile extends StatelessWidget {
     return Scaffold(
       appBar: MobileHeader(context: context,),
       body: Obx(
-        () {
+            () {
           if (tourController.isLoading.isTrue) {
             return const Center(
                 child: CircularProgressIndicator(
-              color: colorblue,
-            ));
+                  color: colorblue,
+                ));
           } else {
             static.id.value = tourController.tour.value.TourId.toString();
             static.contractid.value =
                 tourController.tour.value.contractId.toString();
-            static.vendoruid.value=tourController.tour.value.vendorUid ?? '';
-            static.starttime.value=tourController.tour.value.startTime ?? '';
-            static.isvendor.value =tourController.tour.value.isVendorTour ?? false;
+            static.vendoruid.value = tourController.tour.value.vendorUid ?? '';
+            static.starttime.value = tourController.tour.value.startTime ?? '';
+            static.isvendor.value =
+                tourController.tour.value.isVendorTour ?? false;
             if (kDebugMode) {
               print("${static.id.value} hello tour Detail");
             }
@@ -86,8 +88,11 @@ class TourPageMobile extends StatelessWidget {
 
             var tourImages = tourController.tourImages;
             List<String> imageUrls =
-                tourImages.map((imageModel) => imageModel.imagePath!).toList();
-            double? width = MediaQuery.of(context).size.width;
+            tourImages.map((imageModel) => imageModel.imagePath!).toList();
+            double? width = MediaQuery
+                .of(context)
+                .size
+                .width;
 
             return SingleChildScrollView(
               child: Container(
@@ -103,8 +108,11 @@ class TourPageMobile extends StatelessWidget {
 
                         AuraUICarousel(
                           images: imageUrls,
-                     showIndicator: false,
-                          height: MediaQuery.of(context).size.height * 0.3,
+                          showIndicator: false,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.3,
                           pageController: pageController,
                         ),
                         Padding(
@@ -113,16 +121,22 @@ class TourPageMobile extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                "${tourController.tour.value.tourName}",
-                                style: getH2TextStyle(context),
+                              Wrap(
+                                  spacing: 2.0,
+                                  runSpacing: 2.0,
+                                  children: [
+                                    Text(
+                                      "${tourController.tour.value.tourName}",
+                                      style: getH2TextStyle(context),
+                                    ),
+                                  ]
                               ),
                             ],
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05,vertical: 20),
+                              horizontal: Get.width * 0.05, vertical: 20),
                           child: ButtonView(
                             borderColor: Colors.transparent,
                             btnName: 'Buy Tickets',
@@ -135,63 +149,31 @@ class TourPageMobile extends StatelessWidget {
                             },
                           ),
                         ),
+
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              IconTextBackground(
-                                  iconData: Icons.remove_red_eye,
-                                  text: 'Open Today',
-                                  backgroundColor:
-                                      Color.fromRGBO(8, 137, 67, 0.12),
-                                  iconColor: colorgreen,
-                                  textStyle: iconText),
-                              Text(
-                                'Visit Timing',
-                                style: iconText,
-                              )
-                            ],
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Wrap(
+                            children: _buildIconColumns(),
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05),
-                          child: IconTextBackground(
-                              iconData: Icons.access_time_filled,
-                              text: 'Explore at your pace',
-                              backgroundColor:
-                                  const Color.fromRGBO(204, 126, 99, 0.20),
-                              iconColor: colorLightBrown,
-                              textStyle: iconText),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * 0.05),
-                          child: IconTextBackground(
-                              iconData: Icons.audiotrack,
-                              text: 'Audio Guide',
-                              backgroundColor:
-                                  const Color.fromRGBO(0, 154, 184, 0.20),
-                              iconColor: colorgreen,
-                              textStyle: iconText),
+                          padding:
+                          EdgeInsets.symmetric(horizontal: 1, vertical: 30),
+                          child: MainDetails(
+                            imageUrl: tourController.tourImages[0].imagePath ??
+                                '',
+                            textStyle: detailBoxTextStyleMobile,
+                          ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Get.width * 0.01),
-                      child: MainDetails(
-                        imageUrl: tourController.tourImages[0].imagePath ?? '',
-                        textStyle: detailBoxTextStyleMobile,
-                      ),
-                    ),
+
                     Obx(
-                      () => buildCitySection(
-                        "${homeController.formData.value?.heading2}",
-                        width,
-                      ),
+                          () =>
+                          buildCitySection(
+                            "${homeController.formData.value?.heading2}",
+                            width,
+                          ),
                     ),
                     buildFooterMobile()
                   ],
@@ -203,4 +185,47 @@ class TourPageMobile extends StatelessWidget {
       ),
     );
   }
+
+
+  List<Widget> _buildIconColumns() {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        _buildIconColumn(Icons.security_rounded, 'Secure Checkout',
+            'Fast and Secure Payment'),
+        Padding(
+          padding: const EdgeInsets.only(right: 14.0),
+          child: _buildIconColumn(
+              Icons.fact_check_outlined, 'Instant confirmation',
+              'Refund Guarantee Option'),
+        ),
+      ],),
+      SizedBox(height: 80,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        _buildIconColumn(FontAwesomeIcons.ticket, 'Official Ticket Seller',
+            'Used by 3m+ people'),
+        _buildIconColumn(Icons.co_present, '24/7 customer service',
+            'Reliable after sales support'),
+      ],)
+    ];
+  }
+
+  Widget _buildIconColumn(IconData icon, String title, String subtitle) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: colorgreen),
+        SizedBox(height: 4,),
+        Text(title, style: iconText),
+        Text(subtitle, style: iconText2),
+      ],
+    );
+  }
 }
+
+
+
+
+

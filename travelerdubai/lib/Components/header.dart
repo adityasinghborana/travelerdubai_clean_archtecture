@@ -79,8 +79,8 @@ class Header extends StatelessWidget {
         _navItem("Home", '/home', null),
         _navItem("About Us", '/Aboutus', null),
         _navItem("Events", '/events', null),
+        _navItem("Contact Us", '/contactus', null),
         _navItem("Experiences", '/experiences', null),
-        _navItem("Cart", '/checkout', Icons.shopping_cart),
         _navItem("Dashboard", '/dashboardpage', Icons.account_circle),
         _buildLogoutButton(),
       ],
@@ -97,7 +97,7 @@ class Header extends StatelessWidget {
 
   Widget _buildSignInButton() {
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 12),
       child: ButtonView(
         btnName: 'Sign In',
         bgColor: colorblue,
@@ -111,7 +111,7 @@ class Header extends StatelessWidget {
 
   Widget _buildLogoutButton() {
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0,vertical: 12),
       child: ButtonView(
         btnName: 'Logout',
         bgColor: colorblue,
@@ -157,7 +157,7 @@ class _NavItemWidget extends StatelessWidget {
 
           if (Get.currentRoute.contains("/tour_details")) {
             print("offnamed ");
-            Get.offNamed(route); // Replace the current route
+            Get.toNamed(route); // Replace the current route
           } else {
             print("pushnamed ");
             Navigator.pushNamed(context, route); // Push a new route

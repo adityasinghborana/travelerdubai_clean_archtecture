@@ -213,7 +213,7 @@ Widget buildPriceContainer(BuildContext context, int index, output1, TourOptionS
     alignment: Alignment.center,
     height: 50,
     decoration: BoxDecoration(
-      border: Border.all(width: 2, color: colorwhite),
+      border: Border.all(width: 1, color: colorlightgrey.withOpacity(0.5)),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Padding(
@@ -255,7 +255,7 @@ Widget buildTimeSlotSection(int index,
       return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          border: Border.all(width: 2, color: colorwhite),
+          border: Border.all(width: 1, color: colorlightgrey.withOpacity(0.5)),
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Text("No time Slot required "),
@@ -266,7 +266,7 @@ Widget buildTimeSlotSection(int index,
       return Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          border: Border.all(width: 2, color: colorwhite),
+          border: Border.all(width: 1, color: colorlightgrey.withOpacity(0.5)),
           borderRadius: BorderRadius.circular(12),
         ),
         child: const Text("No time slots available for this option"),

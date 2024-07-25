@@ -12,6 +12,7 @@ import 'package:travelerdubai/bookings/data_layer/model/request/booking_request.
 import 'package:travelerdubai/checkout/data_layer/model/request/intent_request.dart';
 import 'package:travelerdubai/checkout/data_layer/usecase/intent_usecase.dart';
 import 'package:travelerdubai/core/controller/headercontroller.dart';
+import 'package:travelerdubai/core/helperfunctions.dart';
 
 import '../../Cart/data_layer/model/response/get_cart_response.dart';
 import '../../Cart/data_layer/usecase/deletecart_usecase.dart';
@@ -21,6 +22,7 @@ import '../../paymentconfirmation/presentationlayer/success.dart';
 import 'model/guest.dart';
 
 class CheckoutController extends GetxController {
+  late  String  email ='';
   final HeaderController headerController = Get.find();
   final IntentUseCase intentUseCase;
   final GetCartUseCase getCartUseCase;
@@ -35,7 +37,12 @@ class CheckoutController extends GetxController {
       required this.deleteCartItemUseCase,
          this.checkCouponUseCase
       });
-
+  @override
+  void onReady() async{
+  await getEmailID().then((value)=>email=value??'no email found ');
+  print("$email hello email");
+    super.onReady();
+  }
   var selectedValue = 'Adult'.obs;
   var selectedPrefixValue = 'Mr'.obs;
   RxInt cartId = 0.obs;
@@ -64,6 +71,9 @@ class CheckoutController extends GetxController {
     getCart();
     super.onInit();
   }
+
+
+
 
   Future<void> getCart() async {
     headerController.getUserUID().then((value) async {
@@ -135,14 +145,14 @@ class CheckoutController extends GetxController {
   void doBookings() {
     List<Passenger> passengerdata = [
       Passenger(
-          serviceType: selectedPrefixValue.value,
-          prefix: prefixController.text,
+          serviceType: "Tour",
+          prefix: "Mr",
           firstName: firstNameController.text,
           lastName: lastNameController.text,
           email: emailController.text,
           mobile: mobileNoController.text,
-          nationality: nationalityController.text,
-          message: messageController.text,
+          nationality: "Indian",
+          message: "Default Message",
           leadPassenger: 1,
           paxType: selectedValue.value)
     ];

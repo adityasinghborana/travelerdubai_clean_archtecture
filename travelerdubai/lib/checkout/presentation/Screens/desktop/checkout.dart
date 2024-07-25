@@ -10,7 +10,7 @@ import 'package:travelerdubai/bookings/data_layer/repository/bookings_repository
 import 'package:travelerdubai/bookings/data_layer/service/booking_remote.dart';
 import 'package:travelerdubai/bookings/data_layer/usecase/bookings_usecase.dart';
 import 'package:travelerdubai/checkout/presentation/checkout_controller.dart';
-import 'package:travelerdubai/checkout/presentation/widgets/ordersummary.dart';
+
 import 'package:travelerdubai/checkout/presentation/widgets/paxtype_dropdown.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/prefix_dropdown.dart';
 import 'package:travelerdubai/checkout/presentation/widgets/productlist.dart';
@@ -27,9 +27,9 @@ import '../../../data_layer/usecase/intent_usecase.dart';
 class CheckoutScreenDesktop extends StatelessWidget {
   final CheckoutController checkoutController = Get.put(
     CheckoutController(
-      checkCouponUseCase: CheckCouponUseCase(CartRepositoryImpl(
-        CartRemoteService(Dio()),
-      )),
+        checkCouponUseCase: CheckCouponUseCase(CartRepositoryImpl(
+          CartRemoteService(Dio()),
+        )),
         deleteCartItemUseCase: DeleteCartItemUseCase(CartRepositoryImpl(
           CartRemoteService(Dio()),
         )),
@@ -109,16 +109,6 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
-                                      flex: 1,
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.all(Get.width * 0.005),
-                                        child: DropdownPrefix(
-                                            width: Get.width * 0.04),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width * 0.015),
-                                    Flexible(
                                       flex: 3,
                                       child: buildTextFormField(
                                           'First Name *',
@@ -144,23 +134,25 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
-                                      flex: 1,
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.all(Get.width * 0.005),
-                                        child: DropdownPaxType(
-                                            width: Get.width * 0.04),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width * 0.015),
-                                    Flexible(
-                                      flex: 3,
-                                      child: buildTextFormField(
-                                          'Email*',
-                                          checkoutController.emailController,
-                                          "this field is required",
-                                          null),
-                                    ),
+                                        flex: 3,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 13.0),
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: colorlightgrey,
+                                                  width: 1),
+                                              color: colorwhite),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 13),
+                                            child: Text(
+                                                "${checkoutController.email}"),
+                                          ),
+                                        )),
                                     SizedBox(width: Get.width * 0.015),
                                     // Adjust the spacing between the text fields
                                     Flexible(
@@ -180,37 +172,15 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                     SizedBox(width: Get.width * 0.086),
 
                                     // Adjust the spacing between the text fields
-                                    Flexible(
-                                      flex: 3,
-                                      child: buildTextFormField(
-                                          'Nationality*',
-                                          checkoutController
-                                              .nationalityController,
-                                          "this field is required",
-                                          null),
-                                    ),
-                                    SizedBox(width: Get.width * 0.02),
-                                    Flexible(
-                                      flex: 3,
-                                      child: buildTextFormField(
-                                          'Pickup(if transfer selected)',
-                                          checkoutController.pickupController,
-                                          "this field is required",
-                                          null),
-                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Flexible(flex: 1, child: Container()),
                                     Flexible(
                                       flex: 6,
                                       child: buildTextFormField(
-                                          'Message*',
-                                          checkoutController.messageController,
+                                          'Pickup(if transfer selected)',
+                                          checkoutController.pickupController,
                                           "this field is required",
                                           null),
                                     ),
@@ -222,7 +192,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: Get.width * 0.1,
+                        width: Get.width * 0.05,
                       ),
                       Expanded(
                         flex: 1,
@@ -259,7 +229,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                       children: <Widget>[
                                         Flexible(
                                           child: buildTextFormField(
-                                              'Enter Your Coupon code',
+                                              'Apply Coupon',
                                               checkoutController
                                                   .couponController,
                                               "this field is required",
@@ -272,7 +242,7 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                             btnName: "Apply",
                                             bgColor: Colors.transparent,
                                             borderColor: colorMediumBlue,
-                                            onButtonTap: (){
+                                            onButtonTap: () {
                                               checkoutController.checkcoupon();
                                             },
                                           ),
@@ -300,13 +270,18 @@ class CheckoutScreenDesktop extends StatelessWidget {
                                       ),
                                       Flexible(
                                         child: Obx(() {
-                                          var price =double.tryParse(checkoutController.Totalprice.value) ?? 0.0;
-                                          String formattedPrice = price.toStringAsFixed(2);
+                                          var price = double.tryParse(
+                                                  checkoutController
+                                                      .Totalprice.value) ??
+                                              0.0;
+                                          String formattedPrice =
+                                              price.toStringAsFixed(2);
                                           return Text(
                                             "AED ${formattedPrice}",
                                             style: bodyBlack(Get.context!)
                                                 .copyWith(
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                           );
                                         }),
                                       ),

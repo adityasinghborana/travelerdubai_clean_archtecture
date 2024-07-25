@@ -37,12 +37,12 @@ class DropdownWidgetMobile extends StatelessWidget {
                     alignment: Alignment.center,
                     value: value,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(6.0),
                       child: Text(
                         "$value",
                         style: bodyBlack(context).copyWith(
                             fontSize:
-                                MediaQuery.of(context).size.width * 0.0230),
+                                14),
                       ),
                     ),
                   ),

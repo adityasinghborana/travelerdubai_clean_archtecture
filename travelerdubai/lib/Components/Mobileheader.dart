@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
+import 'package:travelerdubai/core/controller/headercontroller.dart';
 
 class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
   final bool isBackButton;
@@ -11,7 +12,7 @@ class MobileHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final HeaderController controller = Get.find();final height = MediaQuery.of(context).size.height;
     return AppBar(
       automaticallyImplyLeading: isBackButton,
       leading: isBackButton
@@ -34,20 +35,32 @@ Get.back();
           child: SizedBox(
             width: Get.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(flex: 2, child: Container()),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed('/home');
-                  },
-                  child: Image.asset(
-                    images.logo,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: height * .05,
-                  ),
-                ),
-                Flexible(flex: 3, child: Container()),
+
+               Flexible(
+               flex:7,child: InkWell(
+               onTap: () {
+                 Get.toNamed('/home');
+               },
+               child: Center(
+                 child: Image.asset(
+                   images.logo,
+                   width: MediaQuery.of(context).size.width * 0.4,
+                   height: height * .05,
+                 ),
+               ),
+                              ),),
+                Flexible(flex: 1, child: Container(
+                  child: IconButton(icon: Icon(Icons.account_circle,size: 26,),onPressed: (){
+                    if(controller.loggedIn==true){
+                      Get.toNamed("/dashboardpage");
+                    }
+                    else{
+                      Get.toNamed('/login');
+                    }
+                  },),
+                )),
               ],
             ),
           ),

@@ -158,9 +158,14 @@ class CheckoutScreenMobile extends StatelessWidget {
                                         style: bodyBlack(Get.context!).copyWith(
                                             fontWeight: FontWeight.bold),),
                                       Obx(() {
+                                        var price = double.tryParse(
+                                            checkoutController
+                                                .Totalprice.value) ??
+                                            0.0;
+                                        String formattedPrice =
+                                        price.toStringAsFixed(2);
                                         return Text(
-                                          "AED ${checkoutController.Totalprice
-                                              .value}",
+                                          "AED ${formattedPrice}",
                                           style: bodyBlack(Get.context!)
                                               .copyWith(
                                               fontWeight: FontWeight.bold),);
@@ -213,10 +218,7 @@ class CheckoutScreenMobile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
-                flex: 1,
-                child: DropdownPrefix(width: Get.width * 0.15),
-              ),
+
 
               Flexible(
                 flex: 2,
@@ -227,16 +229,14 @@ class CheckoutScreenMobile extends StatelessWidget {
                     null),
               ),
 
-              // Adjust the spacing between the text fields
+
             ],
           ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
-                flex: 1,
-                child: DropdownPaxType(width: Get.width * 0.15),
-              ),
+
               Flexible(
                   flex: 2,
                   child: buildTextFormField(
@@ -246,18 +246,33 @@ class CheckoutScreenMobile extends StatelessWidget {
                       null)),
             ],
           ),
+          SizedBox(height: 10),
           Row(
             children: [
               Flexible(
                 flex: 1,
-                child: buildTextFormField(
-                    'Email',
-                    checkoutController.emailController,
-                    "this field is required",
-                    null),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 13.0),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.circular(10),
+                      border: Border.all(
+                          color: colorgreydark,
+                          width: 1),
+                      color: colorwhite),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 13),
+                    child: Text(
+                        "${checkoutController.email}"),
+                  ),
+                )
               ),
             ],
           ),
+          SizedBox(height: 10),
           Row(
             children: [
               Flexible(
@@ -271,42 +286,20 @@ class CheckoutScreenMobile extends StatelessWidget {
             ],
           ),
 
+
           Row(
             children: [
               Flexible(
                 flex: 1,
                 child: buildTextFormField(
-                    'Nationality',
-                    checkoutController.nationalityController,
-                    "this field is required",
-                    null),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Flexible(
-                flex: 1,
-                child: buildTextFormField(
-                    'Pickup',
+                    'Pickup  (if transferOption selected )',
                     checkoutController.pickupController,
                     "this field is required",
                     null),
               ),
             ],
           ),
-          Row(
-            children: [
-              Flexible(
-                flex: 1,
-                child: buildTextFormField(
-                    'Message',
-                    checkoutController.messageController,
-                    "this field is required",
-                    null),
-              ),
-            ],
-          ),
+
         ],
       ),
     );

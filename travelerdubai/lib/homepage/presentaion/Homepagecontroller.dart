@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/homepage/remote/response/model/homepagedata.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 
@@ -19,9 +20,14 @@ class HomeController extends GetxController {
 
   RxList<CarouselItem> imageList = RxList<CarouselItem>(
    [
-     CarouselItem(imageUrl:'http://69.48.163.45:3000/public/uploads/image-1718372071097.png' , onTap: (){}),
-     CarouselItem(imageUrl:'http://69.48.163.45:3000/public/uploads/image-1718372071097.png' , onTap: (){}),
-     CarouselItem(imageUrl:'http://69.48.163.45:3000/public/uploads/image-1718372071097.png' , onTap: (){Get.toNamed("/experiences");}),
+     CarouselItem(imageUrl:"$baseurl${images.slider1}" , onTap: (){}),
+     CarouselItem(imageUrl:"$baseurl${images.slider2}" , onTap: (){}),
+     CarouselItem(imageUrl:"$baseurl${images.slider3}" , onTap: (){}),
+     CarouselItem(imageUrl:"$baseurl${images.slider4}" , onTap: (){}),
+     CarouselItem(imageUrl:"$baseurl${images.slider5}" , onTap: (){}),
+     CarouselItem(imageUrl:"$baseurl${images.slider6}" , onTap: (){}),
+     CarouselItem(imageUrl:"$baseurl${images.slider7}" , onTap: (){}),
+
 
    ]
   );

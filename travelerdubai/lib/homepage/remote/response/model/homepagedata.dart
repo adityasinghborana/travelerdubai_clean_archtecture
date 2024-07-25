@@ -18,6 +18,8 @@ class HomepageData {
   final String ?heading2;
   final String ?heading3;
   final String ?heading4;
+  final String ?heading5;
+  final String ?heading6;
   final String ?imagepath;
   final String ?imagepath2;
   final String ?imagepath3;
@@ -45,6 +47,8 @@ this.gridsectionheading,
      this.heading2,
  this.heading3,
    this.heading4,
+   this.heading5,
+   this.heading6,
      this.imagepath,
   this.imagepath2,
  this.imagepath3,

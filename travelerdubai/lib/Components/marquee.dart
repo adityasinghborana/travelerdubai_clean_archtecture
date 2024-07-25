@@ -14,13 +14,11 @@ class Marquee extends StatefulWidget {
     Key? key,
     this.reverse = false,
     this.pauseOnHover = false,
-    this.children =  const [
-
-    ],
+    this.children = const [],
     this.vertical = false,
     this.repeat = 4,
-    this.duration = const Duration(seconds: 100), // Reduced duration for testing
-    this.gap = 16.0, required ,
+    this.duration = const Duration(seconds: 100),
+    this.gap = 16.0,
   }) : super(key: key);
 
   @override
@@ -34,13 +32,19 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _scrollController = ScrollController();
-    _animationController = AnimationController(vsync: this, duration: widget.duration);
-
-    _animationController.addListener(() {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent * _animationController.value);
-    });
-
+    _animationController = AnimationController(vsync: this, duration: widget.duration)
+      ..addListener(() {
+        if (_scrollController.hasClients) {
+          final position = _scrollController.position;
+          final newValue = position.maxScrollExtent * _animationController.value;
+          if (_scrollController.position.pixels != newValue) {
+            _scrollController.jumpTo(newValue);
+          }
+        }
+      });
+    _animationController.repeat();
     if (!widget.pauseOnHover) {
       _animationController.repeat();
     }
@@ -81,5 +85,3 @@ class _MarqueeState extends State<Marquee> with SingleTickerProviderStateMixin {
     );
   }
 }
-
-

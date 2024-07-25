@@ -26,8 +26,15 @@ class TourCards extends StatelessWidget {
       switch (filterProperty) {
         case 'isRecommended':
           return tour.isvisibleReccomendedTours == true;
-        case 'isPopular':
-          return tour.isvisiblePopularTours == true;
+        case 'isvisibleDesertsafari':
+          return tour.isvisibleDesertsafari == true;
+        case 'isvisibleCulturesandattractions':
+          return tour.isvisibleCulturesandattractions == true;
+        case 'isvisibleDhowcruise':
+          return tour.isvisibleDhowcruise == true;
+        case 'isvisibleWaterActivities':
+          return tour.isvisibleWateractivities == true;
+
         default:
           return true;
       }

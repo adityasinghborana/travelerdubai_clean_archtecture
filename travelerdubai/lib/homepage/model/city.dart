@@ -5,6 +5,7 @@ part 'city.g.dart';
 @JsonSerializable()
 class City {
   final int id;
+  final String imagePath ;
   final int CityId;
   final String CityName;
 
@@ -12,6 +13,7 @@ class City {
 
   City({
     required this.id ,
+    required this.imagePath,
     required this.CityName ,
     required this.CityId ,
 

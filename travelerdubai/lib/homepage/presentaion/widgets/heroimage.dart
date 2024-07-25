@@ -15,10 +15,11 @@ class HeroImageWidget extends StatelessWidget {
 
 
     return AuraUICarouselTappable(
+
       padding: EdgeInsets.zero,
       borderRadius: 16,
       pageController: controller.pageController,
-      curve: Curves.easeOut,
+      curve: Curves.linear,
       showButtons: false,
       indicatorType: CarouselIndicatorType.dot,
       duration: const Duration(seconds: 4),

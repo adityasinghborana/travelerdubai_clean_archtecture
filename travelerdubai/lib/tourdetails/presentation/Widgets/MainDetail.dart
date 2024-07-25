@@ -28,8 +28,9 @@ class MainDetails extends StatelessWidget {
           child: Column(
             children: [
 Get.width<600 ? Padding(
-  padding: const EdgeInsets.only(left: 20.0,right: 20,bottom: 10),
+  padding: const EdgeInsets.only(left: 0.0,right: 20,bottom: 10),
   child: DetailBox(
+    isExpanded: true,
     title: "Tour Summary",
     description: HtmlDisplayWidget(
         htmlContent: tourController.tour.value.tourDescription),
@@ -37,27 +38,28 @@ Get.width<600 ? Padding(
   ),
 ):Container(),
               Padding(
-                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 8):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 00.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
-                  isExpanded: true,
+                  title: "Important Information",
+                  description: HtmlDisplayWidget(
+                      htmlContent:
+                      tourController.tour.value.importantInformation),
+                  textStyle: textStyle,
+                ),
+              ),
+              Padding(
+                padding: Get.width<600 ?const EdgeInsets.only(left: 00.0,right: 20,bottom: 8):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
+                child: DetailBox(
+
                   title: "Tour Inclusion",
                   description: HtmlDisplayWidget(
                       htmlContent: tourController.tour.value.tourInclusion),
                   textStyle: textStyle,
                 ),
               ),
+
               Padding(
-                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
-                child: DetailBox(
-                  title: "Important Information",
-                  description: HtmlDisplayWidget(
-                      htmlContent:
-                          tourController.tour.value.importantInformation),
-                  textStyle: textStyle,
-                ),
-              ),
-              Padding(
-                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 00.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
                   title: "Itinerary Description",
                   description: HtmlDisplayWidget(
@@ -67,7 +69,7 @@ Get.width<600 ? Padding(
                 ),
               ),
               Padding(
-                padding: Get.width<600 ?const EdgeInsets.only(left: 20.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
+                padding: Get.width<600 ?const EdgeInsets.only(left: 00.0,right: 20,bottom: 10):EdgeInsets.only(left: 20.0,right: 20,bottom: 20),
                 child: DetailBox(
                   title: "Useful Information",
                   description: HtmlDisplayWidget(
