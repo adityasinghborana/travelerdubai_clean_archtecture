@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/Aboutus.dart';
 import 'package:travelerdubai/auth/presentation/screens/signin.dart';
 import 'package:travelerdubai/auth/presentation/screens/signup.dart';
+import 'package:travelerdubai/core/helperfunctions.dart';
 import 'package:travelerdubai/core/homescreen.dart';
 import 'package:travelerdubai/creditcard/creditcard.dart';
 import 'package:travelerdubai/eventcheckout/eventcheckout.dart';
@@ -32,15 +33,13 @@ import 'contactus/presentation/contactusScreen.dart';
 import 'core/controller/headercontroller.dart';
 import 'eventDetails/eventdetails.dart';
 import 'events/presentation/event.dart';
-
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
 
 
   WidgetsFlutterBinding.ensureInitialized();
-  var stripePublishableKey =
-      "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
-  Stripe.publishableKey = stripePublishableKey;
+
   await Firebase.initializeApp(
     options: const FirebaseOptions(
         apiKey: "AIzaSyA4f2YsvWuQ8GCn8FvPC82LUvQW493Fau8",
@@ -51,13 +50,17 @@ void main() async {
         appId: "1:191732956201:web:3c7e9bbaeaa8f025d5f038",
         measurementId: "G-4PG69HVJ6C"),
   );
-  SharedPreferences prefs = await SharedPreferences.getInstance();
 
+  setUrlStrategy(PathUrlStrategy());
+  runApp(const MyApp());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   Get.put(prefs);
 
+  cartItemsLength.value = prefs.getInt('Cartlength')??0;
   Get.put(HeaderController());
-
-  runApp(const MyApp());
+  var stripePublishableKey =
+      "pk_test_51MWclzAtjY5SrUmvHfAfot6xsT2EhUUVZHCZpKwaLcezfQz8ZomKbYoRUFakOzZ5GsprJSnQcXnPxAh2GOFqXUER00MAwLuclq";
+  Stripe.publishableKey = stripePublishableKey;
 }
 
 class MyApp extends StatelessWidget {

@@ -44,6 +44,7 @@ class HomePageMobile extends StatelessWidget {
 
     double? width = MediaQuery.of(context).size.width;
     return Scaffold(
+
       backgroundColor: Colors.white,
       drawer: drawer(),
       appBar: MobileHeader(
@@ -55,7 +56,7 @@ class HomePageMobile extends StatelessWidget {
           children: [
             SizedBox(
               height: 186,
-              child: const HeroImageWidget(
+              child:  HeroImageWidget(
                 titleFontSize: 32,
               ),
             ),

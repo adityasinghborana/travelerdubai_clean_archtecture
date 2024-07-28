@@ -68,7 +68,7 @@ class TourOptionStaticDataController extends GetxController {
 
   var contractid = "".obs;
   var isvendor = false.obs;
-  var vendoruid = "".obs;
+  var vendoruid = "11".obs;
   var starttime = "".obs;
   final Rx<String> optionName="".obs;
 
@@ -176,7 +176,7 @@ class TourOptionStaticDataController extends GetxController {
   }
 
   void Addtocart(UpdateCartTourDetail data) async {
-    print (value.transferId);
+    print ("hello add to cart");
     print("add to cart ${data.toJson()}");
     try {
       final value = await updateCartUseCase.execute(data).then((_) async {

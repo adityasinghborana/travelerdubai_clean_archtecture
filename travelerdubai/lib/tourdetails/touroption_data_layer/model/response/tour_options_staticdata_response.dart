@@ -48,7 +48,7 @@ class TourOption {
   String? duration;
   int? minPax;
   int? maxPax;
-  // Add other properties as needed
+
 
   TourOption({
     this.tourId,
@@ -60,7 +60,7 @@ class TourOption {
     this.duration,
     this.minPax,
     this.maxPax,
-    // Add other properties as needed
+
   });
 
   factory TourOption.fromJson(Map<String, dynamic> json) =>

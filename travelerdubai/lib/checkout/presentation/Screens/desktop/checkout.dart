@@ -20,6 +20,7 @@ import 'package:travelerdubai/Components/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 
 import '../../../../Cart/data_layer/usecase/deletecart_usecase.dart';
+import '../../../../Components/floatingaction_button.dart';
 import '../../../data_layer/repository/Intent_repository.dart';
 import '../../../data_layer/service/remote.dart';
 import '../../../data_layer/usecase/intent_usecase.dart';
@@ -54,6 +55,8 @@ class CheckoutScreenDesktop extends StatelessWidget {
     final ScrollController scrollController = ScrollController();
 
     return Scaffold(
+      floatingActionButton: FloatingCartButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       body: Container(
         decoration: BoxDecoration(gradient: backgroundgradient),
         height: Get.height,

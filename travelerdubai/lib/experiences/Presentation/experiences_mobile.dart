@@ -12,6 +12,7 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/remote/experiences_remote_service.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 
+import '../../Components/floatingaction_button.dart';
 import '../model/experience_response_model.dart';
 
 class ExperiencesMobile extends StatelessWidget {
@@ -55,6 +56,7 @@ class ExperiencesMobile extends StatelessWidget {
 
 
     return Scaffold(
+        //floatingActionButton: FloatingCartButton(),
         appBar: MobileHeader(
           context: context,
           isBackButton: false,

@@ -2,19 +2,36 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
-class TourTypes extends StatelessWidget {
+class TourTypes extends StatefulWidget {
   final String title;
   final List<String> items;
   final Function(String) onTap;
-  final VoidCallback onDoubleTap;
 
   const TourTypes({
     super.key,
     required this.title,
     required this.items,
     required this.onTap,
-    required this.onDoubleTap,
   });
+
+  @override
+  _TourTypesState createState() => _TourTypesState();
+}
+
+class _TourTypesState extends State<TourTypes> {
+  String? _selectedItem;
+
+  void _handleTap(String item) {
+    setState(() {
+      if (_selectedItem == item) {
+        _selectedItem = null;
+        widget.onTap('');
+      } else {
+        _selectedItem = item;
+        widget.onTap(item);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +67,7 @@ class TourTypes extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                          text: '$title ',
+                          text: '${widget.title} ',
                           style: TextStyle(
                             foreground: Paint()
                               ..shader = const LinearGradient(
@@ -71,15 +88,14 @@ class TourTypes extends StatelessWidget {
                   SizedBox(
                     height: Get.height * 0.8,
                     child: ListView.builder(
-                      
                       controller: listController,
-                      itemCount: items.length,
+                      itemCount: widget.items.length,
                       itemBuilder: (context, index) {
-                        String item = items[index];
+                        String item = widget.items[index];
                         return HoverCard(
                           item: item,
-                          onTap: () => onTap(item),
-                          onDoubleTap: onDoubleTap,
+                          isSelected: _selectedItem == item,
+                          onTap: () => _handleTap(item),
                         );
                       },
                     ),
@@ -96,13 +112,13 @@ class TourTypes extends StatelessWidget {
 
 class HoverCard extends StatefulWidget {
   final String item;
+  final bool isSelected;
   final VoidCallback onTap;
-  final VoidCallback onDoubleTap;
 
   HoverCard({
     required this.item,
+    required this.isSelected,
     required this.onTap,
-    required this.onDoubleTap,
   });
 
   @override
@@ -111,7 +127,6 @@ class HoverCard extends StatefulWidget {
 
 class _HoverCardState extends State<HoverCard> {
   bool _isHovered = false;
-  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -121,18 +136,7 @@ class _HoverCardState extends State<HoverCard> {
         surfaceTintColor: colorwhite,
         elevation: 4,
         child: InkWell(
-          onTap: () {
-            setState(() {
-              _isSelected = !_isSelected;
-            });
-            widget.onTap();
-          },
-          onDoubleTap: () {
-            setState(() {
-              _isSelected = false;
-            });
-            widget.onDoubleTap();
-          },
+          onTap: widget.onTap,
           child: MouseRegion(
             onEnter: (_) => setState(() {
               _isHovered = true;
@@ -142,7 +146,7 @@ class _HoverCardState extends State<HoverCard> {
             }),
             child: Container(
               decoration: BoxDecoration(
-                color: _isSelected ? Colors.blueAccent : (_isHovered ? Colors.blueAccent.withOpacity(0.9) : Colors.white),
+                color: widget.isSelected ? Colors.blueAccent : (_isHovered ? Colors.blueAccent.withOpacity(0.9) : Colors.white),
                 borderRadius: BorderRadius.circular(10.0),
                 border: Border.all(
                   color: colorlightgrey.withOpacity(0.2),
@@ -160,8 +164,9 @@ class _HoverCardState extends State<HoverCard> {
                       child: Text(
                         widget.item,
                         textAlign: TextAlign.center,
-                        style: bodyBlack(context).copyWith(fontSize: 12,
-                          color: _isSelected || _isHovered ? Colors.white : Colors.black,
+                        style: bodyBlack(context).copyWith(
+                          fontSize: 12,
+                          color: widget.isSelected || _isHovered ? Colors.white : Colors.black,
                         ),
                       ),
                     ),

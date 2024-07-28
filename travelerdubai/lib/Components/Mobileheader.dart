@@ -41,7 +41,13 @@ Get.back();
                Flexible(
                flex:7,child: InkWell(
                onTap: () {
-                 Get.toNamed('/home');
+                 if (Get.currentRoute.contains("/tour_details")) {
+
+                   Get.offNamed('/home'); // Replace the current route
+                 } else {
+                   print("pushnamed ");
+                   Get.toNamed( '/home'); // Push a new route
+                 }
                },
                child: Center(
                  child: Image.asset(

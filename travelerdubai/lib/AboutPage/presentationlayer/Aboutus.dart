@@ -6,6 +6,7 @@ import 'package:travelerdubai/AboutPage/datalayer/service/Aboutus_remote.dart';
 import 'package:travelerdubai/AboutPage/datalayer/usecase/Aboutus_usecase.dart';
 import 'package:travelerdubai/AboutPage/presentationlayer/about_us_controller.dart';
 import 'package:travelerdubai/Components/Mobileheader.dart';
+import 'package:travelerdubai/Components/floatingaction_button.dart';
 import 'package:travelerdubai/Components/footer.dart';
 import 'package:travelerdubai/Components/header.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
@@ -28,6 +29,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingCartButton(),
       body: Obx(() {
         final aboutData = controller.aboutData.value;
         if (aboutData == null) {

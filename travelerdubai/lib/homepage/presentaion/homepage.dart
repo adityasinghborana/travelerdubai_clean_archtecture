@@ -118,7 +118,7 @@ class Homepage extends StatelessWidget {
       margin: EdgeInsets.only(top: 100,),
       height: Get.height * .70,
       color: Colors.white,
-      child: const HeroImageWidget(
+      child:  HeroImageWidget(
         titleFontSize: 80,
       ),
     );

@@ -11,6 +11,7 @@ import 'package:travelerdubai/tourdetails/presentation/screen/mobile/widgets/tra
 import 'package:travelerdubai/tourdetails/presentation/tours_controller.dart';
 import '../../../../Components/date_picker.dart';
 import '../../../../Components/dropdown_widget_mobile.dart';
+import '../../../../Components/floatingaction_button.dart';
 import '../../../../Components/ui_state.dart';
 import '../../../../Components/Mobileheader.dart';
 import '../../tour_options_controller.dart';
@@ -40,6 +41,7 @@ class FormsMobile extends StatelessWidget {
     static.getOptionsStaticData();
 
     return Scaffold(
+      floatingActionButton: FloatingCartButton(),
       drawer: drawer(),
       body: Obx(() {
         if (static.dynamicoptions.isNotEmpty) {

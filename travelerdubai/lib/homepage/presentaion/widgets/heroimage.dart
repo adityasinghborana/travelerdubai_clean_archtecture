@@ -6,8 +6,8 @@ import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 
 class HeroImageWidget extends StatelessWidget {
   final double titleFontSize;
-
-  const HeroImageWidget({super.key, required this.titleFontSize});
+   final PageController pageController=PageController();
+ HeroImageWidget({super.key, required this.titleFontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class HeroImageWidget extends StatelessWidget {
 
       padding: EdgeInsets.zero,
       borderRadius: 16,
-      pageController: controller.pageController,
+      pageController: pageController,
       curve: Curves.linear,
       showButtons: false,
       indicatorType: CarouselIndicatorType.dot,

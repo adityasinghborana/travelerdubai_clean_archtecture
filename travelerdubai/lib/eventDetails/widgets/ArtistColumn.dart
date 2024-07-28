@@ -5,11 +5,11 @@ import '../../core/constants/constants.dart';
 import '../eventdetails_Controller.dart';
 
 Widget ArtistColumn(BuildContext context,
-    EventdetailsController eventController) {
+    EventdetailsController eventController,{double padding =80}) {
   return Flexible(
     flex: 1,
     child: Padding(
-      padding: const EdgeInsets.only(right: 80 ,),
+      padding:  EdgeInsets.only(right: padding ,),
       child: Container(
           constraints: BoxConstraints(
             minHeight: 300.0, // Set the minimum height

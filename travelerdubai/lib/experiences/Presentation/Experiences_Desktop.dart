@@ -79,14 +79,21 @@ class ExperiencesDesktop extends StatelessWidget {
                   Flexible(
                     flex: 1,
                     child: Obx(() {
+                      RxBool tapped =false.obs;
                       return TourTypes(
                         onTap: (String cityTourType) {
-                          experienceController.filterCityToursByType(
-                              cityTourType);
+                          tapped.value=!tapped.value;
+                          if(tapped.value == true){
+                            experienceController.filterCityToursByType(
+                                cityTourType);
+                          }
+                          else{
+                            experienceController.resetSelectedTourType();
+                          }
+
+
                         },
-                        onDoubleTap: () {
-                          experienceController.resetSelectedTourType();
-                        },
+
                         title: 'Browse By Themes',
                         items: experienceController.tourTypes.map((e) =>
                             e['cityTourType'].toString()).toList(),

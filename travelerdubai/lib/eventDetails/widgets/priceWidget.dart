@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travelerdubai/eventDetails/eventdetails_Controller.dart';
@@ -9,15 +8,18 @@ class Price extends StatelessWidget {
   final double adultprice;
   final double childprice;
   final double infantprice;
+
   Price(this.adultprice, this.childprice, this.infantprice);
 
-final EventdetailsController eventdetailsController = Get.find();
+  final EventdetailsController eventdetailsController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    num finalAmount =
-        eventdetailsController.adultsSelectedValue.value * adultprice +
+    var finalAmount = (eventdetailsController.adultsSelectedValue.value *
+                adultprice +
             eventdetailsController.childrenSelectedValue.value * childprice +
-            eventdetailsController.infantsSelectedValue.value * infantprice;
+            eventdetailsController.infantsSelectedValue.value * infantprice)
+        .obs;
     return Container(
       width: Get.width * 0.09,
       alignment: Alignment.center,
@@ -38,22 +40,18 @@ final EventdetailsController eventdetailsController = Get.find();
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              " $finalAmount",
-              style: bodyBlack(context).copyWith(
-                fontSize: Get.width * 0.01,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+            Obx(() {
+              return Text(
+                " ${finalAmount.value}",
+                style: bodyBlack(context).copyWith(
+                  fontSize: Get.width * 0.01,
+                  fontWeight: FontWeight.normal,
+                ),
+              );
+            }),
           ],
         ),
       ),
     );
   }
-
-
 }
-
-
-
-

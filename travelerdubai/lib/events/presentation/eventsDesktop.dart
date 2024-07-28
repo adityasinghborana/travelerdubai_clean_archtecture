@@ -70,7 +70,7 @@ class Eventspage extends StatelessWidget {
      return TourTypes(
        title: "Browse Events", items: stringList, onTap: (String eventType) {
        experienceController.filterCityeventsByType(eventType);
-     },onDoubleTap: ()=>null,);
+     },);
    }
    else{
      return dataNotFound(width: double.infinity, height: double.infinity);

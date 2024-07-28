@@ -7,12 +7,13 @@ import 'package:get/get.dart';
 import 'package:travelerdubai/Components/Mobileheader.dart';
 import 'package:travelerdubai/Components/custom_button.dart';
 import 'package:travelerdubai/Components/footer_mobile.dart';
-import 'package:travelerdubai/Components/icon_text_background.dart';
+
 
 import '../../../../Cart/data_layer/repository/cart_repository.dart';
 import '../../../../Cart/data_layer/service/cart_remote.dart';
 import '../../../../Cart/data_layer/usecase/update_cart.dart';
 import '../../../../Components/build_city.dart';
+import '../../../../Components/floatingaction_button.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../homepage/presentaion/Homepagecontroller.dart';
 import '../../../../homepage/remote/homepage_remote_service.dart';
@@ -63,6 +64,7 @@ class TourPageMobile extends StatelessWidget {
     final TourController tourController = Get.find();
     //final double Width = MediaQuery.of(context).size.width;
     return Scaffold(
+      floatingActionButton: FloatingCartButton(),
       appBar: MobileHeader(context: context,),
       body: Obx(
             () {

@@ -12,6 +12,7 @@ import 'package:travelerdubai/core/service/auth.dart';
 
 import '../../Cart/data_layer/model/request/create_cart.dart';
 import '../../Cart/data_layer/usecase/get_cart_usecase.dart';
+import '../../core/helperfunctions.dart';
 
 class SigninController extends GetxController {
   final CreateUserUseCase createuser;
@@ -93,18 +94,14 @@ class SigninController extends GetxController {
     print("emailId saved");
   }
 
-  Future<void> saveCartLength(int cartlength) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('Cartlength', cartlength);
-    print("cartlength saved");
-  }
+
   Future<void> getCart(String uid) async {
     CreateCartRequest data = CreateCartRequest(userId: uid);
 
     getCartUseCase.execute(data).then((value) {
       if (value.data.isNotEmpty) {
         cartId.value = value.data[0].id;
-        headerController.cartItemsLength.value = value.data[0].TourDetails.length;
+        cartItemsLength.value = value.data[0].TourDetails.length;
 
         saveCartLength(value.data[0].TourDetails.length);
         print(value.data[0].TourDetails.length);
@@ -135,7 +132,7 @@ class SigninController extends GetxController {
       final String uid = userCredential.user!.uid;
       final String name = userCredential.user!.displayName!;
       saveEmailId(userCredential?.user?.email);
-print(name);
+
       headerController.loggedIn.value = true;
       await getCart(uid);
       await saveUserUID(uid);

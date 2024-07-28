@@ -78,7 +78,7 @@ class CheckoutController extends GetxController {
   Future<void> getCart() async {
     headerController.getUserUID().then((value) async {
       CreateCartRequest data = CreateCartRequest(userId: value ?? "0");
-      print(data.toJson());
+
 
       try {
         var response = await getCartUseCase.execute(data);
@@ -88,7 +88,7 @@ class CheckoutController extends GetxController {
           Totalprice.value = response.data[0].totalamount.toString();
           print(Totalprice.value);
           cartTours.assignAll(response.data[0].TourDetails);
-
+          saveCartLength(cartTours.length);
           for (CartTourDetail tourDetail in cartTours) {
             print('Tour Name: ${tourDetail.tourname}');
             print('Adult Rate: ${tourDetail.adultRate} AUD');
@@ -180,7 +180,7 @@ class CheckoutController extends GetxController {
       if (value.status == 200) {
         cartTours.removeWhere((e) => e.id == id);
         getCart();
-        //Totalprice.value = '800';
+
       }
       else{
         showToast(toastMessage: "nothing happend");

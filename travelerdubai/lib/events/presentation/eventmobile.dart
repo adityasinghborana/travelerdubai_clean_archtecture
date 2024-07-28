@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../Components/Mobileheader.dart';
 import '../../Components/drawer.dart';
 import '../../Components/tour_types_mobile.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controller/headercontroller.dart';
-import '../../experiences/Presentation/widgets/tourcards.dart';
 import '../event_controller.dart';
 
 class Eventmobile extends StatelessWidget {
@@ -20,16 +18,14 @@ class Eventmobile extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.lazyPut(() => HeaderController());
 
-
-    List<dynamic> displayedTours = experienceController
-        .selectedEventType.isEmpty
-        ? experienceController.cityEvents
-        : experienceController.cityEvents
-        .where((tour) =>
-    tour['eventType'] ==
-        experienceController.selectedTourType.value)
-        .toList();
-
+    List<dynamic> displayedTours =
+        experienceController.selectedEventType.isEmpty
+            ? experienceController.cityEvents
+            : experienceController.cityEvents
+                .where((tour) =>
+                    tour['eventType'] ==
+                    experienceController.selectedTourType.value)
+                .toList();
 
     return Scaffold(
         appBar: MobileHeader(
@@ -104,8 +100,9 @@ class Eventmobile extends StatelessWidget {
             Obx(() {
               return TourTypesMobile(
                 title: 'Browse By Themes',
-                items: experienceController.eventTypes.value.map((e) =>
-                    e.toString()).toList(),
+                items: experienceController.eventTypes.value
+                    .map((e) => e.toString())
+                    .toList(),
                 selectedItem: experienceController.selectedTourType.value,
                 onTap: (item) {
                   if (experienceController.selectedTourType.value == item) {
@@ -121,18 +118,18 @@ class Eventmobile extends StatelessWidget {
                   padding: const EdgeInsets.all(1.0),
                   child: Obx(() {
                     return EventCardsMobile(experienceController.cityEvents);
-                  })
-              ),
+                  })),
             )
           ],
         ));
   }
 }
 
-Widget EventCardsMobile(List<dynamic> displayedTours,) {
+Widget EventCardsMobile(
+  List<dynamic> displayedTours,
+) {
   final crossAxisCount = Get.width < 600 ? 2 : 3;
   final EventController experienceController = Get.find();
-
 
   List<dynamic> filteredTours = displayedTours;
   print("$filteredTours");
@@ -147,20 +144,22 @@ Widget EventCardsMobile(List<dynamic> displayedTours,) {
       ),
       itemCount: filteredTours.length,
       itemBuilder: (context, index) {
+        String eventDetailId =
+            filteredTours[index]['eventdetail'][0]['id'].toString();
         final tour = filteredTours[index];
 
         return InkWell(
-          onTap: () =>
-              Get.toNamed(
-                '/tour_details',
-
-              ),
+          onTap: () => Get.toNamed(
+            '/eventdetails',
+            parameters: {'eventId': eventDetailId},
+          ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Image.network(tour['imagePath'],
+                  child: Image.network(
+                    tour['imagePath'],
                     //tour.imagePath,
                     fit: BoxFit.cover,
                   ),
@@ -190,5 +189,3 @@ Widget EventCardsMobile(List<dynamic> displayedTours,) {
     ),
   );
 }
-
-

@@ -30,9 +30,7 @@ import '../../Widgets/dropdown_widget.dart';
 import '../../Widgets/tranfertype_dropdown.dart';
 
 class TourPageDesktop extends StatelessWidget {
-  final ScrollController ss = ScrollController();
-  final HeaderController controller = Get.find();
-  final PageController pageController = PageController();
+
   final TourOptionStaticDataController static = Get.put(
     TourOptionStaticDataController(
       GetTourOptionsStaticDataUseCase(
@@ -60,6 +58,9 @@ class TourPageDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  //  final ScrollController ss = ScrollController();
+    final HeaderController controller = Get.find();
+
     final TourController tourController = Get.find();
 
     // Update dateTextController and selectedDate
@@ -80,9 +81,7 @@ class TourPageDesktop extends StatelessWidget {
 
     return Scaffold(
       body: Obx(() {
-        if (kDebugMode) {
-          print('in the body obx');
-        }
+
         if (tourController.isLoading.isTrue) {
           return const Center(child: CircularProgressIndicator());
         } else {
@@ -114,7 +113,8 @@ class TourPageDesktop extends StatelessWidget {
   void _updateDateFields(TourController tourController) {
     final cutoffHours = tourController.tour.value.cutOffhrs ?? 0;
     final cutoffDate = DateTime.now().add(Duration(hours: cutoffHours));
-    static.dateTextController.value.text = cutoffDate.toString().substring(0, 10);
+    static.dateTextController.value.text =
+        cutoffDate.toString().substring(0, 10);
     static.selectedDate.value = cutoffDate;
   }
 
@@ -128,6 +128,7 @@ class TourPageDesktop extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context, TourController tourController) {
+    final PageController pageController = PageController();
     return Column(
       children: [
         Header(),
@@ -137,7 +138,10 @@ class TourPageDesktop extends StatelessWidget {
             duration: Duration(seconds: 3),
             images: _getTourImageUrls(tourController),
             maxWidth: 1340,
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.6,
             showButtons: true,
             pageController: pageController,
           ),
@@ -152,10 +156,12 @@ class TourPageDesktop extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            "${tourController.tour.value.tourName}",
-            style: getH2TextStyle(context).copyWith(color: Colors.black),
-          ),
+          Obx(() {
+            return Text(
+              "${tourController.tour.value.tourName}",
+              style: getH2TextStyle(context).copyWith(color: Colors.black),
+            );
+          }),
         ],
       ),
     );
@@ -173,10 +179,14 @@ class TourPageDesktop extends StatelessWidget {
 
   List<Widget> _buildIconColumns() {
     return [
-      _buildIconColumn(Icons.security_rounded, 'Secure Checkout', 'Fast and Secure Payment'),
-      _buildIconColumn(Icons.fact_check_outlined, 'Instant confirmation', 'Refund Guarantee Option'),
-      _buildIconColumn(FontAwesomeIcons.ticket, 'Official Ticket Seller', 'Used by 3m+ people'),
-      _buildIconColumn(Icons.co_present, '24/7 customer service', 'Reliable after sales support'),
+      _buildIconColumn(
+          Icons.security_rounded, 'Secure Checkout', 'Fast and Secure Payment'),
+      _buildIconColumn(Icons.fact_check_outlined, 'Instant confirmation',
+          'Refund Guarantee Option'),
+      _buildIconColumn(FontAwesomeIcons.ticket, 'Official Ticket Seller',
+          'Used by 3m+ people'),
+      _buildIconColumn(Icons.co_present, '24/7 customer service',
+          'Reliable after sales support'),
     ];
   }
 
@@ -195,19 +205,12 @@ class TourPageDesktop extends StatelessWidget {
     );
   }
 
-  Widget _buildIconsRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: Get.height * 0.01),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: _buildIconColumns(),
-      ),
-    );
-  }
 
-  Widget _buildMainDetails(BuildContext context, TourController tourController) {
+  Widget _buildMainDetails(BuildContext context,
+      TourController tourController) {
     return Padding(
-      padding: EdgeInsets.only(left: Get.width * 0.035, right: Get.width * 0.05),
+      padding: EdgeInsets.only(
+          left: Get.width * 0.035, right: Get.width * 0.05),
       child: MainDetails(
         imageUrl: tourController.tourImages[0].imagePath ?? '',
         textStyle: detailBoxTextStyle,
@@ -224,7 +227,8 @@ class TourPageDesktop extends StatelessWidget {
   }
 
   List<String> _getTourImageUrls(TourController tourController) {
-    return tourController.tourImages.map((imageModel) => imageModel.imagePath!).toList();
+    return tourController.tourImages.map((imageModel) => imageModel.imagePath!)
+        .toList();
   }
 
   Widget formSection() {
@@ -260,7 +264,8 @@ class TourPageDesktop extends StatelessWidget {
 
     if (kDebugMode) {
       print('static.dynamic length is ${static.dynamicoptions.length}');
-      print('in the form section options state is ${static.options.value.state}');
+      print(
+          'in the form section options state is ${static.options.value.state}');
     }
 
     for (var option in static.dynamicoptions) {
@@ -286,42 +291,47 @@ class TourPageDesktop extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Obx(() => DropdownWidget(
-          label: 'Adults',
-          selectedValue: static.adultsSelectedValue.value,
-          onChanged: (value) {
-            static.adultsSelectedValue.value = value ?? 1;
-            static.getOptionsDynamicData();
-          },
-        )),
-        Obx(() => DropdownWidget(
-          label: 'Children',
-          selectedValue: static.childrenSelectedValue.value,
-          onChanged: (value) {
-            static.childrenSelectedValue.value = value ?? 0;
-            static.getOptionsDynamicData();
-          },
-        )),
-        Obx(() => DropdownWidget(
-          label: 'Infants',
-          selectedValue: static.infantsSelectedValue.value,
-          onChanged: (value) {
-            static.infantsSelectedValue.value = value ?? 0;
-          },
-        )),
+        Obx(() =>
+            DropdownWidget(
+              label: 'Adults',
+              selectedValue: static.adultsSelectedValue.value,
+              onChanged: (value) {
+                static.adultsSelectedValue.value = value ?? 1;
+                static.getOptionsDynamicData();
+              },
+            )),
+        Obx(() =>
+            DropdownWidget(
+              label: 'Children',
+              selectedValue: static.childrenSelectedValue.value,
+              onChanged: (value) {
+                static.childrenSelectedValue.value = value ?? 0;
+                static.getOptionsDynamicData();
+              },
+            )),
+        Obx(() =>
+            DropdownWidget(
+              label: 'Infants',
+              selectedValue: static.infantsSelectedValue.value,
+              onChanged: (value) {
+                static.infantsSelectedValue.value = value ?? 0;
+              },
+            )),
         Obx(() {
           return dateInputField(
             static.dateTextController.value,
             Get.context!,
                 () {
-              static.changePickedDate(DateTime.parse(static.dateTextController.value.text));
+              static.changePickedDate(
+                  DateTime.parse(static.dateTextController.value.text));
             },
             null,
           );
         }),
         DropdownTransferWidget(
           label: 'type',
-          selectedValue: transferOptionsMap.containsKey(static.selectedTransfer.value)
+          selectedValue: transferOptionsMap.containsKey(
+              static.selectedTransfer.value)
               ? static.selectedTransfer.value
               : transferOptionsMap.keys.isNotEmpty
               ? transferOptionsMap.keys.first

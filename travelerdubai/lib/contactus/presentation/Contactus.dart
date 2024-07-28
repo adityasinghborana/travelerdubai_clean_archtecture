@@ -41,6 +41,7 @@ class ContactusDesktop extends StatelessWidget {
 
     return Scaffold(
         floatingActionButton: Container(
+
           width: Get.width ,
           child: Row(
 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,6 +50,7 @@ mainAxisAlignment: MainAxisAlignment.spaceBetween,
               Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: FloatingActionButton(
+                  heroTag: "whatsapp",
                   isExtended: true,
                   backgroundColor: colorwhite,
                   child: Icon(

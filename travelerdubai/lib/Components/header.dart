@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import '../auth/presentation/logout.dart';
-import '../auth/presentation/sign_in_controller.dart';
 import '../core/controller/headercontroller.dart';
 import 'custom_button.dart';
-import 'marquee.dart';
+
 
 class Header extends StatelessWidget {
   final HeaderController headerController = Get.find();
@@ -156,11 +155,11 @@ class _NavItemWidget extends StatelessWidget {
           headerController.navItemColor.value = colorblack;
 
           if (Get.currentRoute.contains("/tour_details")) {
-            print("offnamed ");
-            Get.toNamed(route); // Replace the current route
+
+            Get.offNamed(route); // Replace the current route
           } else {
             print("pushnamed ");
-            Navigator.pushNamed(context, route); // Push a new route
+            Get.toNamed( route); // Push a new route
           }
         },
         child: icon == null
