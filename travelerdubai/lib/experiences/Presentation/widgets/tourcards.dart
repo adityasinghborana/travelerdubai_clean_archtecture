@@ -46,7 +46,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName,
                 child: Stack(
                   children: [
                     Image.network(
-                      "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                      "${tour.imagePath}",
                       height: Get.height * 0.6,
                       fit: BoxFit.cover,
                     ),
@@ -59,7 +59,7 @@ Widget tourCards(List<Experiences> displayedTours, String? cityName,
                         alignment: Alignment.bottomLeft,
                         child: Text(
                           tour.tourName ??"Undefined",
-                          style: GoogleFonts.playfairDisplay(
+                          style: GoogleFonts.montserrat(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,
@@ -115,7 +115,8 @@ Widget tourCardsMobile(List<Experiences> displayedTours, String? cityName) {
                   children: [
                     Positioned.fill(
                       child: Image.network(
-                        "https://d1i3enf1i5tb1f.cloudfront.net/${tour.imagePath}",
+                        "${tour.imagePath}",
+
                         fit: BoxFit.cover,
                       ),
                     ),

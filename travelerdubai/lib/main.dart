@@ -51,7 +51,7 @@ void main() async {
         measurementId: "G-4PG69HVJ6C"),
   );
 
-  setUrlStrategy(PathUrlStrategy());
+
   runApp(const MyApp());
   SharedPreferences prefs = await SharedPreferences.getInstance();
   Get.put(prefs);

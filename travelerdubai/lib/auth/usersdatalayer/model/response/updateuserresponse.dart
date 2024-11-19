@@ -1,11 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-
-part 'user_detail_response.g.dart';
-
+part 'updateuserresponse.g.dart';
 @JsonSerializable()
-class UserDetail {
+class UpdateUserDetailResponse {
   final int id;
-  final String? mobileNo;
+  final String uid;
   final String? username;
   final bool? isUser;
   final String email;
@@ -14,9 +12,9 @@ class UserDetail {
   final String? dob;
 
 
-  UserDetail({
+  UpdateUserDetailResponse({
     required this.id,
-     this.mobileNo,
+    required this.uid,
     required this.username,
     required this.isUser,
     required this.email,
@@ -26,7 +24,7 @@ class UserDetail {
 
   });
 
-  factory UserDetail.fromJson(Map<String, dynamic> json) => _$UserDetailFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserDetailToJson(this);
+  factory UpdateUserDetailResponse.fromJson(Map<String, dynamic> json) =>
+      _$UpdateUserDetailResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$UpdateUserDetailResponseToJson(this);
 }

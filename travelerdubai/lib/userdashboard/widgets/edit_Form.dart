@@ -3,14 +3,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../Components/Textformfield.dart';
+import '../dashboard_controller.dart';
 
 class EditForm extends StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
+  final DashBoardController accountController = Get.find();
+
   EditForm({Key? key}) : super(key: key);
 
   @override
@@ -29,13 +26,13 @@ class EditForm extends StatelessWidget {
           children: [
             Expanded(
               child: buildTextFormField(
-                  "Name*", nameController, "This field is required", null),
+                  "Name*", accountController.nameController, "This field is required", null),
             ),
             const SizedBox(
                 width: 40), // Adjust spacing between text form fields
             Expanded(
               child: buildTextFormField(
-                  "Email*", emailController, "This field is required", null),
+                  "Email*",accountController.emailController, "This field is required", null),
             ),
           ],
         ),
@@ -43,12 +40,12 @@ class EditForm extends StatelessWidget {
           children: [
             Expanded(
               child: buildTextFormField(
-                  "Age*", ageController, "This field is required", null),
+                  "Age*", accountController.ageController, "This field is required", null),
             ),
             const SizedBox(
                 width: 40), // Adjust spacing between text form fields
             Expanded(
-              child: buildTextFormField("MobileNumber*", mobileController,
+              child: buildTextFormField("MobileNumber*", accountController.mobileController,
                   "This field is required", null),
             ),
           ],
@@ -57,7 +54,7 @@ class EditForm extends StatelessWidget {
           children: [
             Expanded(
               child: buildTextFormField(
-                  "DOB*", dobController, "This field is required", () {
+                  "DOB*",accountController.dobController, "This field is required", () {
                 showDatePicker(
                         context: context,
                         firstDate: DateTime(1920),
@@ -68,7 +65,7 @@ class EditForm extends StatelessWidget {
                     String formattedDate =
                         DateFormat('yyyy-MM-dd').format(selectedDate);
                     // Set the formatted date to the controller
-                    dobController.text = formattedDate;
+                    accountController.dobController.text = formattedDate;
                   }
                 });
               }),
@@ -76,7 +73,7 @@ class EditForm extends StatelessWidget {
             const SizedBox(
                 width: 40), // Adjust spacing between text form fields
             Expanded(
-              child: buildTextFormField("Address*", addressController,
+              child: buildTextFormField("Address*",accountController.addressController,
                   "This field is required", null),
             ),
           ],
@@ -92,30 +89,30 @@ class EditForm extends StatelessWidget {
         children: [
           Expanded(
             child: buildTextFormField(
-                "Name*", nameController, "This field is required", null),
+                "Name*", accountController.nameController, "This field is required", null),
           ),
           const SizedBox(width: 40), // Adjust spacing between text form fields
           Expanded(
             child: buildTextFormField(
-                "Email*", emailController, "This field is required", null),
+                "Email*", accountController.emailController, "This field is required", null),
           ),
           Expanded(
             child: buildTextFormField(
-                "Age*", ageController, "This field is required", null),
+                "Age*", accountController.ageController, "This field is required", null),
           ),
           const SizedBox(width: 40), // Adjust spacing between text form fields
           Expanded(
-            child: buildTextFormField("MobileNumber*", mobileController,
+            child: buildTextFormField("MobileNumber*", accountController.mobileController,
                 "This field is required", null),
           ),
           Expanded(
             child: buildTextFormField(
-                "DOB*", dobController, "This field is required", null),
+                "DOB*", accountController.dobController, "This field is required", null),
           ),
           const SizedBox(width: 40), // Adjust spacing between text form fields
           Expanded(
             child: buildTextFormField(
-                "Address", addressController, "This field is required", null),
+                "Address", accountController.addressController, "This field is required", null),
           ),
         ],
       ),

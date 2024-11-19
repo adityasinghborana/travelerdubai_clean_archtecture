@@ -20,7 +20,7 @@ import '../bookings/data_layer/usecase/bookings_usecase.dart';
 import '../checkout/data_layer/repository/Intent_repository.dart';
 import '../checkout/data_layer/service/remote.dart';
 import '../checkout/data_layer/usecase/intent_usecase.dart';
-import '../paymentconfirmation/presentationlayer/success.dart';
+
 
 class CardPaymentScreen extends StatefulWidget {
   @override
@@ -51,6 +51,7 @@ mainAxisAlignment: MainAxisAlignment.center,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Text("Payment Gateway",style: H1black,),
                         Center(
                           child: Image.asset(images.logo),
                         )
@@ -90,12 +91,13 @@ mainAxisAlignment: MainAxisAlignment.center,
                               Padding(
                                 padding: EdgeInsets.all(12),
                                 child: Text(
-                                    "Pay Via Using Your Credit/Debit Card"),
+                                    "Pay using your Credit/Debit Card",style: H1(context).copyWith(fontSize: 18,color: colorblack, fontWeight: FontWeight.w500),),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 14.0),
                                 child: WebCardField(
+                                  style: CardStyle(borderColor: colorMediumBlue),
                                   width: double.infinity,
                                   onCardChanged: (card) {
                                     setState(() {
@@ -107,6 +109,8 @@ mainAxisAlignment: MainAxisAlignment.center,
                               ),
                               if (_card?.complete ?? false)
                                 SizedBox(height: 50),
+
+
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: ButtonView(
@@ -127,6 +131,11 @@ mainAxisAlignment: MainAxisAlignment.center,
                                   },
                                   btnName: 'Pay Now',
                                 ),
+                              ),
+                              Row(
+                                children: [
+                                  Image.asset(images.paymentsimage)
+                                ],
                               ),
                             ],
                           ),

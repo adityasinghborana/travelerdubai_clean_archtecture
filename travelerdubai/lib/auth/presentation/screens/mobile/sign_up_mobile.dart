@@ -59,7 +59,7 @@ class SignUpMobile extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Text(
                 'Sign up',
-                style: GoogleFonts.roboto(
+                style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w500,
                     fontSize: 24,
                     color: Colors.black,
@@ -69,7 +69,7 @@ class SignUpMobile extends StatelessWidget {
             SizedBox(height: Get.height * 0.016),
             Text(
               'Let’s get you all st up so you can access your personal account.',
-              style: GoogleFonts.roboto(
+              style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w400,
                   fontSize: 14,
                   color: Colors.black,

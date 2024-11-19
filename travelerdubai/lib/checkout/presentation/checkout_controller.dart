@@ -22,7 +22,7 @@ import '../../paymentconfirmation/presentationlayer/success.dart';
 import 'model/guest.dart';
 
 class CheckoutController extends GetxController {
-  RxString  email =''.obs;
+  RxString email = ''.obs;
   final HeaderController headerController = Get.find();
   final IntentUseCase intentUseCase;
   final GetCartUseCase getCartUseCase;
@@ -35,17 +35,21 @@ class CheckoutController extends GetxController {
       required this.intentUseCase,
       required this.doBookingUseCase,
       required this.deleteCartItemUseCase,
-         this.checkCouponUseCase
-      });
+      this.checkCouponUseCase});
+
   @override
-  void onReady() async{
-  await getEmailID().then((value)=>email.value=value??'no email found ');
-  print("$email hello email");
+  void onReady() async {
+    await getEmailID()
+        .then((value) => email.value = value ?? 'no email found ');
+    print("$email hello email");
     super.onReady();
   }
+
+  var isCouponApplied = false.obs;
   var selectedValue = 'Adult'.obs;
   var selectedPrefixValue = 'Mr'.obs;
   RxInt cartId = 0.obs;
+  var discount = "".obs;
 
   var paymentmethodid = ''.obs;
 
@@ -63,6 +67,7 @@ class CheckoutController extends GetxController {
 
   RxString stripeclientkey = "".obs;
   var Totalprice = "".obs;
+  var priceWithoutDiscount = "".obs;
   RxList<Guest> guests = <Guest>[].obs;
   RxString refno = "".obs;
 
@@ -72,20 +77,17 @@ class CheckoutController extends GetxController {
     super.onInit();
   }
 
-
-
-
   Future<void> getCart() async {
     headerController.getUserUID().then((value) async {
       CreateCartRequest data = CreateCartRequest(userId: value ?? "0");
-
 
       try {
         var response = await getCartUseCase.execute(data);
 
         if (response.data[0].TourDetails.isNotEmpty) {
           cartId.value = response.data[0].TourDetails[0].cartId;
-          Totalprice.value = response.data[0].totalamount.toString();
+          Totalprice.value = priceWithoutDiscount.value =
+              response.data[0].totalamount.toString();
           print(Totalprice.value);
           cartTours.assignAll(response.data[0].TourDetails);
           saveCartLength(cartTours.length);
@@ -98,7 +100,7 @@ class CheckoutController extends GetxController {
         } else {
           // Handle error
           print('Error: Empty TourDetails');
-          Totalprice.value="0";
+          Totalprice.value = "0";
         }
       } catch (error) {
         // Handle generic error
@@ -122,8 +124,7 @@ class CheckoutController extends GetxController {
       showToast(toastMessage: 'First Name is not valid');
     } else if (!Validation.isValidFirstName(lastNameController.text)) {
       showToast(toastMessage: 'Last Name  is not valid');
-    }
-    else if (!Validation.isValidPhoneNumber(mobileNoController.text)) {
+    } else if (!Validation.isValidPhoneNumber(mobileNoController.text)) {
       showToast(toastMessage: 'Mobile number is  not valid');
     } else {
       await intentUseCase
@@ -165,12 +166,13 @@ class CheckoutController extends GetxController {
       print(passengerdata);
     }
     doBookingUseCase.execute(data).then((value) {
-      if (value.data?.result?.referenceNo != null ||value.vendorbookings?.status == 200 ) {
+      if (value.data?.result?.referenceNo != null ||
+          value.vendorbookings?.status == 200) {
         print(value.data?.result!.referenceNo);
-        refno.value = value.data?.result?.referenceNo ?? "check Dashboard " ;
-        Get.to(()=>PaymentSuccess());
+        refno.value = value.data?.result?.referenceNo ?? "check Dashboard ";
+        Get.to(() => PaymentSuccess());
       } else {
-        Get.to(()=>FailureScreen());
+        Get.to(() => FailureScreen());
       }
     });
   }
@@ -180,27 +182,42 @@ class CheckoutController extends GetxController {
       if (value.status == 200) {
         cartTours.removeWhere((e) => e.id == id);
         getCart();
-
-      }
-      else{
+      } else {
         showToast(toastMessage: "nothing happend");
       }
     });
   }
 
-  void checkcoupon(  ) async {
+  void checkcoupon() async {
+
     print(cartId.value);
-    checkCouponUseCase?.execute(CouponRequest(name: couponController.text.toString(), cartId: cartId.value)).then((value){
+    checkCouponUseCase
+        ?.execute(CouponRequest(
+            name: couponController.text.toString(), cartId: cartId.value))
+        .then((value) {
+      isCouponApplied.value = true;
       if (value.error != null) {
         print(value.error);
         showToast(toastMessage: "${value.error}");
       }
-      if (value.discountprice !=null && value.error == null){
+      if (value.discountprice != null && value.error == null) {
+        double discountedvalue =
+            double.parse(Totalprice.value) - value.discountprice!.toDouble();
+        discount.value = discountedvalue.toString();
+        print(discount.value);
         String Price = value.discountprice.toString();
-        Totalprice.value=Price;
+        Totalprice.value = Price;
+
       }
-
     });
+  }
 
+  void changePrice() {
+    isCouponApplied.value = false;
+    couponController.clear();
+
+    Totalprice.value = priceWithoutDiscount.value;
+    print(priceWithoutDiscount.value);
+    print(Totalprice.value);
   }
 }

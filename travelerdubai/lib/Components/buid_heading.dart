@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 Widget buildHeading(String heading) {
   return SelectableText(
     heading,
-    style: GoogleFonts.playfairDisplay(
+    style: GoogleFonts.montserrat(
       textStyle: const TextStyle(
           color: Colors.black,
           letterSpacing: .5,

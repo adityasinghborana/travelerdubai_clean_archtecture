@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:html' as html;
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
@@ -21,6 +22,7 @@ Widget buildFooter() {
               child: Column(
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _buildLogoAndDescription(),
@@ -52,9 +54,9 @@ Widget _buildLogoAndDescription() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.asset(
-         images.logo,
-          width: Get.width * .15,
-          height: Get.width * .025,
+          images.logowhite,
+          width: 300,
+          height: Get.width * .035,
         ),
         const SizedBox(height: 16),
         const Padding(
@@ -68,9 +70,7 @@ Widget _buildLogoAndDescription() {
           ),
         ),
         Row(
-          children: [
-           Image.asset(images.paymentsimage)
-          ],
+          children: [Image.asset(images.paymentsimage)],
         ),
       ],
     ),
@@ -84,8 +84,6 @@ Widget _buildNavigationSections() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextButton(
-
-
           onPressed: () {
             // Handle Home button press
             Get.toNamed('/home');
@@ -126,7 +124,6 @@ Widget _buildNavigationSections() {
                 color: colorTextgrey),
           ),
         ),
-
         const SizedBox(height: 4),
         TextButton(
           onPressed: () {
@@ -143,7 +140,7 @@ Widget _buildNavigationSections() {
         const SizedBox(height: 4),
         TextButton(
           onPressed: () {
-           Get.toNamed('/contactus');
+            Get.toNamed('/contactus');
           },
           child: const Text(
             "Contact Us",
@@ -162,6 +159,7 @@ Widget _buildPolicySections() {
   return Flexible(
     flex: 2,
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextButton(
@@ -192,7 +190,7 @@ Widget _buildPolicySections() {
         const SizedBox(height: 8),
         TextButton(
           onPressed: () {
-       Get.toNamed('/refundpolicy');
+            Get.toNamed('/refundpolicy');
           },
           child: const Text(
             "Refund Policy ",
@@ -227,18 +225,6 @@ Widget _buildNewsletterSection() {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Icon(
-              FontAwesomeIcons.facebookF,
-              color: colorTextgrey,
-            ),
-            Icon(FontAwesomeIcons.instagram, color: colorTextgrey),
-            Icon(FontAwesomeIcons.x, color: colorTextgrey),
-            Icon(FontAwesomeIcons.youtube, color: colorTextgrey),
-          ],
-        ),
         const SizedBox(height: 8),
         const Align(
           alignment: Alignment.centerLeft,
@@ -275,7 +261,35 @@ Widget _buildNewsletterSection() {
                 fontWeight: FontWeight.w400,
                 color: colorTextgrey),
           ),
-        )
+        ),
+        SizedBox(height: 10,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            IconButton(
+              onPressed: () {
+                html.window.open(' https://www.facebook.com/TravelerDubaiUAE/', 'new tab');
+              },
+              icon: Icon(
+                FontAwesomeIcons.facebookF,
+                color: colorTextgrey,
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                html.window.open('https://www.instagram.com/travelerdubai/', 'new tab');
+              },
+              icon: Icon(FontAwesomeIcons.instagram, color: colorTextgrey),
+            ),
+
+            IconButton(
+              onPressed: () {
+                html.window.open('https://www.youtube.com/@TravelerDubaiUAE', 'new tab');
+              },
+              icon: Icon(FontAwesomeIcons.youtube, color: colorTextgrey),
+            ),
+          ],
+        ),
       ],
     ),
   );

@@ -138,7 +138,7 @@ class Eventspage extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             tourName ?? "Undefined",
-                            style: GoogleFonts.playfairDisplay(
+                            style: GoogleFonts.montserrat(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                               color: Colors.white,

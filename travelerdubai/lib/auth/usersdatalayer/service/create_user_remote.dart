@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:travelerdubai/auth/usersdatalayer/model/request/updateuser.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/response/create_user_response.dart';
+import 'package:travelerdubai/auth/usersdatalayer/model/response/updateuserresponse.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/response/user_detail_response.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 
@@ -25,5 +27,9 @@ abstract class createUserRemoteService {
       @Query('uid') String uid,
       );
 
+  @PUT('/updateuser')
+  Future<UpdateUserDetailResponse> updateUser(
+      @Body() UpdateUser requestBody,
+      );
 }
 

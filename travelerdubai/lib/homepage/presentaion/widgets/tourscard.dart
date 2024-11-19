@@ -143,7 +143,7 @@ class _HoverScaleCardState extends State<HoverScaleCard> {
   Widget _buildRatingAndCity(Experiences tour) {
     return SelectableText(
       tour.tourName ?? "undefined",
-      style: GoogleFonts.playfairDisplay(
+      style: GoogleFonts.montserrat(
         fontSize: 16,
         fontWeight: FontWeight.w500,
         color: Colors.white,

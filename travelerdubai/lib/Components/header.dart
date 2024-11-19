@@ -50,7 +50,7 @@ class Header extends StatelessWidget {
       child: Image.asset(
         images.logo,
         height: 80,
-        width: MediaQuery.of(context).size.width * .1,
+        width: MediaQuery.of(context).size.width * .14,
         fit: BoxFit.contain,
       ),
     );
@@ -62,7 +62,6 @@ class Header extends StatelessWidget {
       children: [
         _navItem("Home", '/home', null),
         _navItem("About Us", '/Aboutus', null),
-        _navItem("Events", '/events', null),
         _navItem("Experiences", '/experiences', null),
         _navItem("Contact Us", '/contactus', null),
         SizedBox(width: 50),
@@ -77,9 +76,8 @@ class Header extends StatelessWidget {
       children: [
         _navItem("Home", '/home', null),
         _navItem("About Us", '/Aboutus', null),
-        _navItem("Events", '/events', null),
-        _navItem("Contact Us", '/contactus', null),
         _navItem("Experiences", '/experiences', null),
+        _navItem("Contact Us", '/contactus', null),
         _navItem("Dashboard", '/dashboardpage', Icons.account_circle),
         _buildLogoutButton(),
       ],

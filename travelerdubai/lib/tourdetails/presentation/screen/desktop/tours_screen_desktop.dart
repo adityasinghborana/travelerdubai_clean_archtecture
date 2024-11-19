@@ -182,9 +182,10 @@ class TourPageDesktop extends StatelessWidget {
       _buildIconColumn(
           Icons.security_rounded, 'Secure Checkout', 'Fast and Secure Payment'),
       _buildIconColumn(Icons.fact_check_outlined, 'Instant confirmation',
-          'Refund Guarantee Option'),
+          'Your Tiickets Within Minutes'),
       _buildIconColumn(FontAwesomeIcons.ticket, 'Official Ticket Seller',
-          'Used by 3m+ people'),
+
+          'Your Trusted Source For UAE Tickets and Tours',),
       _buildIconColumn(Icons.co_present, '24/7 customer service',
           'Reliable after sales support'),
     ];

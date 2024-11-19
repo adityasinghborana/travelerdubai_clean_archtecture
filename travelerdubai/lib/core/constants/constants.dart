@@ -40,7 +40,7 @@ TextStyle H1open(BuildContext context) {
     fontSize = 48.0; // For larger screens
   }
 
-  return GoogleFonts.openSans(
+  return GoogleFonts.outfit(
       textStyle: TextStyle(
     letterSpacing: .5,
     fontSize: fontSize,
@@ -59,7 +59,7 @@ TextStyle bodygrey(BuildContext context) {
     fontSize = 35.0; // For larger screens
   }
 
-  return GoogleFonts.roboto(
+  return GoogleFonts.montserrat(
       textStyle: TextStyle(
     letterSpacing: .5,
     fontSize: fontSize,
@@ -78,7 +78,7 @@ TextStyle getH2TextStyle(BuildContext context) {
     fontSize = screenWidth * 0.020; // For larger screens
   }
 
-  return GoogleFonts.outfit(
+  return GoogleFonts.montserrat(
     textStyle: TextStyle(
       letterSpacing: 0.5,
       fontSize: fontSize,
@@ -87,28 +87,28 @@ TextStyle getH2TextStyle(BuildContext context) {
   );
 }
 
-final H3 = GoogleFonts.outfit(
+final H3 = GoogleFonts.montserrat(
   textStyle: TextStyle(
     letterSpacing: .5,
     fontSize: Get.width * .016,
     color: colorgreydark,
   ),
 );
-final detailBoxTextStyle = GoogleFonts.outfit(
+final detailBoxTextStyle = GoogleFonts.montserrat(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 24,
     color: colorDarkSlateBlue,
   ),
 );
-final detailBoxTextStyleMobile = GoogleFonts.outfit(
+final detailBoxTextStyleMobile = GoogleFonts.montserrat(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 18,
     color: colorDarkSlateBlue,
   ),
 );
-final formHeaderTextStyleMobile = GoogleFonts.roboto(
+final formHeaderTextStyleMobile = GoogleFonts.montserrat(
   textStyle: const TextStyle(
     letterSpacing: 0.5,
     fontSize: 20,
@@ -119,7 +119,7 @@ final formHeaderTextStyleMobile = GoogleFonts.roboto(
     height: 1.5, // You can adjust the line height as needed
   ),
 );
-final bodyf = GoogleFonts.outfit(
+final bodyf = GoogleFonts.montserrat(
   textStyle: const TextStyle(
     letterSpacing: .5,
     fontSize: 14,
@@ -137,7 +137,7 @@ TextStyle bodyBlack(BuildContext context) {
     fontSize = screenWidth * 0.01; // For larger screens
   }
 
-  return GoogleFonts.outfit(
+  return GoogleFonts.montserrat(
     textStyle: TextStyle(
       letterSpacing: .5,
       fontSize: fontSize,
@@ -146,27 +146,27 @@ TextStyle bodyBlack(BuildContext context) {
   );
 }
 
-final iconText = GoogleFonts.roboto(
+final iconText = GoogleFonts.montserrat(
   fontSize: 14,
   color: colorgreydark,
   fontWeight: FontWeight.w500,
   fontStyle: FontStyle.normal,
 );
-final iconText2 = GoogleFonts.roboto(
+final iconText2 = GoogleFonts.montserrat(
   fontSize: 12,
   color: Colors.grey,
   fontWeight: FontWeight.w500,
   fontStyle: FontStyle.normal,
 );
 
-final ratingStyle = GoogleFonts.outfit(
+final ratingStyle = GoogleFonts.montserrat(
   textStyle: TextStyle(
       fontWeight: FontWeight.w400,
       fontSize: Get.width * 0.015,
       height: 1.26,
       color: colorgreydark.withOpacity(0.4)),
 );
-final GradientStyle = GoogleFonts.roboto(
+final GradientStyle = GoogleFonts.montserrat(
     textStyle: const TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 28,
@@ -213,8 +213,8 @@ const colorDarkBackground = Color(0xFF1C1C1C);
 const colorMediumBlue = Color(0xff2659C3);
 
 // others
-const String baseurl = "http://69.48.163.45/api";
-//const String baseurl = "http://localhost:3000";
+//const String baseurl = "http://69.48.163.45/api";
+const String baseurl = "http://localhost:3000";
 //const String baseurl = "http://localhost:3000";
 
 class images {
@@ -241,11 +241,16 @@ class images {
       ".././assets/asset/images/failedmobile.png";
   static const String notfound = ".././assets/asset/images/404.png";
   static const String notfoundmobile = ".././assets/asset/images/404mobile.png";
-  static const String slider1 = "/public/uploads/1.jpg";
-  static const String slider2 = "/public/uploads/2.jpg";
-  static const String slider3 = "/public/uploads/3.webp";
-  static const String slider4 = "/public/uploads/4.jpg";
-  static const String slider5 = "/public/uploads/5.WEBP";
+  static const String blogbanner = ".././assets/asset/images/background.png";
+  static const String slider1 = "/public/uploads/1.png";
+  static const String slider2 = "/public/uploads/2.png";
+  static const String slider3 = "/public/uploads/3.png";
+  static const String slider4 = "/public/uploads/4.png";
+  static const String slider5 = "/public/uploads/5.png";
   static const String slider6 = "/public/uploads/6.png";
-  static const String slider7 = "/public/uploads/7.jpg";
+
+
+}
+class Videos {
+  static const String video4 = "/public/uploads/video2.mp4";
 }

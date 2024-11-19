@@ -43,7 +43,7 @@ class ForgotPassword extends StatelessWidget {
                       ),
                       Text(
                         'Back to Login',
-                        style: GoogleFonts.roboto(
+                        style: GoogleFonts.montserrat(
                             fontWeight: FontWeight.w400,
                             fontSize: 14,
                             color: const Color(0xff112211),
@@ -54,7 +54,7 @@ class ForgotPassword extends StatelessWidget {
                   const SizedBox(height: 10),
                   Text(
                     'Forgot Your Password?',
-                    style: GoogleFonts.roboto(
+                    style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w500,
                         fontSize: 34,
                         color: Colors.black,
@@ -65,7 +65,7 @@ class ForgotPassword extends StatelessWidget {
                     width: Get.width * .338,
                     child: Text(
                       'Don’t worry, happens to all of us. Enter your email below to recover your password',
-                      style: GoogleFonts.roboto(
+                      style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                         color: const Color(0xff112211),

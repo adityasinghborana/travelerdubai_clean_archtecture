@@ -13,7 +13,7 @@ class _createUserRemoteService implements createUserRemoteService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://69.48.163.45/api';
+    baseUrl ??= 'http://localhost:3000';
   }
 
   final Dio _dio;
@@ -74,6 +74,34 @@ class _createUserRemoteService implements createUserRemoteService {
     var value = _result.data!
         .map((dynamic i) => UserDetail.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<UpdateUserDetailResponse> updateUser(UpdateUser requestBody) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(requestBody.toJson());
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<UpdateUserDetailResponse>(Options(
+      method: 'PUT',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/updateuser',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = UpdateUserDetailResponse.fromJson(_result.data!);
     return value;
   }
 

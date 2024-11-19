@@ -1,5 +1,7 @@
 
 
+import 'package:travelerdubai/auth/usersdatalayer/model/request/updateuser.dart';
+import 'package:travelerdubai/auth/usersdatalayer/model/response/updateuserresponse.dart';
 import 'package:travelerdubai/auth/usersdatalayer/model/response/user_detail_response.dart';
 
 import '../model/request/create_user_request.dart';
@@ -9,6 +11,7 @@ import '../service/create_user_remote.dart';
 abstract  class UserRepository {
   Future<UserModelResponse>createusers(User requestBody);
   Future<List<UserDetail>> getUserDetail(String uid);
+  Future<UpdateUserDetailResponse> updateUserDetail(UpdateUser data);
 }
 
 
@@ -55,5 +58,24 @@ class UserRepositoryImpl implements UserRepository {
       rethrow; // Rethrow the error to let the caller handle it
     }
   }
+  @override
+  Future<UpdateUserDetailResponse> updateUserDetail(UpdateUser data) async {
+    try {
+
+    UpdateUserDetailResponse response = await remoteService.updateUser(data);
+
+
+      if (response != null) {
+        return response;
+      } else {
+        throw Exception("Failed to get user detail");
+      }
+    } catch (error) {
+      // Handle any errors that might occur during the process
+      print("Error fetching userDetails: $error");
+      rethrow; // Rethrow the error to let the caller handle it
+    }
+  }
+
 
 }

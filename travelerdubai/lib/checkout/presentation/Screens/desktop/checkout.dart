@@ -213,111 +213,205 @@ class CheckoutScreenDesktop extends StatelessWidget {
                               .of(context)
                               .size
                               .height * 0.90,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(left: 20.0, right: 4),
-                                child: Container(
-                                  padding: EdgeInsets.only(left: 30),
-                                  alignment: Alignment.centerLeft,
-                                  height: 60,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: colorwhite,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: const Text(
-                                    'Order Summary',
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 20.0, right: 4),
+                                  child: Container(
+                                    padding: EdgeInsets.only(left: 30),
+                                    alignment: Alignment.centerLeft,
+                                    height: 60,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color: colorwhite,
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: const Text(
+                                      'Order Summary',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(left: 20.0, right: 4),
-                                child: Container(
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 20.0, right: 4),
+                                  child: Container(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceBetween,
+                                        children: <Widget>[
+                                          Flexible(
+                                            child: Obx(() {
+                                              return Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(vertical: 20.0),
+                                                child: TextFormField(
+
+                                                  controller: checkoutController
+                                                      .couponController,
+                                                  enabled: !checkoutController
+                                                      .isCouponApplied.value,
+                                                  decoration: InputDecoration(
+                                                    fillColor: colorwhite,
+                                                    filled: true,
+                                                    labelText: 'Apply Coupon',
+                                                    border: const OutlineInputBorder()
+                                                        .copyWith(
+                                                      borderRadius: BorderRadius
+                                                          .circular(10),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          ),
+                                          Obx(() {
+                                            // Conditionally show the delete icon or an empty space
+                                            return checkoutController
+                                                .isCouponApplied.value
+                                                ? IconButton(
+                                              icon: Icon(Icons.delete,
+                                                  color: Colors.red.shade900),
+                                              onPressed: () {
+                                                // Enable the TextFormField and reset the applied state
+                                                checkoutController.changePrice();
+                                              },
+                                            )
+                                                : SizedBox(width: 0);
+                                          }),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 20),
+                                            child: ButtonView(
+                                              txtColor: colorMediumBlue,
+                                              btnName: "Apply",
+                                              bgColor: Colors.transparent,
+                                              borderColor: colorMediumBlue,
+                                              onButtonTap: () {
+                                                checkoutController.checkcoupon();
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 20.0, right: 4),
+                                  child: ProductList(
+                                    height: Get.width * 0.5,
+                                  ),
+                                ),
+                                Obx(() {
+                                  if (checkoutController.isCouponApplied.isTrue) {
+                                    var price = double.tryParse(checkoutController.priceWithoutDiscount.value) ?? 0.0;
+                                    String formattedPrice = price.toStringAsFixed(2);
+
+                                    return Container(
+                                      padding: EdgeInsets.symmetric(horizontal:  Get.height * 0.03),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            "SubTotal",
+                                            style: bodyBlack(Get.context!).copyWith(color: colorMediumBlue),
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              "AED  $formattedPrice",
+                                              style: bodyBlack(Get.context!).copyWith(color: colorMediumBlue),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return SizedBox();
+                                  }
+                                }),
+                                Obx(() {
+                                  if (checkoutController.isCouponApplied.isTrue) {
+                                    var price = double.tryParse(checkoutController.discount.value) ?? 0.0;
+                                    String formattedPrice = price.toStringAsFixed(2);
+
+                                    return Container(
+                                      padding: EdgeInsets.symmetric(horizontal:  Get.height * 0.03),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Text(
+                                            "Discount",
+                                            style: bodyBlack(Get.context!).copyWith(color: colorMediumBlue),
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              "AED - $formattedPrice",
+                                              style: bodyBlack(Get.context!).copyWith(color: colorMediumBlue),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return SizedBox();
+                                  }
+                                }),
+
+
+
+
+                                Container(
+                                  padding: EdgeInsets.all(Get.height * 0.03),
                                   child: Row(
                                       mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        Flexible(
-                                          child: buildTextFormField(
-                                              'Apply Coupon',
-                                              checkoutController
-                                                  .couponController,
-                                              "this field is required",
-                                              null),
+                                        Text(
+                                          "Total",
+                                          style: bodyBlack(Get.context!).copyWith(
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 20),
-                                          child: ButtonView(
-                                            txtColor: colorMediumBlue,
-                                            btnName: "Apply",
-                                            bgColor: Colors.transparent,
-                                            borderColor: colorMediumBlue,
-                                            onButtonTap: () {
-                                              checkoutController.checkcoupon();
-                                            },
-                                          ),
-                                        )
+                                        Flexible(
+                                          child: Obx(() {
+                                            var price = double.tryParse(
+                                                checkoutController
+                                                    .Totalprice.value) ??
+                                                0.0;
+                                            String formattedPrice =
+                                            price.toStringAsFixed(2);
+                                            return Text(
+                                              "AED ${formattedPrice}",
+                                              style: bodyBlack(Get.context!)
+                                                  .copyWith(
+                                                  fontWeight:
+                                                  FontWeight.bold),
+                                            );
+                                          }),
+                                        ),
                                       ]),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(left: 20.0, right: 4),
-                                child: ProductList(
-                                  height: Get.width * 0.5,
+                            
+
+                                // SizedBox(
+                                //     height:
+                                //         MediaQuery.of(context).size.width * .005),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20.0),
+                                  child: ButtonView(
+                                    btnName: " Continue to Payment",
+                                    onButtonTap: () {
+                                      checkoutController.initiateCheckout();
+                                    },
+                                    bgColor: colorMediumBlue,
+                                    borderColor: Colors.transparent,
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(Get.height * 0.03),
-                                child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(
-                                        "Total",
-                                        style: bodyBlack(Get.context!).copyWith(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Flexible(
-                                        child: Obx(() {
-                                          var price = double.tryParse(
-                                              checkoutController
-                                                  .Totalprice.value) ??
-                                              0.0;
-                                          String formattedPrice =
-                                          price.toStringAsFixed(2);
-                                          return Text(
-                                            "AED ${formattedPrice}",
-                                            style: bodyBlack(Get.context!)
-                                                .copyWith(
-                                                fontWeight:
-                                                FontWeight.bold),
-                                          );
-                                        }),
-                                      ),
-                                    ]),
-                              ),
-                              // SizedBox(
-                              //     height:
-                              //         MediaQuery.of(context).size.width * .005),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: ButtonView(
-                                  btnName: "place order",
-                                  onButtonTap: () {
-                                    checkoutController.initiateCheckout();
-                                  },
-                                  bgColor: colorMediumBlue,
-                                  borderColor: Colors.transparent,
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

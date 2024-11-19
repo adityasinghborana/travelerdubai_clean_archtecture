@@ -9,13 +9,16 @@ import 'package:travelerdubai/experiences/Usecase/experience_usecase.dart';
 import 'package:travelerdubai/experiences/repository/Experiences_repository.dart';
 import 'package:travelerdubai/homepage/presentaion/Homepagecontroller.dart';
 import 'package:travelerdubai/homepage/presentaion/tours_controller.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/blogs.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/cities.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/heroimage.dart';
 import 'package:travelerdubai/homepage/presentaion/widgets/tourscard.dart';
+import 'package:travelerdubai/homepage/presentaion/widgets/videoadvert.dart';
 import 'package:travelerdubai/homepage/remote/homepage_remote_service.dart';
 import 'package:travelerdubai/homepage/repository/homepage_repository.dart';
 import 'package:travelerdubai/homepage/usecase/usecase.dart';
 import '../../Components/header.dart';
+import '../../Components/iconcoloums.dart';
 import '../../Components/marquee.dart';
 import '../../experiences/Presentation/experiences_controller.dart';
 import '../../experiences/remote/experiences_remote_service.dart';
@@ -73,12 +76,18 @@ class Homepage extends StatelessWidget {
                       width,
                       scrollController4),
             ),
+            Container(
+                color: colorwhite,
+
+                child: IconColums(context)),
 
             Obx(
                   () =>
                   _buildSection("${homeController.formData.value?.heading3}",
                       scrollController3, width, 'isvisibleDesertsfari'),
             ),
+
+            BlogsSection(heading: _buildHeading("Blogs"),),
             Obx(
                   () =>
                   _buildSection("${homeController.formData.value?.heading4}",
@@ -95,7 +104,7 @@ class Homepage extends StatelessWidget {
                       scrollController2, width, 'isvisibleWaterActivities'),
             ),
 
-
+            VideoBanner(),
             advertisement(
               subHeadingfontsize: 26.14,
               Headingfontsize: 54,
@@ -116,7 +125,7 @@ class Homepage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(bottom: 20),
       margin: EdgeInsets.only(top: 100,),
-      height: Get.height * .70,
+      height: Get.height * .72,
       color: Colors.white,
       child:  HeroImageWidget(
         titleFontSize: 80,
@@ -180,7 +189,7 @@ class Homepage extends StatelessWidget {
       child: Center(
         child: SelectableText(
           heading,
-          style: GoogleFonts.playfairDisplay(
+          style: GoogleFonts.outfit(
             textStyle: const TextStyle(
               color: Colors.black,
               letterSpacing: .5,
@@ -283,7 +292,7 @@ Widget impInformation(){
       children: [
         // Wrap each child in a Container with fixed width to ensure scrolling works correctly
         Container(
-          color: colorMediumBlue,
+          color: Colors.black,
           height:30,
           width: Get.width, // Full width of the screen
           child: Center(

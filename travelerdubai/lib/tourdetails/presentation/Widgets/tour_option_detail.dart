@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:travelerdubai/Components/ui_state.dart';
 import 'package:travelerdubai/core/constants/constants.dart';
 import 'package:travelerdubai/tourdetails/presentation/Widgets/transfer_time_dropdown.dart';
@@ -142,15 +143,17 @@ Widget buildOptionRow(
             },
           );
         },
-        child: const Text("More Info"),
+        child: const Text("Ticket Information"),
       ),
       buildTimeSlotSection(index, optionsStatic, tourController),
-      GetBuilder<HeaderController>(
-        builder: (controller) {
-          return controller.loggedIn.value
-              ? buildAddToCartButton(
-                  index, output1, tourName, optionsStatic, controller)
-              : buildLoginButton();
+      Obx(
+        () {
+          if (controller.loggedIn.value == true) {
+            return buildAddToCartButton(
+                index, output1, tourName, optionsStatic, controller);
+          } else {
+            return buildLoginButton();
+          }
         },
       ),
     ],
@@ -163,7 +166,10 @@ Widget buildOptionName(BuildContext context, int index,
     width: Get.width * 0.20,
     child: Text(
       "${optionsStatic.options.value.data?[index].optionName}",
-      style: bodyBlack(context).copyWith(fontWeight: FontWeight.bold),
+      style: GoogleFonts.roboto(
+          fontSize: 16,
+          fontWeight: FontWeight.w500
+      )
     ),
   );
 }
@@ -213,18 +219,18 @@ Widget buildPriceContainer(BuildContext context, int index, output1,
         children: [
           Text(
             "AED",
-            style: bodyBlack(context).copyWith(
-              fontSize: Get.width * 0.01,
-              fontWeight: FontWeight.bold,
-            ),
+            style: GoogleFonts.roboto(
+                fontSize: Get.width*0.01,
+                fontWeight: FontWeight.w500
+            )
           ),
-          Text(
-            " $finalAmount",
+          finalAmount!=0?Text(
+            " $finalAmount ",
             style: bodyBlack(context).copyWith(
               fontSize: Get.width * 0.01,
               fontWeight: FontWeight.normal,
             ),
-          ),
+          ):Text("...")
         ],
       ),
     ),

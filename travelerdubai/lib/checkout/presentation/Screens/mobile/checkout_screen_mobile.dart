@@ -116,40 +116,70 @@ class CheckoutScreenMobile extends StatelessWidget {
                       const EdgeInsets.only(left: 20.0, right: 20),
                       child: Container(
                         child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Flexible(
-                                child: buildTextFormField(
-                                    'Enter Your Coupon code',
-                                    checkoutController
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: Obx(() {
+                                return Padding(
+                                  padding: const EdgeInsets
+                                      .symmetric(vertical: 20.0),
+                                  child: TextFormField(
+                                    controller: checkoutController
                                         .couponController,
-                                    "this field is required",
-                                    null),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 20),
-                                child: ButtonView(
-                                  txtColor: colorMediumBlue,
-                                  btnName: "Apply",
-                                  bgColor: Colors.transparent,
-                                  borderColor: colorMediumBlue,
-                                  onButtonTap: (){
-                                    checkoutController.checkcoupon();
-
-                                  },
-                                ),
+                                    enabled: !checkoutController
+                                        .isCouponApplied.value,
+                                    decoration: InputDecoration(
+                                      fillColor: colorwhite,
+                                      filled: true,
+                                      labelText: 'Apply Coupon',
+                                      border: const OutlineInputBorder()
+                                          .copyWith(
+                                        borderRadius: BorderRadius
+                                            .circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                            ),
+                            Obx(() {
+                              // Conditionally show the delete icon or an empty space
+                              return checkoutController
+                                  .isCouponApplied.value
+                                  ? IconButton(
+                                icon: Icon(Icons.dangerous_outlined,
+                                    color: Colors.red.shade900),
+                                onPressed: () {
+                                  // Enable the TextFormField and reset the applied state
+                                  checkoutController.changePrice();
+                                },
                               )
-                            ]),
+                                  : SizedBox(width: 0);
+                            }),
+                            Padding(
+                              padding: EdgeInsets.only(left: 20),
+                              child: ButtonView(
+                                txtColor: colorMediumBlue,
+                                btnName: "Apply",
+                                bgColor: Colors.transparent,
+                                borderColor: colorMediumBlue,
+                                onButtonTap: () {
+                                  checkoutController.checkcoupon();
+                                },
+                              ),
+                            ),
+                          ],
+                        )
                       ),
                     ),
                           Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: Get.width > 600
                                       ? Get.width * 0.05
-                                      : Get.width * 0.05),
+                                      : Get.width * 0.04),
                               child: Container(
-                                padding: EdgeInsets.all(Get.height * 0.03),
+                                padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment
                                         .spaceBetween,
@@ -173,6 +203,33 @@ class CheckoutScreenMobile extends StatelessWidget {
                                     ]),
                               ),
                           ),
+                    Obx(() {
+                      if (checkoutController.isCouponApplied.isTrue) {
+                        var price = double.tryParse(checkoutController.discount.value) ?? 0.0;
+                        String formattedPrice = price.toStringAsFixed(2);
+
+                        return Container(
+                          padding: EdgeInsets.symmetric(vertical: 8,horizontal: 40),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Discount",
+                                style: bodyBlack(Get.context!).copyWith(color: colorMediumBlue,fontSize: 16),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  "AED - $formattedPrice",
+                                  style: bodyBlack(Get.context!).copyWith(color: colorMediumBlue,fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return SizedBox();
+                      }
+                    }),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: Get.width > 600

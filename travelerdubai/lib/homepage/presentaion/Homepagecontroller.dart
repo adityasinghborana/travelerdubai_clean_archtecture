@@ -19,13 +19,26 @@ class HomeController extends GetxController {
   Rx<HomepageData?> formData = Rx<HomepageData?>(null);
 
   RxList<CarouselItem> imageList = RxList<CarouselItem>([
-    CarouselItem(imageUrl: "$baseurl${images.slider1}", onTap: () {}),
-    CarouselItem(imageUrl: "$baseurl${images.slider2}", onTap: () {}),
-    CarouselItem(imageUrl: "$baseurl${images.slider3}", onTap: () {}),
-    CarouselItem(imageUrl: "$baseurl${images.slider4}", onTap: () {}),
-    CarouselItem(imageUrl: "$baseurl${images.slider5}", onTap: () {}),
-    CarouselItem(imageUrl: "$baseurl${images.slider6}", onTap: () {}),
-    CarouselItem(imageUrl: "$baseurl${images.slider7}", onTap: () {}),
+    CarouselItem(imageUrl: "$baseurl${images.slider1}", onTap: () {
+      Get.toNamed('/tour_details?tourId=93');
+    }),
+
+    CarouselItem(imageUrl: "$baseurl${images.slider2}", onTap: () {
+      Get.toNamed('/tour_details?tourId=5');
+    }),
+    CarouselItem(imageUrl: "$baseurl${images.slider3}", onTap: () {
+
+    }),
+    CarouselItem(imageUrl: "$baseurl${images.slider4}", onTap: () {
+      Get.toNamed('/tour_details?tourId=18');
+    }),
+    CarouselItem(imageUrl: "$baseurl${images.slider5}", onTap: () {
+      Get.toNamed('/tour_details?tourId=87');
+    }),
+    CarouselItem(imageUrl: "$baseurl${images.slider6}", onTap: () {
+      Get.toNamed('/experiences');
+    }),
+
   ]);
 
   var currentIndex = 0.obs;

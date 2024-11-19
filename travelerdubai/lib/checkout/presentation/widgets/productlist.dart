@@ -47,7 +47,7 @@ class ProductList extends StatelessWidget {
     final ScrollController controller = ScrollController();
 
     return Container(
-      height: Get.height * 0.55,
+      height: Get.height * 0.50,
       width: width,
       child: Obx(
             () =>
@@ -61,7 +61,7 @@ class ProductList extends StatelessWidget {
                     padding:
                     const EdgeInsets.symmetric(horizontal: 1.0, vertical: 8),
                     child: Container(
-                        height: Get.width > 1000 ? Get.height * 0.6 : 460,
+                       // height: Get.width > 1000 ?  360 : 460,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: colorwhite,
@@ -141,37 +141,7 @@ class ProductList extends StatelessWidget {
                             Divider(
                               height: 1,
                             ),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: Get.height * 0.016),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                    flex: 1,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        Text("Tickets"),
-                                        Text(
-                                            "${(cc.cartTours[index].adult ??
-                                                0) +
-                                                (cc.cartTours[index].child ??
-                                                    0) +
-                                                (cc.cartTours[index].infant ??
-                                                    0)}"),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(
-                              height: 1,
-                            ),
+
                             Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: Get.height * 0.016),
@@ -284,25 +254,23 @@ class ProductList extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Image.asset(images.exclamination),
-                                      Text(
-                                        "Non Refundable",
-                                        style: bodyBlack(context).copyWith(
-                                            color: Colors.red.shade900,
-                                            fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.asset(images.exclamination),
+                                    Text(
+                                      "Non Refundable",
+                                      style: bodyBlack(context).copyWith(
+                                          color: Colors.red.shade900,
+                                          fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
                         )),

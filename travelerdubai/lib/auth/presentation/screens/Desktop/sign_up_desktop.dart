@@ -81,7 +81,7 @@ class SignUpDesktop extends StatelessWidget {
                         const SizedBox(height: 20),
                         Text(
                           'Sign up',
-                          style: GoogleFonts.roboto(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.w500,
                               fontSize: 34,
                               color: Colors.black,
@@ -90,7 +90,7 @@ class SignUpDesktop extends StatelessWidget {
                         const SizedBox(height: 10),
                         Text(
                           'Let’s get you all st up so you can access your personal account.',
-                          style: GoogleFonts.roboto(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
                               color: Colors.black,

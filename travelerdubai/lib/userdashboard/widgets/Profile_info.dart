@@ -7,6 +7,7 @@ import 'package:travelerdubai/tourdetails/presentation/Widgets/button.dart';
 import '../../auth/usersdatalayer/repository/user_repository.dart';
 import '../../auth/usersdatalayer/service/create_user_remote.dart';
 import '../../auth/usersdatalayer/usecase/get_user_details.dart';
+import '../../auth/usersdatalayer/usecase/updateuser.dart';
 import '../../bookings/data_layer/repository/bookings_repository.dart';
 import '../../bookings/data_layer/service/booking_remote.dart';
 import '../../bookings/data_layer/usecase/userbookings_usecase.dart';
@@ -27,6 +28,9 @@ class ProfileInfo extends StatelessWidget {
           createUserRemoteService(Dio()),
         ),
       ),
+        UpdateUserUseCase( UserRepositoryImpl(
+          createUserRemoteService(Dio()),
+        ),)
     ),
   );
 
@@ -47,30 +51,57 @@ class ProfileInfo extends StatelessWidget {
             child: Obx(() {
               return accountController.isEditMode.value
                   ? EditForm() // Display edit form when in edit mode
-                  : const AccountInfo(); // Display account info by default
+                  :  AccountInfo(); // Display account info by default
             }),
           ),
           Flexible(
-              flex: 1,
-              child: Row(
+            flex: 1,
+            child: Obx(() {
+              return accountController.isEditMode.value
+                  ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Obx(() => InlineFlexButton(
-                        label: accountController.islabel.value,
-                        onPressed: () {
-                          if (accountController.isEditMode.isTrue) {
-                            Get.snackbar("Info Saved",
-                                "Your Account Information is Added");
-                          }
-                          accountController.toggleEditMode();
-                        },
-                        hpadding: Get.width * 0.03,
-                        vpadding: Get.height * 0.02,
-                        borderwidth: 1,
-                        textcolor: colorblack,
-                      )),
+                  InlineFlexButton(
+                    label: 'Save',
+                    onPressed: () {
+                      accountController.updateUser();
+
+                      accountController.toggleEditMode();
+                    },
+                    hpadding: Get.width * 0.03,
+                    vpadding: Get.height * 0.02,
+                    borderwidth: 1,
+                    textcolor: colorblack,
+                  ),
+                  SizedBox(width: 10), // Add spacing between buttons
+                  InlineFlexButton(
+                    label: 'Cancel',
+                    onPressed: () {
+
+                      accountController.toggleEditMode();
+                    },
+                    hpadding: Get.width * 0.03,
+                    vpadding: Get.height * 0.02,
+                    borderwidth: 1,
+                    textcolor: colorblack,
+                  ),
                 ],
-              ))
+              )
+                  : Row(
+                mainAxisAlignment:MainAxisAlignment.center,children: [
+                InlineFlexButton(
+                label: 'Edit',
+                onPressed: () {
+                  accountController.toggleEditMode();
+                },
+                hpadding: Get.width * 0.03,
+                vpadding: Get.height * 0.02,
+                borderwidth: 1,
+                textcolor: colorblack,
+              )
+              ],);
+            }),
+          ),
         ],
       ),
     );

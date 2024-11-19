@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travelerdubai/core/constants/constants.dart';
 
 import 'base_text.dart';
 
@@ -36,8 +37,8 @@ class ButtonView extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: Border.all(color: borderColor ?? Colors.green, width: 1),
-          color: bgColor ?? Colors.green,
+          border: Border.all(color: borderColor ?? colorMediumBlue, width: 1),
+          color: bgColor ?? colorMediumBlue,
           borderRadius: BorderRadius.circular(radius!),
         ),
         child: Row(
@@ -56,7 +57,7 @@ class ButtonView extends StatelessWidget {
               child: BaseText(
                 text: btnName,
                 textColor: txtColor ?? Colors.white,
-                style: GoogleFonts.roboto(
+                style: GoogleFonts.montserrat(
                     fontSize: 14.0,
                     fontWeight: FontWeight.w400,
                     color: txtColor ?? Colors.white),

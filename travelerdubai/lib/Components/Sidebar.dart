@@ -85,6 +85,7 @@ class _TourTypesState extends State<TourTypes> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 15,),
                   SizedBox(
                     height: Get.height * 0.8,
                     child: ListView.builder(

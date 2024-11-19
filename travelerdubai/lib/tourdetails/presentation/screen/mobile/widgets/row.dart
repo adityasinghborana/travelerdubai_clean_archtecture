@@ -64,7 +64,7 @@ class InfoAndButtonRow extends StatelessWidget {
                   );
                 },
                 child: const Text(
-                  'More Info  ',
+                  'Ticket Information',
                   style: TextStyle(
                     color: Color(0xFF828282),
                     fontSize: 16,

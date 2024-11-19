@@ -67,7 +67,7 @@ class SigninDesktop extends StatelessWidget {
                         const SizedBox(height: 20),
                         Text(
                           'Log in',
-                          style: GoogleFonts.roboto(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.w500,
                               fontSize: 34,
                               color: Colors.black,
@@ -76,7 +76,7 @@ class SigninDesktop extends StatelessWidget {
                         const SizedBox(height: 10),
                         Text(
                           'Login to access your TravelerDubai account',
-                          style: GoogleFonts.roboto(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.w400,
                               fontSize: 14,
                               color: Colors.black,

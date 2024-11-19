@@ -23,7 +23,7 @@ class HeroImageWidget extends StatelessWidget {
       showButtons: false,
       indicatorType: CarouselIndicatorType.dot,
       duration: const Duration(seconds: 4),
-      height: Get.height * 0.72,
+      height: Get.height * 0.80,
       maxWidth: double.infinity, items: controller.imageList,
     );
   }
